@@ -7,72 +7,149 @@
 
 <style>
 
-body{
+*{
 margin:0;
+padding:0;
+box-sizing:border-box;
 font-family:Arial;
+}
+
+body{
 background:#FAF6EE;
 }
 
 header{
-background:#B63A3A;
-padding:20px;
-color:white;
 display:flex;
 justify-content:space-between;
+padding:20px 10%;
+background:white;
+box-shadow:0 2px 15px rgba(0,0,0,.06);
 }
 
 .logo{
-font-size:28px;
+font-size:30px;
 font-weight:bold;
-}
-
-.hero{
-padding:80px 20px;
-text-align:center;
-}
-
-.hero h1{
-font-size:52px;
-margin-bottom:10px;
 color:#B63A3A;
 }
 
+.menu{
+display:flex;
+gap:20px;
+align-items:center;
+}
+
+.hero{
+
+padding:90px 10%;
+text-align:center;
+
+}
+
+.hero h1{
+
+font-size:64px;
+color:#B63A3A;
+
+}
+
 .hero p{
+
+margin-top:15px;
+
 color:#667744;
+
+font-size:20px;
+
 }
 
 .search{
+
+margin-top:30px;
+
 width:70%;
+
 padding:18px;
-border-radius:15px;
+
 border:none;
+
+border-radius:20px;
+
+font-size:18px;
+
 }
 
 .categories{
-padding:50px;
+
+padding:70px 10%;
+
+}
+
+.cards{
+
+display:flex;
+
+gap:20px;
+
+flex-wrap:wrap;
+
+margin-top:30px;
+
 }
 
 .card{
-display:inline-block;
-padding:18px;
-margin:10px;
+
 background:white;
-border-radius:18px;
+
+padding:25px;
+
+border-radius:20px;
+
+min-width:170px;
+
+box-shadow:0 4px 20px rgba(0,0,0,.06);
+
 }
 
 .shop{
-background:white;
-margin:50px;
-padding:30px;
-border-radius:20px;
+
+margin:60px 10%;
+
+padding:40px;
+
+border-radius:25px;
+
+background:#B63A3A;
+
+color:white;
+
 }
 
 .btn{
-background:#667744;
-color:white;
-padding:12px 20px;
+
+display:inline-block;
+
+margin-top:20px;
+
+padding:14px 20px;
+
+background:white;
+
+color:#B63A3A;
+
 text-decoration:none;
-border-radius:10px;
+
+border-radius:12px;
+
+}
+
+footer{
+
+padding:40px;
+
+text-align:center;
+
+color:#666;
+
 }
 
 </style>
@@ -89,9 +166,11 @@ Hmara Bazaar
 
 </div>
 
-<div>
+<div class="menu">
 
 Login
+
+Cart
 
 </div>
 
@@ -107,29 +186,37 @@ Delivering Happiness
 
 <p>
 
-Search products, services and shops
+Visit digital shops and order locally
 
 </p>
 
 <input
 class="search"
-placeholder="Search">
+placeholder="Search products, shops or services">
 
 </div>
 
 <div class="categories">
 
-<h2>Categories</h2>
+<h2>
 
-<div class="card">Restaurant</div>
+Categories
 
-<div class="card">Grocery</div>
+</h2>
 
-<div class="card">Shoes</div>
+<div class="cards">
 
-<div class="card">Clothes</div>
+<div class="card">🍴 Restaurant</div>
 
-<div class="card">Cosmetics</div>
+<div class="card">🛒 Grocery</div>
+
+<div class="card">👟 Shoes</div>
+
+<div class="card">👕 Clothes</div>
+
+<div class="card">💄 Cosmetics</div>
+
+</div>
 
 </div>
 
@@ -149,19 +236,25 @@ Ahmad Grocery
 
 <p>
 
-Fresh products near you
+Fresh products • Open Now
 
 </p>
 
 <a
-class="btn"
-href="/shop.html">
+href="/shop.html"
+class="btn">
 
 Visit Shop
 
 </a>
 
 </div>
+
+<footer>
+
+Hmara Bazaar — Delivering Happiness
+
+</footer>
 
 </body>
 
