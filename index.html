@@ -15,22 +15,64 @@ background:#FAF6EE;
 
 header{
 background:#B63A3A;
-color:white;
 padding:20px;
+color:white;
+display:flex;
+justify-content:space-between;
+}
+
+.logo{
+font-size:28px;
+font-weight:bold;
 }
 
 .hero{
-padding:60px;
+padding:80px 20px;
 text-align:center;
 }
 
-.search{
-padding:12px;
-width:60%;
+.hero h1{
+font-size:52px;
+margin-bottom:10px;
+color:#B63A3A;
 }
 
-.section{
-padding:40px;
+.hero p{
+color:#667744;
+}
+
+.search{
+width:70%;
+padding:18px;
+border-radius:15px;
+border:none;
+}
+
+.categories{
+padding:50px;
+}
+
+.card{
+display:inline-block;
+padding:18px;
+margin:10px;
+background:white;
+border-radius:18px;
+}
+
+.shop{
+background:white;
+margin:50px;
+padding:30px;
+border-radius:20px;
+}
+
+.btn{
+background:#667744;
+color:white;
+padding:12px 20px;
+text-decoration:none;
+border-radius:10px;
 }
 
 </style>
@@ -41,53 +83,83 @@ padding:40px;
 
 <header>
 
-<h2>Hmara Bazaar</h2>
+<div class="logo">
+
+Hmara Bazaar
+
+</div>
+
+<div>
+
+Login
+
+</div>
 
 </header>
 
 <div class="hero">
 
-<h1>Delivering Happiness</h1>
+<h1>
+
+Delivering Happiness
+
+</h1>
+
+<p>
+
+Search products, services and shops
+
+</p>
 
 <input
 class="search"
-placeholder="Search products or shops">
+placeholder="Search">
 
 </div>
 
-<div class="section">
+<div class="categories">
 
 <h2>Categories</h2>
 
-<button>Restaurant</button>
+<div class="card">Restaurant</div>
 
-<button>Grocery</button>
+<div class="card">Grocery</div>
 
-<button>Shoes</button>
+<div class="card">Shoes</div>
 
-<button>Clothes</button>
+<div class="card">Clothes</div>
 
-<button>Cosmetics</button>
+<div class="card">Cosmetics</div>
 
 </div>
 
-<div class="section">
+<div class="shop">
 
-<h2>Featured Shops</h2>
+<h2>
 
-<div>
+Featured Shop
 
-<h3>Ahmad Grocery</h3>
+</h2>
 
-<p>Daily Essentials</p>
+<h3>
 
-<a href="shop.html">
+Ahmad Grocery
+
+</h3>
+
+<p>
+
+Fresh products near you
+
+</p>
+
+<a
+class="btn"
+href="/shop.html">
 
 Visit Shop
 
 </a>
-
-</div>
 
 </div>
 
