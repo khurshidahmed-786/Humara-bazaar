@@ -26,15 +26,77 @@ color:#222;
 
 .topbar{
 
-padding:24px;
+padding:
+
+22px
+24px;
 
 display:flex;
 
-justify-content:space-between;
-
 align-items:center;
 
+justify-content:space-between;
+
+background:#FAF6EE;
+
+position:sticky;
+
+top:0;
+
+z-index:100;
+
 }
+
+.marketWrap{
+
+flex:1;
+
+text-align:center;
+
+}
+
+.market{
+
+font-size:34px;
+
+font-weight:800;
+
+color:#B63A3A;
+
+}
+
+.marketPin{
+
+margin-top:4px;
+
+font-size:14px;
+
+color:#888;
+
+}
+
+.menu{
+
+font-size:32px;
+
+cursor:pointer;
+
+width:44px;
+
+}
+
+.cart{
+
+font-size:30px;
+
+text-decoration:none;
+
+width:44px;
+
+text-align:right;
+
+}
+
 
 .menu{
 
@@ -54,15 +116,15 @@ color:#B63A3A;
 
 }
 
-.panel{
+..panel{
 
 display:none;
 
 position:absolute;
 
-right:24px;
+left:24px;
 
-top:90px;
+top:84px;
 
 width:260px;
 
@@ -71,12 +133,14 @@ background:white;
 border-radius:22px;
 
 box-shadow:
+
 0 15px 40px
 rgba(0,0,0,.08);
 
 overflow:hidden;
 
 }
+
 
 .panel a{
 
@@ -328,6 +392,39 @@ onclick="toggleMenu()">
 ☰
 
 </div>
+
+<div
+class="marketWrap">
+
+<div
+class="market"
+id="marketName">
+
+Surankote Bazaar
+
+</div>
+  
+
+<div
+class="marketPin"
+id="marketPin">
+
+185121
+
+</div>
+
+</div>
+
+<a
+href="/cart.html"
+class="cart">
+
+🛒
+
+</a>
+
+</div>
+
 
 <div
 class="market"
@@ -609,43 +706,6 @@ Explore Services
 </div>
 
 <script>
-
-function toggleMenu(){
-
-let p=
-
-document
-.getElementById(
-"panel"
-);
-
-p.style.display=
-
-p.style.display
-==="block"
-
-?
-
-"none"
-
-:
-
-"block";
-
-}
-
-function changeArea(){
-
-localStorage.removeItem(
-"marketEntered"
-);
-
-localStorage.removeItem(
-"pincode"
-);
-
-}
-
 let pin=
 
 localStorage
@@ -674,6 +734,7 @@ document
 .innerText=
 
 title;
+
 
 </script>
 
