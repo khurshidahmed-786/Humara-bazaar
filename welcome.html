@@ -462,6 +462,12 @@ id="menu">
 🛠 Services
 
 </a>
+<a
+onclick="changeArea()">
+
+📍 Change Area
+
+</a>
 
 <a href="/savedshop.html">
 
@@ -735,6 +741,22 @@ window.location.href=
 "/index.html";
 
 }
+  function changeArea(){
+
+localStorage
+.removeItem(
+"marketEntered"
+);
+
+localStorage
+.removeItem(
+"pincode"
+);
+
+window.location.reload();
+
+}
+
 
 
 </script>
