@@ -85,7 +85,31 @@ border-radius:10px;
 
 <h1>
 
-Welcome Ahmad Grocery
+<h1 id="title">
+
+Seller Dashboard
+
+</h1>
+
+<script>
+
+const shopName=
+localStorage.getItem(
+"shopName"
+);
+
+if(shopName){
+
+document.getElementById(
+"title"
+).innerText=
+
+shopName;
+
+}
+
+</script>
+
 
 </h1>
 
