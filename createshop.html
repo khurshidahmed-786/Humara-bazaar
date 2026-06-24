@@ -58,7 +58,37 @@ border-radius:10px;
 "
 href="/dashboard.html">
 
+<button
+onclick="saveShop()"
+style="
+display:block;
+padding:16px;
+background:#667744;
+color:white;
+border:none;
+border-radius:12px;
+width:100%;
+">
+
 Publish Shop
+
+</button>
+
+<script>
+
+function saveShop(){
+
+localStorage.setItem(
+"shopName",
+document.getElementById("shopname").value
+);
+
+window.location.href="/dashboard.html";
+
+}
+
+</script>
+
 
 </a>
 
