@@ -263,6 +263,46 @@ font-size:14px;
 text-align:center;
 
 }
+  <div
+style="
+padding:12px;
+background:white;
+text-align:center;
+">
+
+📍 Area:
+
+<span id="area">
+
+Not Selected
+
+</span>
+
+</div>
+
+<script>
+
+let area=
+
+localStorage
+.getItem(
+"pincode"
+);
+
+if(area){
+
+document
+.getElementById(
+"area"
+)
+.innerText=
+
+area;
+
+}
+
+</script>
+
 
 body{
 
