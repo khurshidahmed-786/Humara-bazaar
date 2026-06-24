@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 
 <head>
@@ -11,197 +12,202 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial;
+font-family:Arial,sans-serif;
 }
 
 body{
+
 background:#FAF6EE;
+
+padding-bottom:110px;
+
+color:#222;
+
 }
-  <div style="padding:20px">
 
-<a href="/shops.html">Shop</a>
+.topbar{
 
-|
+padding:24px;
 
-<a href="/product.html">Product</a>
-
-|
-
-<a href="/cart.html">Cart</a>
-
-|
-
-<a href="/checkout.html">Checkout</a>
-
-|
-
-<a href="/seller.html">Seller</a>
-
-|
-
-<a href="/dashboard.html">Dashboard</a>
-
-</div>
-
-header{
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
-padding:20px 10%;
-background:white;
-box-shadow:0 2px 15px rgba(0,0,0,.06);
+
 }
 
-.logo{
+.menu{
 
-font-size:48px;
+font-size:34px;
+
+cursor:pointer;
+
+}
+
+.market{
+
+font-size:34px;
 
 font-weight:800;
 
 color:#B63A3A;
 
 }
-.menu{
 
-display:flex;
+.panel{
 
-gap:30px;
+display:none;
 
-align-items:center;
+position:absolute;
 
-font-size:18px;
+right:24px;
 
-}
+top:90px;
 
-.menu a{
+width:260px;
 
-text-decoration:none;
-
-color:#333;
-
-font-weight:600;
-
-}
-
-.hero{
-
-padding:90px 10%;
-text-align:center;
-
-}
-
-.hero h1{
-
-font-size:64px;
-color:#B63A3A;
-
-}
-  <div
-style="
-margin-top:30px;
 background:white;
+
+border-radius:22px;
+
+box-shadow:
+0 15px 40px
+rgba(0,0,0,.08);
+
+overflow:hidden;
+
+}
+
+.panel a{
+
+display:block;
+
 padding:18px;
-border-radius:18px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-">
 
-<div>
-
-📍
-
-Serving:
-Surankote
-
-</div>
-
-<a
-href="#"
-style="
 text-decoration:none;
-color:#B63A3A;
-">
 
-Change
-
-</a>
-
-</div>
-
-.hero p{
-
-margin-top:15px;
-
-color:#667744;
-
-font-size:20px;
+color:#222;
 
 }
 
 .search{
 
-margin-top:30px;
+padding:0 24px;
 
-width:70%;
+}
+
+.search input{
+
+width:100%;
 
 padding:18px;
 
 border:none;
 
-border-radius:20px;
+border-radius:18px;
 
 font-size:18px;
 
 }
 
-.categories{
+.section{
 
-padding:70px 10%;
+padding:35px 24px;
 
 }
 
-.cards{
+.section h2{
+
+margin-bottom:20px;
+
+font-size:28px;
+
+}
+
+.scroll{
 
 display:flex;
 
-gap:20px;
+gap:16px;
 
-flex-wrap:wrap;
+overflow-x:auto;
 
-margin-top:30px;
+padding-bottom:10px;
+
+}
+
+.scroll::-webkit-scrollbar{
+
+display:none;
 
 }
 
 .card{
 
+min-width:230px;
+
 background:white;
 
-padding:25px;
+padding:28px;
 
-border-radius:20px;
+border-radius:22px;
 
-min-width:170px;
-
-box-shadow:0 4px 20px rgba(0,0,0,.06);
+box-shadow:
+0 4px 20px
+rgba(0,0,0,.05);
 
 }
 
-.shop{
+.cardTitle{
 
-margin:60px 10%;
+font-size:22px;
+
+font-weight:bold;
+
+margin-bottom:10px;
+
+}
+
+.cardSub{
+
+color:#666;
+
+}
+
+.banner{
+
+margin:24px;
 
 padding:40px;
 
-border-radius:25px;
+background:
 
-background:#B63A3A;
+linear-gradient(
+135deg,
+#B63A3A,
+#D85D5D
+);
+
+border-radius:30px;
 
 color:white;
 
 }
 
-.btn{
+.banner h2{
+
+font-size:34px;
+
+}
+
+.banner p{
+
+margin-top:12px;
+
+}
+
+.banner a{
 
 display:inline-block;
 
@@ -215,26 +221,17 @@ color:#B63A3A;
 
 text-decoration:none;
 
-border-radius:12px;
+border-radius:14px;
 
 }
 
-footer{
-
-padding:40px;
-
-text-align:center;
-
-color:#666;
-
-}
-.bottomnav{
+.bottom{
 
 position:fixed;
 
-bottom:0;
-
 left:0;
+
+bottom:0;
 
 width:100%;
 
@@ -247,81 +244,36 @@ justify-content:space-around;
 padding:14px;
 
 box-shadow:
-
-0 -4px 20px rgba(0,0,0,.08);
+0 -8px 30px
+rgba(0,0,0,.08);
 
 }
 
-.bottomnav a{
+.bottom a{
 
 text-decoration:none;
 
-color:#444;
+color:#555;
+
+text-align:center;
 
 font-size:14px;
 
-text-align:center;
-
-}
-  <div
-style="
-padding:12px;
-background:white;
-text-align:center;
-">
-
-📍 Area:
-
-<span id="area">
-
-Not Selected
-
-</span>
-
-</div>
-
-<script>
-
-let area=
-
-localStorage
-.getItem(
-"pincode"
-);
-
-if(area){
-
-document
-.getElementById(
-"area"
-)
-.innerText=
-
-area;
-
 }
 
-</script>
-
-
-body{
-
-padding-bottom:90px;
-
-}
 </style>
 
 </head>
 
 <body>
+
 <script>
 
 if(
-
-!localStorage.getItem(
+!localStorage
+.getItem(
 "marketEntered"
 )
-
 ){
 
 window.location.href=
@@ -331,200 +283,266 @@ window.location.href=
 
 </script>
 
-<header>
+<div class="topbar">
 
-<div class="logo">
+<div
+class="menu"
+onclick="toggleMenu()">
 
-Hmara Bazaar
+☰
 
 </div>
 
-<div class="menu">
+<div
+class="market"
+id="marketName">
 
-<a href="/">Home</a>
+My Bazaar
 
-<a href="/search.html">Explore</a>
+</div>
 
-<a href="/shops.html">Shops</a>
-<a href="/services.html">Services</a>
+</div>
 
-<a href="/profile.html">Profile</a>
+<div
+class="panel"
+id="panel">
 
-<a href="/seller.html">
-<a href="/login.html">Login</a>
+<a href="/profile.html">
+
+Profile
+
+</a>
+
+<a href="/shops.html">
+
+Shops
+
+</a>
+
+<a href="/services.html">
+
+Services
+
+</a>
+
+<a href="/createshop.html">
+
 Open Shop
 
 </a>
 
+<a
+href="/welcome.html"
+onclick="changeArea()">
+
+Change Area
+
+</a>
+
 </div>
 
-</header>
+<div class="search">
 
-<div class="hero">
+<input
+placeholder="Search products, shops or services">
 
-<h1>
+</div>
 
-Local Market.
-In Your Palm.
-
-</h1>
-
-<br>
-
-<p>
-
-Discover shops, services and daily essentials around you.
-
-</p>
-
-<br><br>
-
-<a
-href="/search.html"
-style="
-padding:14px 22px;
-background:#B63A3A;
-color:white;
-text-decoration:none;
-border-radius:12px;
-margin-right:10px;
-">
-
-Explore Market
-
-</a>
-
-<a
-href="/seller.html"
-style="
-padding:14px 22px;
-background:white;
-color:black;
-text-decoration:none;
-border-radius:12px;
-">
-
-Open Your Shop
-
-</a>
-  <section
-<section
-style="
-padding:60px;
-">
+<div class="section">
 
 <h2>
+
+Products
+
+</h2>
+
+<div class="scroll">
+
+<div class="card">
+
+<div class="cardTitle">
+
+🍚 Rice
+
+</div>
+
+<div class="cardSub">
+
+Fresh Local Products
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="cardTitle">
+
+🥛 Milk
+
+</div>
+
+<div class="cardSub">
+
+Daily Essentials
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="cardTitle">
+
+👟 Shoes
+
+</div>
+
+<div class="cardSub">
+
+Trending
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="cardTitle">
+
+💄 Cosmetics
+
+</div>
+
+<div class="cardSub">
 
 Popular Nearby
 
-</h2>
-<section
-style="
-padding:60px;
-">
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="section">
 
 <h2>
 
-Trending Near You
+Shops Near You
 
 </h2>
 
-<br>
+<div class="scroll">
 
-<div
-style="
-display:flex;
-gap:20px;
-overflow:auto;
-">
+<div class="card">
 
-<div
-style="
-background:white;
-padding:25px;
-border-radius:18px;
-min-width:240px;
-">
+<div class="cardTitle">
 
-🛒
-
-Milk • Bread • Fruits
+🏪 Ahmad Grocery
 
 </div>
 
-<div
-style="
-background:white;
-padding:25px;
-border-radius:18px;
-min-width:240px;
-">
-
-🚚
-
-Transport:
-Jammu
-
-</div>
-
-<div
-style="
-background:white;
-padding:25px;
-border-radius:18px;
-min-width:240px;
-">
-
-🏨
-
-Hotels Available
-
-</div>
-
-</div>
-
-</section>
-<br>
-
-<div
-style="
-display:flex;
-gap:20px;
-overflow:auto;
-">
-
-<div
-style="
-background:white;
-padding:25px;
-border-radius:18px;
-min-width:220px;
-">
-
-🛒 Ahmad Grocery
-
-<br><br>
+<div class="cardSub">
 
 Fast Delivery
 
 </div>
 
-<div
-style="
-background:white;
-padding:25px;
-border-radius:18px;
-min-width:220px;
-">
+</div>
+
+<div class="card">
+
+<div class="cardTitle">
 
 💄 Classic Cosmetics
 
-<br><br>
+</div>
+
+<div class="cardSub">
 
 Trending
 
 </div>
-<div class="bottomnav">
+
+</div>
+
+<div class="card">
+
+<div class="cardTitle">
+
+👟 City Shoes
+
+</div>
+
+<div class="cardSub">
+
+Recommended
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>
+
+Services
+
+</h2>
+
+<div class="scroll">
+
+<div class="card">
+
+🚚 Transport
+
+</div>
+
+<div class="card">
+
+🏨 Hotels
+
+</div>
+
+<div class="card">
+
+🛠 Local Services
+
+</div>
+
+</div>
+
+</div>
+
+<div class="banner">
+
+<h2>
+
+Hmara Bazaar
+
+</h2>
+
+<p>
+
+Delivering Happiness
+
+</p>
+
+<a href="/services.html">
+
+Explore Services
+
+</a>
+
+</div>
+
+<div class="bottom">
 
 <a href="/">🏠<br>Home</a>
 
@@ -553,163 +571,75 @@ Trending
 </a>
 
 </div>
-<div
-style="
-background:white;
-padding:25px;
-border-radius:18px;
-min-width:220px;
-">
 
-👟 City Shoes
+<script>
 
-<br><br>
+function toggleMenu(){
 
-Recommended
+let p=
 
-</div>
+document
+.getElementById(
+"panel"
+);
 
-</div>
+p.style.display=
 
-</section>
-<p>
+p.style.display
+==="block"
 
-Visit digital shops and order locally
+?
 
-</p>
+"none"
 
-<input
-class="search"
-placeholder="Search products, shops or services">
-  <section
-style="
-padding:60px;
-">
+:
 
-<h2>
+"block";
 
-Why Hmara Bazaar
+}
 
-</h2>
+function changeArea(){
 
-<br>
+localStorage.removeItem(
+"marketEntered"
+);
 
-<div
-style="
-display:flex;
-gap:20px;
-">
+localStorage.removeItem(
+"pincode"
+);
 
-<div
-style="
-background:white;
-padding:30px;
-border-radius:20px;
-">
+}
 
-🏪
+let pin=
 
-<br><br>
+localStorage
+.getItem(
+"pincode"
+);
 
-Digital Shops
+let title=
 
-</div>
+"My Bazaar";
 
-<div
-style="
-background:white;
-padding:30px;
-border-radius:20px;
-">
+if(pin){
 
-🚚
+title=
 
-<br><br>
+pin
++
+" Bazaar";
 
-Local Delivery
+}
 
-</div>
+document
+.getElementById(
+"marketName"
+)
+.innerText=
 
-<div
-style="
-background:white;
-padding:30px;
-border-radius:20px;
-">
+title;
 
-🤝
-
-<br><br>
-
-Support Local
-
-</div>
-
-</div>
-
-</section>
-
-</div>
-
-<div class="categories">
-
-<h2>
-
-Categories
-
-</h2>
-
-<div class="cards">
-
-<div class="card">🍴 Restaurant</div>
-
-<div class="card">🛒 Grocery</div>
-
-<div class="card">👟 Shoes</div>
-
-<div class="card">👕 Clothes</div>
-
-<div class="card">💄 Cosmetics</div>
-
-</div>
-
-</div>
-
-<div class="shop">
-
-<h2>
-
-Featured Shop
-
-</h2>
-
-<h3>
-
-Ahmad Grocery
-
-</h3>
-
-<p>
-
-Fresh products • Open Now
-
-</p>
-
-<a
-href="/shop.html"
-class="btn">
-
-Visit Shop
-
-</a>
-
-</div>
-
-<footer>
-
-Hmara Bazaar — Delivering Happiness
-
-</footer>
+</script>
 
 </body>
 
