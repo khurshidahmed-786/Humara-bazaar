@@ -100,15 +100,23 @@ padding:0 24px;
 
 width:100%;
 
-padding:18px;
+padding:22px;
 
 border:none;
 
-border-radius:18px;
+background:white;
+
+border-radius:24px;
 
 font-size:18px;
 
+box-shadow:
+
+0 8px 30px
+rgba(0,0,0,.05);
+
 }
+
 
 .section{
 
@@ -116,11 +124,23 @@ padding:35px 24px;
 
 }
 
+.section{
+
+padding:
+
+50px
+24px
+10px;
+
+}
+
 .section h2{
 
-margin-bottom:20px;
+font-size:34px;
 
-font-size:28px;
+margin-bottom:25px;
+
+color:#222;
 
 }
 
@@ -144,17 +164,34 @@ display:none;
 
 .card{
 
-min-width:230px;
+min-width:280px;
 
 background:white;
 
-padding:28px;
+padding:26px;
 
-border-radius:22px;
+border-radius:26px;
 
 box-shadow:
-0 4px 20px
+
+0 10px 30px
 rgba(0,0,0,.05);
+
+transition:.25s;
+
+cursor:pointer;
+
+}
+
+.card:hover{
+
+transform:
+translateY(-8px);
+
+box-shadow:
+
+0 20px 50px
+rgba(0,0,0,.12);
 
 }
 
