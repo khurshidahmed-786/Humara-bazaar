@@ -446,6 +446,105 @@ border-radius:18px;
 margin-bottom:14px;
 
 }
+.liveFeed{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+padding:
+
+16px
+24px;
+
+margin:
+
+16px
+24px;
+
+background:
+
+rgba(
+255,
+255,
+255,
+0.65
+);
+
+border-radius:18px;
+
+overflow:hidden;
+
+}
+
+.dot{
+
+color:#B63A3A;
+
+font-size:14px;
+
+animation:
+blink
+1.4s
+infinite;
+
+}
+
+.feedText{
+
+font-size:15px;
+
+color:#555;
+
+white-space:nowrap;
+
+overflow:hidden;
+
+animation:
+
+scrollFeed
+
+16s
+
+linear
+
+infinite;
+
+}
+
+@keyframes blink{
+
+50%{
+
+opacity:.4;
+
+}
+
+}
+
+@keyframes scrollFeed{
+
+0%{
+
+transform:
+translateX(
+100%
+);
+
+}
+
+100%{
+
+transform:
+translateX(
+-100%
+);
+
+}
+
+}
 
 
 </style>
@@ -567,6 +666,22 @@ Change Area
 
 <input
 placeholder="Search products, shops or services">
+
+</div>
+<div class="liveFeed">
+
+<div class="dot">
+
+●
+
+</div>
+
+<div class="feedText">
+
+Official:
+Welcome to Surankote Bazaar
+
+</div>
 
 </div>
 
