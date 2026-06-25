@@ -16,11 +16,8 @@ font-family:Arial;
 }
 
 body{
-
 background:#FAF6EE;
-
-padding-bottom:120px;
-
+padding-bottom:110px;
 }
 
 .cover{
@@ -46,593 +43,19 @@ position:relative;
 
 }
 
-.shopLogo{
-
-width:120px;
-
-height:120px;
-
-background:white;
-
-border-radius:50%;
+.shopPanelBtn{
 
 position:absolute;
-
-bottom:-60px;
-
-left:40px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:48px;
-
-box-shadow:
-
-0 10px 30px
-rgba(0,0,0,.15);
-
-}
-
-.content{
-
-padding:
-
-90px
-24px
-24px;
-
-}
-
-.name{
-
-font-size:42px;
-
-font-weight:800;
-
-}
-
-.status{
-
-margin-top:14px;
-
-display:inline-block;
-
-padding:
-
-10px
-16px;
-
-border-radius:16px;
-
-background:
-
-#E7F8EA;
-
-color:
-
-#1D8A3C;
-
-}
-
-.time{
-
-margin-top:18px;
-
-color:#777;
-
-}
-
-.description{
-
-margin-top:20px;
-
-line-height:1.7;
-
-color:#555;
-
-}
-
-.section{
-
-margin-top:50px;
-
-}
-
-.products{
-
-display:grid;
-
-grid-template-columns:
-
-repeat(
-auto-fill,
-minmax(
-180px,
-1fr
-));
-
-gap:20px;
-
-}
-
-.product{
-
-background:white;
-
-border-radius:22px;
-
-overflow:hidden;
-
-}
-
-.image{
-
-height:170px;
-
-background:#EEE;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:60px;
-
-}
-
-.info{
-
-padding:18px;
-
-}
-
-.price{
-
-color:#B63A3A;
-
-font-size:22px;
-
-margin-top:10px;
-
-}
-
-.orderBar{
-
-position:fixed;
-
-bottom:0;
-
-left:0;
-
-width:100%;
-
-background:white;
-
-padding:18px;
-
-display:flex;
-
-gap:14px;
-
-box-shadow:
-
-0 -10px 30px
-rgba(0,0,0,.08);
-
-}
-
-.btn{
-
-flex:1;
-
-padding:18px;
-
-border-radius:16px;
-
-border:none;
-
-font-size:18px;
-
-}
-
-.primary{
-
-background:#B63A3A;
-
-color:white;
-
-}
-
-.secondary{
-
-background:#F2EEE6;
-
-}
-
-.closed{
-
-background:#555;
-
-color:white;
-
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="cover">
-
-<div class="shopLogo">
-
-🏪
-
-</div>
-
-</div>
-
-<div class="content">
-
-<div class="name">
-
-Ahmad Grocery
-
-</div>
-
-<div
-class="status"
-id="shopStatus">
-
-🟢 Open Now
-
-</div>
-
-<div class="time">
-
-Open:
-8:00 AM — 8:00 PM
-
-</div>
-
-<div class="description">
-
-Fresh products from your local market.
-Order online and receive delivery from nearby sellers.
-
-</div>
-
-<div class="section">
-
-<h2>
-
-Products
-
-</h2>
-
-<br>
-
-<div class="products">
-
-<div class="product">
-
-<div class="image">
-
-🍚
-
-</div>
-
-<div class="info">
-
-Premium Rice
-
-<div class="price">
-
-₹70
-
-</div>
-
-</div>
-
-</div>
-
-<div class="product">
-
-<div class="image">
-
-🥛
-
-</div>
-
-<div class="info">
-
-Fresh Milk
-
-<div class="price">
-
-₹35
-
-</div>
-
-</div>
-
-</div>
-
-<div class="product">
-
-<div class="image">
-
-💄
-
-</div>
-
-<div class="info">
-
-Lipstick
-
-<div class="price">
-
-₹199
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-  <!DOCTYPE html>
-
-<html>
-
-<head>
-
-<title>Shop</title>
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial;
-}
-
-body{
-
-background:#FAF6EE;
-
-padding-bottom:120px;
-
-}
-
-.cover{
-
-height:260px;
-
-background:
-
-linear-gradient(
-135deg,
-#B63A3A,
-#D85D5D
-);
-
-border-radius:
-
-0
-0
-40px
-40px;
-
-position:relative;
-
-}
-
-.shopLogo{
-
-width:120px;
-
-height:120px;
-
-background:white;
-
-border-radius:50%;
-
-position:absolute;
-
-bottom:-60px;
-
-left:40px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:48px;
-
-box-shadow:
-
-0 10px 30px
-rgba(0,0,0,.15);
-
-}
-
-.content{
-
-padding:
-
-90px
-24px
-24px;
-
-}
-
-.name{
-
-font-size:42px;
-
-font-weight:800;
-
-}
-
-.status{
-
-margin-top:14px;
-
-display:inline-block;
-
-padding:
-
-10px
-16px;
-
-border-radius:16px;
-
-background:
-
-#E7F8EA;
-
-color:
-
-#1D8A3C;
-
-}
-
-.time{
-
-margin-top:18px;
-
-color:#777;
-
-}
-
-.description{
-
-margin-top:20px;
-
-line-height:1.7;
-
-color:#555;
-
-}
-
-.section{
-
-margin-top:50px;
-
-}
-
-.products{
-
-display:grid;
-
-grid-template-columns:
-
-repeat(
-auto-fill,
-minmax(
-180px,
-1fr
-));
-
-gap:20px;
-
-}
-
-.product{
-
-background:white;
-
-border-radius:22px;
-
-overflow:hidden;
-
-}
-
-.image{
-
-height:170px;
-
-background:#EEE;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:60px;
-
-}
-
-.info{
-
-padding:18px;
-
-}
-
-.price{
-
-color:#B63A3A;
-
-font-size:22px;
-
-margin-top:10px;
-
-}
-
-.orderBar{
-
-position:fixed;
-
-bottom:0;
-
-left:0;
-
-width:100%;
-
-background:white;
-
-padding:18px;
-
-display:flex;
-
-gap:14px;
-
-box-shadow:
-
-0 -10px 30px
-rgba(0,0,0,.08);
-
-}
-  .shopPanelBtn{
-
-position:absolute;
-
-top:24px;
 
 right:24px;
+
+top:24px;
 
 font-size:34px;
 
 color:white;
 
 cursor:pointer;
-
-z-index:10;
 
 }
 
@@ -648,9 +71,9 @@ top:80px;
 
 background:white;
 
-border-radius:22px;
+width:260px;
 
-width:240px;
+border-radius:24px;
 
 overflow:hidden;
 
@@ -673,6 +96,178 @@ color:#222;
 
 }
 
+.shopLogo{
+
+width:120px;
+
+height:120px;
+
+background:white;
+
+border-radius:50%;
+
+position:absolute;
+
+bottom:-60px;
+
+left:40px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:48px;
+
+}
+
+.content{
+
+padding:
+
+90px
+24px
+30px;
+
+}
+
+.name{
+
+font-size:42px;
+
+font-weight:800;
+
+}
+
+.status{
+
+margin-top:14px;
+
+display:inline-block;
+
+padding:
+
+10px
+16px;
+
+background:#E7F8EA;
+
+border-radius:14px;
+
+color:#1D8A3C;
+
+}
+
+.time{
+
+margin-top:18px;
+
+color:#777;
+
+}
+
+.description{
+
+margin-top:18px;
+
+color:#555;
+
+line-height:1.7;
+
+}
+
+.section{
+
+margin-top:44px;
+
+}
+
+.section h2{
+
+margin-bottom:18px;
+
+}
+
+.products{
+
+display:flex;
+
+gap:16px;
+
+overflow:auto;
+
+}
+
+.products::-webkit-scrollbar{
+
+display:none;
+
+}
+
+.product{
+
+min-width:210px;
+
+background:white;
+
+border-radius:24px;
+
+overflow:hidden;
+
+}
+
+.image{
+
+height:170px;
+
+background:#EEE;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:60px;
+
+}
+
+.info{
+
+padding:18px;
+
+}
+
+.price{
+
+margin-top:12px;
+
+font-size:22px;
+
+color:#B63A3A;
+
+}
+
+.orderBar{
+
+position:fixed;
+
+bottom:0;
+
+left:0;
+
+width:100%;
+
+background:white;
+
+display:flex;
+
+gap:12px;
+
+padding:16px;
+
+}
 
 .btn{
 
@@ -680,9 +275,9 @@ flex:1;
 
 padding:18px;
 
-border-radius:16px;
-
 border:none;
+
+border-radius:16px;
 
 font-size:18px;
 
@@ -702,14 +297,6 @@ background:#F2EEE6;
 
 }
 
-.closed{
-
-background:#555;
-
-color:white;
-
-}
-
 </style>
 
 </head>
@@ -718,13 +305,6 @@ color:white;
 
 <div class="cover">
 
-<div class="shopLogo">
-
-🏪
-
-</div>
-
-</div>
 <div
 class="shopPanelBtn"
 onclick="togglePanel()">
@@ -763,6 +343,14 @@ id="shopPanel">
 
 </div>
 
+<div class="shopLogo">
+
+🏪
+
+</div>
+
+</div>
+
 <div class="content">
 
 <div class="name">
@@ -788,8 +376,7 @@ Open:
 
 <div class="description">
 
-Fresh products from your local market.
-Order online and receive delivery from nearby sellers.
+Fresh local products with delivery and pickup.
 
 </div>
 
@@ -797,11 +384,9 @@ Order online and receive delivery from nearby sellers.
 
 <h2>
 
-Products
+⭐ Featured
 
 </h2>
-
-<br>
 
 <div class="products">
 
@@ -827,6 +412,20 @@ Premium Rice
 
 </div>
 
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>
+
+🆕 New Arrival
+
+</h2>
+
+<div class="products">
+
 <div class="product">
 
 <div class="image">
@@ -848,6 +447,20 @@ Fresh Milk
 </div>
 
 </div>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>
+
+🔥 Discount Sale
+
+</h2>
+
+<div class="products">
 
 <div class="product">
 
@@ -882,15 +495,14 @@ Lipstick
 <button
 class="btn secondary">
 
-Chat
+Contact Shop
 
 </button>
 
 <button
-class="btn primary"
-id="orderBtn">
+class="btn primary">
 
-Order Today
+Browse Products
 
 </button>
 
@@ -898,36 +510,6 @@ Order Today
 
 <script>
 
-let open=true;
-
-if(!open){
-
-document
-.getElementById(
-"shopStatus"
-)
-.classList
-.add(
-"closed"
-);
-
-document
-.getElementById(
-"shopStatus"
-)
-.innerHTML=
-
-"⚫ Closed • Opens Tomorrow";
-
-document
-.getElementById(
-"orderBtn"
-)
-.innerHTML=
-
-"Order For Tomorrow";
-
-}
 function togglePanel(){
 
 let p=
@@ -951,15 +533,6 @@ p.style.display==="block"
 
 }
 
-</script>
-
-</body>
-
-</html>
-
-
-<script>
-
 let open=true;
 
 if(!open){
@@ -968,26 +541,9 @@ document
 .getElementById(
 "shopStatus"
 )
-.classList
-.add(
-"closed"
-);
-
-document
-.getElementById(
-"shopStatus"
-)
 .innerHTML=
 
-"⚫ Closed • Opens Tomorrow";
-
-document
-.getElementById(
-"orderBtn"
-)
-.innerHTML=
-
-"Order For Tomorrow";
+"⚫ Closed • Order For Tomorrow";
 
 }
 
