@@ -501,96 +501,6 @@ translateX(
 }
 
 }
-.marketPulse{
-
-display:flex;
-
-align-items:center;
-
-gap:12px;
-
-padding:
-
-8px
-24px;
-
-overflow:hidden;
-
-}
-
-.pulseDot{
-
-color:#B63A3A;
-
-font-size:10px;
-
-animation:
-
-blink
-
-1.2s
-
-infinite;
-
-}
-
-.pulseMessages{
-
-display:flex;
-
-gap:60px;
-
-white-space:nowrap;
-
-font-size:14px;
-
-color:#777;
-
-animation:
-
-ticker
-
-24s
-
-linear
-
-infinite;
-
-}
-
-@keyframes ticker{
-
-0%{
-
-transform:
-translateX(
-0
-);
-
-}
-
-100%{
-
-transform:
-translateX(
--50%
-);
-
-}
-
-}
-
-@keyframes blink{
-
-50%{
-
-opacity:.4;
-
-}
-
-}
-
-
 </style>
 
 </head>
@@ -610,6 +520,93 @@ window.location.href=
 "/welcome.html";
 
 }
+.tickerWrap{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+margin:
+
+10px
+24px
+26px;
+
+padding:
+
+12px
+18px;
+
+background:
+
+rgba(
+255,
+255,
+255,
+0.55
+);
+
+border-radius:18px;
+
+overflow:hidden;
+
+}
+
+.tickerIcon{
+
+font-size:18px;
+
+opacity:.8;
+
+}
+
+.ticker{
+
+display:flex;
+
+gap:60px;
+
+white-space:nowrap;
+
+font-size:14px;
+
+color:#666;
+
+animation:
+
+tickerMove
+
+18s
+
+linear
+
+infinite;
+
+}
+
+@keyframes tickerMove{
+
+0%{
+
+transform:
+translateX(
+100%
+);
+
+}
+
+100%{
+
+transform:
+translateX(
+-100%
+);
+
+}
+
+}
 
 </script>
 
@@ -620,44 +617,6 @@ class="menu"
 onclick="toggleMenu()">
 
 ☰
-
-</div>
-<div class="marketPulse">
-
-<div class="pulseDot">
-
-●
-
-</div>
-
-<div class="pulseMessages">
-
-<span>
-
-Official:
-Welcome to Surankote Bazaar
-
-</span>
-
-<span>
-
-Fresh vegetables uploaded
-
-</span>
-
-<span>
-
-2 hotels added today
-
-</span>
-
-<span>
-
-Transport bookings open
-
-</span>
-
-</div>
 
 </div>
 
@@ -750,6 +709,45 @@ Change Area
 placeholder="Search products, shops or services">
 
 </div>
+  <div class="tickerWrap">
+
+<div class="tickerIcon">
+
+📢
+
+</div>
+
+<div class="ticker">
+
+<span>
+
+Official:
+Welcome to Surankote Bazaar
+
+</span>
+
+<span>
+
+Fresh vegetables uploaded
+
+</span>
+
+<span>
+
+2 hotels added today
+
+</span>
+
+<span>
+
+Transport booking available
+
+</span>
+
+</div>
+
+</div>
+
 <div class="liveFeed">
 
 <div class="dot">
