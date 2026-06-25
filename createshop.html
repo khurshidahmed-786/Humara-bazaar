@@ -9,6 +9,7 @@
 </head>
 
 <body>
+<div style="padding:40px;max-width:700px;margin:auto;">
 
 <h1>
 
@@ -16,135 +17,96 @@ Create Your Shop
 
 </h1>
 
-<p>
+<br>
 
-Upload banner
+<input
+id="shopName"
+placeholder="Shop Name"
+style="width:100%;padding:16px;margin-bottom:14px;">
 
-</p>
+<input
+id="shopLogo"
+placeholder="Logo URL (optional)"
+style="width:100%;padding:16px;margin-bottom:14px;">
 
-<p>
+<input
+id="shopBanner"
+placeholder="Banner URL (optional)"
+style="width:100%;padding:16px;margin-bottom:14px;">
 
-Choose theme
+<input
+id="shopOpen"
+placeholder="Opening Time (8:00 AM)"
+style="width:100%;padding:16px;margin-bottom:14px;">
 
-</p>
+<input
+id="shopClose"
+placeholder="Closing Time (8:00 PM)"
+style="width:100%;padding:16px;margin-bottom:14px;">
 
-<p>
-
-Add description
-
-</p>
-<input id="shopname" placeholder="Shop Name">
-
-<input placeholder="Shop Logo URL">
-
-<input placeholder="Banner URL">
-
-<input="shopOpen" placeholder="Opening Time">
-
-<input="shopClose" placeholder="Closing Time">
-
-<input placeholder="WhatsApp Number">
-
-<textarea id="shopDescription" placeholder="Shop Description">
-</textarea>
-
-<a
+<textarea
+id="shopDescription"
+placeholder="Describe your shop"
 style="
-display:inline-block;
-padding:14px 18px;
-background:#667744;
-color:white;
-text-decoration:none;
-border-radius:10px;
-"
-href="/dashboard.html">
+width:100%;
+height:140px;
+padding:16px;
+margin-bottom:20px;
+">
+</textarea>
 
 <button
 onclick="publishShop()"
 style="
-padding:14px 18px;
+width:100%;
+padding:18px;
 background:#667744;
 color:white;
 border:none;
-border-radius:10px;
+border-radius:14px;
 ">
 
 Publish Shop
 
 </button>
 
+</div>
 
-<script>
-
-function saveShop(){
-
-localStorage.setItem(
-"shopName",
-document.getElementById("shopname").value
-);
-
-window.location.href="/dashboard.html";
-
-}
-
-</script>
-
-
-</a>
 <script>
 
 function publishShop(){
 
 localStorage.setItem(
-
 "shopName",
-
-document
-.getElementById(
-"shopName"
-)
-.value
-
+document.getElementById("shopName").value
 );
 
 localStorage.setItem(
-
-"shopDescription",
-
-document
-.getElementById(
-"shopDescription"
-)
-.value
-
+"shopLogo",
+document.getElementById("shopLogo").value
 );
 
 localStorage.setItem(
+"shopBanner",
+document.getElementById("shopBanner").value
+);
 
+localStorage.setItem(
 "shopOpen",
-
-document
-.getElementById(
-"shopOpen"
-)
-.value
-
+document.getElementById("shopOpen").value
 );
 
 localStorage.setItem(
-
 "shopClose",
+document.getElementById("shopClose").value
+);
 
-document
-.getElementById(
-"shopClose"
-)
-.value
-
+localStorage.setItem(
+"shopDescription",
+document.getElementById("shopDescription").value
 );
 
 window.location.href=
-
 "/shop.html";
 
 }
