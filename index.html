@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <html>
+
 <head>
 
 <title>Hmara Bazaar</title>
@@ -11,25 +12,16 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,sans-serif;
+font-family:Arial;
 }
 
 body{
-
 background:#FAF6EE;
-
-padding-bottom:110px;
-
+padding-bottom:100px;
 color:#222;
-
 }
 
 .topbar{
-
-padding:
-
-22px
-24px;
 
 display:flex;
 
@@ -37,13 +29,25 @@ align-items:center;
 
 justify-content:space-between;
 
-background:#FAF6EE;
+padding:20px;
 
 position:sticky;
 
 top:0;
 
+background:#FAF6EE;
+
 z-index:100;
+
+}
+
+.menu{
+
+font-size:34px;
+
+cursor:pointer;
+
+width:40px;
 
 }
 
@@ -57,7 +61,7 @@ text-align:center;
 
 .market{
 
-font-size:34px;
+font-size:40px;
 
 font-weight:800;
 
@@ -69,19 +73,9 @@ color:#B63A3A;
 
 margin-top:4px;
 
-font-size:14px;
-
 color:#888;
 
-}
-
-.menu{
-
-font-size:32px;
-
-cursor:pointer;
-
-width:44px;
+font-size:14px;
 
 }
 
@@ -91,28 +85,9 @@ font-size:30px;
 
 text-decoration:none;
 
-width:44px;
+width:40px;
 
 text-align:right;
-
-}
-
-
-.menu{
-
-font-size:34px;
-
-cursor:pointer;
-
-}
-
-.market{
-
-font-size:34px;
-
-font-weight:800;
-
-color:#B63A3A;
 
 }
 
@@ -122,42 +97,22 @@ display:none;
 
 position:absolute;
 
+top:80px;
+
 left:20px;
 
-top:85px;
+width:260px;
 
-width:280px;
-
-background:
-
-rgba(
-255,
-255,
-255,
-0.96
-);
-
-backdrop-filter:
-
-blur(
-20px
-);
+background:white;
 
 border-radius:24px;
 
 box-shadow:
 
 0 20px 60px
-rgba(
-0,
-0,
-0,
-0.10
-);
+rgba(0,0,0,.10);
 
-overflow:hidden;
-
-padding:12px;
+padding:10px;
 
 z-index:999;
 
@@ -169,31 +124,17 @@ display:block;
 
 padding:18px;
 
-border-radius:16px;
-
 text-decoration:none;
 
 color:#222;
 
-font-size:18px;
+border-radius:16px;
 
 }
 
 .panel a:hover{
 
-background:#F5F3EE;
-
-}
-
-.panel a{
-
-display:block;
-
-padding:18px;
-
-text-decoration:none;
-
-color:#222;
+background:#F6F4EE;
 
 }
 
@@ -211,33 +152,88 @@ padding:22px;
 
 border:none;
 
-background:white;
-
 border-radius:24px;
 
 font-size:18px;
 
-box-shadow:
-
-0 8px 30px
-rgba(0,0,0,.05);
+background:white;
 
 }
 
+.ticker{
 
-.section{
+margin:
 
-padding:35px 24px;
-
-}
-
-.section{
+14px
+24px
+26px;
 
 padding:
 
-50px
-24px
-10px;
+14px
+20px;
+
+background:white;
+
+border-radius:18px;
+
+overflow:hidden;
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+}
+
+.tickerText{
+
+color:#666;
+
+font-size:14px;
+
+white-space:nowrap;
+
+overflow:hidden;
+
+animation:
+
+move
+
+18s
+
+linear
+
+infinite;
+
+}
+
+@keyframes move{
+
+0%{
+
+transform:
+translateX(
+100%
+);
+
+}
+
+100%{
+
+transform:
+translateX(
+-100%
+);
+
+}
+
+}
+
+.section{
+
+padding:40px 24px;
 
 }
 
@@ -245,9 +241,7 @@ padding:
 
 font-size:34px;
 
-margin-bottom:25px;
-
-color:#222;
+margin-bottom:22px;
 
 }
 
@@ -257,9 +251,7 @@ display:flex;
 
 gap:16px;
 
-overflow-x:auto;
-
-padding-bottom:10px;
+overflow:auto;
 
 }
 
@@ -277,28 +269,7 @@ background:white;
 
 padding:26px;
 
-border-radius:26px;
-
-box-shadow:
-
-0 10px 30px
-rgba(0,0,0,.05);
-
-transition:.25s;
-
-cursor:pointer;
-
-}
-
-.card:hover{
-
-transform:
-translateY(-8px);
-
-box-shadow:
-
-0 20px 50px
-rgba(0,0,0,.12);
+border-radius:24px;
 
 }
 
@@ -338,25 +309,13 @@ color:white;
 
 }
 
-.banner h2{
-
-font-size:34px;
-
-}
-
-.banner p{
-
-margin-top:12px;
-
-}
-
 .banner a{
 
 display:inline-block;
 
 margin-top:20px;
 
-padding:14px 20px;
+padding:14px 18px;
 
 background:white;
 
@@ -364,7 +323,7 @@ color:#B63A3A;
 
 text-decoration:none;
 
-border-radius:14px;
+border-radius:12px;
 
 }
 
@@ -372,9 +331,9 @@ border-radius:14px;
 
 position:fixed;
 
-left:0;
-
 bottom:0;
+
+left:0;
 
 width:100%;
 
@@ -386,10 +345,6 @@ justify-content:space-around;
 
 padding:14px;
 
-box-shadow:
-0 -8px 30px
-rgba(0,0,0,.08);
-
 }
 
 .bottom a{
@@ -398,109 +353,12 @@ text-decoration:none;
 
 color:#555;
 
-text-align:center;
-
-font-size:14px;}
-
-.liveFeed{
-
-display:flex;
-
-align-items:center;
-
-gap:12px;
-
-padding:
-
-16px
-24px;
-
-margin:
-
-16px
-24px;
-
-background:
-
-rgba(
-255,
-255,
-255,
-0.65
-);
-
-border-radius:18px;
-
-overflow:hidden;
-
-}
-
-.dot{
-
-color:#B63A3A;
-
 font-size:14px;
 
-animation:
-blink
-1.4s
-infinite;
+text-align:center;
 
 }
 
-.feedText{
-
-font-size:15px;
-
-color:#555;
-
-white-space:nowrap;
-
-overflow:hidden;
-
-animation:
-
-scrollFeed
-
-16s
-
-linear
-
-infinite;
-
-}
-
-@keyframes blink{
-
-50%{
-
-opacity:.4;
-
-}
-
-}
-
-@keyframes scrollFeed{
-
-0%{
-
-transform:
-translateX(
-100%
-);
-
-}
-
-100%{
-
-transform:
-translateX(
--100%
-);
-
-}
-
-}
 </style>
 
 </head>
@@ -510,101 +368,16 @@ translateX(
 <script>
 
 if(
-!localStorage
-.getItem(
+
+!localStorage.getItem(
 "marketEntered"
 )
+
 ){
 
 window.location.href=
+
 "/welcome.html";
-
-}
-.tickerWrap{
-
-display:flex;
-
-align-items:center;
-
-gap:12px;
-
-margin:
-
-10px
-24px
-26px;
-
-padding:
-
-12px
-18px;
-
-background:
-
-rgba(
-255,
-255,
-255,
-0.55
-);
-
-border-radius:18px;
-
-overflow:hidden;
-
-}
-
-.tickerIcon{
-
-font-size:18px;
-
-opacity:.8;
-
-}
-
-.ticker{
-
-display:flex;
-
-gap:60px;
-
-white-space:nowrap;
-
-font-size:14px;
-
-color:#666;
-
-animation:
-
-tickerMove
-
-18s
-
-linear
-
-infinite;
-
-}
-
-@keyframes tickerMove{
-
-0%{
-
-transform:
-translateX(
-100%
-);
-
-}
-
-100%{
-
-transform:
-translateX(
--100%
-);
-
-}
 
 }
 
@@ -620,23 +393,21 @@ onclick="toggleMenu()">
 
 </div>
 
-<div
-class="marketWrap">
+<div class="marketWrap">
 
 <div
 class="market"
 id="marketName">
 
-Surankote Bazaar
+My Bazaar
 
 </div>
-  
 
 <div
 class="marketPin"
 id="marketPin">
 
-185121
+Select Area
 
 </div>
 
@@ -652,50 +423,19 @@ class="cart">
 
 </div>
 
-
-<div
-class="market"
-id="marketName">
-
-My Bazaar
-
-</div>
-
-</div>
-
-<div
 <div
 class="panel"
-id="panel"
-style="display:none;">
+id="panel">
 
-<a href="/profile.html">
+<a href="/profile.html">Profile</a>
 
-Profile
+<a href="/shops.html">Shops</a>
 
-</a>
+<a href="/services.html">Services</a>
 
-<a href="/shops.html">
+<a href="/createshop.html">Open Shop</a>
 
-Shops
-
-</a>
-
-<a href="/services.html">
-
-Services
-
-</a>
-
-<a href="/createshop.html">
-
-Open Shop
-
-</a>
-
-<a
-href="/welcome.html"
-onclick="changeArea()">
+<a href="/welcome.html">
 
 Change Area
 
@@ -709,57 +449,16 @@ Change Area
 placeholder="Search products, shops or services">
 
 </div>
-  <div class="tickerWrap">
-
-<div class="tickerIcon">
-
-📢
-
-</div>
 
 <div class="ticker">
 
-<span>
+📢
 
-Official:
-Welcome to Surankote Bazaar
+<div
+class="tickerText"
+id="tickerText">
 
-</span>
-
-<span>
-
-Fresh vegetables uploaded
-
-</span>
-
-<span>
-
-2 hotels added today
-
-</span>
-
-<span>
-
-Transport booking available
-
-</span>
-
-</div>
-
-</div>
-
-<div class="liveFeed">
-
-<div class="dot">
-
-●
-
-</div>
-
-<div class="feedText">
-
-Official:
-Welcome to Surankote Bazaar
+Welcome to your local market
 
 </div>
 
@@ -773,8 +472,6 @@ Products
 
 </h2>
 
-</div>
-
 <div class="scroll">
 
 <div class="card">
@@ -787,7 +484,7 @@ Products
 
 <div class="cardSub">
 
-Fresh Local Products
+Fresh Products
 
 </div>
 
@@ -809,38 +506,6 @@ Daily Essentials
 
 </div>
 
-<div class="card">
-
-<div class="cardTitle">
-
-👟 Shoes
-
-</div>
-
-<div class="cardSub">
-
-Trending
-
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="cardTitle">
-
-💄 Cosmetics
-
-</div>
-
-<div class="cardSub">
-
-Popular Nearby
-
-</div>
-
-</div>
-
 </div>
 
 </div>
@@ -849,7 +514,7 @@ Popular Nearby
 
 <h2>
 
-Shops Near You
+Shops
 
 </h2>
 
@@ -866,38 +531,6 @@ Shops Near You
 <div class="cardSub">
 
 Fast Delivery
-
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="cardTitle">
-
-💄 Classic Cosmetics
-
-</div>
-
-<div class="cardSub">
-
-Trending
-
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="cardTitle">
-
-👟 City Shoes
-
-</div>
-
-<div class="cardSub">
-
-Recommended
 
 </div>
 
@@ -929,12 +562,6 @@ Services
 
 </div>
 
-<div class="card">
-
-🛠 Local Services
-
-</div>
-
 </div>
 
 </div>
@@ -953,9 +580,10 @@ Delivering Happiness
 
 </p>
 
-<a href="/services.html">
+<a
+href="/services.html">
 
-Explore Services
+Explore
 
 </a>
 
@@ -965,33 +593,18 @@ Explore Services
 
 <a href="/">🏠<br>Home</a>
 
-<a href="/search.html">
+<a href="/search.html">🔍<br>Explore</a>
 
-🔍<br>Explore
+<a href="/services.html">🧰<br>Services</a>
 
-</a>
+<a href="/orders.html">📦<br>Orders</a>
 
-<a href="/services.html">
-
-🧰<br>Services
-
-</a>
-
-<a href="/orders.html">
-
-📦<br>Orders
-
-</a>
-
-<a href="/profile.html">
-
-👤<br>Profile
-
-</a>
+<a href="/profile.html">👤<br>Profile</a>
 
 </div>
 
 <script>
+
 let pin=
 
 localStorage
@@ -999,19 +612,15 @@ localStorage
 "pincode"
 );
 
-let title=
-
-"My Bazaar";
-
 if(pin){
 
-title=
+document
+.getElementById(
+"marketPin"
+)
+.innerText=
 
-pin
-+
-" Bazaar";
-
-}
+pin;
 
 document
 .getElementById(
@@ -1019,87 +628,74 @@ document
 )
 .innerText=
 
-title;
+"Surankote Bazaar";
 
+document
+.getElementById(
+"tickerText"
+)
+.innerText=
 
-</script>
-<script>
+"Official: Welcome to "
++
+pin
++
+" market";
+
+}
 
 function toggleMenu(){
 
-let menu=
+let p=
 
 document
 .getElementById(
 "panel"
 );
 
-if(
+p.style.display=
 
-menu.style.display
-==="block"
+p.style.display==="block"
 
-){
+?
 
-menu.style.display=
+"none"
 
-"none";
-
-}
-
-else{
-
-menu.style.display=
+:
 
 "block";
 
 }
 
-}
-
-document
-.addEventListener(
-"click",
+document.onclick=
 
 function(e){
 
-let menu=
-
-document
-.getElementById(
-"panel"
-);
-
-let icon=
-
-document
-.querySelector(
-".menu"
-);
-
 if(
 
-menu
-&&
-!menu.contains(
-e.target
+!e.target.closest(
+".menu"
 )
+
 &&
-!icon.contains(
-e.target
+
+!e.target.closest(
+".panel"
 )
 
 ){
 
-menu.style.display=
+document
+.getElementById(
+"panel"
+)
+.style.display=
 
 "none";
 
 }
 
-}
-
-);
+};
 
 </script>
 
