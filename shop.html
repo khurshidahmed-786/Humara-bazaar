@@ -355,7 +355,12 @@ id="shopPanel">
 
 <div class="name">
 
-Ahmad Grocery
+<span id="displayName">
+
+Shop Name
+
+</span>
+
 
 </div>
 
@@ -367,19 +372,19 @@ id="shopStatus">
 
 </div>
 
-<div class="time">
+<div
+class="time"
+id="displayTime">
 
-Open:
-8:00 AM — 8:00 PM
-
-</div>
-
-<div class="description">
-
-Fresh local products with delivery and pickup.
+Time
 
 </div>
 
+<div
+class="description"
+id="displayDescription">
+Description
+</div>
 <div class="section">
 
 <h2>
@@ -538,14 +543,81 @@ let open=true;
 if(!open){
 
 document
-.getElementById(
-"shopStatus"
-)
+.getElementById("shopStatus")
 .innerHTML=
 
 "⚫ Closed • Order For Tomorrow";
 
 }
+document
+.getElementById(
+"displayName"
+)
+.innerText=
+
+localStorage
+.getItem(
+"shopName"
+)
+
+||
+
+"Shop";
+
+document
+.getElementById(
+"displayDescription"
+)
+.innerText=
+
+localStorage
+.getItem(
+"shopDescription"
+)
+
+||
+
+"Add Description";
+
+document
+.getElementById(
+"displayTime"
+)
+.innerText=
+
+"Open: "
+
+*
+
+(
+localStorage
+.getItem(
+"shopOpen"
+)
+
+||
+
+"8AM"
+
+)
+
+*
+
+" — "
+
+*
+
+(
+localStorage
+.getItem(
+"shopClose"
+)
+
+||
+
+"8PM"
+
+);
 
 </script>
 
