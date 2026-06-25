@@ -411,6 +411,124 @@ border-radius:30px;
 color:white;
 
 }
+  .shopCard{
+
+min-width:320px;
+
+background:white;
+
+border-radius:26px;
+
+overflow:hidden;
+
+position:relative;
+
+}
+
+.shopBoard{
+
+background:#667744;
+
+color:white;
+
+padding:22px;
+
+font-size:26px;
+
+font-weight:800;
+
+text-align:center;
+
+}
+
+.shopBody{
+
+padding:24px;
+
+}
+
+.shopStatus{
+
+font-size:22px;
+
+font-weight:bold;
+
+}
+
+.shopDesc{
+
+margin-top:10px;
+
+color:#666;
+
+}
+
+.shopTime{
+
+margin-top:16px;
+
+color:#B63A3A;
+
+}
+
+.shopBtn{
+
+display:inline-block;
+
+margin-top:20px;
+
+padding:14px 18px;
+
+background:#B63A3A;
+
+color:white;
+
+text-decoration:none;
+
+border-radius:14px;
+
+}
+
+.closed .shutter{
+
+height:140px;
+
+background:
+
+linear-gradient(
+180deg,
+#999,
+#666
+);
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+color:white;
+
+font-size:32px;
+
+font-weight:bold;
+
+}
+
+.open{
+
+box-shadow:
+
+0 0 40px
+rgba(
+0,
+180,
+0,
+0.10
+);
+
+}
+
 
 .banner a{
 
@@ -718,36 +836,101 @@ View
 
 </div>
 
-
 <div class="section">
 
 <h2>
 
-Shops
+Shops Near You
 
 </h2>
 
 <div class="scroll">
 
-<div class="card">
+<div class="shopCard open">
 
-<div class="cardTitle">
+<div class="shopBoard">
 
-🏪 Ahmad Grocery
-
-</div>
-
-<div class="cardSub">
-
-Fast Delivery
+AHMAD GROCERY
 
 </div>
 
+<div class="shopBody">
+
+<div class="shopStatus">
+
+🟢 Open Now
+
+</div>
+
+<div class="shopDesc">
+
+Fresh groceries • Delivery available
+
+</div>
+
+<div class="shopTime">
+
+8:00 AM — 8:00 PM
+
+</div>
+
+<a
+href="/shop.html"
+class="shopBtn">
+
+Enter Shop
+
+</a>
+
+</div>
+
+</div>
+
+<div class="shopCard closed">
+
+<div class="shutter">
+
+CLOSED
+
+</div>
+
+<div class="shopBody">
+
+<div class="shopStatus">
+
+⚫ Closed
+
+</div>
+
+<div class="shopDesc">
+
+Opens tomorrow
+
+</div>
+
+<div class="shopTime">
+
+8:00 AM
+
+</div>
+
+<a
+href="/shop.html"
+class="shopBtn">
+
+Order For Tomorrow
+
+</a>
+
+</div>
+
 </div>
 
 </div>
 
 </div>
+
+
 
 <div class="section">
 
