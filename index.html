@@ -116,31 +116,74 @@ color:#B63A3A;
 
 }
 
-..panel{
+.panel{
 
 display:none;
 
 position:absolute;
 
-left:24px;
+left:20px;
 
-top:84px;
+top:85px;
 
-width:260px;
+width:280px;
 
-background:white;
+background:
 
-border-radius:22px;
+rgba(
+255,
+255,
+255,
+0.96
+);
+
+backdrop-filter:
+
+blur(
+20px
+);
+
+border-radius:24px;
 
 box-shadow:
 
-0 15px 40px
-rgba(0,0,0,.08);
+0 20px 60px
+rgba(
+0,
+0,
+0,
+0.10
+);
 
 overflow:hidden;
 
+padding:12px;
+
+z-index:999;
+
 }
 
+.panel a{
+
+display:block;
+
+padding:18px;
+
+border-radius:16px;
+
+text-decoration:none;
+
+color:#222;
+
+font-size:18px;
+
+}
+
+.panel a:hover{
+
+background:#F5F3EE;
+
+}
 
 .panel a{
 
@@ -437,8 +480,10 @@ My Bazaar
 </div>
 
 <div
+<div
 class="panel"
-id="panel">
+id="panel"
+style="display:none;">
 
 <a href="/profile.html">
 
@@ -735,6 +780,85 @@ document
 
 title;
 
+
+</script>
+<script>
+
+function toggleMenu(){
+
+let menu=
+
+document
+.getElementById(
+"panel"
+);
+
+if(
+
+menu.style.display
+==="block"
+
+){
+
+menu.style.display=
+
+"none";
+
+}
+
+else{
+
+menu.style.display=
+
+"block";
+
+}
+
+}
+
+document
+.addEventListener(
+"click",
+
+function(e){
+
+let menu=
+
+document
+.getElementById(
+"panel"
+);
+
+let icon=
+
+document
+.querySelector(
+".menu"
+);
+
+if(
+
+menu
+&&
+!menu.contains(
+e.target
+)
+&&
+!icon.contains(
+e.target
+)
+
+){
+
+menu.style.display=
+
+"none";
+
+}
+
+}
+
+);
 
 </script>
 
