@@ -400,52 +400,8 @@ color:#555;
 
 text-align:center;
 
-font-size:14px;
+font-size:14px;}
 
-}
-.community{
-
-margin:
-
-10px
-24px
-40px;
-
-background:
-
-linear-gradient(
-135deg,
-#FFF,
-#F8F5EE
-);
-
-padding:28px;
-
-border-radius:30px;
-
-}
-
-.communityHeader{
-
-font-size:28px;
-
-font-weight:bold;
-
-margin-bottom:20px;
-
-}
-
-.post{
-
-background:white;
-
-padding:18px;
-
-border-radius:18px;
-
-margin-bottom:14px;
-
-}
 .liveFeed{
 
 display:flex;
@@ -545,6 +501,94 @@ translateX(
 }
 
 }
+.marketPulse{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+padding:
+
+8px
+24px;
+
+overflow:hidden;
+
+}
+
+.pulseDot{
+
+color:#B63A3A;
+
+font-size:10px;
+
+animation:
+
+blink
+
+1.2s
+
+infinite;
+
+}
+
+.pulseMessages{
+
+display:flex;
+
+gap:60px;
+
+white-space:nowrap;
+
+font-size:14px;
+
+color:#777;
+
+animation:
+
+ticker
+
+24s
+
+linear
+
+infinite;
+
+}
+
+@keyframes ticker{
+
+0%{
+
+transform:
+translateX(
+0
+);
+
+}
+
+100%{
+
+transform:
+translateX(
+-50%
+);
+
+}
+
+}
+
+@keyframes blink{
+
+50%{
+
+opacity:.4;
+
+}
+
+}
 
 
 </style>
@@ -576,6 +620,44 @@ class="menu"
 onclick="toggleMenu()">
 
 ☰
+
+</div>
+<div class="marketPulse">
+
+<div class="pulseDot">
+
+●
+
+</div>
+
+<div class="pulseMessages">
+
+<span>
+
+Official:
+Welcome to Surankote Bazaar
+
+</span>
+
+<span>
+
+Fresh vegetables uploaded
+
+</span>
+
+<span>
+
+2 hotels added today
+
+</span>
+
+<span>
+
+Transport bookings open
+
+</span>
+
+</div>
 
 </div>
 
@@ -692,13 +774,6 @@ Welcome to Surankote Bazaar
 Products
 
 </h2>
-<div class="community">
-
-<div class="communityHeader">
-
-📢 Community Updates
-
-</div>
 
 <div class="post">
 
