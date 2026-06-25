@@ -4,7 +4,7 @@
 
 <head>
 
-<title>Ahmad Grocery</title>
+<title>Shop</title>
 
 <style>
 
@@ -16,96 +16,192 @@ font-family:Arial;
 }
 
 body{
+
 background:#FAF6EE;
+
+padding-bottom:120px;
+
 }
 
-.banner{
+.cover{
 
-height:240px;
+height:260px;
 
 background:
+
 linear-gradient(
 135deg,
 #B63A3A,
-#667744
+#D85D5D
 );
 
-display:flex;
+border-radius:
 
-align-items:end;
+0
+0
+40px
+40px;
 
-padding:30px;
-
-color:white;
+position:relative;
 
 }
 
-.shoplogo{
+.shopLogo{
 
-width:90px;
+width:120px;
 
-height:90px;
-
-border-radius:50%;
+height:120px;
 
 background:white;
 
+border-radius:50%;
+
+position:absolute;
+
+bottom:-60px;
+
+left:40px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:48px;
+
+box-shadow:
+
+0 10px 30px
+rgba(0,0,0,.15);
+
 }
 
-.shopinfo{
+.content{
 
-margin-left:20px;
+padding:
+
+90px
+24px
+24px;
+
+}
+
+.name{
+
+font-size:42px;
+
+font-weight:800;
+
+}
+
+.status{
+
+margin-top:14px;
+
+display:inline-block;
+
+padding:
+
+10px
+16px;
+
+border-radius:16px;
+
+background:
+
+#E7F8EA;
+
+color:
+
+#1D8A3C;
+
+}
+
+.time{
+
+margin-top:18px;
+
+color:#777;
+
+}
+
+.description{
+
+margin-top:20px;
+
+line-height:1.7;
+
+color:#555;
 
 }
 
 .section{
 
-padding:40px;
+margin-top:50px;
 
 }
 
 .products{
 
-display:flex;
+display:grid;
 
-overflow-x:auto;
+grid-template-columns:
+
+repeat(
+auto-fill,
+minmax(
+180px,
+1fr
+));
 
 gap:20px;
 
-padding:10px 0;
-
 }
 
-.card{
-
-min-width:220px;
+.product{
 
 background:white;
 
-padding:20px;
+border-radius:22px;
 
-border-radius:18px;
+overflow:hidden;
 
 }
 
-.btn{
+.image{
 
-display:inline-block;
+height:170px;
+
+background:#EEE;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:60px;
+
+}
+
+.info{
+
+padding:18px;
+
+}
+
+.price{
+
+color:#B63A3A;
+
+font-size:22px;
 
 margin-top:10px;
 
-padding:12px 18px;
-
-background:#667744;
-
-color:white;
-
-text-decoration:none;
-
-border-radius:12px;
-
 }
-  .bottomnav{
+
+.orderBar{
 
 position:fixed;
 
@@ -117,33 +213,52 @@ width:100%;
 
 background:white;
 
+padding:18px;
+
 display:flex;
 
-justify-content:space-around;
-
-padding:14px;
+gap:14px;
 
 box-shadow:
 
-0 -4px 20px rgba(0,0,0,.08);
+0 -10px 30px
+rgba(0,0,0,.08);
 
 }
 
-.bottomnav a{
+.btn{
 
-text-decoration:none;
+flex:1;
 
-color:#444;
+padding:18px;
 
-font-size:14px;
+border-radius:16px;
 
-text-align:center;
+border:none;
+
+font-size:18px;
 
 }
 
-body{
+.primary{
 
-padding-bottom:90px;
+background:#B63A3A;
+
+color:white;
+
+}
+
+.secondary{
+
+background:#F2EEE6;
+
+}
+
+.closed{
+
+background:#555;
+
+color:white;
 
 }
 
@@ -153,215 +268,117 @@ padding-bottom:90px;
 
 <body>
 
-<div class="banner">
+<div class="cover">
 
-<div class="shoplogo">
+<div class="shopLogo">
+
+🏪
 
 </div>
 
-<div class="shopinfo">
+</div>
 
-<h1>
+<div class="content">
+
+<div class="name">
 
 Ahmad Grocery
 
-</h1>
+</div>
 
-<p>
+<div
+class="status"
+id="shopStatus">
 
-Open • Delivery Available
-
-</p>
+🟢 Open Now
 
 </div>
 
+<div class="time">
+
+Open:
+8:00 AM — 8:00 PM
+
 </div>
 
-<div class="section">
+<div class="description">
+
+Fresh products from your local market.
+Order online and receive delivery from nearby sellers.
+
+</div>
 
 <div class="section">
 
 <h2>
 
-Popular Products
+Products
 
 </h2>
 
+<br>
+
 <div class="products">
 
-<div class="card">
+<div class="product">
 
-<div
-style="
-height:180px;
-background:#E9E9E9;
-border-radius:10px;
-">
+<div class="image">
+
+🍚
 
 </div>
 
-<br>
-
-<h3>
+<div class="info">
 
 Premium Rice
 
-</h3>
-
-<p>
+<div class="price">
 
 ₹70
 
-</p>
-
-<a
-class="btn"
-href="/product.html">
-
-View
-
-</a>
+</div>
 
 </div>
 
-<div class="card">
+</div>
 
-<div
-style="
-height:180px;
-background:#E9E9E9;
-border-radius:10px;
-">
+<div class="product">
+
+<div class="image">
+
+🥛
 
 </div>
 
-<br>
-
-<h3>
+<div class="info">
 
 Fresh Milk
 
-</h3>
-
-<p>
-
-₹45
-
-</p>
-
-<a
-class="btn"
-href="/product.html">
-
-View
-
-</a>
-
-</div>
-
-<div class="card">
-
-<div
-style="
-height:180px;
-background:#E9E9E9;
-border-radius:10px;
-">
-
-</div>
-
-<br>
-
-<h3>
-
-Bread
-
-</h3>
-
-<p>
+<div class="price">
 
 ₹35
 
-</p>
-
-<a
-class="btn"
-href="/product.html">
-
-View
-
-</a>
-
 </div>
 
 </div>
 
 </div>
 
-<div class="card">
+<div class="product">
 
-Milk
+<div class="image">
 
-<br><br>
-
-₹45
-
-<br>
-
-<a
-class="btn"
-href="#">
-
-Add
-
-</a>
+💄
 
 </div>
 
-<div class="card">
+<div class="info">
 
-Bread
+Lipstick
 
-<br><br>
+<div class="price">
 
-₹35
-
-<br>
-
-<a
-class="btn"
-href="/product.html">
-
-Add
-
-</a>
-  <div class="bottomnav">
-
-<a href="/">🏠<br>Home</a>
-
-<a href="/search.html">
-
-🔍<br>Explore
-
-</a>
-
-<a href="/services.html">
-
-🧰<br>Services
-
-</a>
-
-<a href="/orders.html">
-
-📦<br>Orders
-
-</a>
-
-<a href="/profile.html">
-
-👤<br>Profile
-
-</a>
+₹199
 
 </div>
 
@@ -370,6 +387,64 @@ Add
 </div>
 
 </div>
+
+</div>
+
+</div>
+
+<div class="orderBar">
+
+<button
+class="btn secondary">
+
+Chat
+
+</button>
+
+<button
+class="btn primary"
+id="orderBtn">
+
+Order Today
+
+</button>
+
+</div>
+
+<script>
+
+let open=true;
+
+if(!open){
+
+document
+.getElementById(
+"shopStatus"
+)
+.classList
+.add(
+"closed"
+);
+
+document
+.getElementById(
+"shopStatus"
+)
+.innerHTML=
+
+"⚫ Closed • Opens Tomorrow";
+
+document
+.getElementById(
+"orderBtn"
+)
+.innerHTML=
+
+"Order For Tomorrow";
+
+}
+
+</script>
 
 </body>
 
