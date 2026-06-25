@@ -345,7 +345,15 @@ id="shopPanel">
 
 <div class="shopLogo">
 
-🏪
+<img
+id="displayLogo"
+style="
+width:100%;
+height:100%;
+object-fit:cover;
+border-radius:50%;
+">
+
 
 </div>
 
@@ -374,16 +382,20 @@ id="shopStatus">
 
 <div
 class="time"
-id="displayTime">
+<span id="displayTime">
 
-Time
-
+Open Time
+</span>
 </div>
 
 <div
 class="description"
-id="displayDescription">
-Description
+<span id="displayDescription">
+
+Shop Description
+
+</span>
+
 </div>
 <div class="section">
 
@@ -562,7 +574,7 @@ localStorage
 
 ||
 
-"Shop";
+"Your Shop";
 
 document
 .getElementById(
@@ -577,7 +589,7 @@ localStorage
 
 ||
 
-"Add Description";
+"Add description";
 
 document
 .getElementById(
@@ -618,6 +630,24 @@ localStorage
 "8PM"
 
 );
+
+let logo=
+
+localStorage
+.getItem(
+"shopLogo"
+);
+
+if(logo){
+
+document
+.getElementById(
+"displayLogo"
+).src=
+
+logo;
+
+}
 
 </script>
 
