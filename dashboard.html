@@ -2,7 +2,12 @@
 
 <html>
 <head>
-<title>Dashboard • Hmara Bazaar</title>
+
+<title>Dashboard</title>
+
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1">
 
 <style>
 
@@ -14,52 +19,107 @@ font-family:Arial;
 }
 
 body{
+
 background:#FAF6EE;
-padding-bottom:120px;
+
+padding:30px;
+
 color:#222;
+
 }
+
+.container{
+
+max-width:1500px;
+
+margin:auto;
+
+background:#FFFDF9;
+
+border-radius:34px;
+
+padding:28px;
+
+box-shadow:
+0 20px 80px
+rgba(0,0,0,.06);
+
+}
+
+/* TOP */
 
 .top{
-padding:20px;
+
 display:flex;
+
 justify-content:space-between;
-align-items:center;
-position:sticky;
-top:0;
-background:#FAF6EE;
-z-index:20;
+
+align-items:flex-start;
+
+position:relative;
+
 }
 
-.shopTitle{
+.left{
+
 display:flex;
-align-items:center;
-gap:16px;
-}
 
-.logo{
-width:72px;
-height:72px;
-border-radius:20px;
-background:white;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:30px;
-box-shadow:0 10px 25px rgba(0,0,0,.08);
-}
+gap:20px;
 
-.title h1{
-font-size:30px;
-color:#B63A3A;
-}
+align-items:flex-start;
 
-.title p{
-color:#777;
 }
 
 .menu{
-font-size:34px;
+
+font-size:42px;
+
 cursor:pointer;
+
+margin-top:6px;
+
+}
+
+.shopMeta h1{
+
+font-size:30px;
+
+display:flex;
+
+gap:14px;
+
+align-items:center;
+
+}
+
+.open{
+
+background:#1D8A3C;
+
+color:white;
+
+padding:8px 12px;
+
+border-radius:10px;
+
+font-size:18px;
+
+}
+
+.time{
+
+margin-top:12px;
+
+font-size:16px;
+
+}
+
+.more{
+
+font-size:34px;
+
+cursor:pointer;
+
 }
 
 .dropdown{
@@ -68,20 +128,21 @@ display:none;
 
 position:absolute;
 
-right:20px;
+right:0;
 
-top:90px;
+top:70px;
 
-width:240px;
+width:320px;
 
 background:white;
 
-border-radius:24px;
+border-radius:26px;
 
 overflow:hidden;
 
 box-shadow:
-0 20px 50px rgba(0,0,0,.12);
+0 20px 60px
+rgba(0,0,0,.10);
 
 }
 
@@ -89,91 +150,116 @@ box-shadow:
 
 display:block;
 
-padding:20px;
+padding:24px;
 
 text-decoration:none;
 
-color:#333;
+color:#222;
+
+font-size:24px;
+
+border-bottom:1px solid #EEE;
 
 }
 
 .dropdown a:hover{
 
-background:#F8F5EF;
+background:#F7F2E8;
 
 }
 
-.preview{
-
-margin:24px;
-
-background:white;
-
-border-radius:32px;
-
-overflow:hidden;
-
-box-shadow:
-0 15px 40px rgba(0,0,0,.08);
-
-}
+/* BANNER */
 
 .banner{
 
-height:220px;
+margin-top:26px;
+
+height:360px;
+
+border-radius:34px;
+
+overflow:hidden;
+
+position:relative;
 
 background:
 linear-gradient(
 135deg,
-#B63A3A,
-#D66D6D
+#4A2D16,
+#714421
 );
 
-position:relative;
+}
+
+.banner img{
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
 
 }
 
-.editBanner{
+.overlay{
 
 position:absolute;
 
-right:20px;
+left:40px;
 
-top:20px;
+top:70px;
 
-background:white;
-
-padding:10px 18px;
-
-border-radius:14px;
-
-cursor:pointer;
+color:white;
 
 }
 
-.previewContent{
+.overlay h2{
 
-padding:90px 26px 30px;
+font-size:74px;
+
+}
+
+.overlay p{
+
+font-size:26px;
+
+margin-top:16px;
+
+}
+
+/* PROFILE */
+
+.shop{
+
+display:flex;
+
+gap:40px;
+
+margin-top:-90px;
 
 position:relative;
 
+padding-left:20px;
+
 }
 
-.previewLogo{
+.logo{
 
-position:absolute;
+width:220px;
 
-top:-55px;
+height:220px;
 
-left:26px;
+border-radius:50%;
 
-width:110px;
+background:
 
-height:110px;
+linear-gradient(
+135deg,
+#4F6D44,
+#26391F
+);
 
-background:white;
-
-border-radius:30px;
+border:8px solid white;
 
 display:flex;
 
@@ -181,110 +267,65 @@ align-items:center;
 
 justify-content:center;
 
-font-size:46px;
+color:white;
 
-box-shadow:
-0 15px 35px rgba(0,0,0,.12);
+font-size:42px;
+
+font-weight:bold;
 
 }
 
-.editLogo{
+.logoCam{
 
 position:absolute;
 
-top:10px;
+left:180px;
 
-right:10px;
+bottom:12px;
 
-background:#FAF6EE;
+width:60px;
 
-padding:8px;
+height:60px;
 
-border-radius:10px;
+background:white;
 
-cursor:pointer;
+border-radius:50%;
 
-}
+display:flex;
 
-.shopName{
+align-items:center;
 
-font-size:36px;
-
-font-weight:800;
+justify-content:center;
 
 }
 
 .shopInfo{
 
-margin-top:10px;
-
-color:#777;
+padding-top:100px;
 
 }
 
-.live{
+.shopInfo h1{
 
-display:inline-block;
+font-size:64px;
+
+}
+
+.shopInfo p{
 
 margin-top:16px;
 
-background:#E7F8EA;
+color:#666;
 
-color:#0C8A34;
-
-padding:12px 18px;
-
-border-radius:16px;
+font-size:24px;
 
 }
 
-.actions{
-
-display:grid;
-
-grid-template-columns:
-repeat(
-2,
-1fr
-);
-
-gap:16px;
-
-padding:24px;
-
-}
-
-.box{
-
-background:white;
-
-padding:26px;
-
-border-radius:26px;
-
-cursor:pointer;
-
-box-shadow:
-0 10px 25px rgba(0,0,0,.05);
-
-}
-
-.box:hover{
-
-transform:
-translateY(-4px);
-
-}
-
-.box h3{
-
-margin-bottom:10px;
-
-}
+/* PRODUCTS */
 
 .section{
 
-padding:24px;
+margin-top:50px;
 
 }
 
@@ -294,138 +335,251 @@ display:flex;
 
 justify-content:space-between;
 
-align-items:center;
+}
 
-margin-bottom:20px;
+.section h2{
+
+font-size:38px;
+
+}
+
+.grid{
+
+margin-top:24px;
+
+display:grid;
+
+grid-template-columns:
+
+260px
+repeat(
+4,
+1fr
+);
+
+gap:24px;
 
 }
 
 .add{
 
-background:#B63A3A;
+background:
 
-color:white;
+transparent;
 
-padding:12px 18px;
+border:
 
-border-radius:14px;
+2px
+dashed
+#E3A8A8;
 
-cursor:pointer;
-
-}
-
-.cards{
+border-radius:26px;
 
 display:flex;
 
-gap:18px;
-
-overflow:auto;
-
-}
-
-.cards::-webkit-scrollbar{
-
-display:none;
-
-}
-
-.card{
-
-min-width:230px;
-
-background:white;
-
-border-radius:24px;
-
-padding:22px;
-
-position:relative;
-
-}
-
-.move{
-
-position:absolute;
-
-top:16px;
-
-right:16px;
-
-cursor:pointer;
-
-}
-
-.image{
-
-height:150px;
-
-border-radius:18px;
-
-background:#EEE;
-
-display:flex;
+flex-direction:column;
 
 align-items:center;
 
 justify-content:center;
 
-font-size:54px;
+font-size:34px;
 
-margin-bottom:16px;
+color:#B63A3A;
+
+min-height:400px;
 
 }
 
-.bottom{
-
-position:fixed;
-
-left:0;
-
-bottom:0;
-
-width:100%;
-
-padding:18px;
+.product{
 
 background:white;
 
-display:flex;
+border-radius:26px;
 
-gap:14px;
+padding:20px;
 
 box-shadow:
-0 -10px 30px rgba(0,0,0,.08);
+0 6px 20px
+rgba(0,0,0,.04);
 
 }
 
-button{
+.productImage{
 
-flex:1;
+height:260px;
 
-padding:18px;
-
-border:none;
+background:#F4F1EA;
 
 border-radius:18px;
 
-font-size:18px;
+}
 
-cursor:pointer;
+.product h3{
+
+margin-top:20px;
+
+font-size:28px;
 
 }
 
-.save{
+.price{
 
-background:#B63A3A;
+color:#3A7A2A;
+
+margin-top:10px;
+
+font-size:34px;
+
+}
+
+.stock{
+
+display:inline-block;
+
+margin-top:14px;
+
+background:#3A7A2A;
 
 color:white;
 
+padding:10px 14px;
+
+border-radius:10px;
+
 }
 
-.previewBtn{
+/* CATEGORIES */
 
-background:#F2EEE6;
+.rows{
+
+margin-top:30px;
+
+display:flex;
+
+flex-direction:column;
+
+gap:16px;
+
+}
+
+.row{
+
+background:white;
+
+padding:28px;
+
+border-radius:20px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+font-size:28px;
+
+}
+
+/* STATS */
+
+.stats{
+
+display:grid;
+
+grid-template-columns:
+repeat(
+4,
+1fr
+);
+
+gap:22px;
+
+margin-top:40px;
+
+}
+
+.stat{
+
+background:white;
+
+padding:34px;
+
+border-radius:24px;
+
+text-align:center;
+
+}
+
+.big{
+
+font-size:58px;
+
+margin-top:10px;
+
+}
+
+.link{
+
+margin-top:16px;
+
+display:block;
+
+text-decoration:none;
+
+}
+
+/* SAVE */
+
+.save{
+
+margin-top:40px;
+
+padding:28px;
+
+border-radius:24px;
+
+background:
+
+linear-gradient(
+90deg,
+#406D2C,
+#547B34
+);
+
+color:white;
+
+text-align:center;
+
+font-size:26px;
+
+}
+
+@media(max-width:1000px){
+
+.grid{
+
+grid-template-columns:1fr;
+
+}
+
+.stats{
+
+grid-template-columns:1fr 1fr;
+
+}
+
+.shop{
+
+flex-direction:column;
+
+}
+
+.shopInfo h1{
+
+font-size:42px;
+
+}
 
 }
 
@@ -435,33 +589,48 @@ background:#F2EEE6;
 
 <body>
 
+<div class="container">
+
 <div class="top">
 
-<div class="shopTitle">
+<div class="left">
 
-<div class="logo">
+<div
+class="menu">
 
-🏪
+☰
 
 </div>
 
-<div class="title">
+<div class="shopMeta">
 
-<h1>Ahmad Grocery</h1>
+<h1>
 
-<p>Seller Dashboard</p>
+Ahmad Grocery
+
+<span class="open">
+
+OPEN
+
+</span>
+
+</h1>
+
+<div class="time">
+
+8:00 AM – 10:00 PM ✎
+
+</div>
 
 </div>
 
 </div>
 
 <div
-class="menu"
-onclick="menu()">
+class="more"
+onclick="toggleMenu()">
 
 ⋯
-
-</div>
 
 </div>
 
@@ -469,81 +638,85 @@ onclick="menu()">
 class="dropdown"
 id="drop">
 
-<a href="#">📊 Analytics</a>
+<a href="#">
 
-<a href="#">🚚 Delivery Setup</a>
+✏ Edit Shop
 
-<a href="#">📦 Orders</a>
+</a>
 
-<a href="#">⭐ Subscription</a>
+<a href="#">
 
-<a href="#">✏ Edit Shop</a>
+🛵 Delivery Setup
+
+</a>
+
+<a href="#">
+
+📊 Analytics
+
+</a>
+
+<a href="#">
+
+⚙ Settings
+
+</a>
 
 </div>
 
-<div class="preview">
+</div>
 
 <div class="banner">
 
-<div class="editBanner">
+<div class="overlay">
 
-Change Banner
+<h2>
 
-</div>
+Fresh Grocery
 
-</div>
+</h2>
 
-<div class="previewContent">
+<p>
 
-<div class="previewLogo">
+Daily Essentials, Delivered Fast
 
-🏪
-
-<div class="editLogo">
-
-✏
+</p>
 
 </div>
 
 </div>
 
-<div class="shopName">
+<div class="shop">
 
-Ahmad Grocery
+<div>
+
+<div class="logo">
+
+AHMAD
+
+</div>
+
+<div class="logoCam">
+
+📷
+
+</div>
 
 </div>
 
 <div class="shopInfo">
 
-Open • 8:00 AM — 8:00 PM
+<h1>
 
-</div>
+Ahmad Grocery
 
-<div class="live">
+</h1>
 
-🟢 Live in marketplace
+<p>
 
-</div>
+📍 Gulberg • Your daily needs, our priority.
 
-</div>
-
-</div>
-
-<div class="actions">
-
-<div class="box">
-
-<h3>Add Product</h3>
-
-<p>Upload products directly.</p>
-
-</div>
-
-<div class="box">
-
-<h3>Arrange Sections</h3>
-
-<p>Drag product layers.</p>
+</p>
 
 </div>
 
@@ -553,118 +726,168 @@ Open • 8:00 AM — 8:00 PM
 
 <div class="sectionHead">
 
-<h2>Pinned Products</h2>
+<h2>
+
+Pinned Products
+
+</h2>
+
+⋮
+
+</div>
+
+<div class="grid">
 
 <div class="add">
 
-* Add
+*
+
+Add Product
 
 </div>
 
+<div class="product">
+<div class="productImage"></div>
+<h3>Basmati Rice</h3>
+<div class="price">Rs.180</div>
+<div class="stock">IN STOCK</div>
 </div>
 
-<div class="cards">
-
-<div class="card">
-
-<div class="move">
-
-⋮⋮
-
+<div class="product">
+<div class="productImage"></div>
+<h3>Cooking Oil</h3>
+<div class="price">Rs.320</div>
+<div class="stock">IN STOCK</div>
 </div>
 
-<div class="image">
-
-🍚
-
+<div class="product">
+<div class="productImage"></div>
+<h3>Tea</h3>
+<div class="price">Rs.950</div>
+<div class="stock">IN STOCK</div>
 </div>
 
-Rice
-
-</div>
-
-<div class="card">
-
-<div class="move">
-
-⋮⋮
-
-</div>
-
-<div class="image">
-
-🥛
-
-</div>
-
-Milk
-
+<div class="product">
+<div class="productImage"></div>
+<h3>Aata</h3>
+<div class="price">Rs.450</div>
+<div class="stock">IN STOCK</div>
 </div>
 
 </div>
 
 </div>
 
-<div class="section">
+<div class="rows">
 
-<div class="sectionHead">
+<div class="row">🟢 New Arrivals <span>12 products ⋮</span></div>
 
-<h2>New Arrivals</h2>
+<div class="row">🔴 Discount Sale <span>18 products ⋮</span></div>
 
-<div class="add">
+<div class="row">🔵 Beverages <span>24 products ⋮</span></div>
 
-* Add
+<div class="row">🟠 Snacks <span>20 products ⋮</span></div>
+
+<div class="row">🟣 Household Essentials <span>30 products ⋮</span></div>
+
+</div>
+
+<div class="stats">
+
+<div class="stat">
+
+Products
+
+<div class="big">
+
+104
+
+</div>
+
+<a
+class="link">
+
+View all
+
+</a>
+
+</div>
+
+<div class="stat">
+
+Orders
+
+<div class="big">
+
+23
+
+</div>
+
+<a
+class="link">
+
+View all
+
+</a>
+
+</div>
+
+<div class="stat">
+
+Views
+
+<div class="big">
+
+1248
+
+</div>
+
+<a
+class="link">
+
+Analytics
+
+</a>
+
+</div>
+
+<div class="stat">
+
+Rating
+
+<div class="big">
+
+4.8
+
+</div>
+
+<a
+class="link">
+
+Reviews
+
+</a>
 
 </div>
 
 </div>
 
-<div class="cards">
+<div class="save">
 
-<div class="card">
-
-<div class="move">
-
-⋮⋮
+✓ All changes saved — Your shop is live and updated
 
 </div>
-
-<div class="image">
-
-💄
-
-</div>
-
-Cosmetics
-
-</div>
-
-</div>
-
-</div>
-
-<div class="bottom">
-
-<button class="previewBtn">
-
-Preview Shop
-
-</button>
-
-<button class="save">
-
-Save Changes
-
-</button>
 
 </div>
 
 <script>
 
-function menu(){
+function toggleMenu(){
 
 let d=
-document.getElementById(
+
+document
+.getElementById(
 "drop"
 );
 
