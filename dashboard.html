@@ -4,7 +4,7 @@
 
 <head>
 
-<title>Seller Dashboard</title>
+<title>Shop Dashboard</title>
 
 <style>
 
@@ -17,19 +17,113 @@ font-family:Arial;
 
 body{
 background:#FAF6EE;
+padding-bottom:120px;
 }
 
-.wrap{
-max-width:1200px;
-margin:auto;
-padding:40px;
+.top{
+
+padding:24px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
 }
 
-.header{
-background:#B63A3A;
-color:white;
-padding:30px;
-border-radius:20px;
+.menu{
+
+font-size:34px;
+
+cursor:pointer;
+
+}
+
+.name{
+
+font-size:28px;
+
+font-weight:800;
+
+color:#B63A3A;
+
+}
+
+.panel{
+
+display:none;
+
+position:absolute;
+
+left:20px;
+
+top:80px;
+
+width:260px;
+
+background:white;
+
+border-radius:22px;
+
+overflow:hidden;
+
+box-shadow:
+0 20px 50px
+rgba(0,0,0,.10);
+
+}
+
+.panel a{
+
+display:block;
+
+padding:18px;
+
+text-decoration:none;
+
+color:#222;
+
+}
+
+.panel a:hover{
+
+background:#F6F2EA;
+
+}
+
+.container{
+
+padding:24px;
+
+}
+
+.status{
+
+background:white;
+
+padding:24px;
+
+border-radius:26px;
+
+margin-bottom:24px;
+
+}
+
+.green{
+
+display:inline-block;
+
+padding:10px 16px;
+
+background:#E8F7EA;
+
+color:#1B8D3E;
+
+border-radius:14px;
+
+margin-top:10px;
+
 }
 
 .grid{
@@ -37,11 +131,10 @@ border-radius:20px;
 display:grid;
 
 grid-template-columns:
-1fr 1fr 1fr;
 
-gap:20px;
+1fr 1fr;
 
-margin-top:30px;
+gap:18px;
 
 }
 
@@ -49,27 +142,63 @@ margin-top:30px;
 
 background:white;
 
-padding:30px;
+padding:26px;
 
-border-radius:18px;
-
-}
-
-.button{
-
-display:inline-block;
-
-margin-top:20px;
-
-padding:12px 18px;
-
-background:#667744;
-
-color:white;
+border-radius:22px;
 
 text-decoration:none;
 
-border-radius:10px;
+color:#222;
+
+}
+
+.big{
+
+grid-column:1/-1;
+
+}
+
+.card h2{
+
+font-size:20px;
+
+margin-bottom:10px;
+
+}
+
+.stats{
+
+display:flex;
+
+gap:16px;
+
+margin-top:24px;
+
+}
+
+.stat{
+
+flex:1;
+
+background:white;
+
+padding:20px;
+
+border-radius:20px;
+
+text-align:center;
+
+}
+
+.activity{
+
+margin-top:28px;
+
+background:white;
+
+padding:24px;
+
+border-radius:22px;
 
 }
 
@@ -79,43 +208,79 @@ border-radius:10px;
 
 <body>
 
-<div class="wrap">
+<div class="top">
 
-<div class="header">
+<div
+class="menu"
+onclick="toggleMenu()">
 
-<h1>
+☰
 
-<h1 id="title">
+</div>
 
-Seller Dashboard
+<div
+class="name"
+id="shopName">
 
-</h1>
+My Shop
 
-<script>
+</div>
 
-const shopName=
-localStorage.getItem(
-"shopName"
-);
+</div>
 
-if(shopName){
+<div
+class="panel"
+id="panel">
 
-document.getElementById(
-"title"
-).innerText=
+<a href="/sellerorders.html">
 
-shopName;
+📦 Orders
 
-}
+</a>
 
-</script>
+<a href="#">
 
+⭐ Subscription
 
-</h1>
+</a>
 
-<p>
+<a href="#">
 
-Your Digital Shop
+📊 Analytics
+
+</a>
+
+<a href="/profile.html">
+
+⚙ Settings
+
+</a>
+
+</div>
+
+<div class="container">
+
+<div class="status">
+
+<h2>
+
+Your Shop Is Live
+
+</h2>
+
+<div class="green">
+
+🟢 OPEN
+
+</div>
+
+<p
+style="
+margin-top:18px;
+color:#666;
+">
+
+Manage your shop from backstage.
 
 </p>
 
@@ -123,235 +288,172 @@ Your Digital Shop
 
 <div class="grid">
 
-<div class="card">
+<a
+href="/shop.html"
+class="card big">
+
+<h2>
+
+👁 Preview Customer View
+
+</h2>
+
+See your public shop
+
+</a>
+
+<a
+href="/createshop.html"
+class="card">
+
+<h2>
+
+✏ Edit Shop
+
+</h2>
+
+Update logo banner description
+
+</a>
+
+<a
+href="/addproduct.html"
+class="card">
+
+<h2>
+
+➕ Add Product
+
+</h2>
+
+Upload products
+
+</a>
+
+<a
+href="/dashboardproducts.html"
+class="card">
+
+<h2>
+
+🧩 Arrange Sections
+
+</h2>
+
+Pinned
+New
+Discount
+
+</a>
+
+<a
+href="/services.html"
+class="card">
+
+<h2>
+
+🚚 Delivery Setup
+
+</h2>
+
+Control orders
+
+</a>
+
+</div>
+
+<div class="stats">
+
+<div class="stat">
+
+12
+
+<br>
 
 Products
 
-<br><br>
+</div>
 
-0 Products
+<div class="stat">
+
+0
 
 <br>
-  <!DOCTYPE html>
-
-<html>
-
-<head>
-
-<title>Create Shop</title>
-
-<style>
-
-body{
-
-background:#FAF6EE;
-
-font-family:Arial;
-
-padding:50px;
-
-}
-
-.box{
-
-background:white;
-
-padding:40px;
-
-border-radius:20px;
-
-max-width:700px;
-
-}
-
-input,
-textarea{
-
-width:100%;
-
-padding:14px;
-
-margin-top:12px;
-
-margin-bottom:16px;
-
-box-sizing:border-box;
-
-}
-
-.publish{
-
-display:block;
-
-text-align:center;
-
-padding:16px;
-
-background:#667744;
-
-color:white;
-
-text-decoration:none;
-
-border-radius:12px;
-
-}
-
-.progress{
-
-margin-top:10px;
-
-margin-bottom:20px;
-
-padding:14px;
-
-background:#FFF2D8;
-
-border-radius:12px;
-
-}
-
-.label{
-
-margin-top:10px;
-
-margin-bottom:8px;
-
-color:#555;
-
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="box">
-
-<h1>
-
-Create Your Shop
-
-</h1>
-
-<p>
-
-Set up your digital shop
-
-</p>
-
-<div class="label">
-
-Shop Logo
-
-</div>
-
-<input placeholder="Shop Logo URL">
-
-<div class="label">
-
-Shop Banner
-
-</div>
-
-<input placeholder="Banner URL">
-
-<div class="label">
-
-Opening Time
-
-</div>
-
-<input placeholder="09:00 AM">
-
-<div class="label">
-
-Closing Time
-
-</div>
-
-<input placeholder="09:00 PM">
-
-<div class="label">
-
-WhatsApp Number
-
-</div>
-
-<input placeholder="+91">
-
-<div class="label">
-
-Shop Description
-
-</div>
-
-<textarea
-placeholder="Tell customers about your shop">
-</textarea>
-
-<div class="progress">
-
-Profile Completion: 20%
-
-</div>
-
-<a
-class="publish"
-href="/dashboard.html">
-
-Publish Shop
-
-</a>
-
-</div>
-
-</body>
-
-</html>
-
-<a
-class="button"
-href="/addproduct.html">
-
-Add Product
-
-</a>
-
-</div>
-
-<div class="card">
 
 Orders
 
-<br><br>
-
-<a
-class="button"
-href="/sellerorders.html">
-
-Manage
-
-</a>
-
-0 Orders
-
 </div>
 
-<div class="card">
+<div class="stat">
 
-Subscription
+23
 
-<br><br>
+<br>
 
-Free Trial
+Views
 
 </div>
 
 </div>
 
+<div class="activity">
+
+<h3>
+
+Recent Activity
+
+</h3>
+
+<br>
+
+Shop Created ✓
+
 </div>
+
+</div>
+
+<script>
+
+document
+.getElementById(
+"shopName"
+)
+.innerText=
+
+localStorage
+.getItem(
+"shopName"
+)
+
+||
+
+"My Shop";
+
+
+function toggleMenu(){
+
+let p=
+
+document
+.getElementById(
+"panel"
+);
+
+p.style.display=
+
+p.style.display==="block"
+
+?
+
+"none"
+
+:
+
+"block";
+
+}
+
+</script>
 
 </body>
 
