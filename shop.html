@@ -511,136 +511,66 @@ Lipstick
 
 <button
 class="btn secondary">
-
 Contact Shop
-
 </button>
-
 <button
 class="btn primary">
-
 Browse Products
-
 </button>
-
 </div>
-
 <script>
 
 function togglePanel(){
-
-let p=
-
-document
-.getElementById(
-"shopPanel"
-);
-
+let p=document.getElementById("shopPanel");
 p.style.display=
-
 p.style.display==="block"
-
-?
-
-"none"
-
-:
-
+  ?
+"none":
 "block";
-
 }
 
 let open=true;
 
-if(!open){
-
-document
-.getElementById("shopStatus")
+if(!open){document.getElementById("shopStatus")
 .innerHTML=
-
 "⚫ Closed • Order For Tomorrow";
-
 }
-document
-.getElementById(
-"displayName"
-)
+document.getElementById("displayName")
 .innerText=
 
-localStorage
-.getItem(
-"shopName"
-)
+localStorage.getItem("shopName")
 
 ||
-
 "Your Shop";
 
-document
-.getElementById(
-"displayDescription"
-)
+document.getElementById("displayDescription")
 .innerText=
 
-localStorage
-.getItem(
-"shopDescription"
-)
-
+localStorage.getItem("shopDescription")
 ||
-
 "Add description";
 
-document
-.getElementById(
-"displayTime"
-)
-.innerText=
-
-"Open: "
-
-*
-
-(
-localStorage
+document.getElementById("displayTime")
+.innerText="Open: "
+  *
+(localStorage
 .getItem(
-"shopOpen"
-)
-
+"shopOpen")
 ||
-
-"8AM"
-
-)
-
-*
-
-" — "
-
-*
-
-(
-localStorage
+"8AM")
+  *" — "*
+(localStorage
 .getItem(
-"shopClose"
-)
-
+"shopClose")
 ||
+"8PM");
 
-"8PM"
-
-);
-
-let logo=
-
-localStorage
+let logo=localStorage
 .getItem(
 "shopLogo"
 );
 
-if(logo){
-
-document
+if(logo){document
 .getElementById(
 "displayLogo"
 ).src=
@@ -648,25 +578,6 @@ document
 logo;
 
 }
-
-</script>
-<script>
-
-function loadDashboard(){
-
-document.querySelector(
-".shopName"
-).innerText=
-shop.name;
-
-document.querySelector(
-".description"
-).innerText=
-shop.description;
-
-}
-
-loadDashboard();
 
 </script>
 </body>
