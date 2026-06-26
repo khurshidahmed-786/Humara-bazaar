@@ -151,6 +151,7 @@ Your description appears here
 </div>
 
 <button
+id="publishBtn"
 onclick="publishShop()"
 style="
 width:100%;
@@ -159,11 +160,13 @@ background:#667744;
 color:white;
 border:none;
 border-radius:14px;
+font-size:18px;
 ">
 
 Publish Shop
 
 </button>
+
 
 </div>
 
@@ -283,8 +286,35 @@ localStorage.setItem(
 document.getElementById("shopDescription").value
 );
 
+document
+.getElementById(
+"publishBtn"
+)
+.innerText=
+
+"Preparing Shop...";
+
+document
+.getElementById(
+"publishBtn"
+)
+.disabled=
+
+true;
+
+setTimeout(
+
+function(){
+
 window.location.href=
+
 "/shop.html";
+
+},
+
+1800
+);
+
 
 }
 
