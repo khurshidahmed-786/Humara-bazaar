@@ -588,7 +588,72 @@ font-size:42px;
 </head>
 
 <body>
+<script>
 
+/*
+HMARA BAZAAR
+LOCAL SHOP DATABASE
+(v1 local storage)
+*/
+
+let shop = JSON.parse(
+localStorage.getItem("shopData")
+) || {
+
+name:"Ahmad Grocery",
+
+open:"08:00",
+
+close:"22:00",
+
+description:
+"Fresh products from your local market.",
+
+logo:"",
+banner:"",
+
+sections:[
+
+{
+title:"Pinned Products",
+products:[]
+},
+
+{
+title:"New Arrivals",
+products:[]
+},
+
+{
+title:"Discount Sale",
+products:[]
+}
+
+],
+
+analytics:{
+
+views:1248,
+orders:23,
+rating:4.8
+
+}
+
+};
+
+
+/* SAVE */
+
+function saveShop(){
+
+localStorage.setItem(
+"shopData",
+JSON.stringify(shop)
+);
+
+}
+
+</script>
 <div class="container">
 
 <div class="top">
