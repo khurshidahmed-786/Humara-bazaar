@@ -829,19 +829,74 @@ onclick="window.location.href='/addproduct.html'">
 
 </div>
 
-<div class="rows">
+<div class="section">
 
-<div class="row">🟢 New Arrivals <span>12 products ⋮</span></div>
+<div class="sectionHead">
 
-<div class="row">🔴 Discount Sale <span>18 products ⋮</span></div>
+<h2>
 
-<div class="row">🔵 Beverages <span>24 products ⋮</span></div>
+⭐ Pinned Products
 
-<div class="row">🟠 Snacks <span>20 products ⋮</span></div>
-
-<div class="row">🟣 Household Essentials <span>30 products ⋮</span></div>
+</h2>
 
 </div>
+
+<div
+class="grid"
+id="pinnedGrid">
+
+<div
+class="add"
+onclick="window.location.href='/addproduct.html'">
+
+＋ Add Product
+
+</div>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<div class="sectionHead">
+
+<h2>
+
+🆕 New Arrivals
+
+</h2>
+
+</div>
+
+<div
+class="grid"
+id="arrivalGrid">
+
+</div>
+
+</div>
+
+<div class="section">
+
+<div class="sectionHead">
+
+<h2>
+
+🔥 Discount Sale
+
+</h2>
+
+</div>
+
+<div
+class="grid"
+id="discountGrid">
+
+</div>
+
+</div>
+
 
 <div class="stats">
 
@@ -1045,18 +1100,29 @@ localStorage.getItem(
 ||
 
 [];
+let products=
 
-let grid=
+JSON.parse(
 
-document.getElementById(
-"productGrid"
-);
+localStorage.getItem(
+"products"
+)
 
-products.forEach(
+)
 
-function(p){
+||
 
-grid.innerHTML+=`
+[];
+
+function drawProduct(
+
+container,
+
+product
+
+){
+
+container.innerHTML+=`
 
 <div class="product">
 
@@ -1068,19 +1134,19 @@ grid.innerHTML+=`
 
 <h3>
 
-${p.name}
+${product.name}
 
 </h3>
 
 <div class="price">
 
-₹${p.price}
+₹${product.price}
 
 </div>
 
 <div class="stock">
 
-${p.delivery}
+${product.delivery}
 
 </div>
 
@@ -1090,7 +1156,68 @@ ${p.delivery}
 
 }
 
+products.forEach(
+
+function(p){
+
+if(
+
+p.section===
+
+"Pinned Products"
+
+){
+
+drawProduct(
+
+document.getElementById(
+"pinnedGrid"
+),
+
+p
+
 );
+
+}
+
+else if(
+
+p.section===
+
+"New Arrivals"
+
+){
+
+drawProduct(
+
+document.getElementById(
+"arrivalGrid"
+),
+
+p
+
+);
+
+}
+
+else{
+
+drawProduct(
+
+document.getElementById(
+"discountGrid"
+),
+
+p
+
+);
+
+}
+
+}
+
+);
+
 
 </script>
 
