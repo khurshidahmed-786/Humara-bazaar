@@ -150,22 +150,16 @@ Your description appears here
 
 </div>
 
-<button
-id="publishBtn"
+<div
+class="save"
 onclick="publishShop()"
-style="
-width:100%;
-padding:18px;
-background:#667744;
-color:white;
-border:none;
-border-radius:14px;
-font-size:18px;
-">
+id="publishBtn"
+style="cursor:pointer;">
 
-Publish Shop
+🚀 Publish Shop
 
-</button>
+</div>
+
 
 
 </div>
@@ -320,16 +314,6 @@ localStorage.setItem(
 "shopBanner",
 shop.banner
 );
-
-
-
-app.shops.push(
-shop
-);
-
-saveApp();
-
-
 
 document.getElementById(
 "publishBtn"
