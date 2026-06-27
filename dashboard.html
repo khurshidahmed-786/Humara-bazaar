@@ -1155,64 +1155,51 @@ ${product.delivery}
 `;
 
 }
-
 products.forEach(
 
 function(p){
 
-if(
-
-p.section===
-
-"Pinned Products"
-
-){
-
-drawProduct(
+let target=
 
 document.getElementById(
 "pinnedGrid"
-),
-
-p
-
 );
 
-}
+if(
 
-else if(
-
-p.section===
-
-"New Arrivals"
+p.section==="New Arrivals"
 
 ){
 
-drawProduct(
+target=
 
 document.getElementById(
 "arrivalGrid"
-),
-
-p
-
 );
 
 }
 
-else{
+if(
 
-drawProduct(
+p.section==="Discount Sale"
+
+){
+
+target=
 
 document.getElementById(
 "discountGrid"
-),
+);
+
+}
+
+drawProduct(
+
+target,
 
 p
 
 );
-
-}
 
 }
 
