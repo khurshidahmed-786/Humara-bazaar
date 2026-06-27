@@ -171,80 +171,68 @@ Publish Shop
 </div>
 <script src="/app.js"></script>
 <script>
+
 setInterval(function(){
 
 let n=
-
-document
-.getElementById(
+document.getElementById(
 "shopName"
 );
 
 if(n){
 
-document
-.getElementById(
+document.getElementById(
 "previewName"
 ).innerText=
 
 n.value
-
 ||
-
 "Your Shop";
 
 }
 
-let d=
 
-document
-.getElementById(
+let d=
+document.getElementById(
 "shopDescription"
 );
 
 if(d){
 
-document
-.getElementById(
+document.getElementById(
 "previewDescription"
 ).innerText=
 
 d.value
-
 ||
-
 "Description";
 
 }
 
-let o=
 
-document
-.getElementById(
+let o=
+document.getElementById(
 "shopOpen"
 );
 
 let c=
-
-document
-.getElementById(
+document.getElementById(
 "shopClose"
 );
 
 if(o&&c){
 
-document
-.getElementById(
+document.getElementById(
 "previewTime"
 ).innerText=
 
 (o.value||"8AM")
 
-*
++
 
 " — "
 
-*
++
 
 (c.value||"8PM");
 
@@ -254,70 +242,120 @@ document
 
 300);
 
+
+
 function publishShop(){
+
+
+let shop={
+
+name:
+
+document.getElementById(
+"shopName"
+).value,
+
+description:
+
+document.getElementById(
+"shopDescription"
+).value,
+
+open:
+
+document.getElementById(
+"shopOpen"
+).value,
+
+close:
+
+document.getElementById(
+"shopClose"
+).value,
+
+logo:
+
+document.getElementById(
+"shopLogo"
+).value,
+
+banner:
+
+document.getElementById(
+"shopBanner"
+).value,
+
+products:[]
+
+};
+
+
 
 localStorage.setItem(
 "shopName",
-document.getElementById("shopName").value
-);
-
-localStorage.setItem(
-"shopLogo",
-document.getElementById("shopLogo").value
-);
-
-localStorage.setItem(
-"shopBanner",
-document.getElementById("shopBanner").value
-);
-
-localStorage.setItem(
-"shopOpen",
-document.getElementById("shopOpen").value
-);
-
-localStorage.setItem(
-"shopClose",
-document.getElementById("shopClose").value
+shop.name
 );
 
 localStorage.setItem(
 "shopDescription",
-document.getElementById("shopDescription").value
+shop.description
 );
 
-document
-.getElementById(
+localStorage.setItem(
+"shopOpen",
+shop.open
+);
+
+localStorage.setItem(
+"shopClose",
+shop.close
+);
+
+localStorage.setItem(
+"shopLogo",
+shop.logo
+);
+
+localStorage.setItem(
+"shopBanner",
+shop.banner
+);
+
+
+
+app.shops.push(
+shop
+);
+
+saveApp();
+
+
+
+document.getElementById(
 "publishBtn"
-)
-.innerText=
+).innerText=
 
-"Preparing Shop...";
+"Creating Shop...";
 
-document
-.getElementById(
-"publishBtn"
-)
-.disabled=
 
-true;
 
 setTimeout(
 
 function(){
 
-window.location.href="/dashboard.html";
+window.location.href=
+
+"/dashboard.html";
 
 },
 
-1800
-);
+1000
 
+);
 
 }
 
 </script>
-
 
 </body>
 
