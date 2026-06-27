@@ -828,34 +828,18 @@ Add Product
 
 </div>
 
+<div class="grid" id="productGrid">
 
-<div class="product">
-<div class="productImage"></div>
-<h3>Basmati Rice</h3>
-<div class="price">Rs.180</div>
-<div class="stock">IN STOCK</div>
+<div class="add"
+
+onclick="window.location.href='/addproduct.html'">
+
+＋ Add Product
+
 </div>
 
-<div class="product">
-<div class="productImage"></div>
-<h3>Cooking Oil</h3>
-<div class="price">Rs.320</div>
-<div class="stock">IN STOCK</div>
 </div>
 
-<div class="product">
-<div class="productImage"></div>
-<h3>Tea</h3>
-<div class="price">Rs.950</div>
-<div class="stock">IN STOCK</div>
-</div>
-
-<div class="product">
-<div class="productImage"></div>
-<h3>Aata</h3>
-<div class="price">Rs.450</div>
-<div class="stock">IN STOCK</div>
-</div>
 
 </div>
 
@@ -1064,6 +1048,65 @@ document.getElementById(
 +
 
 (close||"10PM");
+let products=
+
+JSON.parse(
+
+localStorage.getItem(
+"products"
+)
+
+)
+
+||
+
+[];
+
+let grid=
+
+document.getElementById(
+"productGrid"
+);
+
+products.forEach(
+
+function(p){
+
+grid.innerHTML+=`
+
+<div class="product">
+
+<div class="productImage">
+
+📦
+
+</div>
+
+<h3>
+
+${p.name}
+
+</h3>
+
+<div class="price">
+
+₹${p.price}
+
+</div>
+
+<div class="stock">
+
+${p.delivery}
+
+</div>
+
+</div>
+
+`;
+
+}
+
+);
 
 </script>
 
