@@ -80,38 +80,184 @@ Add Product
 
 <div class="card">
 
-<input placeholder="Product Name">
+<input
+id="productName"
+placeholder="Product Name">
 
-<input placeholder="Price">
+<input
+id="productPrice"
+placeholder="Price">
 
-<select>
+<select
+id="productSection">
 
-<option>Grocery</option>
+<option>
 
-<option>Restaurant</option>
+Pinned Products
 
-<option>Shoes</option>
+</option>
 
-<option>Clothes</option>
+<option>
 
-<option>Cosmetics</option>
+New Arrivals
+
+</option>
+
+<option>
+
+Discount Sale
+
+</option>
 
 </select>
 
-<input placeholder="Delivery Time">
+<input
+id="productDelivery"
+placeholder="Delivery Time">
 
-<a
-class="button"
-href="/dashboardproducts.html">
+<div
 
-Publish Product
+id="publishBtn"
 
-</a>
+onclick="saveProduct()"
+
+style="
+
+margin-top:24px;
+
+background:
+
+linear-gradient(
+135deg,
+#B63A3A,
+#D85D5D
+);
+
+color:white;
+
+padding:18px;
+
+border-radius:18px;
+
+text-align:center;
+
+font-size:20px;
+
+font-weight:700;
+
+cursor:pointer;
+
+">
+
+＋ Publish Product
 
 </div>
 
 </div>
 
+</div>
+
+<script>
+
+function saveProduct(){
+
+let products=
+
+JSON.parse(
+
+localStorage.getItem(
+"products"
+)
+
+)
+
+||
+
+[];
+
+
+
+let product={
+
+name:
+
+document
+.getElementById(
+"productName"
+)
+.value,
+
+price:
+
+document
+.getElementById(
+"productPrice"
+)
+.value,
+
+section:
+
+document
+.getElementById(
+"productSection"
+)
+.value,
+
+delivery:
+
+document
+.getElementById(
+"productDelivery"
+)
+.value
+
+};
+
+
+
+products.push(
+product
+);
+
+
+
+localStorage.setItem(
+
+"products",
+
+JSON.stringify(
+products
+)
+
+);
+
+
+
+document
+.getElementById(
+"publishBtn"
+)
+.innerText=
+
+"Publishing...";
+
+
+
+setTimeout(
+
+function(){
+
+window.location.href=
+
+"/dashboard.html";
+
+},
+
+800);
+
+}
+
+</script>
 
 </body>
 
