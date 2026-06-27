@@ -1087,27 +1087,12 @@ document.getElementById(
 +
 
 (close||"10PM");
-let products=
+let products =
 
 JSON.parse(
-
 localStorage.getItem(
 "products"
 )
-
-)
-
-||
-
-[];
-let products=
-
-JSON.parse(
-
-localStorage.getItem(
-"products"
-)
-
 )
 
 ||
@@ -1122,7 +1107,7 @@ product
 
 ){
 
-container.innerHTML+=`
+container.innerHTML += `
 
 <div class="product">
 
@@ -1146,7 +1131,7 @@ ${product.name}
 
 <div class="stock">
 
-${product.delivery}
+${product.delivery || "Available"}
 
 </div>
 
@@ -1155,56 +1140,71 @@ ${product.delivery}
 `;
 
 }
-products.forEach(
 
-function(p){
-
-let target=
+let pinned =
 
 document.getElementById(
 "pinnedGrid"
 );
 
-if(
-
-p.section==="New Arrivals"
-
-){
-
-target=
+let arrival =
 
 document.getElementById(
 "arrivalGrid"
 );
 
-}
-
-if(
-
-p.section==="Discount Sale"
-
-){
-
-target=
+let discount =
 
 document.getElementById(
 "discountGrid"
 );
 
-}
+products.forEach(
+
+function(p){
+
+if(
+
+p.section ===
+
+"New Arrivals"
+
+){
 
 drawProduct(
-
-target,
-
+arrival,
 p
-
 );
 
 }
 
+else if(
+
+p.section ===
+
+"Discount Sale"
+
+){
+
+drawProduct(
+discount,
+p
 );
 
+}
+
+else{
+
+drawProduct(
+pinned,
+p
+);
+
+}
+
+}
+
+);
 
 </script>
 
