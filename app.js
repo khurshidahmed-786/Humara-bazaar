@@ -1,35 +1,35 @@
-let app = JSON.parse(
-localStorage.getItem(
-"hmaraBazaar"
-)
-)
-
-||
-
-{
-
-shops:[],
-
-products:[],
-
-orders:[],
-
-user:null,
-
-market:"Surankote"
-
-};
-
-function saveApp(){
+function saveShop(data){
 
 localStorage.setItem(
-
-"hmaraBazaar",
-
-JSON.stringify(
-app
-)
-
+"shopData",
+JSON.stringify(data)
 );
+
+}
+
+function getShop(){
+
+let shop=
+localStorage.getItem(
+"shopData"
+);
+
+if(shop){
+
+return JSON.parse(shop);
+
+}
+
+return {};
+
+}
+
+function updateShop(key,value){
+
+let shop=getShop();
+
+shop[key]=value;
+
+saveShop(shop);
 
 }
