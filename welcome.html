@@ -693,22 +693,45 @@ m.style.display==="block"
 
 function enterMarket(){
 
-let pin=
+let code=
+
 document
 .getElementById(
 "pin"
 )
-.value;
+.value
+.trim();
 
-if(pin===""){
+localStorage.setItem(
 
-alert(
-"Please enter pincode"
+"userPincode",
+
+code
+
 );
 
-return;
+if(
+
+code==="185121"
+
+){
+
+window.location.href=
+
+"/index.html";
 
 }
+
+else{
+
+window.location.href=
+
+"/waitlist.html";
+
+}
+
+}
+
 
 localStorage
 .setItem(
