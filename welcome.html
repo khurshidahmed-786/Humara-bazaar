@@ -702,6 +702,22 @@ document
 .value
 .trim();
 
+if(
+
+code===""
+
+){
+
+alert(
+
+"Please enter pincode"
+
+);
+
+return;
+
+}
+
 localStorage.setItem(
 
 "userPincode",
@@ -732,38 +748,6 @@ window.location.href=
 
 }
 
-
-localStorage
-.setItem(
-"pincode",
-pin
-);
-
-localStorage
-.setItem(
-"marketEntered",
-"yes"
-);
-
-window.location.href=
-"/index.html";
-
-}
-if(
-
-localStorage
-.getItem(
-"marketEntered"
-)
-
-==="yes"
-
-){
-
-window.location.href=
-"/index.html";
-
-}
   function changeArea(){
 
 localStorage
