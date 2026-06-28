@@ -588,21 +588,28 @@ text-align:center;
 
 <script>
 
+let pin=
+
+localStorage.getItem(
+"userPincode"
+);
+
+
+
 if(
 
-!localStorage.getItem(
-"marketEntered"
-)
+pin!=="185121"
 
 ){
 
 window.location.href=
 
-"/welcome.html";
+"./welcome.html";
 
 }
 
 </script>
+
 
 
 <div class="topbar">
