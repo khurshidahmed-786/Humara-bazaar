@@ -422,6 +422,49 @@ font-size:18px;
 font-size:54px;
 
 }
+.topLogo{
+
+width:72px;
+
+height:auto;
+
+margin-right:14px;
+
+}
+
+.brand{
+
+display:flex;
+
+align-items:center;
+
+gap:14px;
+
+}
+
+.brandName{
+
+font-size:28px;
+
+font-weight:800;
+
+color:#345D2A;
+
+}
+
+.brandTag{
+
+font-size:13px;
+
+color:#B97A2B;
+
+}
+
+.panel{
+
+z-index:1000;
+
+}
 
 
 </style>
@@ -434,7 +477,25 @@ font-size:54px;
 
 <div class="brand">
 
-🛍️ Hamara Bazaar
+<img
+src="assets/logo.png"
+class="topLogo">
+
+<div>
+
+<div class="brandName">
+
+Hamara Bazaar
+
+</div>
+
+<div class="brandTag">
+
+Delivering Happiness
+
+</div>
+
+</div>
 
 </div>
 
@@ -450,75 +511,19 @@ onclick="toggleMenu()">
 
 <div
 class="panel"
-id="menu">
+id="panel">
 
-<a href="/login.html">
+<a href="./login.html">👤 Login</a>
 
-👤 Login
+<a href="./register.html">📝 Register</a>
 
-</a>
+<a href="./createshop.html">🏪 Open Shop</a>
 
-<a href="/register.html">
+<a href="./services.html">🛠 Services</a>
 
-📝 Register
+<a onclick="changeArea()">📍 Change Area</a>
 
-</a>
-
-<a href="/createshop.html">
-
-🏪 Open Shop
-
-</a>
-
-<a href="/services.html">
-
-🛠 Services
-
-</a>
-<a
-onclick="changeArea()">
-
-📍 Change Area
-
-</a>
-
-<a href="/savedshop.html">
-
-❤️ Saved
-
-</a>
-
-</div>
-
-</div>
-
-<div
-class="panel"
-id="menu">
-
-<a href="/login.html">
-
-Login
-
-</a>
-
-<a href="/register.html">
-
-Register
-
-</a>
-
-<a href="/createshop.html">
-
-Open Shop
-
-</a>
-
-<a href="/services.html">
-
-Services
-
-</a>
+<a href="./savedshop.html">❤️ Saved</a>
 
 </div>
 
@@ -527,7 +532,7 @@ Services
 <div class="logo">
 
 <img
-src="/assets/logo.png"
+src="assets/logo.png"
 alt="Hmara Bazaar">
 
 </div>
@@ -689,17 +694,19 @@ Growing opportunities one neighbourhood at a time.
 <script>
 function toggleMenu(){
 
-let menu=
+let panel=
 
 document.getElementById(
 "panel"
 );
 
-if(!menu)return;
+if(!panel)return;
 
-menu.style.display=
+panel.style.display=
 
-menu.style.display==="block"
+panel.style.display===
+
+"block"
 
 ?
 
