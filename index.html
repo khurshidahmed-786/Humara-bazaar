@@ -43,13 +43,21 @@ z-index:100;
 
 .menu{
 
-font-size:34px;
+font-size:30px;
 
-cursor:pointer;
+padding:10px;
 
-width:40px;
+border-radius:14px;
+
+background:white;
+
+box-shadow:
+
+0 6px 20px
+rgba(0,0,0,.06);
 
 }
+
 
 .marketWrap{
 
@@ -579,6 +587,33 @@ font-size:14px;
 text-align:center;
 
 }
+.market{
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+gap:12px;
+
+font-size:34px;
+
+font-weight:800;
+
+color:#B63A3A;
+
+}
+
+.marketLogo{
+
+width:42px;
+
+height:42px;
+
+object-fit:contain;
+
+}
 
 </style>
 
@@ -591,7 +626,7 @@ text-align:center;
 let pin=
 
 localStorage.getItem(
-"userPincode"
+"Pincode"
 );
 
 
@@ -628,7 +663,15 @@ onclick="toggleMenu()">
 class="market"
 id="marketName">
 
-My Bazaar
+<img
+src="assets/logo-icon.png"
+class="marketLogo">
+
+<span>
+
+Hamara Bazaar
+
+</span>
 
 </div>
 
@@ -1009,7 +1052,7 @@ let pin=
 
 localStorage
 .getItem(
-"userpincode"
+"pincode"
 );
 
 if(pin){
