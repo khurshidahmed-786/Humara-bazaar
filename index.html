@@ -58,15 +58,6 @@ rgba(0,0,0,.06);
 
 }
 
-
-.marketWrap{
-
-flex:1;
-
-text-align:center;
-
-}
-
 .market{
 
 display:flex;
@@ -96,26 +87,26 @@ rgba(
 0,
 0,
 0,
-0.06
+0.05
 );
 
 }
 
 .marketLogo{
 
-width:38px;
+width:36px;
 
-height:38px;
-
-object-fit:contain;
+height:36px;
 
 display:block;
+
+object-fit:contain;
 
 }
 
 .marketTitle{
 
-font-size:22px;
+font-size:20px;
 
 font-weight:800;
 
@@ -123,15 +114,16 @@ color:#B63A3A;
 
 }
 
-.marketPin{
+.marketSub{
 
 font-size:12px;
 
 color:#888;
 
-margin-top:2px;
+margin-top:3px;
 
 }
+
 
 
 .cart{
@@ -702,7 +694,6 @@ onclick="toggleMenu()">
 ☰
 
 </div>
-
 <div class="marketWrap">
 
 <div
@@ -713,8 +704,7 @@ id="marketName">
 
 <img
 src="./assets/logo-icon.png"
-class="marketLogo"
-alt="Hmara Bazaar">
+class="marketLogo">
 
 <div>
 
@@ -725,12 +715,10 @@ Hamara Bazaar
 </div>
 
 <div
-class="marketPin"
-id="marketPin">
+id="marketPin"
+class="marketSub">
 
-185121
-
-</div>
+Surankote • 185121
 
 </div>
 
@@ -738,16 +726,10 @@ id="marketPin">
 
 </div>
 
-
-<div
-class="marketPin"
-id="marketPin">
-
-Select Area
-
 </div>
 
 </div>
+
 
 <a
 href="/cart.html"
@@ -1131,11 +1113,12 @@ pin;
 
 document
 .getElementById(
-"marketName"
+"marketPin"
 )
 .innerText=
 
-"Surankote Bazaar";
+"Surankote • " + pin;
+
 
 document
 .getElementById(
