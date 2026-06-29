@@ -205,23 +205,95 @@ background:#F6F4EE;
 
 .search{
 
-padding:0 24px;
+padding:24px;
 
 }
 
-.search input{
+.searchBox{
 
-width:100%;
+display:flex;
 
-padding:22px;
+align-items:center;
 
-border:none;
+background:white;
+
+padding:18px;
 
 border-radius:24px;
 
+box-shadow:
+
+0 10px 30px
+rgba(
+0,
+0,
+0,
+0.05
+);
+
+}
+
+.searchIcon{
+
+font-size:22px;
+
+margin-right:12px;
+
+}
+
+.searchBox input{
+
+flex:1;
+
+border:none;
+
+outline:none;
+
 font-size:18px;
 
+}
+
+.filter{
+
+font-size:22px;
+
+opacity:.6;
+
+}
+
+.quickTags{
+
+display:flex;
+
+gap:10px;
+
+margin-top:14px;
+
+overflow:auto;
+
+}
+
+.quickTags span{
+
 background:white;
+
+padding:10px 18px;
+
+border-radius:18px;
+
+white-space:nowrap;
+
+font-size:14px;
+
+box-shadow:
+
+0 6px 18px
+rgba(
+0,
+0,
+0,
+0.04
+);
 
 }
 
@@ -783,10 +855,60 @@ Change Area
 
 <div class="search">
 
-<input
-placeholder="Search products, shops or services">
+<div class="searchBox">
+
+<div class="searchIcon">
+
+🔍
 
 </div>
+
+<input
+
+placeholder=
+
+"Search products, shops, hotels, transport..."
+
+>
+
+<div class="filter">
+
+⚙️
+
+</div>
+
+</div>
+
+<div class="quickTags">
+
+<span>
+
+Products
+
+</span>
+
+<span>
+
+Shops
+
+</span>
+
+<span>
+
+Services
+
+</span>
+
+<span>
+
+Transport
+
+</span>
+
+</div>
+
+</div>
+
 
 <div class="ticker">
 
