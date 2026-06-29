@@ -835,65 +835,33 @@ font-size:34px;
 
 <body>
 
-<script>
+<body>
 
-let pin=
+<div class="app">
 
-localStorage.getItem(
-"pincode"
-);
+<header class="topbar">
 
-if(
-
-pin!=="185121"
-
-){
-
-window.location.href=
-
-"./welcome.html";
-
-}
-
-
-</script>
-
-
-
-<div class="topbar">
-
-<div
-class="menu"
-onclick="toggleMenu()">
+<div class="menu">
 
 ☰
 
 </div>
-<div class="marketWrap">
 
-<div
-class="market"
-id="marketName">
-
-<div class="marketBrand">
+<div class="brand">
 
 <img
 src="assets/logo icon.png"
-class="marketLogo"
-alt="Hmara Bazaar"
-onerror="this.style.display='none'">
+class="logo">
 
 <div>
 
-<div class="marketTitle">
+<div class="title">
 
 Hamara Bazaar
 
 </div>
 
-<div
-id="marketPin"
-class="marketSub">
+<div class="sub">
 
 Surankote • 185121
 
@@ -903,118 +871,48 @@ Surankote • 185121
 
 </div>
 
-</div>
-
-</div>
-
-
-<a
-href="/cart.html"
-class="cart">
+<div class="cart">
 
 🛒
 
-</a>
-
 </div>
 
-<div
-class="panel"
-id="panel">
+</header>
 
-<a href="/profile.html">Profile</a>
+<section class="hero">
 
-<a href="/shops.html">Shops</a>
+<h1>
 
-<a href="/services.html">Services</a>
+Your Local Market
 
-<a href="/createshop.html">Open Shop</a>
+</h1>
 
-<a href="/welcome.html">
+<p>
 
-Change Area
+Shops • Services • Transport • Hotels
 
-</a>
+</p>
 
-</div>
+</section>
 
-<div class="search">
+<section class="searchWrap">
 
 <div class="searchBox">
 
-<div class="searchIcon">
-
 🔍
 
-</div>
-
 <input
-
 placeholder=
 
-"Search products, shops, hotels, transport..."
-
->
-
-<div class="filter">
+"Search anything">
 
 ⚙️
 
 </div>
 
-</div>
+</section>
 
-<div class="quickTags">
-
-<span>
-
-Products
-
-</span>
-
-<span>
-
-Shops
-
-</span>
-
-<span>
-
-Services
-
-</span>
-
-<span>
-
-Transport
-
-</span>
-
-</div>
-
-</div>
-
-
-<div class="ticker">
-
-📢
-
-<div
-class="tickerText"
-id="tickerText">
-
-Welcome to your local market
-
-</div>
-<div class="categories">
-
-<div class="catTitle">
-
-Browse
-
-</div>
-
-<div class="catScroll">
+<section class="cats">
 
 <div class="cat">
 
@@ -1054,11 +952,11 @@ Beauty
 
 <div class="cat">
 
-📱
+🚚
 
 <span>
 
-Electronics
+Transport
 
 </span>
 
@@ -1076,431 +974,31 @@ Hotels
 
 </div>
 
-<div class="cat">
+</section>
 
-🚚
+<section class="placeholder">
 
-<span>
+Products Coming Alive
 
-Transport
+</section>
 
-</span>
+<nav class="bottom">
 
-</div>
+🏠
 
-</div>
+🔍
 
-</div>
+🧰
 
-</div>
-<div class="section">
+📦
 
-<h2>
+👤
 
-Products
-
-</h2>
-
-<div class="scroll">
-
-<div class="productCard">
-
-<div class="productImage">
-
-🍚
+</nav>
 
 </div>
 
-<div class="productBody">
-
-<div class="productName">
-
-Premium Rice
-
-</div>
-
-<div class="shopName">
-
-Ahmad Grocery
-
-</div>
-
-<div class="priceRow">
-
-₹70
-
-<span>
-
-Available
-
-</span>
-
-</div>
-
-<a
-href="/product.html"
-class="buyBtn">
-
-View
-
-</a>
-
-</div>
-
-</div>
-
-<div class="productCard">
-
-<div class="productImage">
-
-🥛
-
-</div>
-
-<div class="productBody">
-
-<div class="productName">
-
-Fresh Milk
-
-</div>
-
-<div class="shopName">
-
-Local Dairy
-
-</div>
-
-<div class="priceRow">
-
-₹35
-
-<span>
-
-Fast Delivery
-
-</span>
-
-</div>
-
-<a
-href="/product.html"
-class="buyBtn">
-
-View
-
-</a>
-
-</div>
-
-</div>
-
-<div class="productCard">
-
-<div class="productImage">
-
-💄
-
-</div>
-
-<div class="productBody">
-
-<div class="productName">
-
-Lipstick
-
-</div>
-
-<div class="shopName">
-
-Classic Cosmetics
-
-</div>
-
-<div class="priceRow">
-
-₹199
-
-<span>
-
-Trending
-
-</span>
-
-</div>
-
-<a
-href="/product.html"
-class="buyBtn">
-
-View
-
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="section">
-
-<h2>
-
-Shops Near You
-
-</h2>
-
-<div class="scroll">
-
-<div class="shopCard open">
-
-<div class="shopBoard">
-
-AHMAD GROCERY
-
-</div>
-
-<div class="shopBody">
-
-<div class="shopStatus">
-
-🟢 Open Now
-
-</div>
-
-<div class="shopDesc">
-
-Fresh groceries • Delivery available
-
-</div>
-
-<div class="shopTime">
-
-8:00 AM — 8:00 PM
-
-</div>
-
-<a
-href="/shop.html"
-class="shopBtn">
-
-Enter Shop
-
-</a>
-
-</div>
-
-</div>
-
-<div class="shopCard closed">
-
-<div class="shutter">
-
-CLOSED
-
-</div>
-
-<div class="shopBody">
-
-<div class="shopStatus">
-
-⚫ Closed
-
-</div>
-
-<div class="shopDesc">
-
-Opens tomorrow
-
-</div>
-
-<div class="shopTime">
-
-8:00 AM
-
-</div>
-
-<a
-href="/shop.html"
-class="shopBtn">
-
-Order For Tomorrow
-
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-
-
-<div class="section">
-
-<h2>
-
-Services
-
-</h2>
-
-<div class="scroll">
-
-<div class="card">
-
-🚚 Transport
-
-</div>
-
-<div class="card">
-
-🏨 Hotels
-
-</div>
-
-</div>
-
-</div>
-
-<div class="banner">
-
-<h2>
-
-Hmara Bazaar
-
-</h2>
-
-<p>
-
-Delivering Happiness
-
-</p>
-
-<a
-href="/services.html">
-
-Explore
-
-</a>
-
-</div>
-
-<div class="bottom">
-
-<a href="/">🏠<br>Home</a>
-
-<a href="/search.html">🔍<br>Explore</a>
-
-<a href="/services.html">🧰<br>Services</a>
-
-<a href="/orders.html">📦<br>Orders</a>
-
-<a href="/profile.html">👤<br>Profile</a>
-
-</div>
-
-<script>
-
-let pin=
-
-localStorage
-.getItem(
-"pincode"
-);
-
-if(pin){
-
-document
-.getElementById(
-"marketPin"
-)
-.innerText=
-
-pin;
-
-document
-.getElementById(
-"marketPin"
-)
-.innerText=
-
-"Surankote • " + pin;
-
-
-document
-.getElementById(
-"tickerText"
-)
-.innerText=
-
-"Official: Welcome to "
-+
-pin
-+
-" market";
-
-}
-
-function toggleMenu(){
-
-let p=
-
-document
-.getElementById(
-"panel"
-);
-
-p.style.display=
-
-p.style.display==="block"
-
-?
-
-"none"
-
-:
-
-"block";
-
-}
-
-document.onclick=
-
-function(e){
-
-if(
-
-!e.target.closest(
-".menu"
-)
-
-&&
-
-!e.target.closest(
-".panel"
-)
-
-){
-
-document
-.getElementById(
-"panel"
-)
-.style.display=
-
-"none";
-
-}
-
-};
-
-</script>
-
+</body>
 
 </body>
 
