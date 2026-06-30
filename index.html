@@ -1193,47 +1193,73 @@ ${p.price}
 }
 
 );
-let demoShops=[
+function renderShops(){
 
-{
+let shops=
 
-name:"Shop Name",
+JSON.parse(
 
-status:"Open",
+localStorage.getItem(
+"shops"
 
-type:"General"
+)
 
-},
+)||[];
 
-{
-
-name:"Shop Name",
-
-status:"Closed",
-
-type:"Cosmetics"
-
-}
-
-];
-
-let shopWrap=
+let wrap=
 
 document.getElementById(
 "shops"
 );
 
-demoShops.forEach(
+wrap.innerHTML="";
+
+if(
+
+shops.length===0
+
+){
+
+wrap.innerHTML=
+
+`
+
+<div
+class="shop">
+
+<div
+class="board">
+
+No Shops Yet
+
+</div>
+
+<div
+class="shopBody">
+
+Create your first shop
+
+</div>
+
+</div>
+
+`;
+
+return;
+
+}
+
+shops.forEach(
 
 s=>{
 
-shopWrap.innerHTML+=`
+wrap.innerHTML+=`
 
 <div class="shop">
 
 <div class="board">
 
-${s.name}
+${s.shopName}
 
 </div>
 
@@ -1247,7 +1273,7 @@ ${s.status}
 
 <div class="type">
 
-${s.type}
+${s.shopType}
 
 </div>
 
@@ -1266,6 +1292,10 @@ Visit
 }
 
 );
+
+}
+
+renderShops();
 let demoServices=[
 
 {
