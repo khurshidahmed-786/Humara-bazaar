@@ -314,6 +314,99 @@ flex-direction:column;
 align-items:flex-start;
 
 }
+.shops{
+
+display:flex;
+
+gap:18px;
+
+overflow:auto;
+
+}
+
+.shops::-webkit-scrollbar{
+
+display:none;
+
+}
+
+.shop{
+
+min-width:280px;
+
+background:white;
+
+border-radius:24px;
+
+overflow:hidden;
+
+box-shadow:
+
+0 10px 24px
+rgba(
+0,
+0,
+0,
+0.04
+);
+
+}
+
+.board{
+
+background:#667744;
+
+padding:26px;
+
+color:white;
+
+font-size:24px;
+
+font-weight:800;
+
+text-align:center;
+
+}
+
+.shopBody{
+
+padding:22px;
+
+}
+
+.status{
+
+font-size:18px;
+
+font-weight:700;
+
+}
+
+.type{
+
+margin-top:10px;
+
+color:#777;
+
+}
+
+.shop button{
+
+margin-top:18px;
+
+width:100%;
+
+padding:14px;
+
+border:none;
+
+border-radius:16px;
+
+background:#B63A3A;
+
+color:white;
+
+}
 
 </style>
 
@@ -423,13 +516,30 @@ id="products">
 
 <section class="section">
 
+<div class="sectionHead">
+
 <h2>
 
 Shops Near You
 
 </h2>
 
+<a>
+
+View All
+
+</a>
+
+</div>
+
+<div
+class="shops"
+id="shops">
+
+</div>
+
 </section>
+
 
 <section class="section">
 
@@ -535,6 +645,80 @@ ${p.price}
 }
 
 );
+let demoShops=[
+
+{
+
+name:"Shop Name",
+
+status:"Open",
+
+type:"General"
+
+},
+
+{
+
+name:"Shop Name",
+
+status:"Closed",
+
+type:"Cosmetics"
+
+}
+
+];
+
+let shopWrap=
+
+document.getElementById(
+"shops"
+);
+
+demoShops.forEach(
+
+s=>{
+
+shopWrap.innerHTML+=`
+
+<div class="shop">
+
+<div class="board">
+
+${s.name}
+
+</div>
+
+<div class="shopBody">
+
+<div class="status">
+
+${s.status}
+
+</div>
+
+<div class="type">
+
+${s.type}
+
+</div>
+
+<button>
+
+Visit
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+);
+
 </script>
 </body>
 
