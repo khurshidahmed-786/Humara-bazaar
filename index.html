@@ -61,16 +61,17 @@ font-size:24px;
 
 }
 
-
 .center{
 
-display:flex;
+flex:1;
 
-flex-direction:column;
+display:flex;
 
 align-items:center;
 
 justify-content:center;
+
+gap:12px;
 
 }
 
@@ -82,9 +83,12 @@ height:42px;
 
 object-fit:contain;
 
-margin-bottom:6px;
+margin:0;
+
+flex-shrink:0;
 
 }
+
 
 
 .title{
@@ -95,19 +99,21 @@ font-weight:800;
 
 color:#B63A3A;
 
-white-space:nowrap;
+line-height:1.1;
 
 }
+
 
 .pin{
 
 font-size:12px;
 
-margin-top:4px;
-
 color:#888;
 
+margin-top:4px;
+
 }
+
 
 
 .search{
@@ -312,6 +318,8 @@ font-size:28px;
 src="assets/logo icon.png"
 class="logo">
 
+<div>
+
 <div class="title">
 
 Hamara Bazaar
@@ -325,6 +333,9 @@ Hamara Bazaar
 </div>
 
 </div>
+
+</div>
+
 
 <div class="notify">
 
