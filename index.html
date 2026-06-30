@@ -267,7 +267,7 @@ color:#222;
 
 position:fixed;
 
-bottom:0;
+bottom:18px;
 
 left:50%;
 
@@ -275,36 +275,68 @@ transform:
 
 translateX(-50%);
 
-width:min(
-540px,
-100%
+width:
+
+min(
+520px,
+92%
 );
 
 background:white;
+
+border-radius:28px;
 
 display:flex;
 
 justify-content:space-around;
 
-padding:20px;
-
-border-top-left-radius:32px;
-
-border-top-right-radius:32px;
+padding:16px 10px;
 
 box-shadow:
 
-0 -10px 40px
+0 20px 40px
 rgba(
 0,
 0,
 0,
 0.08
+
 );
 
-font-size:28px;
+}
+
+.bottom a{
+
+text-decoration:none;
+
+color:#777;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+gap:6px;
+
+font-size:13px;
 
 }
+
+.bottom a div{
+
+font-size:22px;
+
+}
+
+.bottom a:first-child{
+
+color:#B63A3A;
+
+font-weight:700;
+
+}
+
 .brandBlock{
 
 display:flex;
@@ -660,17 +692,88 @@ Open Your Shop
 
 <nav class="bottom">
 
+<a>
+
+<div>
+
 🏠
+
+</div>
+
+<span>
+
+Home
+
+</span>
+
+</a>
+
+<a>
+
+<div>
 
 🔍
 
-🧰
+</div>
+
+<span>
+
+Explore
+
+</span>
+
+</a>
+
+<a>
+
+<div>
+
+🛠
+
+</div>
+
+<span>
+
+Services
+
+</span>
+
+</a>
+
+<a>
+
+<div>
 
 📦
 
+</div>
+
+<span>
+
+Orders
+
+</span>
+
+</a>
+
+<a>
+
+<div>
+
 👤
 
+</div>
+
+<span>
+
+Profile
+
+</span>
+
+</a>
+
 </nav>
+
 <script>
 </div>
 let demoProducts=[
