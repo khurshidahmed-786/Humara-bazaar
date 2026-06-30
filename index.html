@@ -58,9 +58,22 @@ padding:18px 24px;
 
 width:50px;
 
-font-size:24px;
+height:50px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:28px;
+
+cursor:pointer;
+
+user-select:none;
 
 }
+
 .notify{
 
 width:50px;
@@ -649,6 +662,14 @@ border-radius:14px;
 background:#F8F4EE;
 
 }
+.menu{
+
+background:none;
+
+border:none;
+
+}
+
 </style>
 
 </head>
@@ -658,11 +679,14 @@ background:#F8F4EE;
 
 <header class="topbar">
 
-<div class="menu" onclick="toggleMenu()">
+<button
+class="menu"
+onclick="toggleMenu()">
 
 ☰
 
-</div>
+</button>
+
 
 <div class="center">
 
@@ -931,22 +955,21 @@ Profile
 </div>
 function toggleMenu(){
 
-let p=
+let panel=
 
-document
-.getElementById(
+document.getElementById(
 "panel"
 );
 
 if(
 
-p.style.display===
+panel.style.display===
 
 "block"
 
 ){
 
-p.style.display=
+panel.style.display=
 
 "none";
 
@@ -954,7 +977,7 @@ p.style.display=
 
 else{
 
-p.style.display=
+panel.style.display=
 
 "block";
 
