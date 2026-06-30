@@ -407,6 +407,47 @@ background:#B63A3A;
 color:white;
 
 }
+.services{
+
+display:grid;
+
+grid-template-columns:
+
+1fr 1fr;
+
+gap:16px;
+
+}
+
+.service{
+
+background:white;
+
+padding:26px;
+
+border-radius:22px;
+
+text-align:center;
+
+box-shadow:
+
+0 10px 24px
+rgba(
+0,
+0,
+0,
+0.04
+);
+
+}
+
+.serviceIcon{
+
+font-size:48px;
+
+margin-bottom:16px;
+
+}
 
 </style>
 
@@ -543,11 +584,27 @@ id="shops">
 
 <section class="section">
 
+<div class="sectionHead">
+
 <h2>
 
-Services For You
+Services
 
 </h2>
+
+<a>
+
+View All
+
+</a>
+
+</div>
+
+<div
+class="services"
+id="services">
+
+</div>
 
 </section>
 
@@ -708,6 +765,75 @@ ${s.type}
 Visit
 
 </button>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+);
+let demoServices=[
+
+{
+
+icon:"🚚",
+
+name:"Transport"
+
+},
+
+{
+
+icon:"🏨",
+
+name:"Hotels"
+
+},
+
+{
+
+icon:"🛠",
+
+name:"Repair"
+
+},
+
+{
+
+icon:"👨‍⚕️",
+
+name:"Health"
+
+}
+
+];
+
+let serviceWrap=
+
+document.getElementById(
+"services"
+);
+
+demoServices.forEach(
+
+s=>{
+
+serviceWrap.innerHTML+=`
+
+<div class="service">
+
+<div class="serviceIcon">
+
+${s.icon}
+
+</div>
+
+<div>
+
+${s.name}
 
 </div>
 
