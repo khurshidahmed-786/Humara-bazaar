@@ -397,11 +397,27 @@ placeholder=
 
 <section class="section">
 
+<div class="sectionHead">
+
 <h2>
 
-Products For You
+Products
 
 </h2>
+
+<a>
+
+View All
+
+</a>
+
+</div>
+
+<div
+class="products"
+id="products">
+
+</div>
 
 </section>
 
@@ -444,9 +460,82 @@ Open Your Shop
 👤
 
 </nav>
+<script>
+</div>
+let demoProducts=[
+
+{
+
+name:"Product",
+
+shop:"Shop Name",
+
+price:"₹---",
+
+emoji:"🛍"
+
+},
+
+{
+
+name:"Product",
+
+shop:"Shop Name",
+
+price:"₹---",
+
+emoji:"🛍"
+
+}
+
+];
+
+let wrap=
+
+document.getElementById(
+"products"
+);
+
+demoProducts.forEach(
+
+p=>{
+
+wrap.innerHTML+=`
+
+<div class="product">
+
+<div class="pImg">
+
+${p.emoji}
 
 </div>
 
+<div class="pName">
+
+${p.name}
+
+</div>
+
+<div class="pShop">
+
+${p.shop}
+
+</div>
+
+<div class="pPrice">
+
+${p.price}
+
+</div>
+
+</div>
+
+`;
+
+}
+
+);
+</script>
 </body>
 
 
