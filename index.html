@@ -598,6 +598,57 @@ button{
 cursor:pointer;
 
 }
+.panel{
+
+display:none;
+
+position:absolute;
+
+top:80px;
+
+left:20px;
+
+width:260px;
+
+background:white;
+
+border-radius:26px;
+
+padding:12px;
+
+box-shadow:
+
+0 20px 60px
+rgba(
+0,
+0,
+0,
+0.08
+);
+
+z-index:999;
+
+}
+
+.panel a{
+
+display:block;
+
+padding:18px;
+
+text-decoration:none;
+
+color:#222;
+
+border-radius:18px;
+
+}
+
+.panel a:hover{
+
+background:#F8F4EE;
+
+}
 
 </style>
 
@@ -608,7 +659,7 @@ cursor:pointer;
 
 <header class="topbar">
 
-<div class="menu">
+<div class="menu" onclick="toggleMenu()">
 
 ☰
 
@@ -645,6 +696,36 @@ Hamara Bazaar
 </div>
 
 </header>
+<div
+class="panel"
+id="panel">
+
+<a
+href="./createshop.html">
+
+🏪 Open Shop
+
+</a>
+
+<a>
+
+🛍 Products
+
+</a>
+
+<a>
+
+📦 Orders
+
+</a>
+
+<a>
+
+⚙ Settings
+
+</a>
+
+</div>
 
 <section class="search">
 
@@ -850,6 +931,69 @@ Profile
 
 <script>
 </div>
+function toggleMenu(){
+
+let p=
+
+document
+.getElementById(
+"panel"
+);
+
+if(
+
+p.style.display===
+
+"block"
+
+){
+
+p.style.display=
+
+"none";
+
+}
+
+else{
+
+p.style.display=
+
+"block";
+
+}
+
+}
+
+document.onclick=
+
+function(e){
+
+if(
+
+!e.target.closest(
+".menu"
+)
+
+&&
+
+!e.target.closest(
+".panel"
+)
+
+){
+
+document
+.getElementById(
+"panel"
+)
+.style.display=
+
+"none";
+
+}
+
+};
+
 let demoProducts=[
 
 {
