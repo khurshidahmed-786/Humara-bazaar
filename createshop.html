@@ -338,91 +338,59 @@ document.getElementById(
 
 function publishShop(){
 
-
 let shop={
 
-name:
+id:Date.now(),
 
-document.getElementById(
-"shopName"
-).value,
+name:document.getElementById("shopName").value,
 
-description:
+description:document.getElementById("shopDescription").value,
 
-document.getElementById(
-"shopDescription"
-).value,
+open:document.getElementById("shopOpen").value,
 
-open:
+close:document.getElementById("shopClose").value,
 
-document.getElementById(
-"shopOpen"
-).value,
+logo:document.getElementById("shopLogo").value,
 
-close:
-
-document.getElementById(
-"shopClose"
-).value,
-
-logo:
-
-document.getElementById(
-"shopLogo"
-).value,
-
-banner:
-
-document.getElementById(
-"shopBanner"
-).value,
+banner:document.getElementById("shopBanner").value,
 
 products:[]
 
 };
 
+let shops=
 
+JSON.parse(
 
-localStorage.setItem(
-"shopName",
-shop.name
+localStorage.getItem("shops")
+
+||
+
+"[]"
+
 );
 
-localStorage.setItem(
-"shopDescription",
-shop.description
-);
+shops.push(shop);
 
 localStorage.setItem(
-"shopOpen",
-shop.open
+
+"shops",
+
+JSON.stringify(shops)
+
 );
 
-localStorage.setItem(
-"shopClose",
-shop.close
-);
+document.getElementById("publishBtn").innerText=
 
-localStorage.setItem(
-"shopLogo",
-shop.logo
-);
+"Shop Created Successfully";
 
-localStorage.setItem(
-"shopBanner",
-shop.banner
-);
+setTimeout(function(){
 
-document.getElementById(
-"publishBtn"
-).innerText=
+window.location.href="./index.html";
 
-"Creating Shop...";
+},1000);
 
-
-
-setTimeout(
-
+}
 function(){
 
 window.location.href=
