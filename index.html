@@ -663,15 +663,13 @@ cursor:pointer;
 }
 .panel{
 
-display:none;
-
 position:absolute;
 
-top:70px;
+top:72px;
 
-left:20px;
+left:18px;
 
-width:260px;
+width:250px;
 
 background:white;
 
@@ -680,19 +678,32 @@ border-radius:24px;
 padding:12px;
 
 box-shadow:
+0 16px 40px
+rgba(0,0,0,.10);
 
-0 20px 40px
-rgba(
-0,
-0,
-0,
-0.12
-);
+opacity:0;
 
-z-index:99999;
+visibility:hidden;
+
+transform:
+translateY(-10px);
+
+transition:
+all .25s ease;
+
+z-index:999;
 
 }
+.panel.show{
 
+opacity:1;
+
+visibility:visible;
+
+transform:
+translateY(0);
+
+}
 .panel a{
 
 display:block;
@@ -1125,66 +1136,33 @@ Profile
 
 function toggleMenu(){
 
-let panel=
+const panel = document.getElementById("panel");
 
-document.getElementById(
-"panel"
-);
+panel.classList.toggle("show");
+
+}
+
+document.addEventListener("click",function(e){
+
+const panel = document.getElementById("panel");
+
+const menu = document.getElementById("menuBtn");
 
 if(
 
-panel.style.display===
-
-"block"
-
-){
-
-panel.style.display=
-
-"none";
-
-}
-
-else{
-
-panel.style.display=
-
-"block";
-
-}
-
-}
-
-document.onclick=
-
-function(e){
-
-if(
-
-!e.target.closest(
-"#menuBtn"
-)
+!panel.contains(e.target)
 
 &&
 
-!e.target.closest(
-"#panel"
-)
+!menu.contains(e.target)
 
 ){
 
-document
-.getElementById(
-"panel"
-)
-.style.display=
-
-"none";
+panel.classList.remove("show");
 
 }
 
-};
-
+});
 document.getElementById("pinDisplay").innerHTML =
 "📍 " + (localStorage.getItem("pincode") || "Unknown Area");
 let demoProducts=[
