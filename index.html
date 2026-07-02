@@ -1298,13 +1298,13 @@ shops.forEach(
 
 s=>{
 
-wrap.innerHTML+=`
+wrap.innerHTML += `
 
 <div class="shop">
 
 <div class="board">
 
-${s.shop}
+${s.name || "Unnamed Shop"}
 
 </div>
 
@@ -1312,7 +1312,7 @@ ${s.shop}
 
 <div class="status">
 
-🟢 Open
+🟢 Open (${s.open || "8 AM"} - ${s.close || "8 PM"})
 
 </div>
 
@@ -1333,13 +1333,6 @@ Visit
 </div>
 
 `;
-
-}
-
-);
-
-}
-
 renderShops();
 let demoServices=[
 
