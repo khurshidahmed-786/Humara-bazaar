@@ -36,7 +36,9 @@ margin:auto;
 }
 
 .topbar{
-
+position:sticky;
+top:0;
+z-index:100;
 display:grid;
 
 grid-template-columns:
@@ -50,7 +52,9 @@ grid-template-columns:
 align-items:center;
 
 padding:18px 24px;
-
+background:rgba(250,246,238,.92);
+backdrop-filter:blur(12px)
+border-bottom: 1px solid rgba)0,0,0,.05);
 }
 
 
@@ -76,11 +80,43 @@ user-select:none;
 
 .notify{
 
+position:relative;
+
 width:50px;
 
 font-size:24px;
 
 text-align:right;
+
+}
+
+.cartBadge{
+
+position:absolute;
+
+top:-6px;
+
+right:-4px;
+
+width:18px;
+
+height:18px;
+
+background:#B63A3A;
+
+color:white;
+
+border-radius:50%;
+
+font-size:11px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-weight:bold;
 
 }
 
@@ -836,6 +872,12 @@ id="pinDisplay">
 <div class="notify">
 
 🛒
+
+<span class="cartBadge">
+
+0
+
+</span>
 
 </div>
 
