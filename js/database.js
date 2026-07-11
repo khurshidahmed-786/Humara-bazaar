@@ -1,63 +1,177 @@
-// SHOPS
+/* ==========================================
+   HMARA BAZAAR DATABASE ENGINE v1
+   ========================================== */
 
-function getShops(){
+const DB = {
 
-return JSON.parse(
+    USERS: "hb_users",
 
-localStorage.getItem("shops")
+    SHOPS: "hb_shops",
 
-||
+    PRODUCTS: "hb_products",
 
-"[]"
+    SERVICES: "hb_services",
 
-);
+    ORDERS: "hb_orders",
+
+    SESSION: "hb_session"
+
+};
+
+/* ==========================================
+   GENERIC FUNCTIONS
+   ========================================== */
+
+function getData(key){
+
+    return JSON.parse(
+
+        localStorage.getItem(key) || "[]"
+
+    );
 
 }
 
-function saveShop(shop){
+function saveData(key,data){
 
-let shops=getShops();
+    localStorage.setItem(
 
-shops.push(shop);
+        key,
 
-localStorage.setItem(
+        JSON.stringify(data)
 
-"shops",
-
-JSON.stringify(shops)
-
-);
+    );
 
 }
 
-// USERS
+/* ==========================================
+   USERS
+   ========================================== */
 
 function getUsers(){
 
-return JSON.parse(
-
-localStorage.getItem("users")
-
-||
-
-"[]"
-
-);
+    return getData(DB.USERS);
 
 }
 
 function saveUser(user){
 
-let users=getUsers();
+    let users=getUsers();
 
-users.push(user);
+    users.push(user);
 
-localStorage.setItem(
+    saveData(DB.USERS,users);
 
-"users",
+}
 
-JSON.stringify(users)
+function getCurrentUser(){
 
-);
+    return JSON.parse(
+
+        localStorage.getItem(DB.SESSION)
+
+    );
+
+}
+
+function login(user){
+
+    localStorage.setItem(
+
+        DB.SESSION,
+
+        JSON.stringify(user)
+
+    );
+
+}
+
+function logout(){
+
+    localStorage.removeItem(
+
+        DB.SESSION
+
+    );
+
+}
+
+/* ==========================================
+   SHOPS
+   ========================================== */
+
+function getShops(){
+
+    return getData(DB.SHOPS);
+
+}
+
+function saveShop(shop){
+
+    let shops=getShops();
+
+    shops.push(shop);
+
+    saveData(DB.SHOPS,shops);
+
+}
+
+/* ==========================================
+   PRODUCTS
+   ========================================== */
+
+function getProducts(){
+
+    return getData(DB.PRODUCTS);
+
+}
+
+function saveProduct(product){
+
+    let products=getProducts();
+
+    products.push(product);
+
+    saveData(DB.PRODUCTS,products);
+
+}
+
+/* ==========================================
+   SERVICES
+   ========================================== */
+
+function getServices(){
+
+    return getData(DB.SERVICES);
+
+}
+
+function saveService(service){
+
+    let services=getServices();
+
+    services.push(service);
+
+    saveData(DB.SERVICES,services);
+
+}
+
+/* ==========================================
+   ORDERS
+   ========================================== */
+
+function getOrders(){
+
+    return getData(DB.ORDERS);
+
+}
+
+function saveOrder(order){
+
+    let orders=getOrders();
+
+    orders.push(order);
+
+    saveData(DB.ORDERS,orders);
 
 }
