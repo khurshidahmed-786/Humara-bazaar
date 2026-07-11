@@ -192,7 +192,59 @@ background:#9E2E2E;
     </div>
 
 </div>
+<script>
 
+function continueAccount(){
+
+let name=document.getElementById("name").value.trim();
+
+let phone=document.getElementById("phone").value.trim();
+
+if(name===""){
+
+alert("Please enter your name");
+
+return;
+
+}
+
+if(phone===""){
+
+alert("Please enter your phone number");
+
+return;
+
+}
+
+/* Check if user already exists */
+
+let users=getUsers();
+
+let existingUser=users.find(
+
+u=>u.phone===phone
+
+);
+
+if(existingUser){
+
+login(existingUser);
+
+window.location.href="myspace.html";
+
+return;
+
+}
+
+/* Create New User */
+
+registerUser(name,phone);
+
+window.location.href="myspace.html";
+
+}
+
+</script>
 </body>
 
 </html>
