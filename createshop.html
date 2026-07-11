@@ -261,7 +261,7 @@ Make changes live instantly
 
 
 </div>
-
+<script src="js/database.js"></script>
 <script>
 
 setInterval(function(){
@@ -358,28 +358,7 @@ products:[]
 
 };
 
-let shops=
-
-JSON.parse(
-
-localStorage.getItem("shops")
-
-||
-
-"[]"
-
-);
-
-shops.push(shop);
-
-localStorage.setItem(
-
-"shops",
-
-JSON.stringify(shops)
-
-);
-
+saveShop(shop);
 document.getElementById("publishBtn").innerText=
 
 "Shop Created Successfully";
