@@ -26,3 +26,20 @@ document.getElementById(
 "marketName"
 
 ).innerText = market;
+const searchInput = document.getElementById("searchInput");
+
+searchInput.addEventListener(
+
+"input",
+
+function(){
+
+console.log(
+
+"Searching:",
+
+this.value
+
+);
+
+});
