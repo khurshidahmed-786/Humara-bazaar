@@ -388,8 +388,7 @@ Open Time
 </span>
 </div>
 
-<div
-class="description"
+<div class="description"
 <span id="displayDescription">
 
 Shop Description
@@ -518,69 +517,70 @@ class="btn primary">
 Browse Products
 </button>
 </div>
+<script src="js/database.js"></script>
+
 <script>
 
 function togglePanel(){
-let p=document.getElementById("shopPanel");
-p.style.display=
-p.style.display==="block"
-  ?
-"none":
-"block";
+
+    let p = document.getElementById("shopPanel");
+
+    p.style.display =
+        p.style.display === "block"
+        ? "none"
+        : "block";
+
 }
 
-let open=true;
+/* ---------- Load Selected Shop ---------- */
 
-if(!open){document.getElementById("shopStatus")
-.innerHTML=
-"⚫ Closed • Order For Tomorrow";
-}
-document.getElementById("displayName")
-.innerText=
+const selectedId = Number(localStorage.getItem("selectedShop"));
 
-localStorage.getItem("shopName")
+const shops = getShops();
 
-||
-"Your Shop";
+const shop = shops.find(s => s.id === selectedId);
 
-document.getElementById("displayDescription")
-.innerText=
+if(shop){
 
-localStorage.getItem("shopDescription")
-||
-"Add description";
+    document.getElementById("displayName").innerText =
+        shop.name || "Unnamed Shop";
 
-document.getElementById("displayTime")
-.innerText="Open: "
-  *
-(localStorage
-.getItem(
-"shopOpen")
-||
-"8AM")
-  *" — "*
-(localStorage
-.getItem(
-"shopClose")
-||
-"8PM");
+    document.getElementById("displayDescription").innerText =
+        shop.description || "No description added.";
 
-let logo=localStorage
-.getItem(
-"shopLogo"
-);
+    document.getElementById("displayTime").innerText =
+        `Open: ${shop.open || "8:00 AM"} — ${shop.close || "8:00 PM"}`;
 
-if(logo){document
-.getElementById(
-"displayLogo"
-).src=
+    if(shop.logo){
 
-logo;
+        document.getElementById("displayLogo").src =
+            shop.logo;
+
+    }else{
+
+        document.getElementById("displayLogo").style.display = "none";
+
+    }
+
+    document.getElementById("shopStatus").innerHTML =
+        "🟢 Open Now";
+
+}else{
+
+    document.getElementById("displayName").innerText =
+        "Shop Not Found";
+
+    document.getElementById("displayDescription").innerText =
+        "This shop does not exist.";
+
+    document.getElementById("displayTime").innerText = "";
+
+    document.getElementById("shopStatus").innerHTML =
+        "⚫ Unavailable";
 
 }
 
 </script>
-
 
 </body>
 
