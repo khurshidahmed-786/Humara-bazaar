@@ -1241,89 +1241,75 @@ ${p.price}
 );
 function renderShops(){
 
-let shops= getShops();
+    let shops = getShops();
 
+    let wrap = document.getElementById("shops");
 
-let wrap=document.getElementById(
-"shops"
-);
+    wrap.innerHTML = "";
 
-wrap.innerHTML="";
+    if(shops.length === 0){
 
-if(
+        wrap.innerHTML = `
 
-shops.length===0
+        <div class="shop">
 
-){
+            <div class="board">
+                No Shops Yet
+            </div>
 
-wrap.innerHTML=
+            <div class="shopBody">
+                Create your first shop
+            </div>
 
-`
+        </div>
 
-<div
-class="shop">
+        `;
 
-<div
-class="board">
+        return;
 
-No Shops Yet
+    }
 
-</div>
+    shops.forEach(s=>{
 
-<div
-class="shopBody">
+        wrap.innerHTML += `
 
-Create your first shop
+        <div class="shop">
 
-</div>
+            <div class="board">
 
-</div>
+                ${s.name || "Unnamed Shop"}
 
-`;
+            </div>
 
-return;
+            <div class="shopBody">
+
+                <div class="status">
+
+                    🟢 Open (${s.open || "8 AM"} - ${s.close || "8 PM"})
+
+                </div>
+
+                <div class="type">
+
+                    ${s.description || "Local Shop"}
+
+                </div>
+
+                <button>
+
+                    Visit
+
+                </button>
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
 
 }
-
-shops.forEach(
-
-s=>{
-
-wrap.innerHTML += `
-
-<div class="shop">
-
-<div class="board">
-
-${s.name || "Unnamed Shop"}
-
-</div>
-
-<div class="shopBody">
-
-<div class="status">
-
-🟢 Open (${s.open || "8 AM"} - ${s.close || "8 PM"})
-
-</div>
-
-<div class="type">
-
-${s.description || "Local Shop"}
-
-</div>
-
-<button>
-
-Visit
-
-</button>
-
-</div>
-
-</div>
-
-`;}
 renderShops();
 let demoServices=[
 
