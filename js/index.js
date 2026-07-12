@@ -74,4 +74,97 @@ ${category.name}
 });
 function renderFeaturedProducts(){
 
+    const wrap = document.getElementById(
+
+        "featuredProducts"
+
+    );
+
+    if(!wrap){
+
+        return;
+
+    }
+
+    wrap.innerHTML="";
+
+    const products = getFeaturedProducts();
+
+    if(products.length===0){
+
+        wrap.innerHTML=`
+
+        <div class="productCard">
+
+            <div class="productImage">
+
+                📦
+
+            </div>
+
+            <div class="productBody">
+
+                <div class="productName">
+
+                    No Products Yet
+
+                </div>
+
+                <div class="productShop">
+
+                    Sellers will appear here
+
+                </div>
+
+            </div>
+
+        </div>
+
+        `;
+
+        return;
+
+    }
+
+    products.forEach(product=>{
+
+        wrap.innerHTML+=`
+
+        <div class="productCard">
+
+            <div class="productImage">
+
+                ${product.emoji || "📦"}
+
+            </div>
+
+            <div class="productBody">
+
+                <div class="productName">
+
+                    ${product.name}
+
+                </div>
+
+                <div class="productShop">
+
+                    Shop #${product.shopId}
+
+                </div>
+
+                <div class="productPrice">
+
+                    ₹${product.price}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
 }
+renderFeaturedProducts();
