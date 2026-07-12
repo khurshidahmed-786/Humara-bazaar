@@ -15,6 +15,12 @@ const DB = {
     ORDERS: "hb_orders",
 
     SESSION: "hb_session"
+  
+    CART: "hb_cart"
+   
+    SELECTEDSHOP: "hb_selectedshop"
+   
+    SELECTEDPRODUCT: "hb-selectedProduct"
 
 };
 
