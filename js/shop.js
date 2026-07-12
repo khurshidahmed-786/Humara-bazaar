@@ -63,3 +63,22 @@ function deleteShop(id){
     saveData(DB.SHOPS, shops);
 
 }
+function getCurrentShop(){
+
+    const id = Number(
+        localStorage.getItem("hb_selectedShop")
+    );
+
+    if(!id){
+
+        return null;
+
+    }
+
+    return getShops().find(
+
+        shop => shop.id === id
+
+    ) || null;
+
+}
