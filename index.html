@@ -1295,9 +1295,9 @@ function renderShops(){
 
                 </div>
 
-                <button>
+                <button onclick="openShop(${s.id})">
 
-                    Visit
+                    Visit Shop
 
                 </button>
 
@@ -1311,6 +1311,13 @@ function renderShops(){
 
 }
 renderShops();
+function openShop(id){
+
+    localStorage.setItem("selectedShop", id);
+
+    window.location.href = "./shop.html";
+
+}
 let demoServices=[
 
 {
