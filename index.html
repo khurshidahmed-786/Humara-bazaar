@@ -1240,20 +1240,10 @@ ${p.price}
 );
 function renderShops(){
 
-let shops=
+let shops= getshops();
 
-JSON.parse(
 
-localStorage.getItem(
-"shops"
-
-)
-
-)||[];
-
-let wrap=
-
-document.getElementById(
+let wrap=document.getElementById(
 "shops"
 );
 
@@ -1403,11 +1393,7 @@ ${s.name}
 
 );
 document
-.querySelectorAll(
-
-".product"
-
-)
+.querySelectorAll(".product")
 
 .forEach(
 
