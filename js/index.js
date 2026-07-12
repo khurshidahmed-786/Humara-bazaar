@@ -43,3 +43,30 @@ this.value
 );
 
 });
+const categoryWrap = document.getElementById("categoryScroll");
+
+categories.forEach(category=>{
+
+categoryWrap.innerHTML += `
+
+<div
+class="categoryCard"
+onclick="window.location.href='${category.page}'">
+
+<div class="categoryIcon">
+
+${category.icon}
+
+</div>
+
+<div class="categoryName">
+
+${category.name}
+
+</div>
+
+</div>
+
+`;
+
+});
