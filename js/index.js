@@ -72,3 +72,6 @@ ${category.name}
 `;
 
 });
+function renderFeaturedProducts(){
+
+}
