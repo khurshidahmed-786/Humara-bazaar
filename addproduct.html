@@ -123,82 +123,24 @@ font-family:Arial;
 </select>
 
 <input id="productEmoji" placeholder="Emoji (🍎 🥛 🍔)">
+<div
+id="publishBtn"
+class="button"
+onclick="publishProduct()"
+style="
+margin-top:20px;
+text-align:center;
+cursor:pointer;
+">
+
+➕ Publish Product
+
+</div>
 <script src="js/database.js"></script>
-
+<script src="js/shop.js"></script>
 <script src="js/product.js"></script>
+<script src="js/addproduct.js"></script>
 <script>
-<script>
-
-function publishProduct(){
-
-let product={
-
-id:Date.now(),
-
-shopId:localStorage.getItem("hb_selectedShop"),
-
-name:document.getElementById("productName").value,
-
-description:document.getElementById("productDescription").value,
-
-category:document.getElementById("productCategory").value,
-
-price:Number(document.getElementById("productPrice").value),
-
-stock:Number(document.getElementById("productStock").value),
-
-unit:document.getElementById("productUnit").value,
-
-deliveryTime:document.getElementById("productDelivery").value,
-
-section:document.getElementById("productSection").value,
-
-emoji:document.getElementById("productEmoji").value,
-
-featured:
-
-document.getElementById("productSection").value==="featured",
-
-active:true,
-
-createdAt:Date.now()
-
-};
-
-if(product.name===""){
-
-alert("Enter product name");
-
-return;
-
-}
-
-if(product.price<=0){
-
-alert("Enter valid price");
-
-return;
-
-}
-
-saveProduct(product);
-
-document.getElementById("publishBtn").innerText=
-
-"✅ Product Published";
-
-setTimeout(function(){
-
-window.location.href="dashboard.html";
-
-},1000);
-
-}
-
-</script>
-
-
-</script>
 
 </body>
 
