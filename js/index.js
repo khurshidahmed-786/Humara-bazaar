@@ -1,3 +1,5 @@
+console.log("Index JS Loaded");
+console.log(categories);
 document.getElementById(
 
 "menuBtn"
@@ -44,7 +46,7 @@ this.value
 
 });
 const categoryWrap = document.getElementById("categoryScroll");
-
+console.log(categoryWrap);
 categories.forEach(category=>{
 
 categoryWrap.innerHTML += `
