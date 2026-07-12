@@ -61,7 +61,25 @@ text-decoration:none;
 border-radius:10px;
 
 }
+textarea{
 
+width:100%;
+
+min-height:120px;
+
+padding:14px;
+
+margin:10px 0;
+
+border-radius:10px;
+
+border:1px solid #ddd;
+
+resize:vertical;
+
+font-family:Arial;
+
+}
 </style>
 
 </head>
@@ -70,92 +88,41 @@ border-radius:10px;
 
 <div class="wrap">
 
-<h1>
+<h2>Add Product</h2>
 
-Add Product
+<input id="productName" placeholder="Product Name">
 
-</h1>
+<textarea id="productDescription" placeholder="Describe your product"></textarea>
 
-<br>
-
-<div class="card">
-
-<input
-id="productName"
-placeholder="Product Name">
-
-<input
-id="productPrice"
-placeholder="Price">
-
-<select
-id="productSection">
-
-<option>
-
-Pinned Products
-
-</option>
-
-<option>
-
-New Arrivals
-
-</option>
-
-<option>
-
-Discount Sale
-
-</option>
-
+<select id="productCategory">
+    <option>Grocery</option>
+    <option>Restaurant</option>
+    <option>Fashion</option>
+    <option>Beauty</option>
+    <option>Electronics</option>
 </select>
 
-<input
-id="productDelivery"
-placeholder="Delivery Time">
+<input id="productPrice" placeholder="Price">
 
-<div
+<input id="productStock" placeholder="Available Stock">
 
-id="publishBtn"
+<select id="productUnit">
+    <option>Piece</option>
+    <option>Kg</option>
+    <option>Gram</option>
+    <option>Litre</option>
+    <option>Pack</option>
+</select>
 
-onclick="saveProduct()"
+<input id="productDelivery" placeholder="Delivery Time">
 
-style="
+<select id="productSection">
+    <option value="featured">⭐ Featured</option>
+    <option value="new">🆕 New Arrival</option>
+    <option value="sale">🔥 On Sale</option>
+</select>
 
-margin-top:24px;
-
-background:
-
-linear-gradient(
-135deg,
-#B63A3A,
-#D85D5D
-);
-
-color:white;
-
-padding:18px;
-
-border-radius:18px;
-
-text-align:center;
-
-font-size:20px;
-
-font-weight:700;
-
-cursor:pointer;
-
-">
-
-＋ Publish Product
-
-</div>
-
-</div>
-
-</div>
+<input id="productEmoji" placeholder="Emoji (🍎 🥛 🍔)">
 
 <script>
 
