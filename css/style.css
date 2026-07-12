@@ -1,1 +1,235 @@
+/* =======================================
+   Hmara Bazaar Design System v1
+======================================= */
 
+:root{
+
+    --primary:#B63A3A;
+    --olive:#667744;
+    --background:#FAF6EE;
+    --white:#ffffff;
+    --text:#333333;
+    --muted:#777777;
+
+    --radius:24px;
+
+    --shadow:
+        0 10px 30px rgba(0,0,0,.08);
+
+}
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+    font-family:
+    Arial,
+    sans-serif;
+
+}
+
+body{
+
+    background:var(--background);
+
+    color:var(--text);
+
+}
+
+/* ---------- Layout ---------- */
+
+.container{
+
+    width:min(1200px,92%);
+
+    margin:auto;
+
+}
+
+/* ---------- Header ---------- */
+
+.header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:18px 0;
+
+}
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+}
+
+.topLogo{
+
+    width:54px;
+
+    height:54px;
+
+    object-fit:contain;
+
+}
+
+.brandName{
+
+    font-size:28px;
+
+    font-weight:800;
+
+    color:var(--primary);
+
+}
+
+.brandTag{
+
+    font-size:14px;
+
+    color:var(--olive);
+
+}
+
+/* ---------- Card ---------- */
+
+.card{
+
+    background:white;
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+    padding:24px;
+
+}
+
+/* ---------- Buttons ---------- */
+
+.btn{
+
+    border:none;
+
+    border-radius:18px;
+
+    padding:16px 22px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+}
+
+.btnPrimary{
+
+    background:var(--primary);
+
+    color:white;
+
+}
+
+.btnSecondary{
+
+    background:var(--olive);
+
+    color:white;
+
+}
+
+.btnGhost{
+
+    background:white;
+
+    border:1px solid #ddd;
+
+}
+
+/* ---------- Inputs ---------- */
+
+.input{
+
+    width:100%;
+
+    padding:16px;
+
+    border-radius:18px;
+
+    border:1px solid #ddd;
+
+    outline:none;
+
+}
+
+.input:focus{
+
+    border-color:var(--primary);
+
+}
+
+/* ---------- Sections ---------- */
+
+.section{
+
+    margin-top:40px;
+
+}
+
+.sectionHead{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:18px;
+
+}
+
+.sectionHead h2{
+
+    color:var(--primary);
+
+}
+
+/* ---------- Empty State ---------- */
+
+.emptyState{
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:24px;
+
+    text-align:center;
+
+    box-shadow:var(--shadow);
+
+}
+
+.emptyState h3{
+
+    margin-top:12px;
+
+    color:var(--primary);
+
+}
+
+.emptyState p{
+
+    color:var(--muted);
+
+    margin:12px 0 24px;
+
+}
