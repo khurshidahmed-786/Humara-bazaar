@@ -1115,7 +1115,7 @@ d.style.display==="block"
 }
 
 
-
+// TODO: Read from Shop Engine
 let name=
 
 localStorage.getItem(
@@ -1193,17 +1193,7 @@ document.getElementById(
 +
 
 (close||"10PM");
-let products =
-
-JSON.parse(
-localStorage.getItem(
-"products"
-)
-)
-
-||
-
-[];
+let products = getProducts();
 
 function drawProduct(
 
