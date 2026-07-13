@@ -272,6 +272,19 @@ id
 window.location.href="shop.html";
 
 }
+function openProduct(productId){
+
+    localStorage.setItem(
+
+        "hb_selectedProduct",
+
+        productId
+
+    );
+
+    window.location.href = "product.html";
+
+}
 renderFeaturedProducts();
 
 renderPopularShops();
