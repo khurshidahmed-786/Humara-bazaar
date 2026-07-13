@@ -123,7 +123,6 @@ showStep();
 
 };
 
-};
 
 backBtn.onclick=function(){
 
