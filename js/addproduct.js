@@ -40,6 +40,6 @@ function publishProduct(){
 
     alert("Product Published Successfully!");
 
-    window.location.href="dashboard.html";
+    window.location.href="shop.html";
 
 }
