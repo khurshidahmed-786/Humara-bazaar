@@ -37,7 +37,7 @@ function publishProduct(){
     };
 
     saveProduct(product);
-}
+
     alert("Product Published Successfully!");
 
   setTimeout(function(){
@@ -46,4 +46,4 @@ function publishProduct(){
 
 },1000);
 
-
+}
