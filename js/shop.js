@@ -82,3 +82,115 @@ function getCurrentShop(){
     ) || null;
 
 }
+function renderShopProducts(){
+
+    const shop = getCurrentShop();
+
+    if(!shop){
+
+        return;
+
+    }
+
+    const products = getProductsByShop(shop.id);
+
+    renderSection(
+        "featuredProducts",
+        products.filter(p=>p.section==="featured")
+    );
+
+    renderSection(
+        "newProducts",
+        products.filter(p=>p.section==="new")
+    );
+
+    renderSection(
+        "saleProducts",
+        products.filter(p=>p.section==="sale")
+    );
+
+}
+function renderSection(containerId,list){
+
+    const wrap=document.getElementById(containerId);
+
+    if(!wrap){
+
+        return;
+
+    }
+
+    wrap.innerHTML="";
+
+    if(list.length===0){
+
+        wrap.innerHTML=`
+
+        <div class="product">
+
+            <div class="image">
+
+                📦
+
+            </div>
+
+            <div class="info">
+
+                No Products
+
+            </div>
+
+        </div>
+
+        `;
+
+        return;
+
+    }
+
+    list.forEach(product=>{
+
+        wrap.innerHTML+=`
+
+        <div
+        class="product"
+        onclick="openProduct(${product.id})">
+
+            <div class="image">
+
+                ${product.emoji || "📦"}
+
+            </div>
+
+            <div class="info">
+
+                ${product.name}
+
+                <div class="price">
+
+                    ₹${product.price}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+}
+function openProduct(id){
+
+    localStorage.setItem(
+
+        "hb_selectedProduct",
+
+        id
+
+    );
+
+    window.location.href="product.html";
+
+}
