@@ -1,241 +1,260 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
 <head>
 
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
 <title>Product</title>
 
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial;
-}
-
-body{
-
-background:#FAF6EE;
-
-}
-
-.container{
-
-max-width:1100px;
-
-margin:auto;
-
-padding:40px;
-
-}
-
-.hero{
-
-display:flex;
-
-gap:40px;
-
-}
-
-.image{
-
-width:420px;
-
-height:420px;
-
-background:#ddd;
-
-border-radius:20px;
-
-}
-
-.info{
-
-flex:1;
-
-}
-
-.price{
-
-font-size:32px;
-
-color:#B63A3A;
-
-margin:20px 0;
-
-}
-
-.button{
-
-display:inline-block;
-
-padding:16px 24px;
-
-background:#667744;
-
-color:white;
-
-text-decoration:none;
-
-border-radius:12px;
-
-margin-right:12px;
-
-}
-
-.secondary{
-
-display:inline-block;
-
-padding:16px 24px;
-
-background:white;
-
-color:#333;
-
-text-decoration:none;
-
-border-radius:12px;
-
-border:1px solid #ddd;
-
-}
-
-.section{
-
-margin-top:50px;
-
-}
-
-.meta{
-
-margin:20px 0;
-
-line-height:2;
-
-color:#555;
-
-}
-
-.rating{
-
-margin-top:10px;
-
-font-size:18px;
-
-}
-
-</style>
+<link rel="stylesheet"
+href="css/product.css">
 
 </head>
 
 <body>
 
-<div class="container">
+<header class="topBar">
 
-<div class="hero">
+<button
+class="backBtn">
 
-<div class="image">
+←
 
-</div>
-
-<div class="info">
+</button>
 
 <h1>
 
-Premium Rice
+Product
 
 </h1>
 
-<p>
+<button
+class="shareBtn">
 
-Sold by Ahmad Grocery
+⤴
 
-</p>
+</button>
 
-<div class="rating">
+</header>
 
-★★★★☆
 
-(42 Reviews)
+<section
+class="productHero">
 
-</div>
+<div
+id="productImage"
+class="productImage">
 
-<div class="price">
-
-₹70
-
-</div>
-
-<div class="meta">
-
-Available:
-24 Units
-
-<br>
-
-Delivery:
-Within 10 km
-
-<br>
-
-Estimated:
-30–60 Minutes
+📦
 
 </div>
 
-<p>
+</section>
 
-Delivered from your local market.
 
-</p>
+<section
+class="productInfo">
 
-<br>
+<h2
+id="productName">
 
-<a
-class="button"
-href="/cart.html">
-
-Add To Cart
-
-</a>
-
-<a
-class="secondary"
-href="/shop.html">
-
-Visit Shop
-
-</a>
-
-</div>
-
-</div>
-
-<div class="section">
-
-<h2>
-
-About
+Loading...
 
 </h2>
 
-<br>
+<div
+id="productRating"
+class="rating">
 
-<p>
+⭐ New Product
 
-Premium quality rice sourced from trusted local sellers.
+</div>
 
-Fresh stock with fast delivery.
+<div
+id="productPrice"
+class="price">
+
+₹0
+
+</div>
+
+<div
+id="productStock"
+class="stock">
+
+In Stock
+
+</div>
+
+<div
+id="productDelivery"
+class="delivery">
+
+Delivery Time
+
+</div>
+
+</section>
+
+
+<section
+class="shopCard"
+id="shopCard">
+
+<div
+class="shopLeft">
+
+<div
+class="shopLogo">
+
+🏪
+
+</div>
+
+<div>
+
+<div
+id="shopName">
+
+Shop Name
+
+</div>
+
+<div
+id="shopStatus">
+
+Open Now
+
+</div>
+
+</div>
+
+</div>
+
+<button
+id="visitShopBtn">
+
+Visit →
+
+</button>
+
+</section>
+
+
+<section
+class="descriptionCard">
+
+<h3>
+
+About Product
+
+</h3>
+
+<p
+id="productDescription">
+
+Loading description...
 
 </p>
 
-</div>
+</section>
+
+
+<section
+class="quantityCard">
+
+<h3>
+
+Quantity
+
+</h3>
+
+<div
+class="quantityBox">
+
+<button
+id="minusBtn">
+
+−
+
+</button>
+
+<span
+id="quantity">
+
+1
+
+</span>
+
+<button
+id="plusBtn">
+
++
+
+</button>
 
 </div>
 
+</section>
+
+
+<section
+class="relatedProducts">
+
+<h3>
+
+Related Products
+
+</h3>
+
+<div
+id="relatedProducts">
+
+</div>
+
+</section>
+
+
+<div
+class="bottomBar">
+
+<div>
+
+<div
+class="totalText">
+
+Total
+
+</div>
+
+<div
+id="totalPrice">
+
+₹0
+
+</div>
+
+</div>
+
+<button
+id="addCartBtn">
+
+Add To Cart
+
+</button>
+
+</div>
+
+
+<script src="js/database.js"></script>
+<script src="js/shop.js"></script>
+<script src="js/product.js"></script>
+<script src="js/productpage.js"></script>
 
 </body>
 
