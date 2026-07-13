@@ -114,3 +114,91 @@ showStep();
 }
 
 };
+/* ==========================
+   LIVE PREVIEW ENGINE
+========================== */
+
+const shopNameInput =
+document.getElementById("shopName");
+
+const shopDescriptionInput =
+document.getElementById("shopDescription");
+
+const shopOpenInput =
+document.getElementById("shopOpen");
+
+const shopCloseInput =
+document.getElementById("shopClose");
+
+const previewName =
+document.getElementById("previewName");
+
+const previewDescription =
+document.getElementById("previewDescription");
+
+const previewTime =
+document.getElementById("previewTime");
+function updatePreview(){
+
+previewName.innerText =
+
+shopNameInput.value.trim()
+
+||
+
+"Your Shop";
+
+previewDescription.innerText =
+
+shopDescriptionInput.value.trim()
+
+||
+
+"Your shop description will appear here.";
+
+previewTime.innerText =
+
+(shopOpenInput.value || "8:00 AM")
+
++
+
+" — "
+
++
+
+(shopCloseInput.value || "8:00 PM");
+
+}
+shopNameInput.addEventListener(
+
+"input",
+
+updatePreview
+
+);
+
+shopDescriptionInput.addEventListener(
+
+"input",
+
+updatePreview
+
+);
+
+shopOpenInput.addEventListener(
+
+"input",
+
+updatePreview
+
+);
+
+shopCloseInput.addEventListener(
+
+"input",
+
+updatePreview
+
+);
+
+updatePreview();
