@@ -48,10 +48,21 @@ app.innerHTML = `
 
 <h1>
 
-Welcome,
-${shop.name}
+Seller Dashboard
 
 </h1>
+
+<p>
+
+Managing
+
+<strong>
+
+${shop.name}
+
+</strong>
+
+</p>
 
 <p>
 
@@ -63,9 +74,36 @@ Manage your business from one place.
 
 <div class="shopCard">
 
+<div style="display:flex;align-items:center;gap:20px;">
+
+<img
+src="${shop.logo || 'assets/shop-placeholder.png'}"
+style="
+width:90px;
+height:90px;
+border-radius:20px;
+object-fit:cover;
+background:#F3F3F3;
+">
+
+<div>
+
 <div class="shopName">
 
-${shop.name}
+🏪 ${shop.name}
+
+</div>
+
+<div style="margin-top:8px;color:#666;">
+
+${shop.open || "8:00 AM"}
+—
+
+${shop.close || "8:00 PM"}
+
+</div>
+
+</div>
 
 </div>
 
@@ -89,7 +127,7 @@ ${products.length}
 
 <div class="statLabel">
 
-Products
+📦 Products
 
 </div>
 
@@ -105,7 +143,23 @@ Products
 
 <div class="statLabel">
 
-Orders
+🛒 Orders
+
+</div>
+
+</div>
+
+<div class="stat">
+
+<div class="statValue">
+
+New
+
+</div>
+
+<div class="statLabel">
+
+⭐ Rating
 
 </div>
 
@@ -121,7 +175,7 @@ Orders
 
 <div class="statLabel">
 
-Customers
+👀 Visitors
 
 </div>
 
@@ -135,11 +189,7 @@ Customers
 class="actionCard"
 onclick="location.href='addproduct.html'">
 
-<div class="actionIcon">
-
-➕
-
-</div>
+<div class="actionIcon">➕</div>
 
 <div class="actionTitle">
 
@@ -149,7 +199,27 @@ Add Product
 
 <div class="actionText">
 
-Publish a new product.
+Publish a new product
+
+</div>
+
+</div>
+
+<div
+class="actionCard"
+onclick="location.href='myproducts.html'">
+
+<div class="actionIcon">📦</div>
+
+<div class="actionTitle">
+
+My Products
+
+</div>
+
+<div class="actionText">
+
+Manage products
 
 </div>
 
@@ -159,11 +229,7 @@ Publish a new product.
 class="actionCard"
 onclick="location.href='createshop.html'">
 
-<div class="actionIcon">
-
-✏️
-
-</div>
+<div class="actionIcon">✏️</div>
 
 <div class="actionTitle">
 
@@ -173,43 +239,15 @@ Edit Shop
 
 <div class="actionText">
 
-Update shop details.
+Update shop details
 
 </div>
 
 </div>
 
-<div
-class="actionCard">
+<div class="actionCard">
 
-<div class="actionIcon">
-
-📦
-
-</div>
-
-<div class="actionTitle">
-
-Orders
-
-</div>
-
-<div class="actionText">
-
-Coming Soon
-
-</div>
-
-</div>
-
-<div
-class="actionCard">
-
-<div class="actionIcon">
-
-📊
-
-</div>
+<div class="actionIcon">📊</div>
 
 <div class="actionTitle">
 
@@ -225,9 +263,53 @@ Coming Soon
 
 </div>
 
+<div class="actionCard">
+
+<div class="actionIcon">📑</div>
+
+<div class="actionTitle">
+
+Orders
+
+</div>
+
+<div class="actionText">
+
+Coming Soon
+
 </div>
 
 </div>
+
+<div
+class="actionCard"
+onclick="openShop(shop.id)">
+
+<div class="actionIcon">👁</div>
+
+<div class="actionTitle">
+
+View Shop
+
+</div>
+
+<div class="actionText">
+
+See customer view
+
+</div>
+
+</div>
+<h2 style="margin-top:50px;">
+
+Recent Products
+
+</h2>
+
+<div id="recentProducts">
+
+</div>
+
 
 `;
 
