@@ -37,9 +37,13 @@ function publishProduct(){
     };
 
     saveProduct(product);
-
+}
     alert("Product Published Successfully!");
 
-    window.location.href="shop.html";
+  setTimeout(function(){
 
-}
+    window.location.href = "dashboard.html";
+
+},1000);
+
+
