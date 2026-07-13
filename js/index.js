@@ -130,13 +130,9 @@ function renderFeaturedProducts(){
 
         wrap.innerHTML+=`
 
-        <div class="productCard">
-
-            <div class="productImage">
-
-                ${product.emoji || "📦"}
-
-            </div>
+       <div
+class="productCard"
+onclick="openProduct(${product.id})">
 
             <div class="productBody">
 
