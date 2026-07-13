@@ -168,3 +168,58 @@ function renderFeaturedProducts(){
 
 }
 renderFeaturedProducts();
+function renderPopularShops(){
+
+const wrap=document.getElementById(
+
+"shopScroll"
+
+);
+
+if(!wrap){
+
+return;
+
+}
+
+wrap.innerHTML="";
+
+const shops=getAllShops();
+
+if(shops.length===0){
+
+wrap.innerHTML=`
+
+<div class="productCard">
+
+<div class="productImage">
+
+🏪
+
+</div>
+
+<div class="productBody">
+
+<div class="productName">
+
+No Shops Yet
+
+</div>
+
+<div class="productShop">
+
+Be the first seller.
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+return;
+
+}
+
+}
