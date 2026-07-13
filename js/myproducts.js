@@ -144,7 +144,8 @@ ${product.section}
 
 </button>
 
-<button>
+<button
+onclick="removeProduct(${product.id})">
 
 🗑 Delete
 
@@ -157,5 +158,24 @@ ${product.section}
 `;
 
 });
+
+}
+function removeProduct(id){
+
+    const ok = confirm(
+
+        "Delete this product?"
+
+    );
+
+    if(!ok){
+
+        return;
+
+    }
+
+    deleteProduct(id);
+
+    renderProducts();
 
 }
