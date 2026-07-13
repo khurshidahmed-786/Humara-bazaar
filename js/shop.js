@@ -203,8 +203,11 @@ function loadShopPage(){
     }
 
     const shop = getCurrentShop();
-
-    ...
+ if(!shop){
+    document.getElementById("displayName").innerText = 
+       "Shop Not Found";
+    return;
+    
 }
 
     document.getElementById("displayName").innerText =
