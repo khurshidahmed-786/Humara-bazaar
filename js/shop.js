@@ -194,3 +194,71 @@ function openProduct(id){
     window.location.href="product.html";
 
 }
+function loadShopPage(){
+
+    const shop = getCurrentShop();
+
+    if(!shop){
+
+        document.getElementById("displayName").innerText =
+        "Shop Not Found";
+
+        return;
+
+    }
+
+    document.getElementById("displayName").innerText =
+    shop.name || "Unnamed Shop";
+
+    document.getElementById("displayDescription").innerText =
+    shop.description || "No description";
+
+    document.getElementById("displayTime").innerText =
+    `Open: ${shop.open || "8:00 AM"} - ${shop.close || "8:00 PM"}`;
+
+    if(shop.logo){
+
+        document.getElementById("displayLogo").src =
+        shop.logo;
+
+    }else{
+
+        document.getElementById("displayLogo").style.display =
+        "none";
+
+    }
+
+    document.getElementById("shopStatus").innerHTML =
+    "🟢 Open Now";
+
+    renderShopProducts();
+
+}
+function togglePanel(){
+
+    const panel = document.getElementById(
+
+        "shopPanel"
+
+    );
+
+    if(!panel){
+
+        return;
+
+    }
+
+panel.style.display =
+panel.style.display === "block"
+? "none"
+: "block";
+}
+document.addEventListener(
+
+"DOMContentLoaded",
+
+function(){
+
+    loadShopPage();
+
+});
