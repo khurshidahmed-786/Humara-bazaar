@@ -14,11 +14,11 @@ const DB = {
 
     ORDERS: "hb_orders",
 
-    SESSION: "hb_session"
+    SESSION: "hb_session",
   
-    CART: "hb_cart"
+    CART: "hb_cart",
    
-    SELECTEDSHOP: "hb_selectedshop"
+    SELECTEDSHOP: "hb_selectedShop",
    
     SELECTEDPRODUCT: "hb-selectedProduct"
 
@@ -122,25 +122,6 @@ function saveShop(shop){
 
 }
 
-/* ==========================================
-   PRODUCTS
-   ========================================== */
-
-function getProducts(){
-
-    return getData(DB.PRODUCTS);
-
-}
-
-function saveProduct(product){
-
-    let products=getProducts();
-
-    products.push(product);
-
-    saveData(DB.PRODUCTS,products);
-
-}
 
 /* ==========================================
    SERVICES
