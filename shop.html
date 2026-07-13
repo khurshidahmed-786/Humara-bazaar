@@ -404,34 +404,13 @@ Shop Description
 
 </h2>
 
-<div class="products">
-
-<div class="product">
-
-<div class="image">
-
-🍚
-
-</div>
-
-<div class="info">
-
-Premium Rice
-
-<div class="price">
-
-₹70
+<div
+class="products"
+id="featuredProducts">
 
 </div>
 
 </div>
-
-</div>
-
-</div>
-
-</div>
-
 <div class="section">
 
 <h2>
@@ -440,34 +419,13 @@ Premium Rice
 
 </h2>
 
-<div class="products">
-
-<div class="product">
-
-<div class="image">
-
-🥛
-
-</div>
-
-<div class="info">
-
-Fresh Milk
-
-<div class="price">
-
-₹35
+<div
+class="products"
+id="newProducts">
 
 </div>
 
 </div>
-
-</div>
-
-</div>
-
-</div>
-
 <div class="section">
 
 <h2>
@@ -476,36 +434,13 @@ Fresh Milk
 
 </h2>
 
-<div class="products">
-
-<div class="product">
-
-<div class="image">
-
-💄
-
-</div>
-
-<div class="info">
-
-Lipstick
-
-<div class="price">
-
-₹199
+<div
+class="products"
+id="saleProducts">
 
 </div>
 
 </div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
 <div class="orderBar">
 
 <button
@@ -534,7 +469,7 @@ function togglePanel(){
 
 /* ---------- Load Selected Shop ---------- */
 // TODO: Replace with getCurrentShop()
-const selectedId = Number(localStorage.getItem("selectedShop"));
+const selectedId = Number(localStorage.getItem("hb_selectedShop"));
 
 const shops = getShops();
 
