@@ -9,372 +9,232 @@
 </head>
 
 <body>
-<div style="padding:40px;max-width:700px;margin:auto;">
+<body>
 
-<h1>
+<div class="page">
 
-Create Your Shop
+    <div class="topBar">
 
-</h1>
+        <a href="dashboard.html" class="backBtn">←</a>
 
-<br>
+        <div>
 
-<input
-id="shopName"
-placeholder="Shop Name"
-style="width:100%;padding:16px;margin-bottom:14px;">
+            <h1>Create Your Shop</h1>
 
-<input
-id="shopLogo"
-placeholder="Logo URL (optional)"
-style="width:100%;padding:16px;margin-bottom:14px;">
+            <p>Your digital storefront starts here.</p>
 
-<input
-id="shopBanner"
-placeholder="Banner URL (optional)"
-style="width:100%;padding:16px;margin-bottom:14px;">
+        </div>
 
-<input
-id="shopOpen"
-placeholder="Opening Time (8:00 AM)"
-style="width:100%;padding:16px;margin-bottom:14px;">
+    </div>
 
-<input
-id="shopClose"
-placeholder="Closing Time (8:00 PM)"
-style="width:100%;padding:16px;margin-bottom:14px;">
+    <div class="progressCard">
 
-<textarea
-id="shopDescription"
-placeholder="Describe your shop"
-style="
-width:100%;
-height:140px;
-padding:16px;
-margin-bottom:20px;
-">
-</textarea>
-<div
-style="
-background:white;
-padding:22px;
-border-radius:22px;
-margin-bottom:24px;
-">
+        <div class="progressHead">
 
-<div
-style="
-font-size:22px;
-font-weight:bold;
-margin-bottom:16px;
-">
+            <span id="stepText">
 
-Live Preview
+                Step 1 of 4
+
+            </span>
+
+            <span id="stepTitle">
+
+                Shop Identity
+
+            </span>
+
+        </div>
+
+        <div class="progressBar">
+
+            <div id="progressFill"></div>
+
+        </div>
+
+    </div>
+
+    <div class="stepCard">
+
+        <!-- STEP 1 -->
+
+        <div class="step active" id="step1">
+
+            <h2>🏪 Shop Identity</h2>
+
+            <p>
+
+                Tell customers who you are.
+
+            </p>
+
+            <input
+            id="shopName"
+            placeholder="Shop Name *">
+
+            <select id="shopCategory">
+
+                <option value="">
+
+                    Select Category *
+
+                </option>
+
+                <option>
+
+                    Grocery
+
+                </option>
+
+                <option>
+
+                    Restaurant
+
+                </option>
+
+                <option>
+
+                    Fashion
+
+                </option>
+
+                <option>
+
+                    Beauty
+
+                </option>
+
+                <option>
+
+                    Electronics
+
+                </option>
+
+            </select>
+
+        </div>
+
+        <!-- STEP 2 -->
+
+        <div class="step" id="step2">
+
+            <h2>📝 About Your Shop</h2>
+
+            <p>
+
+                Help customers understand your business.
+
+            </p>
+
+            <textarea
+            id="shopDescription"
+            placeholder="Describe your shop *"></textarea>
+
+            <input
+            id="shopOpen"
+            placeholder="Opening Time">
+
+            <input
+            id="shopClose"
+            placeholder="Closing Time">
+
+        </div>
+
+        <!-- STEP 3 -->
+
+        <div class="step" id="step3">
+
+            <h2>🎨 Branding</h2>
+
+            <p>
+
+                Optional but recommended.
+
+            </p>
+
+            <input
+            id="shopLogo"
+            placeholder="Logo URL">
+
+            <input
+            id="shopBanner"
+            placeholder="Banner URL">
+
+        </div>
+
+        <!-- STEP 4 -->
+
+        <div class="step" id="step4">
+
+            <h2>👀 Preview</h2>
+
+            <p>
+
+                This is how customers will see your shop.
+
+            </p>
+
+            <div class="preview">
+
+                <div id="previewBanner">
+
+                </div>
+
+                <div id="previewLogo">
+
+                    🏪
+
+                </div>
+
+                <h3 id="previewName">
+
+                    Your Shop
+
+                </h3>
+
+                <div id="previewTime">
+
+                    8 AM - 8 PM
+
+                </div>
+
+                <p id="previewDescription">
+
+                    Your description will appear here.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="bottomBar">
+
+        <button
+        id="backBtn">
+
+            Back
+
+        </button>
+
+        <button
+        id="nextBtn">
+
+            Next →
+
+        </button>
+
+    </div>
 
 </div>
 
-<div
-id="previewBanner"
-
-style="
-height:140px;
-background:#B63A3A;
-border-radius:18px;
-margin-bottom:18px;
-">
-
-</div>
-
-<div
-style="
-display:flex;
-gap:16px;
-align-items:center;
-">
-
-<div
-id="previewLogo"
-
-style="
-width:80px;
-height:80px;
-background:#EEE;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:32px;
-">
-
-🏪
-
-</div>
-
-<div>
-
-<div
-id="previewName"
-style="
-font-size:24px;
-font-weight:bold;
-">
-
-Your Shop
-
-</div>
-
-<div
-id="previewTime"
-style="
-color:#777;
-">
-
-8AM — 8PM
-
-</div>
-
-</div>
-
-</div>
-
-<p
-id="previewDescription"
-style="
-margin-top:18px;
-color:#666;
-">
-
-Your description appears here
-
-</p>
-
-</div>
-
-<div
-
-id="publishBtn"
-
-onclick="publishShop()"
-
-style="
-
-margin-top:40px;
-
-background:
-
-linear-gradient(
-135deg,
-#B63A3A,
-#D85D5D
-);
-
-color:white;
-
-padding:24px;
-
-border-radius:28px;
-
-display:flex;
-
-align-items:center;
-
-gap:18px;
-
-cursor:pointer;
-
-box-shadow:
-
-0 20px 50px
-rgba(
-182,
-58,
-58,
-0.25
-);
-
-">
-
-<div
-
-style="
-
-width:64px;
-
-height:64px;
-
-border-radius:20px;
-
-background:
-
-rgba(
-255,
-255,
-255,
-0.18
-);
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:32px;
-
-">
-
-🚀
-
-</div>
-
-<div>
-
-<div
-
-style="
-
-font-size:24px;
-
-font-weight:800;
-
-">
-
-Publish Shop
-
-</div>
-
-<div
-
-style="
-
-margin-top:6px;
-
-opacity:.9;
-
-">
-
-Make changes live instantly
-
-</div>
-
-
-
-
-</div>
 <script src="js/database.js"></script>
 <script src="js/shop.js"></script>
-<script>
+<script src="js/auth.js"></script>
+<script src="js/createshop.js"></script>
 
-setInterval(function(){
-
-let n=
-document.getElementById(
-"shopName"
-);
-
-if(n){
-
-document.getElementById(
-"previewName"
-).innerText=
-
-n.value
-||
-"Your Shop";
-
-}
-
-
-let d=
-document.getElementById(
-"shopDescription"
-);
-
-if(d){
-
-document.getElementById(
-"previewDescription"
-).innerText=
-
-d.value
-||
-"Description";
-
-}
-
-
-let o=
-document.getElementById(
-"shopOpen"
-);
-
-let c=
-document.getElementById(
-"shopClose"
-);
-
-if(o&&c){
-
-document.getElementById(
-"previewTime"
-).innerText=
-
-(o.value||"8AM")
-
-+
-
-" — "
-
-+
-
-(c.value||"8PM");
-
-}
-
-},
-
-300);
-
-
-
-function publishShop(){
-alert("Publish button clicked!");
-let shop={
-
-id:Date.now(),
-
-name:document.getElementById("shopName").value,
-
-description:document.getElementById("shopDescription").value,
-
-open:document.getElementById("shopOpen").value,
-
-close:document.getElementById("shopClose").value,
-
-logo:document.getElementById("shopLogo").value,
-
-banner:document.getElementById("shopBanner").value,
-
-products:[]
-
-};
-
-createShop(shop);
-document.getElementById("publishBtn").innerText=
-
-"Shop Created Successfully";
-
-setTimeout(function(){
-
-window.location.href="./index.html";
-
-},1000);
-
-}
-
-
-</script>
-
+</body>
 </body>
 
 </html>
