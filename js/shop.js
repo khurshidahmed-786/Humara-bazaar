@@ -196,16 +196,16 @@ function openProduct(id){
 }
 function loadShopPage(){
 
-    const shop = getCurrentShop();
-
-    if(!shop){
-
-        document.getElementById("displayName").innerText =
-        "Shop Not Found";
+    if(!document.getElementById("displayName")){
 
         return;
 
     }
+
+    const shop = getCurrentShop();
+
+    ...
+}
 
     document.getElementById("displayName").innerText =
     shop.name || "Unnamed Shop";
