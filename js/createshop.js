@@ -347,7 +347,7 @@ this.innerText=
 
 setTimeout(function(){
 
-window.location.href="shop.html";
+window.location.href="dashboard.html";
 
 },1200);
 
