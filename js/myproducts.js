@@ -35,3 +35,127 @@ id="productList">
 </div>
 
 `;
+const shop = getCurrentShop();
+
+const list = document.getElementById(
+
+"productList"
+
+);
+
+if(!shop){
+
+list.innerHTML=`
+
+<div class="productCard">
+
+No shop found.
+
+</div>
+
+`;
+
+}else{
+
+renderProducts();
+
+}
+function renderProducts(){
+
+const products = getProductsByShop(
+
+shop.id
+
+);
+
+if(products.length===0){
+
+list.innerHTML=`
+
+<div class="productCard">
+
+<h2>
+
+No Products Yet
+
+</h2>
+
+<br>
+
+<p>
+
+Click "Add Product" to publish your first product.
+
+</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+list.innerHTML="";
+
+products.forEach(product=>{
+
+list.innerHTML+=`
+
+<div class="productCard">
+
+<h2>
+
+${product.emoji || "📦"}
+
+${product.name}
+
+</h2>
+
+<br>
+
+<div>
+
+₹${product.price}
+
+</div>
+
+<br>
+
+<div>
+
+${product.section}
+
+</div>
+
+<br>
+
+<div style="display:flex;gap:12px;">
+
+<button>
+
+✏ Edit
+
+</button>
+
+<button>
+
+👁 Active
+
+</button>
+
+<button>
+
+🗑 Delete
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
