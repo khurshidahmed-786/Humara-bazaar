@@ -43,3 +43,22 @@ function getFeaturedProducts(){
     );
 
 }
+function deleteProduct(id){
+
+    let products = getProducts();
+
+    products = products.filter(
+
+        product => product.id != id
+
+    );
+
+    saveData(
+
+        DB.PRODUCTS,
+
+        products
+
+    );
+
+}
