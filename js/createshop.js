@@ -333,15 +333,21 @@ getCurrentUser().id
 
 };
 
-createShop(shop);
+const createdShop = createShop(shop);
+localStorage.setItem(
 
+    "hb_selectedShop",
+
+    createdShop.id
+
+);
 this.innerText=
 
 "✅ Shop Published";
 
 setTimeout(function(){
 
-window.location.href="dashboard.html";
+window.location.href="shop.html";
 
 },1200);
 
