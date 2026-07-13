@@ -222,4 +222,56 @@ return;
 
 }
 
+shops.forEach(shop=>{
+
+wrap.innerHTML += `
+
+<div
+class="productCard"
+onclick="openShop(${shop.id})">
+
+<div class="productImage">
+
+🏪
+
+</div>
+
+<div class="productBody">
+
+<div class="productName">
+
+${shop.name}
+
+</div>
+
+<div class="productShop">
+
+${shop.description || "Local Shop"}
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
 }
+function openShop(id){
+
+localStorage.setItem(
+
+"hb_selectedShop",
+
+id
+
+);
+
+window.location.href="shop.html";
+
+}
+renderFeaturedProducts();
+
+renderPopularShops();
