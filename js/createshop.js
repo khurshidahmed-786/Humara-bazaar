@@ -93,6 +93,26 @@ publishArea.style.display="none";
 showStep();
 nextBtn.onclick=function(){
 
+if(currentStep===1){
+
+if(!validateStep1()){
+
+return;
+
+}
+
+}
+
+if(currentStep===2){
+
+if(!validateStep2()){
+
+return;
+
+}
+
+}
+
 if(currentStep<totalSteps){
 
 currentStep++;
@@ -100,6 +120,8 @@ currentStep++;
 showStep();
 
 }
+
+};
 
 };
 
@@ -202,3 +224,126 @@ updatePreview
 );
 
 updatePreview();
+function validateStep1(){
+
+if(shopNameInput.value.trim()===""){
+
+alert("Please enter your shop name.");
+
+return false;
+
+}
+
+const category=document.getElementById("shopCategory");
+
+if(category.value===""){
+
+alert("Please select a category.");
+
+return false;
+
+}
+
+return true;
+
+}
+function validateStep2(){
+
+if(shopDescriptionInput.value.trim()===""){
+
+alert("Please enter a shop description.");
+
+return false;
+
+}
+
+if(shopOpenInput.value.trim()===""){
+
+alert("Please enter opening time.");
+
+return false;
+
+}
+
+if(shopCloseInput.value.trim()===""){
+
+alert("Please enter closing time.");
+
+return false;
+
+}
+
+return true;
+
+}
+document.getElementById(
+
+"publishBtn"
+
+).onclick=function(){
+
+const shop={
+
+name:shopNameInput.value.trim(),
+
+category:
+
+document.getElementById(
+
+"shopCategory"
+
+).value,
+
+description:
+
+shopDescriptionInput.value.trim(),
+
+open:
+
+shopOpenInput.value.trim(),
+
+close:
+
+shopCloseInput.value.trim(),
+
+logo:
+
+document.getElementById(
+
+"shopLogo"
+
+).value.trim(),
+
+banner:
+
+document.getElementById(
+
+"shopBanner"
+
+).value.trim(),
+
+ownerId:
+
+getCurrentUser()
+
+?
+
+getCurrentUser().id
+
+:null
+
+};
+
+createShop(shop);
+
+this.innerText=
+
+"✅ Shop Published";
+
+setTimeout(function(){
+
+window.location.href="dashboard.html";
+
+},1200);
+
+};
