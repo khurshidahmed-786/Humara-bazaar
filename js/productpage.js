@@ -146,21 +146,12 @@ document.getElementById(
 
 document.getElementById("addCartBtn").onclick = function(){
 
-    console.log("currentProduct =", currentProduct);
-
-    console.log("quantity =", quantity);
-
     addToCart(
-
         currentProduct.id,
-
         quantity
-
     );
 
-    console.log("cart =", getCart());
-
-    alert("Finished");
+    window.location.href = "cart.html";
 
 };
 }
