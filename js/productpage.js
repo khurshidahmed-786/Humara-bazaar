@@ -160,24 +160,22 @@ document.getElementById(
 (currentProduct.price * quantity);
 
 }
-document.getElementById(
+const addCartBtn = document.getElementById("addCartBtn");
 
-"addCartBtn"
+if(addCartBtn){
 
-).onclick = function(){
+    addCartBtn.onclick = function(){
 
-    addToCart(
+        addToCart(
 
-        currentProduct.id,
+            currentProduct.id,
 
-        quantity
+            quantity
 
-    );
+        );
 
-    alert(
+        alert("✅ Added to Cart");
 
-        "✅ Added to Cart"
+    };
 
-    );
-
-};
+}
