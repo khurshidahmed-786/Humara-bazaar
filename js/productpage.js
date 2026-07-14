@@ -174,7 +174,7 @@ if(addCartBtn){
 
         );
 
-        alert("✅ Added to Cart");
+        console.log("Button Clicked");
 
     };
 
