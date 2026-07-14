@@ -64,3 +64,52 @@ function clearCart(){
     saveCart([]);
 
 }
+function updateCartQuantity(productId, quantity){
+
+    let cart = getCart();
+
+    const item = cart.find(
+
+        item => item.productId == productId
+
+    );
+
+    if(item){
+
+        item.quantity = quantity;
+
+    }
+
+    saveCart(cart);
+
+}
+
+function getCartTotal(){
+
+    let total = 0;
+
+    const cart = getCart();
+
+    cart.forEach(item=>{
+
+        const product = getProductById(
+
+            item.productId
+
+        );
+
+        if(product){
+
+            total +=
+
+            Number(product.price) *
+
+            item.quantity;
+
+        }
+
+    });
+
+    return total;
+
+}
