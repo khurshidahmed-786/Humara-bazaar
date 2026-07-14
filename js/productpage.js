@@ -160,3 +160,24 @@ document.getElementById(
 (currentProduct.price * quantity);
 
 }
+document.getElementById(
+
+"addCartBtn"
+
+).onclick = function(){
+
+    addToCart(
+
+        currentProduct.id,
+
+        quantity
+
+    );
+
+    alert(
+
+        "✅ Added to Cart"
+
+    );
+
+};
