@@ -32,5 +32,7 @@ function renderOrders(){
         return;
 
     }
+const orders = getOrders();
 
+console.log(orders);
 }
