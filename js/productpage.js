@@ -148,8 +148,21 @@ document.getElementById("addCartBtn").onclick = function(){
 
     alert("Clicked");
 
-};
+    console.log(currentProduct);
 
+    console.log(quantity);
+
+    addToCart(
+
+        currentProduct.id,
+
+        quantity
+
+    );
+
+    console.log(getCart());
+
+};
 }
 function updateQuantity(){
 
