@@ -3,7 +3,9 @@ document.addEventListener(
 "DOMContentLoaded",
 
 function(){
+let quantity = 1;
 
+let currentProduct = null;
 loadProductPage();
 
 });
@@ -39,7 +41,7 @@ renderProduct(product);
 
 }
 function renderProduct(product){
-
+currentProduct = product;
 document.getElementById(
 
 "productImage"
@@ -109,5 +111,51 @@ document.getElementById(
 shop.name;
 
 }
+
+}
+document.getElementById(
+
+"plusBtn"
+
+).onclick = function(){
+
+quantity++;
+
+updateQuantity();
+
+};
+
+document.getElementById(
+
+"minusBtn"
+
+).onclick = function(){
+
+if(quantity>1){
+
+quantity--;
+
+updateQuantity();
+
+}
+
+};
+function updateQuantity(){
+
+document.getElementById(
+
+"quantity"
+
+).innerText = quantity;
+
+document.getElementById(
+
+"totalPrice"
+
+).innerText =
+
+"₹" +
+
+(currentProduct.price * quantity);
 
 }
