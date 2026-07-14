@@ -89,7 +89,7 @@ Grand Total
 ₹${getCartTotal()}
 
 </h1>
-html += `
+
 
 <button
 class="checkoutBtn">
