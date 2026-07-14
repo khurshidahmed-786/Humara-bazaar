@@ -144,23 +144,11 @@ document.getElementById(
 
 };
 
-document.getElementById(
+document.getElementById("addCartBtn").onclick = function(){
 
-"addCartBtn"
+    alert("Clicked");
 
-).onclick = function(){
-
-    addToCart(
-
-        currentProduct.id,
-
-        quantity
-
-    );
-
-        console.log("Button Clicked");
-
-    };
+};
 
 }
 function updateQuantity(){
