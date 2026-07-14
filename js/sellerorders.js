@@ -7,3 +7,30 @@ function(){
     renderOrders();
 
 });
+function renderOrders(){
+
+    const container = document.getElementById(
+
+        "ordersContainer"
+
+    );
+
+    const shop = getCurrentShop();
+
+    if(!shop){
+
+        container.innerHTML = `
+
+        <div class="order">
+
+        No shop found.
+
+        </div>
+
+        `;
+
+        return;
+
+    }
+
+}
