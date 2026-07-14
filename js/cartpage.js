@@ -74,7 +74,34 @@ return;
 const subtotal =
 
 Number(product.price) * item.quantity;
+html += `
 
+<div class="cartTotal">
+
+<h2>
+
+Grand Total
+
+</h2>
+
+<h1>
+
+₹${getCartTotal()}
+
+</h1>
+html += `
+
+<button
+class="checkoutBtn">
+
+Proceed to Checkout →
+
+</button>
+
+`;
+</div>
+
+`;
 html += `
 
 <div class="cartCard">
@@ -98,21 +125,72 @@ ${product.name}
 ₹${product.price}
 
 </p>
+<div class="quantityBox">
 
-<p>
+<button
+onclick="changeQty(${product.id},-1)">
 
-Quantity :
+−
+
+</button>
+
+<span>
+
 ${item.quantity}
 
-</p>
+</span>
 
+<button
+onclick="changeQty(${product.id},1)">
+
++
+
+</button>
+
+</div>
+function changeQty(productId, change){
+
+    const cart = getCart();
+
+    const item = cart.find(
+
+        i => i.productId == productId
+
+    );
+
+    if(!item){
+
+        return;
+
+    }
+
+    item.quantity += change;
+
+    if(item.quantity < 1){
+
+        item.quantity = 1;
+
+    }
+
+    saveCart(cart);
+
+    renderCart();
+
+}
 <p>
 
 Subtotal :
 ₹${subtotal}
 
 </p>
+<br>
 
+<button
+onclick="deleteCartItem(${product.id})">
+
+🗑 Remove
+
+</button>
 </div>
 
 </div>
@@ -128,5 +206,12 @@ html += `
 `;
 
 app.innerHTML = html;
+
+}
+function deleteCartItem(productId){
+
+    removeFromCart(productId);
+
+    renderCart();
 
 }
