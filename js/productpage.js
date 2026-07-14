@@ -146,7 +146,21 @@ document.getElementById(
 
 document.getElementById("addCartBtn").onclick = function(){
 
-    alert("Version 999");
+    console.log("currentProduct =", currentProduct);
+
+    console.log("quantity =", quantity);
+
+    addToCart(
+
+        currentProduct.id,
+
+        quantity
+
+    );
+
+    console.log("cart =", getCart());
+
+    alert("Finished");
 
 };
 }
