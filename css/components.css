@@ -1,1 +1,63 @@
+.container{
 
+    max-width:1100px;
+
+    margin:auto;
+
+    padding:24px;
+
+}
+
+.card{
+
+    background:var(--surface);
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+    padding:20px;
+
+}
+
+.btn{
+
+    border:none;
+
+    border-radius:12px;
+
+    background:var(--primary);
+
+    color:white;
+
+    padding:14px 20px;
+
+    cursor:pointer;
+
+    transition:var(--transition);
+
+}
+
+.btn:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.iconBtn{
+
+    border:none;
+
+    background:white;
+
+    width:44px;
+
+    height:44px;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    box-shadow:var(--shadow);
+
+}
