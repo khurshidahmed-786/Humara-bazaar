@@ -8,7 +8,7 @@ document.addEventListener(
 function(){
 
 loadProductPage();
-
+bindEvents();
 });
 function loadProductPage(){
 
@@ -114,15 +114,17 @@ shop.name;
 }
 
 }
+function bindEvents(){
+
 document.getElementById(
 
 "plusBtn"
 
 ).onclick = function(){
 
-quantity++;
+    quantity++;
 
-updateQuantity();
+    updateQuantity();
 
 };
 
@@ -132,15 +134,35 @@ document.getElementById(
 
 ).onclick = function(){
 
-if(quantity>1){
+    if(quantity > 1){
 
-quantity--;
+        quantity--;
 
-updateQuantity();
+        updateQuantity();
 
-}
+    }
 
 };
+
+document.getElementById(
+
+"addCartBtn"
+
+).onclick = function(){
+
+    addToCart(
+
+        currentProduct.id,
+
+        quantity
+
+    );
+
+        console.log("Button Clicked");
+
+    };
+
+}
 function updateQuantity(){
 
 document.getElementById(
@@ -160,22 +182,5 @@ document.getElementById(
 (currentProduct.price * quantity);
 
 }
-const addCartBtn = document.getElementById("addCartBtn");
 
-if(addCartBtn){
 
-    addCartBtn.onclick = function(){
-
-        addToCart(
-
-            currentProduct.id,
-
-            quantity
-
-        );
-
-        console.log("Button Clicked");
-
-    };
-
-}
