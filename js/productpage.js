@@ -1,11 +1,12 @@
+let quantity = 1;
+
+let currentProduct = null;
 document.addEventListener(
 
 "DOMContentLoaded",
 
 function(){
-let quantity = 1;
 
-let currentProduct = null;
 loadProductPage();
 
 });
