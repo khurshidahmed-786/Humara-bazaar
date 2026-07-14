@@ -146,14 +146,7 @@ document.getElementById(
 
 document.getElementById("addCartBtn").onclick = function(){
 
-    console.log("Before:", getCart());
-
-    addToCart(
-        currentProduct.id,
-        quantity
-    );
-
-    console.log("After:", getCart());
+    alert("Version 999");
 
 };
 }
