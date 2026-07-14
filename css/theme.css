@@ -1,1 +1,39 @@
+:root{
 
+    --primary:#667744;
+    --secondary:#B63A3A;
+
+    --background:#FAF6EE;
+    --surface:#FFFFFF;
+
+    --text:#2F2F2F;
+    --text-light:#666666;
+
+    --radius:18px;
+
+    --shadow:
+    0 8px 20px rgba(0,0,0,.08);
+
+    --transition:.25s;
+
+}
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+
+body{
+
+    background:var(--background);
+
+    color:var(--text);
+
+    font-family:
+    Arial,
+    sans-serif;
+
+}
