@@ -113,7 +113,11 @@ function renderLayout(page){
 
     ).innerHTML =
 
-    renderHeader();
+    renderHeader()
+
+    +
+
+    renderSidebar();
 
     document.getElementById(
 
@@ -122,6 +126,67 @@ function renderLayout(page){
     ).innerHTML =
 
     renderBottomNav(page);
+
+    bindLayoutEvents();
+
+}
+function bindLayoutEvents(){
+
+    const menu =
+
+    document.getElementById(
+
+        "menuBtn"
+
+    );
+
+    const sidebar =
+
+    document.getElementById(
+
+        "sidebar"
+
+    );
+
+    const overlay =
+
+    document.getElementById(
+
+        "overlay"
+
+    );
+
+    menu.onclick=function(){
+
+        sidebar.classList.add(
+
+            "open"
+
+        );
+
+        overlay.classList.add(
+
+            "show"
+
+        );
+
+    };
+
+    overlay.onclick=function(){
+
+        sidebar.classList.remove(
+
+            "open"
+
+        );
+
+        overlay.classList.remove(
+
+            "show"
+
+        );
+
+    };
 
 }
 function renderSidebar(){
