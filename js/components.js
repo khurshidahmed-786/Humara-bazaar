@@ -134,7 +134,7 @@ function renderLayout(page){
     renderBottomNav(page);
 
     bindLayoutEvents();
-
+updateCartBadge();
 }
 function bindLayoutEvents(){
 
@@ -248,5 +248,34 @@ function renderSidebar(){
     </div>
 
     `;
+
+}
+function updateCartBadge(){
+
+    const badge =
+
+    document.getElementById(
+
+        "cartBadge"
+
+    );
+
+    if(!badge){
+
+        return;
+
+    }
+
+    const cart = getCart();
+
+    let total = 0;
+
+    cart.forEach(item=>{
+
+        total += item.quantity;
+
+    });
+
+    badge.innerText = total;
 
 }
