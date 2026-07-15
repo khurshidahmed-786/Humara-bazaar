@@ -15,7 +15,7 @@ function saveCart(cart){
         cart
 
     );
-
+updateCartBadge();
 }
 function addToCart(productId, quantity){
 
@@ -62,7 +62,7 @@ updateCartBadge();
 function clearCart(){
 
     saveCart([]);
-
+updateCartBadge();
 }
 function updateCartQuantity(productId, quantity){
 
