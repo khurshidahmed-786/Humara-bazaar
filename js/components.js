@@ -19,7 +19,7 @@ function renderHeader(title = "Hamara Bazaar"){
             class="brandLogo"
             alt="Logo">
 
-            <div>
+            <div class="brandText">
 
                 <div class="brandName">
 
@@ -33,32 +33,36 @@ function renderHeader(title = "Hamara Bazaar"){
 
                 </div>
 
-                <div class="brandLocation">
-
-                    📍 Surankote Bazaar
-
-                </div>
-
             </div>
 
         </div>
 
-      <button
-id="cartBtn"
-class="iconBtn"
-onclick="location.href='cart.html'">
+        <button
+        id="cartBtn"
+        class="iconBtn"
+        onclick="location.href='cart.html'">
 
-🛒
+            🛒
 
-<span id="cartBadge">
+            <span id="cartBadge">
 
-0
+                0
 
-</span>
+            </span>
 
-</button>
+        </button>
 
     </header>
+
+    <div class="marketBar">
+
+        📍 <span id="marketName">
+
+        Surankote Bazaar
+
+        </span>
+
+    </div>
 
     `;
 
