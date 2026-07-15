@@ -292,3 +292,14 @@ function openProduct(productId){
 renderFeaturedProducts();
 
 renderPopularShops();
+let selectedCategory = "";
+
+function filterCategory(categoryName){
+
+    selectedCategory = categoryName;
+
+    renderFeaturedProducts();
+
+    console.log("Selected:", categoryName);
+
+}
