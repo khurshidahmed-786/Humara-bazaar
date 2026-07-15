@@ -106,6 +106,39 @@
     justify-content:center;
 
 }
+#cartBtn{
+
+    position:relative;
+
+}
+
+#cartBadge{
+
+    position:absolute;
+
+    top:-5px;
+
+    right:-5px;
+
+    background:#B63A3A;
+
+    color:white;
+
+    width:20px;
+
+    height:20px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:11px;
+
+}
 /* ---------- Bottom Navigation ---------- */
 
 .bottomNav{
