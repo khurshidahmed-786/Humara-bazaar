@@ -231,7 +231,7 @@ function renderSidebar(){
 
 </a>
 
-<a href="sellerdashboard.html">
+<a href="dashboard.html">
 
 🏪 Seller Dashboard
 
