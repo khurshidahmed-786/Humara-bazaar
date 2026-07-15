@@ -105,3 +105,22 @@ function renderBottomNav(current){
     `;
 
 }
+function renderLayout(page){
+
+    document.getElementById(
+
+        "headerContainer"
+
+    ).innerHTML =
+
+    renderHeader();
+
+    document.getElementById(
+
+        "bottomNavContainer"
+
+    ).innerHTML =
+
+    renderBottomNav(page);
+
+}
