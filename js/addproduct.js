@@ -27,7 +27,7 @@ function publishProduct(){
         description:document.getElementById("productDescription").value,
 
         emoji:document.getElementById("productEmoji").value || "📦",
-
+        category:document.getElementById("productCategory").value,
         featured:true,
 
         active:true,
