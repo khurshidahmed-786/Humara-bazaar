@@ -10,14 +10,15 @@
 content="width=device-width, initial-scale=1.0">
 
 <title>Product</title>
-
-<link rel="stylesheet"
-href="css/product.css">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/product.css">
 
 </head>
 
 <body>
-
+<div id="headerContainer"></div>
+<main class="page">
 <header class="topBar">
 
 <button
@@ -249,14 +250,15 @@ Add To Cart
 </button>
 
 </div>
-
+</main>
+<div id="bottomNavContainer"></div>
 
 <script src="js/database.js"></script>
 <script src="js/shop.js"></script>
 <script src="js/product.js"></script>
 <script src="js/cart.js"></script>
 <script src="js/productpage.js"></script>
-
+<script> renderLayout("home"); </script>
 </body>
 
 </html>
