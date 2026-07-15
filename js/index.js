@@ -294,12 +294,35 @@ renderFeaturedProducts();
 renderPopularShops();
 let selectedCategory = "";
 
+let selectedCategory = "";
+
 function filterCategory(categoryName){
 
     selectedCategory = categoryName;
 
     renderFeaturedProducts();
 
-    console.log("Selected:", categoryName);
+    highlightCategory(categoryName);
+
+}
+function highlightCategory(categoryName){
+
+    document.querySelectorAll(".categoryCard").forEach(card=>{
+
+        card.classList.remove("active");
+
+    });
+
+    document.querySelectorAll(".categoryCard").forEach(card=>{
+
+        const name = card.querySelector(".categoryName").innerText;
+
+        if(name===categoryName){
+
+            card.classList.add("active");
+
+        }
+
+    });
 
 }
