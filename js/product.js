@@ -36,11 +36,23 @@ function getProductsByShop(shopId){
 
 function getFeaturedProducts(){
 
-    return getProducts().filter(
+    let products = getProducts().filter(
 
         p => p.featured === true && p.active === true
 
     );
+
+    if(typeof selectedCategory !== "undefined" && selectedCategory !== ""){
+
+        products = products.filter(
+
+            p => p.category === selectedCategory
+
+        );
+
+    }
+
+    return products;
 
 }
 function deleteProduct(id){
