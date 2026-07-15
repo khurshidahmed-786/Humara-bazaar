@@ -262,3 +262,32 @@
     display:block;
 
 }
+.brandText{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.marketBar{
+
+    background:#F6F2E8;
+
+    padding:8px 20px;
+
+    font-size:14px;
+
+    color:#666;
+
+    border-bottom:1px solid #ece6d9;
+
+}
+
+.marketBar span{
+
+    font-weight:600;
+
+    color:#444;
+
+}
