@@ -124,3 +124,58 @@ function renderLayout(page){
     renderBottomNav(page);
 
 }
+function renderSidebar(){
+
+    return `
+
+    <div
+    id="sidebar"
+    class="sidebar">
+
+        <h2>
+
+            Hamara Bazaar
+
+        </h2>
+
+        <a href="#">
+
+            👤 My Profile
+
+        </a>
+
+        <a href="#">
+
+            📦 My Orders
+
+        </a>
+
+        <a href="#">
+
+            ❤️ Wishlist
+
+        </a>
+
+        <a href="#">
+
+            🏪 Become Seller
+
+        </a>
+
+        <a href="#">
+
+            ⚙ Settings
+
+        </a>
+
+    </div>
+
+    <div
+    id="overlay"
+    class="overlay">
+
+    </div>
+
+    `;
+
+}
