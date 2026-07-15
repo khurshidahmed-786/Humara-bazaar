@@ -17,6 +17,7 @@
 
 <body>
 <div id="headerContainer"></div>
+<div id="bottomNavContainer"></div>
 <header class="topbar">
 
     <button
@@ -181,6 +182,8 @@ onclick="location.href='cart.html'">
 <script src="js/index.js"></script>
 <script>
 
+<script>
+
 document.getElementById(
 
 "headerContainer"
@@ -188,6 +191,16 @@ document.getElementById(
 ).innerHTML =
 
 renderHeader();
+
+document.getElementById(
+
+"bottomNavContainer"
+
+).innerHTML =
+
+renderBottomNav("home");
+
+</script>
 
 </script>
 </body>
