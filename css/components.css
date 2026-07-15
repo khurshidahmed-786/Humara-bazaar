@@ -61,3 +61,48 @@
     box-shadow:var(--shadow);
 
 }
+/* ---------- Header ---------- */
+
+.appHeader{
+
+    height:70px;
+
+    background:var(--surface);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 18px;
+
+    box-shadow:var(--shadow);
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+
+}
+
+.headerTitle{
+
+    font-size:22px;
+
+    font-weight:bold;
+
+}
+
+.headerLeft,
+
+.headerRight{
+
+    width:50px;
+
+    display:flex;
+
+    justify-content:center;
+
+}
