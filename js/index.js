@@ -1,18 +1,24 @@
 console.log("Index JS Loaded");
 console.log(categories);
-document.getElementById(
+const menuBtn = document.getElementById(
 
 "menuBtn"
 
-).onclick=function(){
-
-alert(
-
-"Menu Coming Soon"
-
 );
 
-};
+if(menuBtn){
+
+    menuBtn.onclick = function(){
+
+        alert(
+
+            "Menu Coming Soon"
+
+        );
+
+    };
+
+}
 const pin = localStorage.getItem("pincode");
 
 let market = "Your Local Market";
