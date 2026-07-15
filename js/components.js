@@ -124,17 +124,29 @@ function renderLayout(page){
     +
 
     renderSidebar();
-if(page=="dashboard" ||
+const pagesWithoutBottomNav = [
 
-   page=="sellerorders" ||
+    "dashboard",
 
-   page=="createshop"){
+    "sellerorders",
+
+    "createshop",
+
+    "product"
+
+];
+
+if(
+
+    pagesWithoutBottomNav.includes(page)
+
+){
 
     document.getElementById(
 
         "bottomNavContainer"
 
-    ).innerHTML="";
+    ).innerHTML = "";
 
 }else{
 
@@ -142,7 +154,7 @@ if(page=="dashboard" ||
 
         "bottomNavContainer"
 
-    ).innerHTML=
+    ).innerHTML =
 
     renderBottomNav(page);
 
