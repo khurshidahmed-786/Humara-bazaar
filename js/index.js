@@ -294,8 +294,6 @@ renderFeaturedProducts();
 renderPopularShops();
 let selectedCategory = "";
 
-let selectedCategory = "";
-
 function filterCategory(categoryName){
 
     selectedCategory = categoryName;
