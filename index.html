@@ -16,7 +16,7 @@
 </head>
 
 <body>
-
+<div id="headerContainer"></div>
 <header class="topbar">
 
     <button
@@ -179,7 +179,17 @@ onclick="location.href='cart.html'">
 <script src="js/ui.js"></script>
 <script src="js/components.js"></script>
 <script src="js/index.js"></script>
+<script>
 
+document.getElementById(
+
+"headerContainer"
+
+).innerHTML =
+
+renderHeader();
+
+</script>
 </body>
 
 </html>
