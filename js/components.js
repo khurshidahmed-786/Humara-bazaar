@@ -89,7 +89,7 @@ function renderBottomNav(current){
         </a>
 
         <a
-        href="sellerorders.html"
+        href="orders.html"
         class="${current=="orders"?"active":""}">
 
             📦
@@ -124,14 +124,29 @@ function renderLayout(page){
     +
 
     renderSidebar();
+if(page=="dashboard" ||
+
+   page=="sellerorders" ||
+
+   page=="createshop"){
 
     document.getElementById(
 
         "bottomNavContainer"
 
-    ).innerHTML =
+    ).innerHTML="";
+
+}else{
+
+    document.getElementById(
+
+        "bottomNavContainer"
+
+    ).innerHTML=
 
     renderBottomNav(page);
+
+}
 
     bindLayoutEvents();
 updateCartBadge();
