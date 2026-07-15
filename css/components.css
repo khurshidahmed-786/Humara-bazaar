@@ -62,83 +62,68 @@
 
 }
 /* ---------- Header ---------- */
-
-.appHeader{
-
-    height:70px;
-
-    background:var(--surface);
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    padding:0 18px;
-
-    box-shadow:var(--shadow);
+.topbar{
 
     position:sticky;
 
     top:0;
 
-    z-index:100;
+    z-index:1000;
 
-}
+    height:72px;
 
-.headerTitle{
-
-    font-size:22px;
-
-    font-weight:bold;
-
-}
-
-.headerLeft,
-
-.headerRight{
-
-    width:50px;
+    background:white;
 
     display:flex;
 
-    justify-content:center;
-
-}
-#cartBtn{
-
-    position:relative;
-
-}
-
-#cartBadge{
-
-    position:absolute;
-
-    top:-5px;
-
-    right:-5px;
-
-    background:#B63A3A;
-
-    color:white;
-
-    width:20px;
-
-    height:20px;
-
-    border-radius:50%;
-
-    display:flex;
-
-    justify-content:center;
+    justify-content:space-between;
 
     align-items:center;
 
-    font-size:11px;
+    padding:0 18px;
+
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
 
 }
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.brandLogo{
+
+    width:42px;
+
+    height:42px;
+
+    object-fit:contain;
+
+}
+
+.brandName{
+
+    font-size:20px;
+
+    font-weight:700;
+
+    color:#B63A3A;
+
+}
+
+.brandTag{
+
+    font-size:12px;
+
+    color:#777;
+
+}
+
 /* ---------- Bottom Navigation ---------- */
 
 .bottomNav{
