@@ -303,7 +303,17 @@ transition:.2s;
 transform:translateY(-4px);
 
 }
+.categoryCard.active{
 
+border:2px solid #667744;
+
+background:#EEF5E7;
+
+transform:translateY(-4px);
+
+box-shadow:0 10px 25px rgba(102,119,68,.18);
+
+}
 .categoryIcon{
 
 font-size:40px;
