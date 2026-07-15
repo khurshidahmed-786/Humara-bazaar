@@ -43,14 +43,20 @@ function renderHeader(title = "Hamara Bazaar"){
 
         </div>
 
-        <button
-        id="cartBtn"
-        class="iconBtn"
-        onclick="location.href='cart.html'">
+      <button
+id="cartBtn"
+class="iconBtn"
+onclick="location.href='cart.html'">
 
-            🛒
+🛒
 
-        </button>
+<span id="cartBadge">
+
+0
+
+</span>
+
+</button>
 
     </header>
 
