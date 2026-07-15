@@ -174,4 +174,75 @@
     z-index:1000;
 
 }
+/* ---------- Sidebar ---------- */
 
+.sidebar{
+
+    position:fixed;
+
+    top:0;
+
+    left:-280px;
+
+    width:260px;
+
+    height:100vh;
+
+    background:white;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.15);
+
+    transition:.3s;
+
+    z-index:2000;
+
+    padding:25px;
+
+}
+
+.sidebar.open{
+
+    left:0;
+
+}
+
+.sidebar h2{
+
+    margin-bottom:25px;
+
+}
+
+.sidebar a{
+
+    display:block;
+
+    padding:14px 0;
+
+    text-decoration:none;
+
+    color:#333;
+
+    border-bottom:1px solid #eee;
+
+}
+/* Overlay */
+
+.overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.35);
+
+    display:none;
+
+    z-index:1999;
+
+}
+
+.overlay.show{
+
+    display:block;
+
+}
