@@ -44,7 +44,7 @@ function addToCart(productId, quantity){
     }
 
     saveCart(cart);
-
+updateCartBadge();
 }
 function removeFromCart(productId){
 
@@ -57,7 +57,7 @@ function removeFromCart(productId){
     );
 
     saveCart(cart);
-
+updateCartBadge();
 }
 function clearCart(){
 
@@ -81,7 +81,7 @@ function updateCartQuantity(productId, quantity){
     }
 
     saveCart(cart);
-
+updateCartBadge();
 }
 
 function getCartTotal(){
