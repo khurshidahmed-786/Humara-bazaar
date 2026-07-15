@@ -52,14 +52,16 @@ this.value
 
 });
 const categoryWrap = document.getElementById("categoryScroll");
+
 console.log(categoryWrap);
+
 categories.forEach(category=>{
 
 categoryWrap.innerHTML += `
 
 <div
 class="categoryCard"
-onclick="window.location.href='${category.page}'">
+onclick="filterCategory('${category.name}')">
 
 <div class="categoryIcon">
 
