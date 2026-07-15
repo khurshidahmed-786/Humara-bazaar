@@ -203,42 +203,55 @@ function renderSidebar(){
     id="sidebar"
     class="sidebar">
 
-        <h2>
+    <div class="sidebarHeader">
 
-            Hamara Bazaar
+    <h2>
 
-        </h2>
+        Hamara Bazaar
 
-        <a href="#">
+    </h2>
 
-            👤 My Profile
+    <p>
 
-        </a>
+        Delivering Happiness
 
-        <a href="#">
+    </p>
 
-            📦 My Orders
+</div>
 
-        </a>
+<a href="index.html">
 
-        <a href="#">
+🏠 Home
 
-            ❤️ Wishlist
+</a>
 
-        </a>
+<a href="orders.html">
 
-        <a href="#">
+📦 My Orders
 
-            🏪 Become Seller
+</a>
 
-        </a>
+<a href="sellerdashboard.html">
 
-        <a href="#">
+🏪 Seller Dashboard
 
-            ⚙ Settings
+</a>
 
-        </a>
+<a
+href="#"
+onclick="comingSoon()">
 
+👤 Profile
+
+</a>
+
+<a
+href="#"
+onclick="comingSoon()">
+
+⚙ Settings
+
+</a>
     </div>
 
     <div
@@ -248,6 +261,29 @@ function renderSidebar(){
     </div>
 
     `;
+
+}
+function closeSidebar(){
+
+    document.getElementById(
+
+        "sidebar"
+
+    ).classList.remove(
+
+        "open"
+
+    );
+
+    document.getElementById(
+
+        "overlay"
+
+    ).classList.remove(
+
+        "show"
+
+    );
 
 }
 function updateCartBadge(){
@@ -277,5 +313,14 @@ function updateCartBadge(){
     });
 
     badge.innerText = total;
+
+}
+function comingSoon(){
+
+    alert(
+
+        "Coming Soon 😊"
+
+    );
 
 }
