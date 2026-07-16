@@ -56,7 +56,11 @@ function placeOrder(){
 
         items: cart,
 
-        total: getCartTotal(),
+    subtotal:getCartTotal(),
+
+delivery:30,
+
+total:getCartTotal()+30,
 
         status: "Pending",
 
