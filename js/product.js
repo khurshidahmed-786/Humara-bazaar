@@ -33,7 +33,6 @@ function getProductsByShop(shopId){
     );
 
 }
-
 function getFeaturedProducts(){
 
     return getProducts().filter(
