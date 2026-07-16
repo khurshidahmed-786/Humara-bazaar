@@ -16,98 +16,60 @@ btn.onclick=placeOrder;
 
 function placeOrder(){
 
-const name=document.getElementById(
+    const name = document.getElementById("customerName").value;
 
-"customerName"
+    const phone = document.getElementById("customerPhone").value;
 
-).value;
+    const address = document.getElementById("customerAddress").value;
 
-const phone=document.getElementById(
+    if(name === "" || phone === "" || address === ""){
 
-"customerPhone"
+        alert("Please fill all details.");
 
-).value;
-const name=document.getElementById(
+        return;
 
-"customerName"
+    }
 
-).value;
+    const cart = getCart();
 
-const phone=document.getElementById(
+    if(cart.length === 0){
 
-"customerPhone"
+        alert("Your cart is empty.");
 
-).value;
+        return;
 
-const address=document.getElementById(
+    }
 
-"customerAddress"
+    const firstProduct = getProductById(cart[0].productId);
 
-).value;
-if(
+    const order = {
 
-name==="" ||
+        id: Date.now(),
 
-phone==="" ||
+        shopId: firstProduct.shopId,
 
-address===""
+        customerName: name,
 
-){
+        customerPhone: phone,
 
-alert(
+        customerAddress: address,
 
-"Please fill all details."
+        items: cart,
 
-);
+        total: getCartTotal(),
 
-return;
+        status: "Pending",
 
-}
-const cart = getCart();
-if(cart.length===0){
+        createdAt: new Date().toISOString()
 
-alert(
+    };
 
-"Your cart is empty."
+    saveOrder(order);
 
-);
+    clearCart();
 
-return;
+    alert("Order Placed Successfully!");
 
-}
-const firstProduct = getProductById(cart[0].productId);
-
-const order = {
-
-    id: Date.now(),
-
-    shopId: firstProduct.shopId,
-
-    customerName: name,
-
-    customerPhone: phone,
-
-    customerAddress: address,
-
-    items: cart,
-
-    total: getCartTotal(),
-
-    status: "Pending",
-
-    createdAt: new Date().toISOString()
-
-};
-saveOrder(order);
-
-clearCart();
-
-alert(
-
-"Order Placed Successfully!"
-
-);
-
-window.location.href="orders.html";
+    window.location.href = "orders.html";
 
 }
