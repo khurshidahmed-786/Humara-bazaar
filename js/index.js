@@ -96,43 +96,17 @@ function renderFeaturedProducts(){
 
     wrap.innerHTML="";
 
-    const products = getFeaturedProducts();
+   let products = getFeaturedProducts();
 
-    if(products.length===0){
+if(selectedCategory !== ""){
 
-        wrap.innerHTML=`
+    products = products.filter(
 
-        <div class="productCard">
+        product => product.category === selectedCategory
 
-            <div class="productImage">
+    );
 
-                📦
-
-            </div>
-
-            <div class="productBody">
-
-                <div class="productName">
-
-                    No Products Yet
-
-                </div>
-
-                <div class="productShop">
-
-                    Sellers will appear here
-
-                </div>
-
-            </div>
-
-        </div>
-
-        `;
-
-        return;
-
-    }
+}
 
     products.forEach(product=>{
 
