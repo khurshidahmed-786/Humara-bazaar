@@ -33,6 +33,7 @@ function getProductsByShop(shopId){
     );
 
 }
+// highlightCategory(categoryName);
 function getFeaturedProducts(){
 
     return getProducts().filter(
@@ -42,6 +43,7 @@ function getFeaturedProducts(){
     );
 
 }
+// highlightCategory(categoryName);
 function deleteProduct(id){
 
     let products = getProducts();
