@@ -27,9 +27,54 @@ const phone=document.getElementById(
 "customerPhone"
 
 ).value;
+const name=document.getElementById(
 
+"customerName"
+
+).value;
+
+const phone=document.getElementById(
+
+"customerPhone"
+
+).value;
+
+const address=document.getElementById(
+
+"customerAddress"
+
+).value;
+if(
+
+name==="" ||
+
+phone==="" ||
+
+address===""
+
+){
+
+alert(
+
+"Please fill all details."
+
+);
+
+return;
+
+}
 const cart = getCart();
+if(cart.length===0){
 
+alert(
+
+"Your cart is empty."
+
+);
+
+return;
+
+}
 const firstProduct = getProductById(cart[0].productId);
 
 const order = {
