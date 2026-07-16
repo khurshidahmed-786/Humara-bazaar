@@ -97,7 +97,7 @@ let html = `
 
 <div class="orderNumber">
 
-Order #${order.id}
+Order #${String(order.id).slice(-4)}
 
 </div>
 
@@ -210,14 +210,17 @@ Total
 </div>
 
 <div class="orderActions">
-
-<button class="secondaryBtn">
+<button
+class="secondaryBtn"
+onclick="alert('Support Coming Soon')">
 
 📞 Contact Support
 
 </button>
 
-<button class="primaryBtn">
+<button
+class="primaryBtn"
+onclick="alert('Invoice Coming Soon')">
 
 🧾 Invoice
 
