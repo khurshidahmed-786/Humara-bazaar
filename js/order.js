@@ -1,3 +1,19 @@
+function getOrders(){
+
+    return getData(DB.ORDERS);
+
+}
+
+function saveOrder(order){
+
+    let orders = getOrders();
+
+    orders.push(order);
+
+    saveData(DB.ORDERS, orders);
+
+}
+
 function getPendingOrders(shopId){
 
     return getOrders().filter(
@@ -14,7 +30,7 @@ function getPendingOrders(shopId){
 
 function updateOrderStatus(id,status){
 
-    const orders = getOrders();
+    let orders = getOrders();
 
     const order = orders.find(
 
@@ -28,12 +44,6 @@ function updateOrderStatus(id,status){
 
     }
 
-    saveData(
-
-        DB.ORDERS,
-
-        orders
-
-    );
+    saveData(DB.ORDERS, orders);
 
 }
