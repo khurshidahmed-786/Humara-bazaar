@@ -7,7 +7,47 @@ function(){
     renderOrders();
 
 });
+function renderOrderItems(order){
 
+let html="";
+
+order.items.forEach(item=>{
+
+const product=getProductById(item.productId);
+
+if(!product){
+
+return;
+
+}
+
+html += `
+
+<div class="orderItem">
+
+<div>
+
+${product.emoji || "📦"}
+
+${product.name}
+
+</div>
+
+<div>
+
+x${item.quantity}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+return html;
+
+}
 function renderOrders(){
 
     const activeWrap = document.getElementById("activeOrders");
@@ -47,79 +87,147 @@ function renderOrders(){
     }
 
     orders.forEach(order=>{
+let html = `
 
-        let html = `
+<div class="orderCard">
 
-        <div class="orderCard">
+<div class="orderTop">
 
-            <div class="orderHeader">
+<div>
 
-                <div>
+<div class="orderNumber">
 
-                    <h3>
+Order #${order.id}
 
-                        Order #${order.id}
+</div>
 
-                    </h3>
+<div class="orderDate">
 
-                    <p>
+${new Date(order.createdAt).toLocaleString()}
 
-                        ${new Date(order.createdAt).toLocaleDateString()}
+</div>
 
-                    </p>
+</div>
 
-                </div>
+<div class="status ${order.status.toLowerCase().replace(/\s/g,"")}">
 
-                <div class="status ${order.status.toLowerCase()}">
+${order.status}
 
-                    ${order.status}
+</div>
 
-                </div>
+</div>
 
-            </div>
+<div class="orderSection">
 
-            <div class="orderBody">
+<div class="sectionHeading">
 
-                <p>
+Customer
 
-                    👤 ${order.customerName}
+</div>
 
-                </p>
+<div>
 
-                <p>
+👤 ${order.customerName}
 
-                    💰 ₹${order.total}
+</div>
 
-                </p>
+<div>
 
-                <p>
+📞 ${order.customerPhone}
 
-                    📍 ${order.customerAddress}
+</div>
 
-                </p>
+<div>
 
-            </div>
+📍 ${order.customerAddress}
 
-            <div class="orderButtons">
+</div>
 
-                <button class="secondaryBtn">
+</div>
 
-                    📞 Contact Support
+<div class="orderSection">
 
-                </button>
+<div class="sectionHeading">
 
-                <button class="primaryBtn">
+Products
 
-                    🧾 Invoice
+</div>
 
-                </button>
+${renderOrderItems(order)}
 
-            </div>
+</div>
 
-        </div>
+<div class="bill">
 
-        `;
+<div>
 
+<span>
+
+Products
+
+</span>
+
+<span>
+
+₹${order.subtotal || order.total}
+
+</span>
+
+</div>
+
+<div>
+
+<span>
+
+Delivery
+
+</span>
+
+<span>
+
+₹${order.delivery || 30}
+
+</span>
+
+</div>
+
+<div class="billTotal">
+
+<span>
+
+Total
+
+</span>
+
+<span>
+
+₹${order.total}
+
+</span>
+
+</div>
+
+</div>
+
+<div class="orderActions">
+
+<button class="secondaryBtn">
+
+📞 Contact Support
+
+</button>
+
+<button class="primaryBtn">
+
+🧾 Invoice
+
+</button>
+
+</div>
+
+</div>
+
+`;
         if(
 
             order.status==="Delivered" ||
