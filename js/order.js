@@ -1,49 +1,143 @@
-function getOrders(){
+document.addEventListener(
 
-    return getData(DB.ORDERS);
+"DOMContentLoaded",
 
-}
+function(){
 
-function saveOrder(order){
+    renderOrders();
 
-    let orders = getOrders();
+});
 
-    orders.push(order);
+function renderOrders(){
 
-    saveData(DB.ORDERS, orders);
+    const activeWrap = document.getElementById("activeOrders");
 
-}
+    const historyWrap = document.getElementById("historyOrders");
 
-function getPendingOrders(shopId){
+    activeWrap.innerHTML = "";
 
-    return getOrders().filter(
+    historyWrap.innerHTML = "";
 
-        order =>
+    const orders = getOrders();
 
-        order.shopId == shopId &&
+    if(orders.length===0){
 
-        order.status == "Pending"
+        activeWrap.innerHTML = `
 
-    );
+        <div class="emptyBox">
 
-}
+            <h3>
 
-function updateOrderStatus(id,status){
+                📦 No Orders Yet
 
-    let orders = getOrders();
+            </h3>
 
-    const order = orders.find(
+            <p>
 
-        o => o.id == id
+                Your placed orders will appear here.
 
-    );
+            </p>
 
-    if(order){
+        </div>
 
-        order.status = status;
+        `;
+
+        return;
 
     }
 
-    saveData(DB.ORDERS, orders);
+    orders.forEach(order=>{
+
+        let html = `
+
+        <div class="orderCard">
+
+            <div class="orderHeader">
+
+                <div>
+
+                    <h3>
+
+                        Order #${order.id}
+
+                    </h3>
+
+                    <p>
+
+                        ${new Date(order.createdAt).toLocaleDateString()}
+
+                    </p>
+
+                </div>
+
+                <div class="status ${order.status.toLowerCase()}">
+
+                    ${order.status}
+
+                </div>
+
+            </div>
+
+            <div class="orderBody">
+
+                <p>
+
+                    👤 ${order.customerName}
+
+                </p>
+
+                <p>
+
+                    💰 ₹${order.total}
+
+                </p>
+
+                <p>
+
+                    📍 ${order.customerAddress}
+
+                </p>
+
+            </div>
+
+            <div class="orderButtons">
+
+                <button class="secondaryBtn">
+
+                    📞 Contact Support
+
+                </button>
+
+                <button class="primaryBtn">
+
+                    🧾 Invoice
+
+                </button>
+
+            </div>
+
+        </div>
+
+        `;
+
+        if(
+
+            order.status==="Delivered" ||
+
+            order.status==="Cancelled"
+
+        ){
+
+            historyWrap.innerHTML += html;
+
+        }
+
+        else{
+
+            activeWrap.innerHTML += html;
+
+        }
+
+    });
 
 }
