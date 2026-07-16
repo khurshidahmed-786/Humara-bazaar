@@ -20,27 +20,37 @@ function renderCart(){
 
     if(cart.length===0){
 
-        app.innerHTML = `
+      app.innerHTML = `
 
-        <div class="container">
+<div class="emptyCart">
 
-            <h1>
+    <div style="font-size:80px;">
 
-                🛒 My Cart
+        🛒
 
-            </h1>
+    </div>
 
-            <br>
+    <h2>
 
-            <p>
+        Your Cart is Empty
 
-                Your cart is empty.
+    </h2>
 
-            </p>
+    <p>
 
-        </div>
+        Add products from your favourite shops.
 
-        `;
+    </p>
+
+    <a href="index.html">
+
+        Continue Shopping
+
+    </a>
+
+</div>
+
+`;
 
         return;
 
@@ -82,50 +92,79 @@ function renderCart(){
 
         <div class="cartCard">
 
-            <div class="cartEmoji">
+<div class="cartTop">
 
-                ${product.emoji || "📦"}
+<div>
 
-            </div>
+<div class="cartName">
 
-            <div class="cartInfo">
+${product.emoji || "📦"} ${product.name}
 
-                <h2>
+</div>
 
-                    ${product.name}
+<div class="cartShop">
 
-                </h2>
+Shop #${product.shopId}
 
-                <p>
+</div>
 
-                    ₹${product.price}
+</div>
 
-                </p>
+<div class="cartPrice">
 
-                <div class="quantityBox">
+₹${product.price}
 
-                    <button
-                    onclick="changeQty(${product.id},-1)">
+</div>
 
-                        −
+</div>
 
-                    </button>
+<div class="qtyRow">
 
-                    <span>
+<button
+class="qtyBtn"
+onclick="changeQty(${product.id},-1)">
 
-                        ${item.quantity}
+−
 
-                    </span>
+</button>
 
-                    <button
-                    onclick="changeQty(${product.id},1)">
+<div class="qtyNumber">
 
-                        +
+${item.quantity}
 
-                    </button>
+</div>
 
-                </div>
+<button
+class="qtyBtn"
+onclick="changeQty(${product.id},1)">
 
++
+
+</button>
+
+</div>
+
+<div style="margin-top:18px;">
+
+Subtotal :
+
+<b>
+
+₹${subtotal}
+
+</b>
+
+</div>
+
+<button
+class="removeBtn"
+onclick="deleteCartItem(${product.id})">
+
+🗑 Remove
+
+</button>
+
+</div>
                 <p>
 
                     Subtotal :
@@ -153,33 +192,67 @@ function renderCart(){
 
     html += `
 
-    <div class="cartTotal">
+ <div class="summary">
 
-        <h2>
+<div class="summaryRow">
 
-            Grand Total
+<span>
 
-        </h2>
+Items Total
 
-        <h1>
+</span>
 
-            ₹${getCartTotal()}
+<span>
 
-        </h1>
+₹${getCartTotal()}
 
-        <br>
+</span>
 
-        <button
-        class="checkoutBtn"
-        onclick="location.href='checkout.html'">
+</div>
 
-            Proceed to Checkout →
+<div class="summaryRow">
 
-        </button>
+<span>
 
-    </div>
+Delivery
 
-    </div>
+</span>
+
+<span>
+
+₹30
+
+</span>
+
+</div>
+
+<hr style="margin:18px 0;">
+
+<div class="summaryRow summaryTotal">
+
+<span>
+
+Total
+
+</span>
+
+<span>
+
+₹${getCartTotal()+30}
+
+</span>
+
+</div>
+
+<button
+class="checkoutBtn"
+onclick="location.href='checkout.html'">
+
+Proceed to Checkout →
+
+</button>
+
+</div>
 
     `;
 
