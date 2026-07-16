@@ -1,0 +1,117 @@
+.wrap{
+
+    max-width:900px;
+
+    margin:auto;
+
+    padding:30px 20px 120px;
+
+}
+
+.pageTitle{
+
+    font-size:32px;
+
+    font-weight:700;
+
+    margin-bottom:25px;
+
+}
+
+.card{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:24px;
+
+    margin-bottom:20px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.card label{
+
+    display:block;
+
+    margin-top:16px;
+
+    margin-bottom:8px;
+
+    font-weight:600;
+
+}
+
+.card input{
+
+    width:100%;
+
+    padding:14px;
+
+    border:1px solid #ddd;
+
+    border-radius:12px;
+
+    font-size:15px;
+
+}
+
+.checkoutInfo{
+
+    line-height:2;
+
+    font-size:16px;
+
+}
+
+.checkoutButtons{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:25px;
+
+}
+
+.backBtn{
+
+    flex:1;
+
+    background:white;
+
+    color:var(--primary);
+
+    border:2px solid var(--primary);
+
+    border-radius:12px;
+
+    padding:16px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+}
+
+.placeBtn{
+
+    flex:2;
+
+    background:var(--primary);
+
+    color:white;
+
+    border:none;
+
+    border-radius:12px;
+
+    padding:16px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+}
