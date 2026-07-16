@@ -56,18 +56,7 @@ function renderCart(){
 
     }
 
-    let html = `
-
-    <div class="container">
-
-        <h1>
-
-            🛒 My Cart
-
-        </h1>
-
-    `;
-
+  
     cart.forEach(item=>{
 
         const product = getProductById(
@@ -165,27 +154,6 @@ onclick="deleteCartItem(${product.id})">
 </button>
 
 </div>
-                <p>
-
-                    Subtotal :
-
-                    ₹${subtotal}
-
-                </p>
-
-                <br>
-
-                <button
-                onclick="deleteCartItem(${product.id})">
-
-                    🗑 Remove
-
-                </button>
-
-            </div>
-
-        </div>
-
         `;
 
     });
