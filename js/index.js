@@ -1,4 +1,5 @@
 console.log("Index JS Loaded");
+let selectedCategory = "";
 console.log(categories);
 const menuBtn = document.getElementById(
 
@@ -266,7 +267,6 @@ function openProduct(productId){
 renderFeaturedProducts();
 
 renderPopularShops();
-let selectedCategory = "";
 
 function filterCategory(categoryName){
 
