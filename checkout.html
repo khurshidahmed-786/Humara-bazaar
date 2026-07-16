@@ -5,72 +5,16 @@
 <head>
 
 <title>Checkout</title>
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial;
-}
-
-body{
-background:#FAF6EE;
-}
-
-.wrap{
-max-width:900px;
-margin:auto;
-padding:40px;
-}
-
-.card{
-background:white;
-padding:28px;
-border-radius:18px;
-margin-bottom:20px;
-}
-
-input{
-
-width:100%;
-
-padding:14px;
-
-margin-top:10px;
-
-border-radius:10px;
-
-border:1px solid #ddd;
-
-}
-
-.btn{
-
-display:inline-block;
-
-margin-top:20px;
-
-padding:16px 22px;
-
-background:#667744;
-
-color:white;
-
-text-decoration:none;
-
-border-radius:12px;
-
-}
-
-</style>
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/checkout.css">
 
 </head>
 
 <body>
+<div id="headerContainer"></div>
+<main class="wrap">
 
-<div class="wrap">
 
 <h1>
 
@@ -117,8 +61,8 @@ Place Order
 </button>
 
 </div>
-
-
+</main>
+<div id="bottomNavContainer"></div>
 </body>
 <script src="js/database.js"></script>
 <script src="js/auth.js"></script>
