@@ -28,55 +28,34 @@ const phone=document.getElementById(
 
 ).value;
 
-const address=document.getElementById(
+const cart = getCart();
 
-"customerAddress"
+const firstProduct = getProductById(cart[0].productId);
 
-).value;
+const order = {
 
-if(
+    id: Date.now(),
 
-name==="" ||
+    shopId: firstProduct.shopId,
 
-phone==="" ||
+    customerName: name,
 
-address===""
+    customerPhone: phone,
 
-){
+    customerAddress: address,
 
-alert(
+    items: cart,
 
-"Please fill all details."
+    total: getCartTotal(),
 
-);
+    status: "Pending",
 
-return;
-
-}
-
-const order={
-
-id:Date.now(),
-
-customerName:name,
-
-customerPhone:phone,
-
-customerAddress:address,
-
-items:getCart(),
-
-total:getCartTotal(),
-
-status:"Pending",
-
-createdAt:new Date().toISOString()
+    createdAt: new Date().toISOString()
 
 };
-
 saveOrder(order);
 
-saveCart([]);
+clearCart();
 
 alert(
 
