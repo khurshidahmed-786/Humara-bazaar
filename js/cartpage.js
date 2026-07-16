@@ -10,60 +10,63 @@ function(){
 
 function renderCart(){
 
-    const app = document.getElementById(
-
-        "cartApp"
-
-    );
+    const app = document.getElementById("cartApp");
 
     const cart = getCart();
 
     if(cart.length===0){
 
-      app.innerHTML = `
+        app.innerHTML=`
 
-<div class="emptyCart">
+        <div class="emptyCart">
 
-    <div style="font-size:80px;">
+            <div style="font-size:80px;">
 
-        🛒
+                🛒
 
-    </div>
+            </div>
 
-    <h2>
+            <h2>
 
-        Your Cart is Empty
+                Your Cart is Empty
 
-    </h2>
+            </h2>
 
-    <p>
+            <p>
 
-        Add products from your favourite shops.
+                Add products from your favourite shops.
 
-    </p>
+            </p>
 
-    <a href="index.html">
+            <a href="index.html">
 
-        Continue Shopping
+                Continue Shopping
 
-    </a>
+            </a>
 
-</div>
+        </div>
 
-`;
+        `;
 
         return;
 
     }
 
-  
+    let html=`
+
+    <div class="container">
+
+        <h2>
+
+            🛒 Your Cart
+
+        </h2>
+
+    `;
+
     cart.forEach(item=>{
 
-        const product = getProductById(
-
-            item.productId
-
-        );
+        const product=getProductById(item.productId);
 
         if(!product){
 
@@ -71,160 +74,159 @@ function renderCart(){
 
         }
 
-        const subtotal =
+        const subtotal=product.price*item.quantity;
 
-        Number(product.price) *
-
-        item.quantity;
-
-        html += `
+        html+=`
 
         <div class="cartCard">
 
-<div class="cartTop">
+            <div class="cartTop">
 
-<div>
+                <div>
 
-<div class="cartName">
+                    <div class="cartName">
 
-${product.emoji || "📦"} ${product.name}
+                        ${product.emoji || "📦"} ${product.name}
 
-</div>
+                    </div>
 
-<div class="cartShop">
+                    <div class="cartShop">
 
-Shop #${product.shopId}
+                        Shop #${product.shopId}
 
-</div>
+                    </div>
 
-</div>
+                </div>
 
-<div class="cartPrice">
+                <div class="cartPrice">
 
-₹${product.price}
+                    ₹${product.price}
 
-</div>
+                </div>
 
-</div>
+            </div>
 
-<div class="qtyRow">
+            <div class="qtyRow">
 
-<button
-class="qtyBtn"
-onclick="changeQty(${product.id},-1)">
+                <button
+                class="qtyBtn"
+                onclick="changeQty(${product.id},-1)">
 
-−
+                    −
 
-</button>
+                </button>
 
-<div class="qtyNumber">
+                <div class="qtyNumber">
 
-${item.quantity}
+                    ${item.quantity}
 
-</div>
+                </div>
 
-<button
-class="qtyBtn"
-onclick="changeQty(${product.id},1)">
+                <button
+                class="qtyBtn"
+                onclick="changeQty(${product.id},1)">
 
-+
+                    +
 
-</button>
+                </button>
 
-</div>
+            </div>
 
-<div style="margin-top:18px;">
+            <div style="margin-top:18px;">
 
-Subtotal :
+                Subtotal :
 
-<b>
+                <b>
 
-₹${subtotal}
+                    ₹${subtotal}
 
-</b>
+                </b>
 
-</div>
+            </div>
 
-<button
-class="removeBtn"
-onclick="deleteCartItem(${product.id})">
+            <button
+            class="removeBtn"
+            onclick="deleteCartItem(${product.id})">
 
-🗑 Remove
+                🗑 Remove
 
-</button>
+            </button>
 
-</div>
+        </div>
+
         `;
 
     });
 
-    html += `
+    html+=`
 
- <div class="summary">
+    <div class="summary">
 
-<div class="summaryRow">
+        <div class="summaryRow">
 
-<span>
+            <span>
 
-Items Total
+                Items Total
 
-</span>
+            </span>
 
-<span>
+            <span>
 
-₹${getCartTotal()}
+                ₹${getCartTotal()}
 
-</span>
+            </span>
 
-</div>
+        </div>
 
-<div class="summaryRow">
+        <div class="summaryRow">
 
-<span>
+            <span>
 
-Delivery
+                Delivery
 
-</span>
+            </span>
 
-<span>
+            <span>
 
-₹30
+                ₹30
 
-</span>
+            </span>
 
-</div>
+        </div>
 
-<hr style="margin:18px 0;">
+        <hr style="margin:18px 0;">
 
-<div class="summaryRow summaryTotal">
+        <div class="summaryRow summaryTotal">
 
-<span>
+            <span>
 
-Total
+                Total
 
-</span>
+            </span>
 
-<span>
+            <span>
 
-₹${getCartTotal()+30}
+                ₹${getCartTotal()+30}
 
-</span>
+            </span>
 
-</div>
+        </div>
 
-<button
-class="checkoutBtn"
-onclick="location.href='checkout.html'">
+        <button
+        class="checkoutBtn"
+        onclick="location.href='checkout.html'">
 
-Proceed to Checkout →
+            Proceed to Checkout →
 
-</button>
+        </button>
 
-</div>
+    </div>
+
+    </div>
 
     `;
 
-    app.innerHTML = html;
+    app.innerHTML=html;
 
 }
 
