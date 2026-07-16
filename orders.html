@@ -1,263 +1,98 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
 <head>
 
-<title>Orders</title>
+<meta charset="UTF-8">
 
-<style>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial;
-}
+<title>
 
-body{
-background:#FAF6EE;
-}
+My Orders
 
-.wrap{
-max-width:1100px;
-margin:auto;
-padding:40px;
-}
+</title>
 
-.order{
+<link rel="stylesheet"
+href="css/theme.css">
 
-background:white;
+<link rel="stylesheet"
+href="css/components.css">
 
-padding:25px;
-
-border-radius:20px;
-
-margin-bottom:20px;
-
-}
-
-.badge{
-
-display:inline-block;
-
-padding:8px 14px;
-
-border-radius:20px;
-
-margin-top:10px;
-
-background:#FFF2D8;
-
-}
-
-.btn{
-
-display:inline-block;
-
-margin-top:15px;
-
-padding:10px 14px;
-
-background:#667744;
-
-color:white;
-
-text-decoration:none;
-
-border-radius:10px;
-
-}
-  .bottomnav{
-
-position:fixed;
-
-bottom:0;
-
-left:0;
-
-width:100%;
-
-background:white;
-
-display:flex;
-
-justify-content:space-around;
-
-padding:14px;
-
-box-shadow:
-
-0 -4px 20px rgba(0,0,0,.08);
-
-}
-
-.bottomnav a{
-
-text-decoration:none;
-
-color:#444;
-
-font-size:14px;
-
-text-align:center;
-
-}
-
-body{
-
-padding-bottom:90px;
-
-}
-
-</style>
+<link rel="stylesheet"
+href="css/orders.css">
 
 </head>
 
 <body>
 
-<div class="wrap">
+<div id="headerContainer"></div>
+
+<main class="wrap">
+
+<div class="pageHeader">
 
 <h1>
 
-My Orders
+📦 My Orders
 
 </h1>
-  <p>
-
-Order:
-#1024
-
-</p>
 
 <p>
 
-Status:
-Preparing
-
-</p>
-  <div
-style="
-margin-top:15px;
-height:12px;
-background:#ddd;
-border-radius:10px;
-">
-
-<div
-style="
-width:40%;
-height:100%;
-background:#667744;
-border-radius:10px;
-">
-
-</div>
-<br>
-
-<a
-href="/shop.html">
-
-Contact Shop
-
-</a>
-</div>
-
-<p>
-
-Estimated:
-35 mins
+Track all your purchases
 
 </p>
 
-<br>
+</div>
 
-<div class="order">
+<section>
 
-<h2>
+<h2 class="sectionTitle">
 
-Premium Rice
+Active Orders
 
 </h2>
 
-<p>
-
-From Ahmad Grocery
-
-</p>
-
-<div class="badge">
-
-Seller Confirming
+<div id="activeOrders">
 
 </div>
 
-<br>
+</section>
 
-<a
-class="btn"
-href="/grocery.html">
+<section>
 
-View Shop
+<h2 class="sectionTitle">
 
-</a>
-
-</div>
-  <div class="bottomnav">
-
-<a href="/">🏠<br>Home</a>
-
-<a href="/search.html">
-
-🔍<br>Explore
-
-</a>
-
-<a href="/services.html">
-
-🧰<br>Services
-
-</a>
-
-<a href="/orders.html">
-
-📦<br>Orders
-
-</a>
-
-<a href="/profile.html">
-
-👤<br>Profile
-
-</a>
-
-</div>
-
-<div class="order">
-
-<h2>
-
-Milk
+Order History
 
 </h2>
 
-<p>
-
-Estimated:
-Today
-
-</p>
-
-<div class="badge">
-
-Out For Delivery
+<div id="historyOrders">
 
 </div>
 
-</div>
+</section>
 
-</div>
+</main>
 
+<div id="bottomNavContainer"></div>
+
+<script src="js/database.js"></script>
+<script src="js/product.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/order.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/components.js"></script>
+<script src="js/orders.js"></script>
+
+<script>
+
+renderLayout("orders");
+
+</script>
 
 </body>
 
