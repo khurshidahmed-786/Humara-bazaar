@@ -1,30 +1,58 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
+<meta
+name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>Cart</title>
 
-<link rel="stylesheet"
+<link
+rel="stylesheet"
+href="css/theme.css">
+
+<link
+rel="stylesheet"
 href="css/cart.css">
 
 </head>
 
 <body>
 
-<div id="cartApp">
+<div id="headerContainer"></div>
 
-</div>
+<main class="container">
+
+<h2>
+
+🛒 Your Cart
+
+</h2>
+
+<div id="cartApp"></div>
+
+</main>
+
+<div id="bottomNavContainer"></div>
 
 <script src="js/database.js"></script>
 <script src="js/product.js"></script>
 <script src="js/cart.js"></script>
+
+<script src="js/components.js"></script>
+
 <script src="js/cartpage.js"></script>
+
+<script>
+
+renderLayout("cart");
+
+</script>
 
 </body>
 
