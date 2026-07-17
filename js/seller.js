@@ -41,7 +41,13 @@ function renderDashboard(shop){
 const products = getProductsByShop(shop.id);
 
 app.innerHTML = `
+const orders = getOrders().filter(
+    order => order.shopId == shop.id
+);
 
+const pendingOrders = orders.filter(
+    order => order.status == "Pending"
+).length;
 <div class="sellerContainer">
 
 <header class="sellerHeader">
@@ -137,7 +143,7 @@ ${products.length}
 
 <div class="statValue">
 
-0
+${orders.length}
 
 </div>
 
@@ -245,19 +251,25 @@ Update shop details
 
 </div>
 
-<div class="actionCard">
+<div
+class="actionCard"
+onclick="location.href='sellerorders.html'">
 
-<div class="actionIcon">📊</div>
+<div class="actionIcon">
 
-<div class="actionTitle">
-
-Analytics
+📦
 
 </div>
 
-<div class="actionText">
+<div class="actionTitle">
 
-Coming Soon
+Incoming Orders
+
+</div>
+
+<div class="actionCard ${pendingOrders>0 ? 'newOrders' : ''}">
+
+${pendingOrders} Pending Order(s)
 
 </div>
 
