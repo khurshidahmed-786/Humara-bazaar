@@ -150,3 +150,34 @@ margin-top:10px;
 color:#666;
 
 }
+.newOrders{
+
+border:2px solid #667744;
+
+background:#F7FAF3;
+
+animation:pulseOrders 1.8s infinite;
+
+}
+
+@keyframes pulseOrders{
+
+0%{
+
+transform:scale(1);
+
+}
+
+50%{
+
+transform:scale(1.02);
+
+}
+
+100%{
+
+transform:scale(1);
+
+}
+
+}
