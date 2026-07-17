@@ -10,7 +10,13 @@ function(){
 
 function renderOrderItems(order){
 
-let html="";
+    if(!order.items){
+
+        return "<p>No products found.</p>";
+
+    }
+
+    let html = "";
 
 order.items.forEach(item=>{
 
@@ -128,7 +134,7 @@ Customer
 
 <div>
 
-👤 ${order.customerName}
+📍 ${order.customerAddress || "No address"}
 
 </div>
 
@@ -170,7 +176,7 @@ Products
 
 <span>
 
-₹${order.subtotal || order.total}
+₹${order.subtotal ?? order.total}
 
 </span>
 
@@ -186,7 +192,7 @@ Delivery
 
 <span>
 
-₹${order.delivery || 30}
+₹${order.delivery ?? 30}
 
 </span>
 
