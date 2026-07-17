@@ -35,23 +35,30 @@ document.getElementById(
 "marketName"
 
 ).innerText = market;
-const searchInput = document.getElementById("searchInput");
+const searchInput =
+document.getElementById("searchInput");
+
+if(searchInput){
 
 searchInput.addEventListener(
 
-"input",
+"keydown",
 
-function(){
+function(e){
 
-console.log(
+if(e.key==="Enter"){
 
-"Searching:",
-
-this.value
-
+window.location.href=
+"search.html?q="+
+encodeURIComponent(
+searchInput.value
 );
 
+}
+
 });
+
+}
 const categoryWrap = document.getElementById("categoryScroll");
 
 console.log(categoryWrap);
