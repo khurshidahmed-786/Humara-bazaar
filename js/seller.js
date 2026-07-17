@@ -251,29 +251,29 @@ Update shop details
 
 </div>
 
-<div class="actionCard ${pendingOrders>0 ? 'newOrders' : ''}">
+<div
+class="actionCard ${pendingOrders > 0 ? 'newOrders' : ''}"
 onclick="location.href='sellerorders.html'">
 
-<div class="actionIcon">
+    <div class="actionIcon">
 
-📦
+        📦
+
+    </div>
+
+    <div class="actionTitle">
+
+        Incoming Orders
+
+    </div>
+
+    <div class="actionText">
+
+        ${pendingOrders} Pending Order(s)
+
+    </div>
 
 </div>
-
-<div class="actionTitle">
-
-Incoming Orders
-
-</div>
-
-<div class-"actionText">
-
-${pendingOrders} Pending Order(s)
-
-</div>
-
-</div>
-
 
 
 <div
