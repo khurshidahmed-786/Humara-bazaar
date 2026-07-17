@@ -108,6 +108,16 @@ ${order.status}
 
 <br>
 
+<h3>
+
+Products
+
+</h3>
+
+${renderItems(order)}
+
+<br>
+
 <p>
 
 💰 Total : ₹${order.total}
@@ -115,6 +125,20 @@ ${order.status}
 </p>
 
 <br>
+
+${getOrderButtons(order)}
+
+</div>
+
+`;
+
+});
+}
+function getOrderButtons(order){
+
+if(order.status==="Pending"){
+
+return `
 
 <a
 class="btn"
@@ -132,11 +156,88 @@ Reject
 
 </a>
 
-</div>
+`;
+
+}
+
+if(order.status==="Accepted"){
+
+return `
+
+<a
+class="btn"
+onclick="prepareOrder(${order.id})">
+
+Preparing
+
+</a>
 
 `;
 
-});
+}
+
+if(order.status==="Preparing"){
+
+return `
+
+<a
+class="btn"
+onclick="readyOrder(${order.id})">
+
+Ready
+
+</a>
+
+`;
+
+}
+
+if(order.status==="Ready"){
+
+return `
+
+<a
+class="btn"
+onclick="deliverOrder(${order.id})">
+
+Delivered
+
+</a>
+
+`;
+
+}
+
+return `
+<p>
+
+✅ ${order.status}
+
+</p>
+`;
+}
+function prepareOrder(id){
+
+updateOrderStatus(id,"Preparing");
+
+renderOrders();
+
+}
+
+function readyOrder(id){
+
+updateOrderStatus(id,"Ready");
+
+renderOrders();
+
+}
+
+function deliverOrder(id){
+
+updateOrderStatus(id,"Delivered");
+
+renderOrders();
+
 }
 function acceptOrder(id){
 
@@ -160,7 +261,39 @@ id,
 "Cancelled"
 
 );
+function renderItems(order){
 
+let html="";
+
+order.items.forEach(item=>{
+
+const product=getProductById(item.productId);
+
+if(!product){
+
+return;
+
+}
+
+html += `
+
+<p>
+
+${product.emoji || "📦"}
+
+${product.name}
+
+× ${item.quantity}
+
+</p>
+
+`;
+
+});
+
+return html;
+
+}
 renderOrders();
 
 }
