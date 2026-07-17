@@ -321,7 +321,7 @@ Recent Products
 <div id="recentProducts">
 
 </div>
-
+</div>
 
 `;
 
