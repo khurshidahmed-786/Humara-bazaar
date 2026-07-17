@@ -1,143 +1,283 @@
-document.addEventListener(
+.wrap{
 
-"DOMContentLoaded",
+max-width:900px;
 
-function(){
+margin:auto;
 
-    renderOrders();
+padding:30px 20px 120px;
 
-});
+}
 
-function renderOrders(){
+.pageHeader{
 
-    const activeWrap = document.getElementById("activeOrders");
+margin-bottom:30px;
 
-    const historyWrap = document.getElementById("historyOrders");
+}
 
-    activeWrap.innerHTML = "";
+.pageHeader h1{
 
-    historyWrap.innerHTML = "";
+font-size:34px;
 
-    const orders = getOrders();
+color:#B63A3A;
 
-    if(orders.length===0){
+margin-bottom:8px;
 
-        activeWrap.innerHTML = `
+}
 
-        <div class="emptyBox">
+.pageHeader p{
 
-            <h3>
+color:#777;
 
-                📦 No Orders Yet
+font-size:15px;
 
-            </h3>
+}
 
-            <p>
+.sectionTitle{
 
-                Your placed orders will appear here.
+font-size:22px;
 
-            </p>
+margin:30px 0 15px;
 
-        </div>
+color:#345D2A;
 
-        `;
+}
 
-        return;
+.orderCard{
 
-    }
+background:#fff;
 
-    orders.forEach(order=>{
+border-radius:18px;
 
-        let html = `
+padding:24px;
 
-        <div class="orderCard">
+margin-bottom:22px;
 
-            <div class="orderHeader">
+box-shadow:0 10px 30px rgba(0,0,0,.06);
 
-                <div>
+border:1px solid #eee;
 
-                    <h3>
+transition:.25s;
 
-                        Order #${order.id}
+}
 
-                    </h3>
+.orderCard:hover{
 
-                    <p>
+transform:translateY(-3px);
 
-                        ${new Date(order.createdAt).toLocaleDateString()}
+}
 
-                    </p>
+.orderHeader{
 
-                </div>
+display:flex;
 
-                <div class="status ${order.status.toLowerCase()}">
+justify-content:space-between;
 
-                    ${order.status}
+align-items:flex-start;
 
-                </div>
+margin-bottom:20px;
 
-            </div>
+}
 
-            <div class="orderBody">
+.orderHeader h3{
 
-                <p>
+font-size:22px;
 
-                    👤 ${order.customerName}
+margin-bottom:5px;
 
-                </p>
+color:#222;
 
-                <p>
+}
 
-                    💰 ₹${order.total}
+.orderHeader p{
 
-                </p>
+font-size:14px;
 
-                <p>
+color:#888;
 
-                    📍 ${order.customerAddress}
+}
 
-                </p>
+.status{
 
-            </div>
+padding:8px 16px;
 
-            <div class="orderButtons">
+border-radius:30px;
 
-                <button class="secondaryBtn">
+font-size:13px;
 
-                    📞 Contact Support
+font-weight:700;
 
-                </button>
+color:#fff;
 
-                <button class="primaryBtn">
+text-transform:uppercase;
 
-                    🧾 Invoice
+}
 
-                </button>
+.status.pending{
 
-            </div>
+background:#f4b400;
 
-        </div>
+}
 
-        `;
+.status.accepted{
 
-        if(
+background:#1976d2;
 
-            order.status==="Delivered" ||
+}
 
-            order.status==="Cancelled"
+.status.preparing{
 
-        ){
+background:#8e44ad;
 
-            historyWrap.innerHTML += html;
+}
 
-        }
+.status.outfordelivery{
 
-        else{
+background:#ff9800;
 
-            activeWrap.innerHTML += html;
+}
 
-        }
+.status.delivered{
 
-    });
+background:#4caf50;
+
+}
+
+.status.cancelled{
+
+background:#d32f2f;
+
+}
+
+.orderBody{
+
+line-height:2;
+
+font-size:16px;
+
+color:#444;
+
+margin-bottom:22px;
+
+}
+
+.orderBody p{
+
+margin-bottom:6px;
+
+}
+
+.orderButtons{
+
+display:flex;
+
+gap:15px;
+
+margin-top:20px;
+
+}
+
+.primaryBtn{
+
+flex:1;
+
+background:#667744;
+
+color:white;
+
+border:none;
+
+padding:14px;
+
+border-radius:12px;
+
+cursor:pointer;
+
+font-size:15px;
+
+font-weight:700;
+
+}
+
+.primaryBtn:hover{
+
+background:#556538;
+
+}
+
+.secondaryBtn{
+
+flex:1;
+
+background:white;
+
+border:2px solid #667744;
+
+color:#667744;
+
+padding:14px;
+
+border-radius:12px;
+
+cursor:pointer;
+
+font-size:15px;
+
+font-weight:700;
+
+}
+
+.secondaryBtn:hover{
+
+background:#667744;
+
+color:white;
+
+}
+
+.emptyBox{
+
+background:white;
+
+padding:60px;
+
+text-align:center;
+
+border-radius:20px;
+
+box-shadow:0 10px 25px rgba(0,0,0,.05);
+
+}
+
+.emptyBox h3{
+
+font-size:28px;
+
+margin-bottom:15px;
+
+}
+
+.emptyBox p{
+
+color:#666;
+
+font-size:16px;
+
+}
+
+@media(max-width:768px){
+
+.orderHeader{
+
+flex-direction:column;
+
+gap:15px;
+
+}
+
+.orderButtons{
+
+flex-direction:column;
+
+}
 
 }
