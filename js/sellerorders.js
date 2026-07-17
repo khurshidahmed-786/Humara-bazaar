@@ -299,8 +299,6 @@ ${product.name}
 
 `;
 
-        `;
-
     });
 
     return html;
