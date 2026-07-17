@@ -254,46 +254,55 @@ renderOrders();
 }
 function rejectOrder(id){
 
-updateOrderStatus(
+    updateOrderStatus(
+        id,
+        "Cancelled"
+    );
 
-id,
-
-"Cancelled"
-
-);
-function renderItems(order){
-
-let html="";
-
-order.items.forEach(item=>{
-
-const product=getProductById(item.productId);
-
-if(!product){
-
-return;
+    renderOrders();
 
 }
 
-html += `
+function renderItems(order){
 
-<p>
+    let html="";
+
+    order.items.forEach(item=>{
+
+        const product=getProductById(item.productId);
+
+        if(!product){
+
+            return;
+
+        }
+
+        html += `
+
+<div class="productRow">
+
+<div>
 
 ${product.emoji || "📦"}
 
 ${product.name}
 
-× ${item.quantity}
+</div>
 
-</p>
+<div>
+
+×${item.quantity}
+
+</div>
+
+</div>
 
 `;
 
-});
+        `;
 
-return html;
+    });
 
-}
-renderOrders();
+    return html;
 
 }
