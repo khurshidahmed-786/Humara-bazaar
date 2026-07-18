@@ -5,7 +5,25 @@ document.addEventListener(
 function(){
 
 renderSearch();
+const input = document.getElementById("searchInput");
 
+input.addEventListener("input",function(){
+
+const value = input.value.trim();
+
+history.replaceState(
+
+{},
+
+"",
+
+"?q="+encodeURIComponent(value)
+
+);
+
+renderSearch();
+
+});
 });
 function renderSearch(){
 
@@ -100,6 +118,112 @@ if(products.length){
         `;
 
     });
+
+}
+if(products.length){
+
+html += `
+
+<h2 class="sectionTitle">
+
+📦 Products
+
+</h2>
+
+`;
+
+products.forEach(product=>{
+
+html += `
+
+<div class="resultCard">
+
+<div class="resultTop">
+
+<div>
+
+<h3>
+
+${product.emoji || "📦"} ${product.name}
+
+</h3>
+
+<p>
+
+₹${product.price}
+
+</p>
+
+</div>
+
+<button
+class="primaryBtn"
+onclick="openProduct(${product.id})">
+
+View
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+if(shops.length){
+
+html += `
+
+<h2 class="sectionTitle">
+
+🏪 Shops
+
+</h2>
+
+`;
+
+shops.forEach(shop=>{
+
+html += `
+
+<div class="resultCard">
+
+<div class="resultTop">
+
+<div>
+
+<h3>
+
+🏪 ${shop.name}
+
+</h3>
+
+<p>
+
+${shop.description || "Local Shop"}
+
+</p>
+
+</div>
+
+<button
+class="primaryBtn"
+onclick="openShop(${shop.id})">
+
+Visit
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
 
 }
 }
