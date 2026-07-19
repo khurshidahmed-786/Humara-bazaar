@@ -31,6 +31,9 @@ const params =
 new URLSearchParams(window.location.search);
 
 const query = (params.get("q") || "").toLowerCase();
+console.log("Query:", query);
+console.log("Products:", getProducts());
+console.log("Shops:", getShops());
 document.getElementById("searchInput").value = query;
 const results =
 document.getElementById(
