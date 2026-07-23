@@ -1,4 +1,72 @@
 /* ===========================
+   BUSINESS MODULE
+=========================== */
+
+function createBusiness(business){
+
+    let businesses = getBusinesses();
+
+    business.id = Date.now();
+
+    business.createdAt =
+        new Date().toISOString();
+
+    businesses.push(business);
+
+    saveData(
+        DB.BUSINESSES,
+        businesses
+    );
+
+    return business;
+
+}
+function addBusinessToUser(
+    userId,
+    businessId
+){
+
+    let users = getUsers();
+
+    const user = users.find(
+
+        u => u.id == userId
+
+    );
+
+    if(!user){
+
+        return false;
+
+    }
+
+    if(!user.businesses){
+
+        user.businesses = [];
+
+    }
+
+    if(
+        !user.businesses.includes(
+            businessId
+        )
+    ){
+
+        user.businesses.push(
+            businessId
+        );
+
+    }
+
+    saveData(
+        DB.USERS,
+        users
+    );
+
+    return true;
+
+}
+/* ===========================
    SHOP MODULE
 =========================== */
 
