@@ -27,24 +27,16 @@ function renderFeaturedProducts(){
             "featuredProducts"
         );
 
-
     if(!container){
 
         return;
 
     }
 
-
     const products =
         getFeaturedProducts();
 
-
     container.innerHTML = "";
-
-
-    /*
-    No featured products
-    */
 
     if(products.length === 0){
 
@@ -53,15 +45,11 @@ function renderFeaturedProducts(){
         <div class="emptyState">
 
             <div class="emptyIcon">
-
                 📦
-
             </div>
 
             <p>
-
                 No featured products yet.
-
             </p>
 
         </div>
@@ -72,58 +60,71 @@ function renderFeaturedProducts(){
 
     }
 
-
-    /*
-    Show maximum 10
-    products on homepage
-    */
-
     products
         .slice(0,10)
-        .forEach(
+        .forEach(product => {
 
-            product => {
+            container.innerHTML += `
 
-                container.innerHTML += `
-
-                <div
-                class="product"
-                onclick="
-                openProduct(${product.id})
-                ">
+            <article
+            class="hbProductCard"
+            onclick="openProduct(${product.id})">
 
 
-                    <div class="image">
+                <div class="hbProductImage">
+
+                    ${
+                        product.image
+
+                        ?
+
+                        `<img
+                        src="${product.image}"
+                        alt="${product.name}">`
+
+                        :
+
+                        `<span>
+                            ${product.emoji || "📦"}
+                        </span>`
+                    }
+
+                </div>
+
+
+                <div class="hbProductDetails">
+
+
+                    <h3 class="hbProductName">
 
                         ${
-                            product.emoji ||
-                            "📦"
+                            product.name ||
+                            "Unnamed Product"
                         }
 
-                    </div>
+                    </h3>
 
 
-                    <div class="info">
+                    <div class="hbProductBottom">
 
 
-                        <div class="productName">
+                        <span class="hbProductPrice">
 
-                            ${
-                                product.name ||
-                                "Unnamed Product"
-                            }
+                            ₹${product.price || 0}
 
-                        </div>
+                        </span>
 
 
-                        <div class="price">
+                        <button
+                        class="hbAddCartBtn"
+                        onclick="
+                        event.stopPropagation();
+                        addToCartFromHome(${product.id});
+                        ">
 
-                            ₹${
-                                product.price ||
-                                0
-                            }
+                            +
 
-                        </div>
+                        </button>
 
 
                     </div>
@@ -131,15 +132,15 @@ function renderFeaturedProducts(){
 
                 </div>
 
-                `;
 
-            }
+            </article>
 
-        );
+            `;
+
+        });
 
 }
-
-
+  
 /* ==========================================
    POPULAR SHOPS
 ========================================== */
@@ -288,3 +289,37 @@ document.addEventListener(
     }
 
 );
+function addToCartFromHome(productId){
+
+    const product =
+        getProductById(productId);
+
+    if(!product){
+
+        return;
+
+    }
+
+    /*
+    Use existing cart system
+    */
+
+    if(typeof addToCart === "function"){
+
+        addToCart(product);
+
+        updateCartBadge();
+
+        return;
+
+    }
+
+    /*
+    Fallback
+    */
+
+    alert(
+        "Product added to cart."
+    );
+
+}
