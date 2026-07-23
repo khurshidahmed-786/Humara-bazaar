@@ -106,15 +106,27 @@ Login with OTP
 </p>
 
 <input
-placeholder="Mobile Number">
+id="phone"
+placeholder="Mobile Number"
+type="tel">
 
-<a
+<button
 class="btn"
-href="/role.html">
+id="loginBtn">
 
-Send OTP
+Login
 
-</a>
+</button>
+
+<p
+id="error"
+style="
+color:#B63A3A;
+margin-top:15px;
+display:none;
+">
+
+</p>
 <br>
 
 <a href="/register.html">
@@ -132,7 +144,97 @@ Continue as Guest
 
 </div>
 
+<script src="js/database.js"></script>
+<script src="js/auth.js"></script>
 
+<script>
+
+document
+
+.getElementById("loginBtn")
+
+.onclick=function(){
+
+
+const phone =
+
+document
+
+.getElementById("phone")
+
+.value
+
+.trim();
+
+
+const error =
+
+document
+
+.getElementById("error");
+
+
+if(!phone){
+
+    error.innerText =
+
+    "Please enter your mobile number.";
+
+    error.style.display =
+
+    "block";
+
+    return;
+
+}
+
+
+const users =
+
+getUsers();
+
+
+const user =
+
+users.find(
+
+u => u.phone === phone
+
+);
+
+
+if(!user){
+
+    error.innerText =
+
+    "Account not found. Please create an account first.";
+
+    error.style.display =
+
+    "block";
+
+    return;
+
+}
+
+
+login(user);
+
+
+/*
+
+RETURN TO MARKETPLACE
+
+*/
+
+window.location.href =
+
+"index.html";
+
+
+};
+
+</script>
 </body>
 
 </html>
