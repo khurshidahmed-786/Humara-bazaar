@@ -1,9 +1,20 @@
-const app = document.getElementById("sellerApp" );
+const app =
+    document.getElementById(
+        "sellerApp"
+    );
 
+
+/* ==========================================
+   GET ACTIVE BUSINESS
+========================================== */
 
 const business =
     getActiveBusiness();
 
+
+/* ==========================================
+   NO BUSINESS SELECTED
+========================================== */
 
 if(!business){
 
@@ -36,21 +47,43 @@ if(!business){
 
     `;
 
-    throw new Error(
-        "No active business selected."
+}
+
+
+/* ==========================================
+   BUSINESS SELECTED
+========================================== */
+
+else{
+
+    const shop =
+        getShopByBusinessId(
+            business.id
+        );
+
+
+    renderDashboard(
+        business,
+        shop
     );
 
 }
 
 
-const shop =
-    getShopByBusinessId(
-        business.id
-    );
+/* ==========================================
+   DASHBOARD
+========================================== */
 
 function renderDashboard(
+    business,
     shop
 ){
+
+    /*
+    ======================================
+    SHOP NOT FOUND
+    ======================================
+    */
 
     if(!shop){
 
@@ -65,9 +98,9 @@ function renderDashboard(
                 </h2>
 
                 <p>
-                    Your business has been
-                    created, but your shop
-                    has not been set up yet.
+                    Your business exists,
+                    but no shop is linked
+                    to this business.
                 </p>
 
                 <br>
@@ -89,6 +122,12 @@ function renderDashboard(
     }
 
 
+    /*
+    ======================================
+    GET SHOP DATA
+    ======================================
+    */
+
     const products =
         getProductsByShop(
             shop.id
@@ -99,8 +138,7 @@ function renderDashboard(
         getOrders().filter(
 
             order =>
-
-            order.shopId == shop.id
+                order.shopId == shop.id
 
         );
 
@@ -109,280 +147,359 @@ function renderDashboard(
         orders.filter(
 
             order =>
-
-            order.status == "Pending"
+                order.status == "Pending"
 
         ).length;
-app.innerHTML = `
 
-<div class="sellerContainer">
 
-<header class="sellerHeader">
+    /*
+    ======================================
+    RENDER DASHBOARD
+    ======================================
+    */
 
-<h1>
+    app.innerHTML = `
 
-Business Dashboard
+    <div class="sellerContainer">
 
-</h1>
+        <header class="sellerHeader">
 
-<p>
+            <h1>
 
-Managing
+                Business Dashboard
 
-<strong>
+            </h1>
 
-${business.name}
+            <p>
 
-</strong>
+                Managing
 
-</p>
+                <strong>
 
-<p>
+                    ${business.name}
 
-Manage your business from one place.
+                </strong>
 
-</p>
-</header>
+            </p>
 
-<div class="shopCard">
+            <p>
 
-<div style="display:flex;align-items:center;gap:20px;">
+                Manage your business
+                from one place.
 
-<img
-src="${shop.logo || 'assets/shop-placeholder.png'}"
-style="
-width:90px;
-height:90px;
-border-radius:20px;
-object-fit:cover;
-background:#F3F3F3;
-">
+            </p>
 
-<div>
+        </header>
 
-<div class="shopName">
 
-🏪 ${business.name}
+        <div class="shopCard">
 
-</div>
+            <div
+            style="
+            display:flex;
+            align-items:center;
+            gap:20px;
+            ">
 
-<div
-style="
-margin-top:6px;
-color:#777;
-">
+                <img
 
-Shop:
-${shop ? shop.name : "Not created"}
+                src="${
+                    shop.logo ||
+                    'assets/shop-placeholder.png'
+                }"
 
-</div>
+                style="
+                width:90px;
+                height:90px;
+                border-radius:20px;
+                object-fit:cover;
+                background:#F3F3F3;
+                ">
 
-<div style="margin-top:8px;color:#666;">
+                <div>
 
-${shop.open || "8:00 AM"}
-—
+                    <div class="shopName">
 
-${shop.close || "8:00 PM"}
+                        🏪 ${business.name}
 
-</div>
+                    </div>
 
-</div>
+                    <div
+                    style="
+                    margin-top:6px;
+                    color:#777;
+                    ">
 
-</div>
+                        Shop:
+                        ${shop.name}
 
-<div class="shopDescription">
+                    </div>
 
-${shop.description || "No description yet."}
+                    <div
+                    style="
+                    margin-top:8px;
+                    color:#666;
+                    ">
 
-</div>
+                        ${shop.open || "8:00 AM"}
 
-</div>
+                        —
 
-<div class="stats">
+                        ${shop.close || "8:00 PM"}
 
-<div class="stat">
+                    </div>
 
-<div class="statValue">
+                </div>
 
-${products.length}
+            </div>
 
-</div>
 
-<div class="statLabel">
+            <div class="shopDescription">
 
-📦 Products
+                ${
+                    shop.description ||
+                    "No description yet."
+                }
 
-</div>
+            </div>
 
-</div>
+        </div>
 
-<div class="stat">
 
-<div class="statValue">
+        <div class="stats">
 
-${orders.length}
+            <div class="stat">
 
-</div>
+                <div class="statValue">
 
-<div class="statLabel">
+                    ${products.length}
 
-🛒 Orders
+                </div>
 
-</div>
+                <div class="statLabel">
 
-</div>
+                    📦 Products
 
-<div class="stat">
+                </div>
 
-<div class="statValue">
+            </div>
 
-New
 
-</div>
+            <div class="stat">
 
-<div class="statLabel">
+                <div class="statValue">
 
-⭐ Rating
+                    ${orders.length}
 
-</div>
+                </div>
 
-</div>
+                <div class="statLabel">
 
-<div class="stat">
+                    🛒 Orders
 
-<div class="statValue">
+                </div>
 
-0
+            </div>
 
-</div>
 
-<div class="statLabel">
+            <div class="stat">
 
-👀 Visitors
+                <div class="statValue">
 
-</div>
+                    New
 
-</div>
+                </div>
 
-</div>
+                <div class="statLabel">
 
-<div class="quickActions">
+                    ⭐ Rating
 
-<div
-class="actionCard"
-onclick="location.href='addproduct.html'">
+                </div>
 
-<div class="actionIcon">➕</div>
+            </div>
 
-<div class="actionTitle">
 
-Add Product
+            <div class="stat">
 
-</div>
+                <div class="statValue">
 
-<div class="actionText">
+                    0
 
-Publish a new product
+                </div>
 
-</div>
+                <div class="statLabel">
 
-</div>
+                    👀 Visitors
 
-<div
-class="actionCard"
-onclick="location.href='myproducts.html'">
+                </div>
 
-<div class="actionIcon">📦</div>
+            </div>
 
-<div class="actionTitle">
+        </div>
 
-My Products
 
-</div>
+        <div class="quickActions">
 
-<div class="actionText">
 
-Manage products
+            <div
+            class="actionCard"
+            onclick="
+            location.href='addproduct.html'
+            ">
 
-</div>
+                <div class="actionIcon">
 
-</div>
+                    ➕
 
-<div
-class="actionCard"
-onclick="location.href='createshop.html'">
+                </div>
 
-<div class="actionIcon">✏️</div>
+                <div class="actionTitle">
 
-<div class="actionTitle">
+                    Add Product
 
-Edit Shop
+                </div>
 
-</div>
+                <div class="actionText">
 
-<div class="actionText">
+                    Publish a new product
 
-Update shop details
+                </div>
 
-</div>
+            </div>
 
-</div>
 
-<div
-class="actionCard ${pendingOrders > 0 ? 'newOrders' : ''}"
-onclick="location.href='sellerorders.html'">
+            <div
+            class="actionCard"
+            onclick="
+            location.href='myproducts.html'
+            ">
 
-    <div class="actionIcon">
+                <div class="actionIcon">
 
-        📦
+                    📦
+
+                </div>
+
+                <div class="actionTitle">
+
+                    My Products
+
+                </div>
+
+                <div class="actionText">
+
+                    Manage products
+
+                </div>
+
+            </div>
+
+
+            <div
+            class="actionCard"
+            onclick="
+            location.href='createshop.html'
+            ">
+
+                <div class="actionIcon">
+
+                    ✏️
+
+                </div>
+
+                <div class="actionTitle">
+
+                    Edit Business
+
+                </div>
+
+                <div class="actionText">
+
+                    Update business details
+
+                </div>
+
+            </div>
+
+
+            <div
+            class="
+            actionCard
+            ${pendingOrders > 0
+                ? 'newOrders'
+                : ''}
+            "
+            onclick="
+            location.href='sellerorders.html'
+            ">
+
+                <div class="actionIcon">
+
+                    📦
+
+                </div>
+
+                <div class="actionTitle">
+
+                    Incoming Orders
+
+                </div>
+
+                <div class="actionText">
+
+                    ${pendingOrders}
+                    Pending Order(s)
+
+                </div>
+
+            </div>
+
+
+            <div
+            class="actionCard"
+            onclick="
+            openShop(${shop.id})
+            ">
+
+                <div class="actionIcon">
+
+                    👁
+
+                </div>
+
+                <div class="actionTitle">
+
+                    View Shop
+
+                </div>
+
+                <div class="actionText">
+
+                    See customer view
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <h2
+        style="margin-top:50px;">
+
+            Recent Products
+
+        </h2>
+
+
+        <div id="recentProducts">
+
+        </div>
+
 
     </div>
 
-    <div class="actionTitle">
-
-        Incoming Orders
-
-    </div>
-
-    <div class="actionText">
-
-        ${pendingOrders} Pending Order(s)
-
-    </div>
-
-</div>
-
-
-<div
-class="actionCard"
-onclick="openShop(shop.id)">
-
-<div class="actionIcon">👁</div>
-
-<div class="actionTitle">
-
-View Shop
-
-</div>
-
-<div class="actionText">
-
-See customer view
-
-</div>
-
-</div>
-<h2 style="margin-top:50px;">
-
-Recent Products
-
-</h2>
-
-<div id="recentProducts">
-
-</div>
-</div>
-
-`;
+    `;
 
 }
