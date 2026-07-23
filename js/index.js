@@ -1,293 +1,290 @@
-console.log("Index JS Loaded");
-let selectedCategory = "";
-console.log(categories);
-const menuBtn = document.getElementById(
+/* ==========================================
+   HAMARA BAZAAR HOME PAGE ENGINE
+========================================== */
 
-"menuBtn"
 
-);
+/* ==========================================
+   LOAD HOMEPAGE
+========================================== */
 
-if(menuBtn){
+function loadHomePage(){
 
-    menuBtn.onclick = function(){
+    renderFeaturedProducts();
 
-        alert(
-
-            "Menu Coming Soon"
-
-        );
-
-    };
+    renderPopularShops();
 
 }
 
-const searchInput =
-document.getElementById("searchInput");
 
-if(searchInput){
+/* ==========================================
+   FEATURED PRODUCTS
+========================================== */
 
-searchInput.addEventListener(
-
-"keydown",
-
-function(e){
-
-if(e.key==="Enter"){
-
-window.location.href=
-"search.html?q="+
-encodeURIComponent(
-searchInput.value
-);
-
-}
-
-});
-
-}
-const categoryWrap = document.getElementById("categoryScroll");
-
-console.log(categoryWrap);
-
-categories.forEach(category=>{
-
-categoryWrap.innerHTML += `
-
-<div
-class="categoryCard"
-onclick="filterCategory('${category.name}')">
-
-<div class="categoryIcon">
-
-${category.icon}
-
-</div>
-
-<div class="categoryName">
-
-${category.name}
-
-</div>
-
-</div>
-
-`;
-
-});
 function renderFeaturedProducts(){
 
-    const wrap = document.getElementById(
+    const container =
+        document.getElementById(
+            "featuredProducts"
+        );
 
-        "featuredProducts"
 
-    );
-
-    if(!wrap){
+    if(!container){
 
         return;
 
     }
 
-    wrap.innerHTML="";
 
-   let products = getFeaturedProducts();
+    const products =
+        getFeaturedProducts();
 
-if(selectedCategory !== ""){
 
-    products = products.filter(
+    container.innerHTML = "";
 
-        product => product.category === selectedCategory
 
-    );
+    /*
+    No featured products
+    */
 
-}
+    if(products.length === 0){
 
-    products.forEach(product=>{
+        container.innerHTML = `
 
-        wrap.innerHTML+=`
+        <div class="emptyState">
 
-       <div
-class="productCard"
-onclick="openProduct(${product.id})">
+            <div class="emptyIcon">
 
-            <div class="productBody">
-
-                <div class="productName">
-
-                    ${product.name}
-
-                </div>
-
-                <div class="productShop">
-
-                    Shop #${product.shopId}
-
-                </div>
-
-                <div class="productPrice">
-
-                    ₹${product.price}
-
-                </div>
+                📦
 
             </div>
+
+            <p>
+
+                No featured products yet.
+
+            </p>
 
         </div>
 
         `;
 
-    });
+        return;
+
+    }
+
+
+    /*
+    Show maximum 10
+    products on homepage
+    */
+
+    products
+        .slice(0,10)
+        .forEach(
+
+            product => {
+
+                container.innerHTML += `
+
+                <div
+                class="product"
+                onclick="
+                openProduct(${product.id})
+                ">
+
+
+                    <div class="image">
+
+                        ${
+                            product.emoji ||
+                            "📦"
+                        }
+
+                    </div>
+
+
+                    <div class="info">
+
+
+                        <div class="productName">
+
+                            ${
+                                product.name ||
+                                "Unnamed Product"
+                            }
+
+                        </div>
+
+
+                        <div class="price">
+
+                            ₹${
+                                product.price ||
+                                0
+                            }
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+                `;
+
+            }
+
+        );
 
 }
-renderFeaturedProducts();
+
+
+/* ==========================================
+   POPULAR SHOPS
+========================================== */
+
 function renderPopularShops(){
 
-const wrap=document.getElementById(
+    const container =
+        document.getElementById(
+            "shopScroll"
+        );
 
-"shopScroll"
+
+    if(!container){
+
+        return;
+
+    }
+
+
+    const shops =
+        getAllShops();
+
+
+    container.innerHTML = "";
+
+
+    /*
+    No shops
+    */
+
+    if(shops.length === 0){
+
+        container.innerHTML = `
+
+        <div class="emptyState">
+
+            <div class="emptyIcon">
+
+                🏪
+
+            </div>
+
+            <p>
+
+                No shops available yet.
+
+            </p>
+
+        </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /*
+    Show maximum 10
+    shops on homepage
+    */
+
+    shops
+        .slice(0,10)
+        .forEach(
+
+            shop => {
+
+                container.innerHTML += `
+
+                <div
+                class="shopCard"
+                onclick="
+                openShop(${shop.id})
+                ">
+
+
+                    <div class="shopImage">
+
+                        ${
+                            shop.logo
+                            ?
+
+                            `<img
+                            src="${shop.logo}"
+                            alt="${shop.name}">`
+
+                            :
+
+                            "🏪"
+
+                        }
+
+                    </div>
+
+
+                    <div class="shopInfo">
+
+
+                        <div class="shopName">
+
+                            ${
+                                shop.name ||
+                                "Unnamed Shop"
+                            }
+
+                        </div>
+
+
+                        <div class="shopCategory">
+
+                            ${
+                                shop.category ||
+                                "Local Business"
+                            }
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+                `;
+
+            }
+
+        );
+
+}
+
+
+/* ==========================================
+   START HOMEPAGE
+========================================== */
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    function(){
+
+        loadHomePage();
+
+    }
 
 );
-
-if(!wrap){
-
-return;
-
-}
-
-wrap.innerHTML="";
-
-const shops=getAllShops();
-
-if(shops.length===0){
-
-wrap.innerHTML=`
-
-<div class="productCard">
-
-<div class="productImage">
-
-🏪
-
-</div>
-
-<div class="productBody">
-
-<div class="productName">
-
-No Shops Yet
-
-</div>
-
-<div class="productShop">
-
-Be the first seller.
-
-</div>
-
-</div>
-
-</div>
-
-`;
-
-return;
-
-}
-
-shops.forEach(shop=>{
-
-wrap.innerHTML += `
-
-<div
-class="productCard"
-onclick="openShop(${shop.id})">
-
-<div class="productImage">
-
-🏪
-
-</div>
-
-<div class="productBody">
-
-<div class="productName">
-
-${shop.name}
-
-</div>
-
-<div class="productShop">
-
-${shop.description || "Local Shop"}
-
-</div>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-}
-function openShop(id){
-
-localStorage.setItem(
-
-"hb_selectedShop",
-
-id
-
-);
-
-window.location.href="shop.html";
-
-}
-function openProduct(productId){
-
-    localStorage.setItem(
-
-        "hb_selectedProduct",
-
-        productId
-
-    );
-
-    window.location.href = "product.html";
-
-}
-renderFeaturedProducts();
-
-renderPopularShops();
-
-function filterCategory(categoryName){
-
-    selectedCategory = categoryName;
-
-    renderFeaturedProducts();
-
-    highlightCategory(categoryName);
-
-}
-function highlightCategory(categoryName){
-
-    document.querySelectorAll(".categoryCard").forEach(card=>{
-
-        card.classList.remove("active");
-
-    });
-
-    document.querySelectorAll(".categoryCard").forEach(card=>{
-
-        const name = card.querySelector(".categoryName").innerText;
-
-        if(name===categoryName){
-
-            card.classList.add("active");
-
-        }
-
-    });
-
-}
