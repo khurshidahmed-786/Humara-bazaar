@@ -22,7 +22,9 @@ function registerUser(name, phone) {
 
         activeRole: "customer",
 
-        shops: [],
+        businesses: [],
+
+      activeBusinessId: null,
 
         favouriteShops: [],
 
