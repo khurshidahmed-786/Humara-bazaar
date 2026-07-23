@@ -272,11 +272,9 @@ function renderSidebar(){
 
 📦 My Orders
 
-</a>
+<a href="role.html">
 
-<a href="dashboard.html">
-
-🏪 Seller Dashboard
+🏪 My Business
 
 </a>
 
