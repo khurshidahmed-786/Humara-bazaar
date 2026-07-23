@@ -5,6 +5,7 @@
 const DB = {
 
     USERS: "hb_users",
+   BUSINESSES: "hb_businesses",
 
     SHOPS: "hb_shops",
 
@@ -101,7 +102,51 @@ function logout(){
     );
 
 }
+/* ==========================================
+   BUSINESSES
+   ========================================== */
 
+function getBusinesses(){
+
+    return getData(DB.BUSINESSES);
+
+}
+
+function saveBusiness(business){
+
+    let businesses = getBusinesses();
+
+    businesses.push(business);
+
+    saveData(
+
+        DB.BUSINESSES,
+
+        businesses
+
+    );
+
+}
+
+function getBusinessesByOwner(ownerId){
+
+    return getBusinesses().filter(
+
+        business => business.ownerId == ownerId
+
+    );
+
+}
+
+function getBusinessById(id){
+
+    return getBusinesses().find(
+
+        business => business.id == id
+
+    );
+
+}
 /* ==========================================
    SHOPS
    ========================================== */
