@@ -277,17 +277,17 @@ function renderPopularShops(){
 /* ==========================================
    START HOMEPAGE
 ========================================== */
-
 document.addEventListener(
-
     "DOMContentLoaded",
-
     function(){
 
-        loadHomePage();
+        renderCategories();
+
+        renderFeaturedProducts();
+
+        renderPopularShops();
 
     }
-
 );
 function addToCartFromHome(productId){
 
