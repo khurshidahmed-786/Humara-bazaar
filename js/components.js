@@ -246,54 +246,59 @@ function renderSidebar(){
     id="sidebar"
     class="sidebar">
 
-    <div class="sidebarHeader">
+        <div class="sidebarHeader">
 
-    <h2>
+            <h2>
+                Hamara Bazaar
+            </h2>
 
-        Hamara Bazaar
+            <p>
+                Delivering Happiness
+            </p>
 
-    </h2>
+        </div>
 
-    <p>
 
-        Delivering Happiness
+        <a href="index.html">
 
-    </p>
+            🏠 Home
 
-</div>
+        </a>
 
-<a href="index.html">
 
-🏠 Home
+        <a href="orders.html">
 
-</a>
+            📦 My Orders
 
-<a href="orders.html">
+        </a>
 
-📦 My Orders
 
-<a href="role.html">
+        <a href="role.html">
 
-🏪 My Business
+            🏪 My Business
 
-</a>
+        </a>
 
-<a
-href="#"
-onclick="comingSoon()">
 
-👤 Profile
+        <a
+        href="#"
+        onclick="comingSoon(); return false;">
 
-</a>
+            👤 Profile
 
-<a
-href="#"
-onclick="comingSoon()">
+        </a>
 
-⚙ Settings
 
-</a>
+        <a
+        href="#"
+        onclick="comingSoon(); return false;">
+
+            ⚙ Settings
+
+        </a>
+
     </div>
+
 
     <div
     id="overlay"
