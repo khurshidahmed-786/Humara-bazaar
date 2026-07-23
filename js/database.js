@@ -108,7 +108,7 @@ function logout(){
 
 function getBusinesses(){
 
-    return getData(DB.BUSINESSES);
+    return getData (DB.BUSINESSES);
 
 }
 
@@ -230,5 +230,131 @@ function updateOrderStatus(id,status){
         orders
 
     );
+
+}
+/* ==========================================
+   BUSINESSES
+========================================== */
+
+function getBusinesses(){
+
+    return getData("hb_businesses");
+
+}
+
+
+function saveBusiness(business){
+
+    let businesses =
+        getBusinesses();
+
+    businesses.push(business);
+
+    saveData(
+        "hb_businesses",
+        businesses
+    );
+
+}
+
+
+function createBusiness(business){
+
+    business.id =
+        Date.now();
+
+    business.createdAt =
+        new Date().toISOString();
+
+    saveBusiness(
+        business
+    );
+
+    return business;
+
+}
+
+
+function getBusinessById(id){
+
+    return getBusinesses().find(
+
+        business =>
+            business.id == id
+
+    ) || null;
+
+}
+
+
+function addBusinessToUser(
+    userId,
+    businessId
+){
+
+    let users =
+        getUsers();
+
+    const user =
+        users.find(
+
+            u => u.id == userId
+
+        );
+
+    if(!user){
+
+        return false;
+
+    }
+
+
+    if(!user.businesses){
+
+        user.businesses = [];
+
+    }
+
+
+    if(
+        !user.businesses.includes(
+            businessId
+        )
+    ){
+
+        user.businesses.push(
+            businessId
+        );
+
+    }
+
+
+    saveData(
+        DB.USERS,
+        users
+    );
+
+
+    /*
+    Update current session
+    */
+
+    const session =
+        getCurrentUser();
+
+    if(
+        session &&
+        session.id == userId
+    ){
+
+        session.businesses =
+            user.businesses;
+
+        login(session);
+
+    }
+
+
+    return true;
 
 }
