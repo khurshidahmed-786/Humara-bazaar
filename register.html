@@ -1,55 +1,117 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 
 <head>
 
-<title>Register</title>
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Create Account | Hamara Bazaar</title>
 
 <style>
 
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+    font-family:Arial;
+
+}
+
 body{
-background:#FAF6EE;
-font-family:Arial;
-padding:50px;
+
+    background:#FAF6EE;
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:20px;
+
 }
 
 .box{
 
-background:white;
+    background:white;
 
-padding:40px;
+    padding:40px;
 
-border-radius:20px;
+    border-radius:20px;
 
-max-width:700px;
+    width:100%;
+
+    max-width:500px;
 
 }
 
-input,
-select{
+h1{
 
-width:100%;
+    margin-bottom:10px;
 
-padding:14px;
+}
 
-margin:10px 0;
+p{
+
+    color:#666;
+
+    margin-bottom:25px;
+
+}
+
+input{
+
+    width:100%;
+
+    padding:14px;
+
+    margin:10px 0;
+
+    border:1px solid #ddd;
+
+    border-radius:10px;
 
 }
 
 button{
 
-padding:16px;
+    padding:16px;
 
-background:#667744;
+    margin-top:15px;
 
-color:white;
+    background:#667744;
 
-border:none;
+    color:white;
 
-border-radius:12px;
+    border:none;
 
-width:100%;
+    border-radius:12px;
+
+    width:100%;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+}
+
+.error{
+
+    color:#B63A3A;
+
+    margin-top:15px;
+
+    display:none;
 
 }
 
@@ -57,7 +119,9 @@ width:100%;
 
 </head>
 
+
 <body>
+
 
 <div class="box">
 
@@ -67,64 +131,223 @@ Create Account
 
 </h1>
 
-<br>
+<p>
 
-<select>
+Join Hamara Bazaar and connect with
+your local community.
 
-<option>
-
-Customer
-
-</option>
-
-<option>
-
-Seller
-
-</option>
-
-<option>
-
-Service Provider
-
-</option>
-
-<option>
-
-Transport Operator
-
-</option>
-
-</select>
-
-<input placeholder="Full Name">
-
-<input placeholder="Mobile">
-
-<input placeholder="Aadhaar">
-
-<input placeholder="Area">
+</p>
 
 
-<a
-href="/createshop.html"
-style="
-display:block;
-width:100%;
-padding:16px;
-background:#667744;
-color:white;
-text-align:center;
-text-decoration:none;
-border-radius:12px;
-">
+<input
 
-Continue
+id="name"
 
-</a>
+placeholder="Full Name *">
+
+
+<input
+
+id="phone"
+
+placeholder="Mobile Number *"
+
+
+type="tel">
+
+
+<input
+
+id="area"
+
+placeholder="Area / Locality *">
+
+
+<button
+
+id="registerBtn">
+
+Create Account
+
+</button>
+
+
+<div
+
+id="error"
+
+class="error">
+
+</div>
 
 
 </div>
+
+
+<script src="js/database.js"></script>
+
+<script src="js/auth.js"></script>
+
+
+<script>
+
+document
+
+.getElementById("registerBtn")
+
+.onclick=function(){
+
+
+const name =
+
+document
+
+.getElementById("name")
+
+.value
+
+.trim();
+
+
+const phone =
+
+document
+
+.getElementById("phone")
+
+.value
+
+.trim();
+
+
+const area =
+
+document
+
+.getElementById("area")
+
+.value
+
+.trim();
+
+
+const error =
+
+document
+
+.getElementById("error");
+
+
+if(!name){
+
+error.innerText =
+
+"Please enter your name.";
+
+error.style.display =
+
+"block";
+
+return;
+
+}
+
+
+if(!phone){
+
+error.innerText =
+
+"Please enter your mobile number.";
+
+error.style.display =
+
+"block";
+
+return;
+
+}
+
+
+if(!area){
+
+error.innerText =
+
+"Please enter your area.";
+
+error.style.display =
+
+"block";
+
+return;
+
+}
+
+
+const user =
+
+registerUser(
+
+name,
+
+phone
+
+);
+
+
+/*
+
+SAVE AREA
+
+*/
+
+user.area = area;
+
+
+/*
+
+UPDATE USER RECORD
+
+*/
+
+let users = getUsers();
+
+
+users = users.map(
+
+u =>
+
+u.id === user.id
+
+? user
+
+: u
+
+);
+
+
+saveData(
+
+DB.USERS,
+
+users
+
+);
+
+
+/*
+
+REDIRECT
+
+*/
+
+window.location.href =
+
+"index.html";
+
+
+};
+
+</script>
 
 
 </body>
