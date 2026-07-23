@@ -369,3 +369,44 @@ function(){
     loadShopPage();
 
 });
+/* ==========================================
+   BUSINESS → SHOP
+========================================== */
+
+function getActiveBusiness(){
+
+    const businessId = Number(
+
+        localStorage.getItem(
+            "hb_activeBusiness"
+        )
+
+    );
+
+
+    if(!businessId){
+
+        return null;
+
+    }
+
+
+    return getBusinessById(
+        businessId
+    );
+
+}
+
+
+function getShopByBusinessId(
+    businessId
+){
+
+    return getShops().find(
+
+        shop =>
+            shop.businessId == businessId
+
+    ) || null;
+
+}
