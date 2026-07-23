@@ -1,8 +1,11 @@
-const app = document.getElementById("sellerApp");
+const app = document.getElementById("sellerApp" );
 
-const shop = getCurrentShop();
 
-if(!shop){
+const business =
+    getActiveBusiness();
+
+
+if(!business){
 
     app.innerHTML = `
 
@@ -10,18 +13,20 @@ if(!shop){
 
         <div class="shopCard">
 
-            <h2>No Shop Found</h2>
+            <h2>
+                No Business Selected
+            </h2>
 
             <p>
-                Create your first shop to start selling.
+                Please select a business
+                from My Business.
             </p>
 
             <br>
 
-            <a
-            href="createshop.html">
+            <a href="role.html">
 
-            Create Shop →
+                ← My Business
 
             </a>
 
@@ -31,21 +36,83 @@ if(!shop){
 
     `;
 
-}else{
-
-    renderDashboard(shop);
+    throw new Error(
+        "No active business selected."
+    );
 
 }
-function renderDashboard(shop){
 
-const products = getProductsByShop(shop.id);
-const orders = getOrders().filter(
-    order => order.shopId == shop.id
-);
 
-const pendingOrders = orders.filter(
-    order => order.status == "Pending"
-).length;
+const shop =
+    getShopByBusinessId(
+        business.id
+    );
+
+function renderDashboard(
+    shop
+){
+
+    if(!shop){
+
+        app.innerHTML = `
+
+        <div class="sellerContainer">
+
+            <div class="shopCard">
+
+                <h2>
+                    Shop Setup Required
+                </h2>
+
+                <p>
+                    Your business has been
+                    created, but your shop
+                    has not been set up yet.
+                </p>
+
+                <br>
+
+                <a href="createshop.html">
+
+                    Complete Shop Setup →
+
+                </a>
+
+            </div>
+
+        </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const products =
+        getProductsByShop(
+            shop.id
+        );
+
+
+    const orders =
+        getOrders().filter(
+
+            order =>
+
+            order.shopId == shop.id
+
+        );
+
+
+    const pendingOrders =
+        orders.filter(
+
+            order =>
+
+            order.status == "Pending"
+
+        ).length;
 app.innerHTML = `
 
 <div class="sellerContainer">
@@ -54,7 +121,7 @@ app.innerHTML = `
 
 <h1>
 
-Seller Dashboard
+Business Dashboard
 
 </h1>
 
@@ -64,7 +131,7 @@ Managing
 
 <strong>
 
-${shop.name}
+${business.name}
 
 </strong>
 
@@ -75,7 +142,6 @@ ${shop.name}
 Manage your business from one place.
 
 </p>
-
 </header>
 
 <div class="shopCard">
@@ -96,7 +162,18 @@ background:#F3F3F3;
 
 <div class="shopName">
 
-🏪 ${shop.name}
+🏪 ${business.name}
+
+</div>
+
+<div
+style="
+margin-top:6px;
+color:#777;
+">
+
+Shop:
+${shop ? shop.name : "Not created"}
 
 </div>
 
