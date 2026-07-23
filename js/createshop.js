@@ -1,3 +1,15 @@
+const user = getCurrentUser();
+
+if(!user){
+
+    alert(
+        "Please login to register your business."
+    );
+
+    window.location.href =
+        "login.html";
+
+}
 let currentStep = 1;
 
 const totalSteps = 4;
@@ -276,79 +288,168 @@ return true;
 
 }
 document.getElementById(
-
-"publishBtn"
-
+    "publishBtn"
 ).onclick=function(){
 
-const shop={
+    const user = getCurrentUser();
 
-name:shopNameInput.value.trim(),
+    if(!user){
 
-category:
+        alert(
+            "Please login to register your business."
+        );
 
-document.getElementById(
+        window.location.href =
+            "login.html";
 
-"shopCategory"
+        return;
 
-).value,
+    }
 
-description:
+    /*
+    ======================================
+    STEP 1
+    CREATE BUSINESS
+    ======================================
+    */
 
-shopDescriptionInput.value.trim(),
+    const business = {
 
-open:
+        ownerId: user.id,
 
-shopOpenInput.value.trim(),
+        name:
+            shopNameInput.value.trim(),
 
-close:
+        type: "shop",
 
-shopCloseInput.value.trim(),
+        category:
+            document.getElementById(
+                "shopCategory"
+            ).value,
 
-logo:
+        status: "active"
 
-document.getElementById(
+    };
 
-"shopLogo"
+    const createdBusiness =
+        createBusiness(
+            business
+        );
 
-).value.trim(),
 
-banner:
+    /*
+    ======================================
+    STEP 2
+    LINK BUSINESS TO USER
+    ======================================
+    */
 
-document.getElementById(
+    addBusinessToUser(
 
-"shopBanner"
+        user.id,
 
-).value.trim(),
+        createdBusiness.id
 
-ownerId:
+    );
 
-getCurrentUser()
 
-?
+    /*
+    ======================================
+    STEP 3
+    CREATE SHOP
+    ======================================
+    */
 
-getCurrentUser().id
+    const shop = {
 
-:null
+        businessId:
+            createdBusiness.id,
+
+        ownerId:
+            user.id,
+
+        name:
+            shopNameInput.value.trim(),
+
+        category:
+            document.getElementById(
+                "shopCategory"
+            ).value,
+
+        description:
+            shopDescriptionInput.value.trim(),
+
+        open:
+            shopOpenInput.value.trim(),
+
+        close:
+            shopCloseInput.value.trim(),
+
+        logo:
+            document.getElementById(
+                "shopLogo"
+            ).value.trim(),
+
+        banner:
+            document.getElementById(
+                "shopBanner"
+            ).value.trim()
+
+    };
+
+
+    const createdShop =
+        createShop(shop);
+
+
+    /*
+    ======================================
+    STEP 4
+    SAVE ACTIVE BUSINESS
+    ======================================
+    */
+
+    localStorage.setItem(
+
+        "hb_activeBusiness",
+
+        createdBusiness.id
+
+    );
+
+
+    /*
+    ======================================
+    STEP 5
+    SAVE SELECTED SHOP
+    ======================================
+    */
+
+    localStorage.setItem(
+
+        "hb_selectedShop",
+
+        createdShop.id
+
+    );
+
+
+    /*
+    ======================================
+    SUCCESS
+    ======================================
+    */
+
+    this.innerText =
+        "✅ Business Registered";
+
+
+    setTimeout(function(){
+
+        window.location.href =
+            "dashboard.html";
+
+    },1200);
 
 };
-
-const createdShop = createShop(shop);
-localStorage.setItem(
-
-    "hb_selectedShop",
-
-    createdShop.id
-
-);
-this.innerText=
-
-"✅ Shop Published";
-
-setTimeout(function(){
-
-window.location.href="dashboard.html";
-
-},1200);
-
 };
