@@ -1,183 +1,297 @@
-*{
+/* ==========================================
+   HAMARA BAZAAR — MY BUSINESS
+   MOBILE-FIRST BUSINESS DASHBOARD
+========================================== */
 
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #FAF6EE;
+    color: #222;
+    padding-bottom: 30px;
+}
+
+/* ==========================================
+   MAIN CONTAINER
+========================================== */
+
+.sellerContainer {
+    width: 100%;
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px 16px 40px;
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.sellerHeader {
+    margin-bottom: 22px;
+}
+
+.sellerHeader h1 {
+    font-size: 30px;
+    line-height: 1.2;
+    color: #345D2A;
+}
+
+.sellerHeader p {
+    margin-top: 7px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #666;
+}
+
+/* ==========================================
+   BUSINESS / SHOP CARD
+========================================== */
+
+.shopCard {
+    background: white;
+    border-radius: 20px;
+    padding: 18px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.06);
+    margin-bottom: 22px;
+}
+
+/* Shop header row created by seller.js */
+
+.shopCard > div:first-child {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.shopCard img {
+    width: 70px !important;
+    height: 70px !important;
+    min-width: 70px;
+    border-radius: 18px !important;
+    object-fit: cover;
+    background: #F3F3F3;
+}
+
+.shopName {
+    font-size: 21px;
+    font-weight: bold;
+    color: #345D2A;
+    line-height: 1.25;
+}
+
+.shopDescription {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid #eee;
+    line-height: 1.6;
+    font-size: 14px;
+    color: #666;
+}
+
+/* ==========================================
+   STATISTICS
+========================================== */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.stat {
+    background: white;
+    border-radius: 18px;
+    padding: 18px 12px;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,.05);
+}
+
+.statValue {
+    font-size: 26px;
+    font-weight: bold;
+    color: #B63A3A;
+}
+
+.statLabel {
+    margin-top: 6px;
+    font-size: 13px;
+    color: #777;
+}
+
+/* ==========================================
+   QUICK ACTIONS
+========================================== */
+
+.quickActions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.actionCard {
+    background: white;
+    padding: 18px;
+    border-radius: 18px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0,0,0,.05);
+    transition: .2s;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.actionCard:hover {
+    transform: translateY(-2px);
+}
+
+.actionIcon {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #F6F2E8;
+    border-radius: 14px;
+
+    font-size: 25px;
+}
+
+.actionTitle {
+    margin-top: 0;
+    font-size: 17px;
+    font-weight: bold;
+    color: #333;
+}
+
+.actionText {
+    margin-top: 5px;
+    font-size: 13px;
+    color: #777;
+}
+
+/* ==========================================
+   NEW ORDERS
+========================================== */
+
+.newOrders {
+    border: 2px solid #667744;
+    background: #F7FAF3;
+    animation: pulseOrders 1.8s infinite;
+}
+
+@keyframes pulseOrders {
+
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.01);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 
 }
 
-body{
+/* ==========================================
+   RECENT PRODUCTS
+========================================== */
 
-background:#FAF6EE;
-color:#222;
-padding-bottom:100px;
+#recentProducts {
+    margin-top: 16px;
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (min-width: 600px) {
+
+    .sellerContainer {
+        padding: 28px 24px 50px;
+    }
+
+    .sellerHeader h1 {
+        font-size: 36px;
+    }
+
+    .stats {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+    }
+
+    .quickActions {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+
+    .actionCard {
+        display: block;
+        padding: 24px;
+    }
+
+    .actionIcon {
+        width: auto;
+        height: auto;
+        background: transparent;
+        display: block;
+        font-size: 36px;
+    }
+
+    .actionTitle {
+        margin-top: 16px;
+        font-size: 20px;
+    }
 
 }
 
-.sellerContainer{
-
-max-width:1100px;
-margin:auto;
-padding:28px;
-
-}
-
-.sellerHeader{
-
-margin-bottom:30px;
-
-}
-
-.sellerHeader h1{
-
-font-size:42px;
-color:#345D2A;
-
-}
-
-.sellerHeader p{
-
-margin-top:10px;
-font-size:18px;
-color:#666;
-
-}
-
-.shopCard{
-
-background:white;
-border-radius:24px;
-padding:28px;
-box-shadow:0 12px 30px rgba(0,0,0,.06);
-margin-bottom:28px;
-
-}
-
-.shopName{
-
-font-size:32px;
-font-weight:bold;
-color:#345D2A;
-
-}
-
-.shopDescription{
-
-margin-top:12px;
-line-height:1.7;
-color:#666;
-
-}
-
-.stats{
-
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-gap:18px;
-margin-top:28px;
-
-}
-
-.stat{
-
-background:white;
-border-radius:22px;
-padding:24px;
-text-align:center;
-box-shadow:0 8px 20px rgba(0,0,0,.05);
-
-}
-
-.statValue{
-
-font-size:34px;
-font-weight:bold;
-color:#B63A3A;
-
-}
-
-.statLabel{
-
-margin-top:10px;
-color:#777;
-
-}
-
-.quickActions{
-
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:18px;
-margin-top:32px;
-
-}
-
-.actionCard{
-
-background:white;
-padding:26px;
-border-radius:22px;
-cursor:pointer;
-box-shadow:0 8px 20px rgba(0,0,0,.05);
-transition:.2s;
-
-}
-
-.actionCard:hover{
-
-transform:translateY(-4px);
-
-}
-
-.actionIcon{
-
-font-size:38px;
-
-}
-
-.actionTitle{
-
-margin-top:18px;
-font-size:22px;
-font-weight:bold;
-
-}
-
-.actionText{
-
-margin-top:10px;
-color:#666;
-
-}
-.newOrders{
-
-border:2px solid #667744;
-
-background:#F7FAF3;
-
-animation:pulseOrders 1.8s infinite;
-
-}
-
-@keyframes pulseOrders{
-
-0%{
-
-transform:scale(1);
-
-}
-
-50%{
-
-transform:scale(1.02);
-
-}
-
-100%{
-
-transform:scale(1);
-
-}
+/* ==========================================
+   DESKTOP
+========================================== */
+
+@media (min-width: 900px) {
+
+    .sellerContainer {
+        padding: 40px 28px 60px;
+    }
+
+    .sellerHeader h1 {
+        font-size: 42px;
+    }
+
+    .sellerHeader p {
+        font-size: 18px;
+    }
+
+    .shopCard {
+        padding: 28px;
+        border-radius: 24px;
+    }
+
+    .shopCard img {
+        width: 90px !important;
+        height: 90px !important;
+    }
+
+    .shopName {
+        font-size: 32px;
+    }
+
+    .quickActions {
+        grid-template-columns: repeat(3, 1fr);
+    }
 
 }
