@@ -251,11 +251,11 @@ function renderDashboard(
             </div>
 
 
-            <button
-                class="businessMore"
-                onclick="
-                location.href='createshop.html'
-                ">
+           <button
+    class="businessMore"
+    onclick="
+    location.href='createshop.html?edit=true'
+    ">
 
                 ⋮
 
@@ -455,11 +455,11 @@ function renderDashboard(
 
 
 
-            <div
-                class="businessAction"
-                onclick="
-                location.href='createshop.html'
-                ">
+           <div
+    class="businessAction"
+    onclick="
+    location.href='createshop.html?edit=true'
+    ">
 
                 <div class="businessActionIcon">
 
