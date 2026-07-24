@@ -1,3 +1,13 @@
+/* ==========================================
+   HAMARA BAZAAR
+   MOBILE-FIRST BUSINESS DASHBOARD
+========================================== */
+
+
+/* ==========================================
+   APP ROOT
+========================================== */
+
 const app =
     document.getElementById(
         "sellerApp"
@@ -13,37 +23,44 @@ const business =
 
 
 /* ==========================================
-   NO BUSINESS SELECTED
+   NO BUSINESS
 ========================================== */
 
 if(!business){
 
     app.innerHTML = `
 
-    <div class="sellerContainer">
+        <div class="businessEmpty">
 
-        <div class="shopCard">
+            <div class="emptyIcon">
+
+                🏪
+
+            </div>
 
             <h2>
+
                 No Business Selected
+
             </h2>
 
             <p>
-                Please select a business
-                from My Business.
+
+                Select a business from
+                My Business to continue.
+
             </p>
 
-            <br>
-
-            <a href="role.html">
+            <button
+                onclick="
+                location.href='role.html'
+                ">
 
                 ← My Business
 
-            </a>
+            </button>
 
         </div>
-
-    </div>
 
     `;
 
@@ -51,7 +68,7 @@ if(!business){
 
 
 /* ==========================================
-   BUSINESS SELECTED
+   BUSINESS FOUND
 ========================================== */
 
 else{
@@ -60,7 +77,6 @@ else{
         getShopByBusinessId(
             business.id
         );
-
 
     renderDashboard(
         business,
@@ -79,41 +95,42 @@ function renderDashboard(
     shop
 ){
 
-    /*
-    ======================================
-    SHOP NOT FOUND
-    ======================================
-    */
-
     if(!shop){
 
         app.innerHTML = `
 
-        <div class="sellerContainer">
+            <div class="businessEmpty">
 
-            <div class="shopCard">
+                <div class="emptyIcon">
+
+                    🏪
+
+                </div>
 
                 <h2>
-                    Shop Setup Required
+
+                    Complete Your Business
+
                 </h2>
 
                 <p>
-                    Your business exists,
-                    but no shop is linked
-                    to this business.
+
+                    Your business is registered,
+                    but your shop setup
+                    is not complete.
+
                 </p>
 
-                <br>
+                <button
+                    onclick="
+                    location.href='createshop.html'
+                    ">
 
-                <a href="createshop.html">
+                    Complete Setup →
 
-                    Complete Shop Setup →
-
-                </a>
+                </button>
 
             </div>
-
-        </div>
 
         `;
 
@@ -122,11 +139,9 @@ function renderDashboard(
     }
 
 
-    /*
-    ======================================
-    GET SHOP DATA
-    ======================================
-    */
+    /* ======================================
+       DATA
+    ====================================== */
 
     const products =
         getProductsByShop(
@@ -152,350 +167,404 @@ function renderDashboard(
         ).length;
 
 
-    /*
-    ======================================
-    RENDER DASHBOARD
-    ======================================
-    */
+    /* ======================================
+       DASHBOARD UI
+    ====================================== */
 
     app.innerHTML = `
 
-    <div class="sellerContainer">
+    <div class="businessApp">
 
-        <header class="sellerHeader">
 
-            <h1>
+        <!-- APP HEADER -->
 
-                Business Dashboard
+        <div class="businessTopbar">
 
-            </h1>
+            <button
+                class="businessBack"
+                onclick="
+                location.href='role.html'
+                ">
 
-            <p>
+                ←
 
-                Managing
+            </button>
 
-                <strong>
+            <div>
+
+                <div class="businessTopTitle">
+
+                    My Business
+
+                </div>
+
+                <div class="businessTopSubtitle">
+
+                    Manage your business
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- BUSINESS IDENTITY -->
+
+        <section
+            class="businessIdentity">
+
+
+            <div class="businessLogo">
+
+                <img
+                    src="${
+                        shop.logo ||
+                        'assets/shop-placeholder.png'
+                    }"
+                    alt="Business Logo">
+
+            </div>
+
+
+            <div class="businessIdentityInfo">
+
+                <h1>
 
                     ${business.name}
 
-                </strong>
+                </h1>
 
-            </p>
+                <p>
 
-            <p>
+                    ${shop.category || "Local Business"}
 
-                Manage your business
-                from one place.
+                </p>
 
-            </p>
+                <span class="businessStatus">
 
-        </header>
+                    ● Active
+
+                </span>
+
+            </div>
 
 
-        <div class="shopCard">
-
-            <div
-            style="
-            display:flex;
-            align-items:center;
-            gap:20px;
-            ">
-
-                <img
-
-                src="${
-                    shop.logo ||
-                    'assets/shop-placeholder.png'
-                }"
-
-                style="
-                width:90px;
-                height:90px;
-                border-radius:20px;
-                object-fit:cover;
-                background:#F3F3F3;
+            <button
+                class="businessMore"
+                onclick="
+                location.href='createshop.html'
                 ">
 
-                <div>
+                ⋮
 
-                    <div class="shopName">
+            </button>
 
-                        🏪 ${business.name}
-
-                    </div>
-
-                    <div
-                    style="
-                    margin-top:6px;
-                    color:#777;
-                    ">
-
-                        Shop:
-                        ${shop.name}
-
-                    </div>
-
-                    <div
-                    style="
-                    margin-top:8px;
-                    color:#666;
-                    ">
-
-                        ${shop.open || "8:00 AM"}
-
-                        —
-
-                        ${shop.close || "8:00 PM"}
-
-                    </div>
-
-                </div>
-
-            </div>
+        </section>
 
 
-            <div class="shopDescription">
 
-                ${
-                    shop.description ||
-                    "No description yet."
-                }
+        <!-- QUICK STATS -->
 
-            </div>
-
-        </div>
+        <section
+            class="businessStats">
 
 
-        <div class="stats">
+            <div class="businessStat">
 
-            <div class="stat">
-
-                <div class="statValue">
+                <strong>
 
                     ${products.length}
 
-                </div>
+                </strong>
 
-                <div class="statLabel">
+                <span>
 
-                    📦 Products
+                    Products
 
-                </div>
+                </span>
 
             </div>
 
 
-            <div class="stat">
+            <div class="businessStat">
 
-                <div class="statValue">
+                <strong>
 
                     ${orders.length}
 
-                </div>
+                </strong>
 
-                <div class="statLabel">
+                <span>
 
-                    🛒 Orders
+                    Orders
 
-                </div>
+                </span>
 
             </div>
 
 
-            <div class="stat">
+            <div class="businessStat">
 
-                <div class="statValue">
+                <strong>
+
+                    ${pendingOrders}
+
+                </strong>
+
+                <span>
+
+                    Pending
+
+                </span>
+
+            </div>
+
+
+            <div class="businessStat">
+
+                <strong>
 
                     New
 
-                </div>
+                </strong>
 
-                <div class="statLabel">
+                <span>
 
-                    ⭐ Rating
+                    Rating
 
-                </div>
-
-            </div>
-
-
-            <div class="stat">
-
-                <div class="statValue">
-
-                    0
-
-                </div>
-
-                <div class="statLabel">
-
-                    👀 Visitors
-
-                </div>
+                </span>
 
             </div>
 
-        </div>
+
+        </section>
 
 
-        <div class="quickActions">
 
+        <!-- PRIMARY ACTION -->
 
-            <div
-            class="actionCard"
+        <button
+            class="primaryBusinessAction"
             onclick="
             location.href='addproduct.html'
             ">
 
-                <div class="actionIcon">
+            <span>
 
-                    ➕
+                ＋
 
-                </div>
+            </span>
 
-                <div class="actionTitle">
+            Add Product
 
-                    Add Product
+        </button>
 
-                </div>
 
-                <div class="actionText">
 
-                    Publish a new product
+        <!-- BUSINESS ACTIONS -->
 
-                </div>
-
-            </div>
+        <section
+            class="businessActions">
 
 
             <div
-            class="actionCard"
-            onclick="
-            location.href='myproducts.html'
-            ">
+                class="businessAction"
+                onclick="
+                location.href='myproducts.html'
+                ">
 
-                <div class="actionIcon">
+                <div class="businessActionIcon">
 
                     📦
 
                 </div>
 
-                <div class="actionTitle">
+                <div>
 
-                    My Products
+                    <strong>
+
+                        My Products
+
+                    </strong>
+
+                    <span>
+
+                        Manage your products
+
+                    </span>
 
                 </div>
 
-                <div class="actionText">
+                <b>
 
-                    Manage products
+                    ›
 
-                </div>
+                </b>
 
             </div>
 
 
-            <div
-            class="actionCard"
-            onclick="
-            location.href='createshop.html'
-            ">
 
-                <div class="actionIcon">
+            <div
+                class="
+                businessAction
+                ${
+                    pendingOrders > 0
+                    ? 'businessActionAlert'
+                    : ''
+                }
+                "
+                onclick="
+                location.href='sellerorders.html'
+                ">
+
+                <div class="businessActionIcon">
+
+                    🛒
+
+                </div>
+
+                <div>
+
+                    <strong>
+
+                        Incoming Orders
+
+                    </strong>
+
+                    <span>
+
+                        ${
+                            pendingOrders
+                        }
+                        pending order(s)
+
+                    </span>
+
+                </div>
+
+                <b>
+
+                    ›
+
+                </b>
+
+            </div>
+
+
+
+            <div
+                class="businessAction"
+                onclick="
+                location.href='createshop.html'
+                ">
+
+                <div class="businessActionIcon">
 
                     ✏️
 
                 </div>
 
-                <div class="actionTitle">
+                <div>
 
-                    Edit Business
+                    <strong>
+
+                        Edit Business
+
+                    </strong>
+
+                    <span>
+
+                        Update your business
+
+                    </span>
 
                 </div>
 
-                <div class="actionText">
+                <b>
 
-                    Update business details
+                    ›
 
-                </div>
+                </b>
 
             </div>
 
 
-            <div
-            class="
-            actionCard
-            ${pendingOrders > 0
-                ? 'newOrders'
-                : ''}
-            "
-            onclick="
-            location.href='sellerorders.html'
-            ">
-
-                <div class="actionIcon">
-
-                    📦
-
-                </div>
-
-                <div class="actionTitle">
-
-                    Incoming Orders
-
-                </div>
-
-                <div class="actionText">
-
-                    ${pendingOrders}
-                    Pending Order(s)
-
-                </div>
-
-            </div>
-
 
             <div
-            class="actionCard"
-            onclick="
-            openShop(${shop.id})
-            ">
+                class="businessAction"
+                onclick="
+                openShop(${shop.id})
+                ">
 
-                <div class="actionIcon">
+                <div class="businessActionIcon">
 
                     👁
 
                 </div>
 
-                <div class="actionTitle">
+                <div>
 
-                    View Shop
+                    <strong>
+
+                        View My Shop
+
+                    </strong>
+
+                    <span>
+
+                        See your customer view
+
+                    </span>
 
                 </div>
 
-                <div class="actionText">
+                <b>
 
-                    See customer view
+                    ›
 
-                </div>
+                </b>
 
             </div>
 
 
-        </div>
+        </section>
 
 
-        <h2
-        style="margin-top:50px;">
 
-            Recent Products
+        <!-- RECENT PRODUCTS -->
 
-        </h2>
+        <section
+            class="businessRecent">
 
 
-        <div id="recentProducts">
+            <div class="businessSectionHeader">
 
-        </div>
+                <h2>
+
+                    Recent Products
+
+                </h2>
+
+                <a
+                    href="myproducts.html">
+
+                    View All
+
+                </a>
+
+            </div>
+
+
+            <div
+                id="recentProducts">
+
+            </div>
+
+
+        </section>
 
 
     </div>
