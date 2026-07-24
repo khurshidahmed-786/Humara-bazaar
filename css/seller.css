@@ -1,297 +1,625 @@
 /* ==========================================
-   HAMARA BAZAAR — MY BUSINESS
-   MOBILE-FIRST BUSINESS DASHBOARD
+   HAMARA BAZAAR
+   MOBILE BUSINESS APP
 ========================================== */
 
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
 }
 
 body {
+
+    margin: 0;
+
     background: #FAF6EE;
+
     color: #222;
-    padding-bottom: 30px;
+
+    font-family:
+        Arial,
+        sans-serif;
+
 }
 
+
 /* ==========================================
-   MAIN CONTAINER
+   APP CONTAINER
 ========================================== */
 
-.sellerContainer {
+#sellerApp {
+
     width: 100%;
-    max-width: 1100px;
+
+}
+
+
+.businessApp {
+
+    width: 100%;
+
+    max-width: 600px;
+
     margin: auto;
-    padding: 20px 16px 40px;
+
+    padding-bottom: 40px;
+
 }
+
 
 /* ==========================================
-   HEADER
+   APP TOPBAR
 ========================================== */
 
-.sellerHeader {
-    margin-bottom: 22px;
-}
+.businessTopbar {
 
-.sellerHeader h1 {
-    font-size: 30px;
-    line-height: 1.2;
-    color: #345D2A;
-}
-
-.sellerHeader p {
-    margin-top: 7px;
-    font-size: 15px;
-    line-height: 1.5;
-    color: #666;
-}
-
-/* ==========================================
-   BUSINESS / SHOP CARD
-========================================== */
-
-.shopCard {
-    background: white;
-    border-radius: 20px;
-    padding: 18px;
-    box-shadow: 0 8px 24px rgba(0,0,0,.06);
-    margin-bottom: 22px;
-}
-
-/* Shop header row created by seller.js */
-
-.shopCard > div:first-child {
     display: flex;
+
     align-items: center;
+
     gap: 14px;
+
+    padding: 16px;
+
+    background: #FAF6EE;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 50;
+
 }
 
-.shopCard img {
-    width: 70px !important;
-    height: 70px !important;
-    min-width: 70px;
-    border-radius: 18px !important;
-    object-fit: cover;
-    background: #F3F3F3;
+
+.businessBack {
+
+    width: 42px;
+
+    height: 42px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    background: white;
+
+    font-size: 24px;
+
+    box-shadow:
+        0 4px 12px
+        rgba(0,0,0,.06);
+
 }
 
-.shopName {
-    font-size: 21px;
-    font-weight: bold;
+
+.businessTopTitle {
+
+    font-size: 19px;
+
+    font-weight: 700;
+
     color: #345D2A;
-    line-height: 1.25;
+
 }
 
-.shopDescription {
-    margin-top: 16px;
-    padding-top: 14px;
-    border-top: 1px solid #eee;
-    line-height: 1.6;
-    font-size: 14px;
-    color: #666;
-}
 
-/* ==========================================
-   STATISTICS
-========================================== */
+.businessTopSubtitle {
 
-.stats {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    margin-top: 20px;
-}
+    margin-top: 3px;
 
-.stat {
-    background: white;
-    border-radius: 18px;
-    padding: 18px 12px;
-    text-align: center;
-    box-shadow: 0 6px 18px rgba(0,0,0,.05);
-}
+    font-size: 12px;
 
-.statValue {
-    font-size: 26px;
-    font-weight: bold;
-    color: #B63A3A;
-}
-
-.statLabel {
-    margin-top: 6px;
-    font-size: 13px;
     color: #777;
+
 }
+
 
 /* ==========================================
-   QUICK ACTIONS
+   BUSINESS IDENTITY
 ========================================== */
 
-.quickActions {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-    margin-top: 24px;
-}
+.businessIdentity {
 
-.actionCard {
-    background: white;
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin: 6px 16px 18px;
+
     padding: 18px;
+
+    background: white;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 8px 24px
+        rgba(0,0,0,.06);
+
+}
+
+
+.businessLogo {
+
+    width: 64px;
+
+    height: 64px;
+
+    min-width: 64px;
+
     border-radius: 18px;
-    cursor: pointer;
-    box-shadow: 0 6px 18px rgba(0,0,0,.05);
-    transition: .2s;
 
-    display: flex;
-    align-items: center;
-    gap: 15px;
+    overflow: hidden;
+
+    background: #F3F0E8;
+
 }
 
-.actionCard:hover {
-    transform: translateY(-2px);
+
+.businessLogo img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
 }
 
-.actionIcon {
-    width: 48px;
-    height: 48px;
-    min-width: 48px;
+
+.businessIdentityInfo {
+
+    flex: 1;
+
+    min-width: 0;
+
+}
+
+
+.businessIdentityInfo h1 {
+
+    margin: 0;
+
+    font-size: 20px;
+
+    color: #345D2A;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+}
+
+
+.businessIdentityInfo p {
+
+    margin: 5px 0;
+
+    font-size: 13px;
+
+    color: #777;
+
+}
+
+
+.businessStatus {
+
+    font-size: 12px;
+
+    color: #667744;
+
+    font-weight: 700;
+
+}
+
+
+.businessMore {
+
+    width: 38px;
+
+    height: 38px;
+
+    border: none;
+
+    background: #F6F2E8;
+
+    border-radius: 12px;
+
+    font-size: 22px;
+
+}
+
+
+/* ==========================================
+   STATS
+========================================== */
+
+.businessStats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 8px;
+
+    margin: 0 16px 18px;
+
+}
+
+
+.businessStat {
+
+    background: white;
+
+    border-radius: 16px;
+
+    padding: 14px 5px;
+
+    text-align: center;
+
+}
+
+
+.businessStat strong {
+
+    display: block;
+
+    font-size: 20px;
+
+    color: #B63A3A;
+
+}
+
+
+.businessStat span {
+
+    display: block;
+
+    margin-top: 5px;
+
+    font-size: 11px;
+
+    color: #777;
+
+}
+
+
+/* ==========================================
+   PRIMARY ACTION
+========================================== */
+
+.primaryBusinessAction {
+
+    width: calc(100% - 32px);
+
+    margin: 0 16px 20px;
+
+    padding: 17px;
+
+    border: none;
+
+    border-radius: 17px;
+
+    background: #667744;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 8px 20px
+        rgba(102,119,68,.22);
+
+}
+
+
+.primaryBusinessAction span {
+
+    font-size: 22px;
+
+    margin-right: 6px;
+
+}
+
+
+/* ==========================================
+   ACTION LIST
+========================================== */
+
+.businessActions {
+
+    margin: 0 16px;
 
     display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+}
+
+
+.businessAction {
+
+    display: flex;
+
     align-items: center;
+
+    gap: 14px;
+
+    padding: 15px;
+
+    background: white;
+
+    border-radius: 17px;
+
+    box-shadow:
+        0 5px 16px
+        rgba(0,0,0,.04);
+
+}
+
+
+.businessActionIcon {
+
+    width: 44px;
+
+    height: 44px;
+
+    min-width: 44px;
+
+    display: flex;
+
+    align-items: center;
+
     justify-content: center;
 
     background: #F6F2E8;
-    border-radius: 14px;
 
-    font-size: 25px;
+    border-radius: 13px;
+
+    font-size: 22px;
+
 }
 
-.actionTitle {
-    margin-top: 0;
-    font-size: 17px;
-    font-weight: bold;
-    color: #333;
+
+.businessAction div:nth-child(2) {
+
+    flex: 1;
+
 }
 
-.actionText {
-    margin-top: 5px;
-    font-size: 13px;
+
+.businessAction strong {
+
+    display: block;
+
+    font-size: 15px;
+
+}
+
+
+.businessAction span {
+
+    display: block;
+
+    margin-top: 4px;
+
+    font-size: 12px;
+
     color: #777;
-}
-
-/* ==========================================
-   NEW ORDERS
-========================================== */
-
-.newOrders {
-    border: 2px solid #667744;
-    background: #F7FAF3;
-    animation: pulseOrders 1.8s infinite;
-}
-
-@keyframes pulseOrders {
-
-    0% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.01);
-    }
-
-    100% {
-        transform: scale(1);
-    }
 
 }
+
+
+.businessAction b {
+
+    font-size: 24px;
+
+    color: #aaa;
+
+}
+
+
+.businessActionAlert {
+
+    border:
+        1px solid #667744;
+
+    background:
+        #F7FAF3;
+
+}
+
 
 /* ==========================================
    RECENT PRODUCTS
 ========================================== */
 
-#recentProducts {
-    margin-top: 16px;
+.businessRecent {
+
+    margin:
+        28px 16px 0;
+
 }
+
+
+.businessSectionHeader {
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items: center;
+
+    margin-bottom: 12px;
+
+}
+
+
+.businessSectionHeader h2 {
+
+    margin: 0;
+
+    font-size: 19px;
+
+    color: #345D2A;
+
+}
+
+
+.businessSectionHeader a {
+
+    color: #B63A3A;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
 
 /* ==========================================
-   TABLET
+   EMPTY STATE
 ========================================== */
 
-@media (min-width: 600px) {
+.businessEmpty {
 
-    .sellerContainer {
-        padding: 28px 24px 50px;
-    }
+    min-height:
+        calc(100vh - 80px);
 
-    .sellerHeader h1 {
-        font-size: 36px;
-    }
+    display: flex;
 
-    .stats {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 18px;
-    }
+    flex-direction: column;
 
-    .quickActions {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 18px;
-    }
+    align-items: center;
 
-    .actionCard {
-        display: block;
-        padding: 24px;
-    }
+    justify-content: center;
 
-    .actionIcon {
-        width: auto;
-        height: auto;
-        background: transparent;
-        display: block;
-        font-size: 36px;
-    }
+    text-align: center;
 
-    .actionTitle {
-        margin-top: 16px;
-        font-size: 20px;
-    }
+    padding: 30px;
 
 }
+
+
+.emptyIcon {
+
+    font-size: 60px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.businessEmpty h2 {
+
+    color: #345D2A;
+
+}
+
+
+.businessEmpty p {
+
+    color: #777;
+
+    line-height: 1.6;
+
+}
+
+
+.businessEmpty button {
+
+    margin-top: 20px;
+
+    padding: 14px 22px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    background: #667744;
+
+    color: white;
+
+    font-weight: bold;
+
+}
+
 
 /* ==========================================
    DESKTOP
 ========================================== */
 
-@media (min-width: 900px) {
+@media (min-width: 700px) {
 
-    .sellerContainer {
-        padding: 40px 28px 60px;
+    .businessApp {
+
+        max-width: 720px;
+
+        padding-bottom: 60px;
+
     }
 
-    .sellerHeader h1 {
-        font-size: 42px;
+    .businessTopbar {
+
+        padding:
+            20px 0;
+
     }
 
-    .sellerHeader p {
-        font-size: 18px;
+    .businessIdentity {
+
+        margin-left: 0;
+
+        margin-right: 0;
+
     }
 
-    .shopCard {
-        padding: 28px;
-        border-radius: 24px;
+    .businessStats {
+
+        margin-left: 0;
+
+        margin-right: 0;
+
+        gap: 14px;
+
     }
 
-    .shopCard img {
-        width: 90px !important;
-        height: 90px !important;
+    .primaryBusinessAction {
+
+        width: 100%;
+
+        margin-left: 0;
+
+        margin-right: 0;
+
     }
 
-    .shopName {
-        font-size: 32px;
+    .businessActions {
+
+        margin-left: 0;
+
+        margin-right: 0;
+
     }
 
-    .quickActions {
-        grid-template-columns: repeat(3, 1fr);
+    .businessRecent {
+
+        margin-left: 0;
+
+        margin-right: 0;
+
     }
 
 }
