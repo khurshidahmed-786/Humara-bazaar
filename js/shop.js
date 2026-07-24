@@ -196,79 +196,158 @@ function renderShopProducts(){
 
     }
 
-    const products = getProductsByShop(shop.id);
+
+    const products =
+        getProductsByShop(shop.id);
+
 
     renderSection(
+
         "featuredProducts",
-        products.filter(p=>p.section==="featured")
+
+        "featuredSection",
+
+        products.filter(
+
+            p => p.section === "featured"
+
+        )
+
     );
 
+
     renderSection(
+
         "newProducts",
-        products.filter(p=>p.section==="new")
+
+        "newSection",
+
+        products.filter(
+
+            p => p.section === "new"
+
+        )
+
     );
 
+
     renderSection(
+
         "saleProducts",
-        products.filter(p=>p.section==="sale")
+
+        "saleSection",
+
+        products.filter(
+
+            p => p.section === "sale"
+
+        )
+
     );
 
 }
-function renderSection(containerId,list){
+function renderSection(
 
-    const wrap=document.getElementById(containerId);
+    containerId,
 
-    if(!wrap){
+    sectionId,
 
-        return;
+    list
 
-    }
+){
 
-    wrap.innerHTML="";
+    const wrap =
+        document.getElementById(
+            containerId
+        );
 
-    if(list.length===0){
 
-        wrap.innerHTML=`
+    const section =
+        document.getElementById(
+            sectionId
+        );
 
-        <div class="product">
 
-            <div class="image">
-
-                📦
-
-            </div>
-
-            <div class="info">
-
-                No Products
-
-            </div>
-
-        </div>
-
-        `;
+    if(!wrap || !section){
 
         return;
 
     }
 
-    list.forEach(product=>{
 
-        wrap.innerHTML+=`
+    /*
+    ======================================
+    HIDE EMPTY SECTION
+    ======================================
+    */
+
+    if(!list || list.length === 0){
+
+        section.classList.add(
+            "hidden"
+        );
+
+        wrap.innerHTML = "";
+
+        return;
+
+    }
+
+
+    /*
+    ======================================
+    SHOW SECTION
+    ======================================
+    */
+
+    section.classList.remove(
+        "hidden"
+    );
+
+
+    wrap.innerHTML = "";
+
+
+    list.forEach(product => {
+
+        wrap.innerHTML += `
 
         <div
-        class="product"
-        onclick="openProduct(${product.id})">
+
+            class="product"
+
+            onclick="
+                openProduct(${product.id})
+            ">
 
             <div class="image">
 
-                ${product.emoji || "📦"}
+                ${
+                    product.image
+
+                    ?
+
+                    `<img
+                        src="${product.image}"
+                        alt="${product.name}">
+                    `
+
+                    :
+
+                    (
+                        product.emoji
+                        ||
+                        "📦"
+                    )
+                }
 
             </div>
+
 
             <div class="info">
 
                 ${product.name}
+
 
                 <div class="price">
 
@@ -300,66 +379,226 @@ function openProduct(id){
 }
 function loadShopPage(){
 
-    if(!document.getElementById("displayName")){
+    if(
+        !document.getElementById(
+            "displayName"
+        )
+    ){
 
         return;
 
     }
 
-    const shop = getCurrentShop();
- if(!shop){
-    document.getElementById("displayName").innerText = 
-       "Shop Not Found";
-    return;
-    
-}
 
-    document.getElementById("displayName").innerText =
-    shop.name || "Unnamed Shop";
+    const shop =
+        getCurrentShop();
 
-    document.getElementById("displayDescription").innerText =
-    shop.description || "No description";
 
-    document.getElementById("displayTime").innerText =
-    `Open: ${shop.open || "8:00 AM"} - ${shop.close || "8:00 PM"}`;
+    if(!shop){
 
-    if(shop.logo){
+        document.getElementById(
+            "displayName"
+        ).innerText =
+            "Shop Not Found";
 
-        document.getElementById("displayLogo").src =
-        shop.logo;
-
-    }else{
-
-        document.getElementById("displayLogo").style.display =
-        "none";
+        return;
 
     }
 
-    document.getElementById("shopStatus").innerHTML =
-    "🟢 Open Now";
+
+    /*
+    ======================================
+    SHOP NAME
+    ======================================
+    */
+
+    document.getElementById(
+        "displayName"
+    ).innerText =
+
+        shop.name
+        ||
+        "Unnamed Shop";
+
+
+    /*
+    ======================================
+    DESCRIPTION
+    ======================================
+    */
+
+    document.getElementById(
+        "displayDescription"
+    ).innerText =
+
+        shop.description
+        ||
+        "Welcome to our shop.";
+
+
+    /*
+    ======================================
+    LOCATION
+    ======================================
+    */
+
+    const locationText =
+
+        shop.location
+        ||
+        "Local Market";
+
+
+    const billboardLocation =
+
+        document.getElementById(
+            "displayLocation"
+        );
+
+
+    const shopLocation =
+
+        document.getElementById(
+            "shopLocation"
+        );
+
+
+    if(billboardLocation){
+
+        billboardLocation.innerText =
+
+            "📍 " +
+            locationText;
+
+    }
+
+
+    if(shopLocation){
+
+        shopLocation.innerText =
+
+            "📍 " +
+            locationText;
+
+    }
+
+
+    /*
+    ======================================
+    OPENING HOURS
+    ======================================
+    */
+
+    document.getElementById(
+        "displayTime"
+    ).innerText =
+
+        `Open: ${
+            shop.open || "8:00 AM"
+        } - ${
+            shop.close || "8:00 PM"
+        }`;
+
+
+    /*
+    ======================================
+    SHOP LOGO
+    ======================================
+    */
+
+    const logo =
+        document.getElementById(
+            "displayLogo"
+        );
+
+
+    const placeholder =
+        document.getElementById(
+            "logoPlaceholder"
+        );
+
+
+    if(
+        shop.logo &&
+        shop.logo.trim() !== ""
+    ){
+
+        logo.src =
+            shop.logo;
+
+        logo.style.display =
+            "block";
+
+
+        if(placeholder){
+
+            placeholder.style.display =
+                "none";
+
+        }
+
+    }
+
+    else{
+
+        logo.style.display =
+            "none";
+
+
+        if(placeholder){
+
+            placeholder.style.display =
+                "flex";
+
+        }
+
+    }
+
+
+    /*
+    ======================================
+    SHOP BILLBOARD COLOR
+    ======================================
+    */
+
+    const billboard =
+        document.getElementById(
+            "shopBillboard"
+        );
+
+
+    if(billboard){
+
+        billboard.style.background =
+
+            shop.themeColor
+            ||
+            "#B63A3A";
+
+    }
+
+
+    /*
+    ======================================
+    SHOP STATUS
+    ======================================
+    */
+
+    updateShopStatus(
+        shop
+    );
+
+
+    /*
+    ======================================
+    PRODUCTS
+    ======================================
+    */
 
     renderShopProducts();
 
 }
-function togglePanel(){
 
-    const panel = document.getElementById(
-
-        "shopPanel"
-
-    );
-
-    if(!panel){
-
-        return;
-
-    }
-
-panel.style.display =
-panel.style.display === "block"
-? "none"
-: "block";
-}
 document.addEventListener(
 
 "DOMContentLoaded",
@@ -408,5 +647,215 @@ function getShopByBusinessId(
             shop.businessId == businessId
 
     ) || null;
+
+}
+function updateShopStatus(shop){
+
+    const status =
+        document.getElementById(
+            "shopStatus"
+        );
+
+
+    if(!status){
+
+        return;
+
+    }
+
+
+    /*
+    ======================================
+    FALLBACK
+    ======================================
+    */
+
+    if(
+        !shop.open ||
+        !shop.close
+    ){
+
+        status.innerHTML =
+            "🟢 Open Now";
+
+        return;
+
+    }
+
+
+    const now =
+        new Date();
+
+
+    const currentMinutes =
+
+        now.getHours() * 60
+        +
+        now.getMinutes();
+
+
+    function timeToMinutes(time){
+
+        const match =
+
+            time
+                .trim()
+                .match(
+                    /^(\d{1,2}):?(\d{0,2})\s*(AM|PM)?$/i
+                );
+
+
+        if(!match){
+
+            return null;
+
+        }
+
+
+        let hour =
+            parseInt(
+                match[1]
+            );
+
+
+        let minute =
+
+            parseInt(
+                match[2] || "0"
+            );
+
+
+        const period =
+
+            match[3]
+            ?
+
+            match[3].toUpperCase()
+
+            :
+
+            null;
+
+
+        if(
+            period === "PM" &&
+            hour !== 12
+        ){
+
+            hour += 12;
+
+        }
+
+
+        if(
+            period === "AM" &&
+            hour === 12
+        ){
+
+            hour = 0;
+
+        }
+
+
+        return (
+
+            hour * 60
+            +
+            minute
+
+        );
+
+    }
+
+
+    const openMinutes =
+
+        timeToMinutes(
+            shop.open
+        );
+
+
+    const closeMinutes =
+
+        timeToMinutes(
+            shop.close
+        );
+
+
+    if(
+        openMinutes === null ||
+        closeMinutes === null
+    ){
+
+        status.innerHTML =
+            "🟢 Open Now";
+
+        return;
+
+    }
+
+
+    let isOpen;
+
+
+    /*
+    Overnight shop
+    Example:
+    6:00 PM → 2:00 AM
+    */
+
+    if(
+        closeMinutes <
+        openMinutes
+    ){
+
+        isOpen =
+
+            currentMinutes >=
+            openMinutes
+
+            ||
+
+            currentMinutes <=
+            closeMinutes;
+
+    }
+
+    else{
+
+        isOpen =
+
+            currentMinutes >=
+            openMinutes
+
+            &&
+
+            currentMinutes <=
+            closeMinutes;
+
+    }
+
+
+    if(isOpen){
+
+        status.innerHTML =
+            "🟢 Open Now";
+
+        status.classList.remove(
+            "closed"
+        );
+
+    }
+
+    else{
+
+        status.innerHTML =
+            "🔴 Closed Now";
+
+        status.classList.add(
+            "closed"
+        );
+
+    }
 
 }
