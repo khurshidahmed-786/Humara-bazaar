@@ -1,451 +1,373 @@
 /* ==========================================
    HAMARA BAZAAR
-   SELLER DASHBOARD
-   MOBILE FIRST
+   MOBILE-FIRST BUSINESS DASHBOARD
 ========================================== */
 
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #FAF6EE;
+    color: #222;
+    overflow-x: hidden;
+}
 
 /* ==========================================
-   PAGE
+   MAIN APP
 ========================================== */
 
-body{
-
-    background:#FAF6EE;
-
-    color:#222;
-
+.businessApp {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 16px 110px;
 }
-
 
 /* ==========================================
-   MAIN CONTAINER
+   TOP BAR
 ========================================== */
 
-.sellerContainer{
-
-    width:100%;
-
-    max-width:1100px;
-
-    margin:0 auto;
-
-    padding:20px 16px 110px;
-
+.businessTopbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 0 20px;
 }
 
+.businessBack {
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 14px;
+    background: white;
+    color: #345D2A;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 5px 16px rgba(0,0,0,.06);
+}
+
+.businessTopTitle {
+    font-size: 20px;
+    font-weight: 700;
+    color: #345D2A;
+}
+
+.businessTopSubtitle {
+    margin-top: 3px;
+    font-size: 12px;
+    color: #777;
+}
 
 /* ==========================================
-   HEADER
+   BUSINESS IDENTITY
 ========================================== */
 
-.sellerHeader{
-
-    margin-bottom:20px;
-
+.businessIdentity {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: white;
+    padding: 18px;
+    border-radius: 22px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.06);
 }
 
-
-.sellerHeader h1{
-
-    font-size:28px;
-
-    line-height:1.2;
-
-    color:#345D2A;
-
-    margin:0;
-
+.businessLogo {
+    width: 68px;
+    height: 68px;
+    flex-shrink: 0;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #F3F0E8;
 }
 
-
-.sellerHeader p{
-
-    margin-top:7px;
-
-    font-size:14px;
-
-    line-height:1.5;
-
-    color:#666;
-
+.businessLogo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-
-/* ==========================================
-   SHOP CARD
-========================================== */
-
-.shopCard{
-
-    background:#FFFFFF;
-
-    border-radius:20px;
-
-    padding:18px;
-
-    margin-bottom:20px;
-
-    box-shadow:
-
-        0 8px 25px
-
-        rgba(0,0,0,.06);
-
+.businessIdentityInfo {
+    min-width: 0;
+    flex: 1;
 }
 
-
-/* SHOP IMAGE */
-
-.shopCard img{
-
-    width:72px !important;
-
-    height:72px !important;
-
-    border-radius:18px !important;
-
-    object-fit:cover;
-
-    flex-shrink:0;
-
+.businessIdentityInfo h1 {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.25;
+    color: #345D2A;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-
-/* SHOP NAME */
-
-.shopName{
-
-    font-size:20px;
-
-    line-height:1.25;
-
-    font-weight:700;
-
-    color:#345D2A;
-
+.businessIdentityInfo p {
+    margin: 5px 0 0;
+    font-size: 13px;
+    color: #777;
 }
 
-
-/* SHOP DESCRIPTION */
-
-.shopDescription{
-
-    margin-top:16px;
-
-    font-size:14px;
-
-    line-height:1.6;
-
-    color:#666;
-
+.businessStatus {
+    display: inline-block;
+    margin-top: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #667744;
 }
 
+.businessMore {
+    width: 38px;
+    height: 38px;
+    border: none;
+    background: #F7F4EC;
+    border-radius: 12px;
+    font-size: 22px;
+    cursor: pointer;
+}
 
 /* ==========================================
    STATS
 ========================================== */
 
-.stats{
-
-    display:grid;
-
-    grid-template-columns:
-
-        repeat(2, 1fr);
-
-    gap:12px;
-
-    margin-bottom:24px;
-
+.businessStats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-top: 14px;
 }
 
-
-.stat{
-
-    background:#FFFFFF;
-
-    border-radius:18px;
-
-    padding:18px 12px;
-
-    text-align:center;
-
-    box-shadow:
-
-        0 6px 18px
-
-        rgba(0,0,0,.05);
-
+.businessStat {
+    background: white;
+    border-radius: 16px;
+    padding: 14px 6px;
+    text-align: center;
+    box-shadow: 0 5px 16px rgba(0,0,0,.05);
 }
 
-
-.statValue{
-
-    font-size:26px;
-
-    line-height:1.2;
-
-    font-weight:700;
-
-    color:#B63A3A;
-
+.businessStat strong {
+    display: block;
+    font-size: 21px;
+    color: #B63A3A;
 }
 
-
-.statLabel{
-
-    margin-top:7px;
-
-    font-size:12px;
-
-    color:#777;
-
+.businessStat span {
+    display: block;
+    margin-top: 5px;
+    font-size: 10px;
+    color: #777;
 }
-
 
 /* ==========================================
-   QUICK ACTIONS
+   PRIMARY ACTION
 ========================================== */
 
-.quickActions{
-
-    display:grid;
-
-    grid-template-columns:
-
-        repeat(2, 1fr);
-
-    gap:12px;
-
-    margin-top:10px;
-
+.primaryBusinessAction {
+    width: 100%;
+    margin-top: 16px;
+    padding: 16px;
+    border: none;
+    border-radius: 16px;
+    background: #667744;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(102,119,68,.20);
 }
 
-
-.actionCard{
-
-    min-height:145px;
-
-    background:#FFFFFF;
-
-    padding:18px;
-
-    border-radius:18px;
-
-    cursor:pointer;
-
-    box-shadow:
-
-        0 6px 18px
-
-        rgba(0,0,0,.05);
-
-    transition:
-
-        transform .15s ease,
-
-        box-shadow .15s ease;
-
+.primaryBusinessAction span {
+    font-size: 20px;
+    margin-right: 5px;
 }
-
-
-.actionCard:active{
-
-    transform:scale(.97);
-
-}
-
-
-.actionIcon{
-
-    font-size:30px;
-
-}
-
-
-.actionTitle{
-
-    margin-top:12px;
-
-    font-size:16px;
-
-    line-height:1.3;
-
-    font-weight:700;
-
-    color:#333;
-
-}
-
-
-.actionText{
-
-    margin-top:7px;
-
-    font-size:12px;
-
-    line-height:1.4;
-
-    color:#777;
-
-}
-
 
 /* ==========================================
-   NEW ORDERS
+   BUSINESS ACTIONS
 ========================================== */
 
-.newOrders{
+.businessActions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 18px;
+}
 
-    border:
+.businessAction {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 16px;
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 5px 16px rgba(0,0,0,.05);
+    cursor: pointer;
+}
 
-        2px solid
+.businessAction:active {
+    transform: scale(.98);
+}
 
-        #667744;
+.businessActionIcon {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #F7F4EC;
+    border-radius: 13px;
+    font-size: 22px;
+}
 
-    background:#F7FAF3;
+.businessAction > div:nth-child(2) {
+    flex: 1;
+    min-width: 0;
+}
+
+.businessAction strong {
+    display: block;
+    font-size: 15px;
+    color: #333;
+}
+
+.businessAction span {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+    color: #777;
+}
+
+.businessAction b {
+    font-size: 24px;
+    font-weight: 400;
+    color: #999;
+}
+
+.businessActionAlert {
+    border: 2px solid #667744;
+    background: #F7FAF3;
+}
+
+/* ==========================================
+   RECENT PRODUCTS
+========================================== */
+
+.businessRecent {
+    margin-top: 28px;
+}
+
+.businessSectionHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.businessSectionHeader h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #345D2A;
+}
+
+.businessSectionHeader a {
+    color: #B63A3A;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* ==========================================
+   EMPTY STATE
+========================================== */
+
+.businessEmpty {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.emptyIcon {
+    font-size: 55px;
+    margin-bottom: 18px;
+}
+
+.businessEmpty h2 {
+    margin: 0;
+    color: #345D2A;
+}
+
+.businessEmpty p {
+    max-width: 300px;
+    margin: 10px 0 20px;
+    line-height: 1.6;
+    color: #777;
+}
+
+.businessEmpty button {
+    border: none;
+    border-radius: 14px;
+    padding: 14px 20px;
+    background: #667744;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* ==========================================
+   SMALL PHONES
+========================================== */
+
+@media(max-width:380px) {
+
+    .businessApp {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .businessIdentity {
+        padding: 14px;
+        gap: 10px;
+    }
+
+    .businessLogo {
+        width: 58px;
+        height: 58px;
+    }
+
+    .businessIdentityInfo h1 {
+        font-size: 18px;
+    }
+
+    .businessStat {
+        padding: 12px 4px;
+    }
+
+    .businessStat strong {
+        font-size: 18px;
+    }
+
+    .businessStat span {
+        font-size: 9px;
+    }
 
 }
 
-
 /* ==========================================
-   RECENT PRODUCTS TITLE
+   TABLET / DESKTOP
 ========================================== */
 
-.sellerContainer > h2{
-
-    margin-top:30px;
-
-    margin-bottom:14px;
-
-    font-size:21px;
-
-    color:#345D2A;
-
-}
-
-
-/* ==========================================
-   EMPTY / ERROR CARDS
-========================================== */
-
-.sellerContainer a{
-
-    display:inline-block;
-
-    margin-top:10px;
-
-    padding:12px 16px;
-
-    border-radius:12px;
-
-    background:#667744;
-
-    color:white;
-
-    text-decoration:none;
-
-    font-size:14px;
-
-    font-weight:600;
-
-}
-
-
-/* ==========================================
-   TABLET
-========================================== */
-
-@media(min-width:600px){
-
-    .sellerContainer{
-
-        padding:
-
-            28px
-
-            24px
-
-            100px;
-
-    }
-
-
-    .sellerHeader h1{
-
-        font-size:34px;
-
-    }
-
-
-    .stats{
-
-        grid-template-columns:
-
-            repeat(4, 1fr);
-
-    }
-
-
-    .quickActions{
-
-        grid-template-columns:
-
-            repeat(3, 1fr);
-
-    }
-
-}
-
-
-/* ==========================================
-   DESKTOP
-========================================== */
-
-@media(min-width:900px){
-
-    .sellerContainer{
-
-        padding:
-
-            40px
-
-            30px
-
-            100px;
-
-    }
-
-
-    .sellerHeader h1{
-
-        font-size:40px;
-
-    }
-
-
-    .quickActions{
-
-        grid-template-columns:
-
-            repeat(4, 1fr);
-
-    }
-
-
-    .actionCard:hover{
-
-        transform:
-
-            translateY(-4px);
-
-        box-shadow:
-
-            0 12px 25px
-
-            rgba(0,0,0,.08);
-
+@media(min-width:700px) {
+
+    .businessApp {
+        max-width: 700px;
+        padding-top: 20px;
     }
 
 }
