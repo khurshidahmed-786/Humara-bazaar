@@ -1,460 +1,314 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 
 <head>
 
-<title>Shop</title>
+    <meta charset="UTF-8">
 
-<style>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial;
-}
+    <title>Shop — Hamara Bazaar</title>
 
-body{
-background:#FAF6EE;
-padding-bottom:110px;
-}
+    <link
+        rel="stylesheet"
+        href="css/theme.css">
 
-.cover{
+    <link
+        rel="stylesheet"
+        href="css/components.css">
 
-height:260px;
-
-background:
-
-linear-gradient(
-135deg,
-#B63A3A,
-#D85D5D
-);
-
-border-radius:
-
-0
-0
-40px
-40px;
-
-position:relative;
-
-}
-
-.shopPanelBtn{
-
-position:absolute;
-
-right:24px;
-
-top:24px;
-
-font-size:34px;
-
-color:white;
-
-cursor:pointer;
-
-}
-
-.shopPanel{
-
-display:none;
-
-position:absolute;
-
-right:24px;
-
-top:80px;
-
-background:white;
-
-width:260px;
-
-border-radius:24px;
-
-overflow:hidden;
-
-box-shadow:
-
-0 20px 60px
-rgba(0,0,0,.15);
-
-}
-
-.shopPanel a{
-
-display:block;
-
-padding:18px;
-
-text-decoration:none;
-
-color:#222;
-
-}
-
-.shopLogo{
-
-width:120px;
-
-height:120px;
-
-background:white;
-
-border-radius:50%;
-
-position:absolute;
-
-bottom:-60px;
-
-left:40px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:48px;
-
-}
-
-.content{
-
-padding:
-
-90px
-24px
-30px;
-
-}
-
-.name{
-
-font-size:42px;
-
-font-weight:800;
-
-}
-
-.status{
-
-margin-top:14px;
-
-display:inline-block;
-
-padding:
-
-10px
-16px;
-
-background:#E7F8EA;
-
-border-radius:14px;
-
-color:#1D8A3C;
-
-}
-
-.time{
-
-margin-top:18px;
-
-color:#777;
-
-}
-
-.description{
-
-margin-top:18px;
-
-color:#555;
-
-line-height:1.7;
-
-}
-
-.section{
-
-margin-top:44px;
-
-}
-
-.section h2{
-
-margin-bottom:18px;
-
-}
-
-.products{
-
-display:flex;
-
-gap:16px;
-
-overflow:auto;
-
-}
-
-.products::-webkit-scrollbar{
-
-display:none;
-
-}
-
-.product{
-
-min-width:210px;
-
-background:white;
-
-border-radius:24px;
-
-overflow:hidden;
-
-}
-
-.image{
-
-height:170px;
-
-background:#EEE;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:60px;
-
-}
-
-.info{
-
-padding:18px;
-
-}
-
-.price{
-
-margin-top:12px;
-
-font-size:22px;
-
-color:#B63A3A;
-
-}
-
-.orderBar{
-
-position:fixed;
-
-bottom:0;
-
-left:0;
-
-width:100%;
-
-background:white;
-
-display:flex;
-
-gap:12px;
-
-padding:16px;
-
-}
-
-.btn{
-
-flex:1;
-
-padding:18px;
-
-border:none;
-
-border-radius:16px;
-
-font-size:18px;
-
-}
-
-.primary{
-
-background:#B63A3A;
-
-color:white;
-
-}
-
-.secondary{
-
-background:#F2EEE6;
-
-}
-
-</style>
+    <link
+        rel="stylesheet"
+        href="css/shop.css">
 
 </head>
 
+
 <body>
 
-<div class="cover">
 
-<div
-class="shopPanelBtn"
-onclick="togglePanel()">
+<!-- ==========================================
+     GLOBAL HAMARA BAZAAR NAVIGATION
+========================================== -->
 
-☰
+<div id="headerContainer"></div>
+
+
+<!-- ==========================================
+     SHOP PAGE
+========================================== -->
+
+<main class="shopPage">
+
+
+    <!-- ======================================
+         SHOP BILLBOARD
+    ======================================= -->
+
+    <section
+        class="shopBillboard"
+        id="shopBillboard">
+
+
+        <div class="billboardContent">
+
+
+            <div class="billboardText">
+
+
+                <h1 id="displayName">
+
+                    Shop Name
+
+                </h1>
+
+
+                <p
+                    id="displayDescription">
+
+                    Shop Description
+
+                </p>
+
+
+                <div
+                    class="billboardLocation"
+                    id="displayLocation">
+
+                    📍 Local Market
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        <!-- CIRCULAR SHOP LOGO -->
+
+        <div class="shopLogo">
+
+            <img
+                id="displayLogo"
+                alt="Shop Logo">
+
+            <span
+                id="logoPlaceholder">
+
+                🏪
+
+            </span>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ======================================
+         SHOP INFORMATION
+    ======================================= -->
+
+    <section class="shopInfo">
+
+
+        <div class="shopInfoMain">
+
+
+            <div
+                class="status"
+                id="shopStatus">
+
+                🟢 Open Now
+
+            </div>
+
+
+            <div
+                class="time"
+                id="displayTime">
+
+                Open Time
+
+            </div>
+
+
+        </div>
+
+
+        <div
+            class="shopLocation"
+            id="shopLocation">
+
+            📍 Local Market
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ======================================
+         PRODUCT CONTENT
+    ======================================= -->
+
+
+    <div class="shopProducts">
+
+
+        <!-- FEATURED -->
+
+        <section
+            class="productSection"
+            id="featuredSection">
+
+            <div class="sectionHeader">
+
+                <h2>
+
+                    ⭐ Featured
+
+                </h2>
+
+            </div>
+
+
+            <div
+                class="products"
+                id="featuredProducts">
+
+            </div>
+
+        </section>
+
+
+
+        <!-- NEW ARRIVAL -->
+
+        <section
+            class="productSection"
+            id="newSection">
+
+            <div class="sectionHeader">
+
+                <h2>
+
+                    🆕 New Arrival
+
+                </h2>
+
+            </div>
+
+
+            <div
+                class="products"
+                id="newProducts">
+
+            </div>
+
+        </section>
+
+
+
+        <!-- DISCOUNT SALE -->
+
+        <section
+            class="productSection"
+            id="saleSection">
+
+            <div class="sectionHeader">
+
+                <h2>
+
+                    🔥 Discount Sale
+
+                </h2>
+
+            </div>
+
+
+            <div
+                class="products"
+                id="saleProducts">
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+
+</main>
+
+
+
+<!-- ==========================================
+     FIXED SHOP ACTION BAR
+========================================== -->
+
+<div class="shopActionBar">
+
+
+    <button
+        class="shopAction secondary"
+        id="contactShopBtn">
+
+        Contact Shop
+
+    </button>
+
+
+    <button
+        class="shopAction primary"
+        id="browseProductsBtn">
+
+        Browse Products
+
+    </button>
+
 
 </div>
 
-<div
-class="shopPanel"
-id="shopPanel">
-
-<a href="/dashboard.html">
-
-📊 Analytics
-
-</a>
-
-<a href="/createshop.html">
-
-✏ Edit Shop
-
-</a>
-
-<a href="/addproduct.html">
-
-➕ Add Product
-
-</a>
-
-<a href="/sellerorders.html">
-
-📦 Orders
-
-</a>
-
-</div>
-
-<div class="shopLogo">
-
-<img
-id="displayLogo"
-style="
-width:100%;
-height:100%;
-object-fit:cover;
-border-radius:50%;
-">
 
 
-</div>
+<!-- ==========================================
+     BOTTOM NAVIGATION
+========================================== -->
 
-</div>
-
-<div class="content">
-
-<div class="name">
-
-<span id="displayName">
-
-Shop Name
-
-</span>
+<div id="bottomNavContainer"></div>
 
 
-</div>
 
-<div
-class="status"
-id="shopStatus">
+<!-- ==========================================
+     JAVASCRIPT
+========================================== -->
 
-🟢 Open Now
-
-</div>
-
-<div
-class="time"
-<span id="displayTime">
-
-Open Time
-</span>
-</div>
-
-<div class="description"
-<span id="displayDescription">
-
-Shop Description
-
-</span>
-
-</div>
-<div class="section">
-
-<h2>
-
-⭐ Featured
-
-</h2>
-
-<div
-class="products"
-id="featuredProducts">
-
-</div>
-
-</div>
-<div class="section">
-
-<h2>
-
-🆕 New Arrival
-
-</h2>
-
-<div
-class="products"
-id="newProducts">
-
-</div>
-
-</div>
-<div class="section">
-
-<h2>
-
-🔥 Discount Sale
-
-</h2>
-
-<div
-class="products"
-id="saleProducts">
-
-</div>
-
-</div>
-<div class="orderBar">
-
-<button
-class="btn secondary">
-Contact Shop
-</button>
-<button
-class="btn primary">
-Browse Products
-</button>
-</div>
 <script src="js/database.js"></script>
-<script src="js/product.js"></script>
+
+<script src="js/auth.js"></script>
+
 <script src="js/shop.js"></script>
+
+<script src="js/product.js"></script>
+
+<script src="js/cart.js"></script>
+
+<script src="js/components.js"></script>
+
+
+<script>
+
+    renderLayout("shop");
+
+</script>
+
 
 </body>
 
