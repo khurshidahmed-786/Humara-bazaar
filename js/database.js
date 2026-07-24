@@ -147,6 +147,31 @@ function getBusinessById(id){
     );
 
 }
+function updateBusiness(updatedBusiness){
+
+    let businesses = getBusinesses();
+
+    businesses = businesses.map(business =>
+
+        business.id == updatedBusiness.id
+
+        ? updatedBusiness
+
+        : business
+
+    );
+
+    saveData(
+
+        DB.BUSINESSES,
+
+        businesses
+
+    );
+
+    return updatedBusiness;
+
+}
 /* ==========================================
    SHOPS
    ========================================== */
