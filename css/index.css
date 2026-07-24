@@ -793,3 +793,408 @@ body{
     }
 
 }
+/* ==========================================
+   MOBILE-FIRST HOMEPAGE
+========================================== */
+
+main{
+
+    width:100%;
+
+    max-width:1100px;
+
+    margin:0 auto;
+
+}
+
+
+/* ==========================================
+   MOBILE SEARCH
+========================================== */
+
+.searchSection{
+
+    padding:16px;
+
+    margin:0;
+
+}
+
+.searchBox{
+
+    width:100%;
+
+    height:56px;
+
+    border-radius:18px;
+
+    padding:6px 8px;
+
+}
+
+.searchBox input{
+
+    font-size:16px;
+
+    min-width:0;
+
+}
+
+.searchIcon{
+
+    font-size:20px;
+
+    padding:0 10px;
+
+}
+
+.filterBtn{
+
+    width:44px;
+
+    height:44px;
+
+    border-radius:14px;
+
+}
+
+
+/* ==========================================
+   MOBILE SECTIONS
+========================================== */
+
+.categories,
+.section{
+
+    padding-left:16px;
+
+    padding-right:16px;
+
+}
+
+.categories{
+
+    padding-top:20px;
+
+    padding-bottom:10px;
+
+}
+
+.section{
+
+    margin-top:30px;
+
+}
+
+
+/* ==========================================
+   SECTION HEADERS
+========================================== */
+
+.sectionHeader{
+
+    margin-bottom:14px;
+
+}
+
+.sectionHeader h2{
+
+    font-size:20px;
+
+}
+
+.sectionHeader a{
+
+    font-size:14px;
+
+}
+
+
+/* ==========================================
+   CATEGORY RAIL
+========================================== */
+
+.categoryScroll{
+
+    gap:12px;
+
+    overflow-x:auto;
+
+    padding-bottom:6px;
+
+}
+
+.categoryCard{
+
+    min-width:82px;
+
+    padding:12px 8px;
+
+    border-radius:18px;
+
+}
+
+.categoryIcon{
+
+    font-size:30px;
+
+    margin-bottom:7px;
+
+}
+
+.categoryName{
+
+    font-size:12px;
+
+}
+
+
+/* ==========================================
+   PRODUCT RAIL
+========================================== */
+
+.productScroll{
+
+    gap:12px;
+
+    overflow-x:auto;
+
+}
+
+.productCard{
+
+    flex:0 0 170px;
+
+    min-width:170px;
+
+    border-radius:18px;
+
+}
+
+.productImage{
+
+    height:130px;
+
+}
+
+.productBody{
+
+    padding:12px;
+
+}
+
+.productName{
+
+    font-size:15px;
+
+}
+
+.productShop{
+
+    font-size:12px;
+
+}
+
+.productPrice{
+
+    font-size:17px;
+
+    margin-top:10px;
+
+}
+
+
+/* ==========================================
+   SHOP RAIL
+========================================== */
+
+.shopMarketplaceCard{
+
+    flex:0 0 210px;
+
+    border-radius:18px;
+
+}
+
+.shopMarketplaceImage{
+
+    height:120px;
+
+}
+
+.shopMarketplaceBody{
+
+    padding:14px;
+
+}
+
+.shopMarketplaceName{
+
+    font-size:16px;
+
+}
+
+.shopMarketplaceCategory{
+
+    font-size:12px;
+
+}
+
+.shopMarketplaceStatus{
+
+    font-size:12px;
+
+    margin-top:8px;
+
+}
+
+
+/* ==========================================
+   MOBILE HEADER
+========================================== */
+
+.topbar{
+
+    padding:10px 14px;
+
+    height:64px;
+
+}
+
+.brand{
+
+    gap:8px;
+
+    margin:0 8px;
+
+}
+
+.brandLogo{
+
+    width:42px;
+
+    height:42px;
+
+}
+
+.brandName{
+
+    font-size:18px;
+
+}
+
+.brandTag{
+
+    font-size:9px;
+
+}
+
+.iconBtn{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:14px;
+
+    font-size:20px;
+
+}
+
+
+/* ==========================================
+   MARKET BAR
+========================================== */
+
+.marketBar{
+
+    padding:8px 16px;
+
+    font-size:13px;
+
+}
+
+
+/* ==========================================
+   BOTTOM NAV
+========================================== */
+
+.bottomNav{
+
+    height:68px;
+
+    padding-bottom:env(
+        safe-area-inset-bottom
+    );
+
+}
+
+.bottomNav a{
+
+    font-size:11px;
+
+}
+
+
+/* ==========================================
+   DESKTOP
+========================================== */
+
+@media(min-width:768px){
+
+    .searchSection{
+
+        padding-left:24px;
+
+        padding-right:24px;
+
+    }
+
+    .categories,
+    .section{
+
+        padding-left:24px;
+
+        padding-right:24px;
+
+    }
+
+    .categoryCard{
+
+        min-width:110px;
+
+        padding:22px;
+
+    }
+
+    .categoryIcon{
+
+        font-size:40px;
+
+    }
+
+    .categoryName{
+
+        font-size:16px;
+
+    }
+
+    .productCard{
+
+        flex:0 0 240px;
+
+    }
+
+    .productImage{
+
+        height:160px;
+
+    }
+
+    .shopMarketplaceCard{
+
+        flex:0 0 240px;
+
+    }
+
+}
