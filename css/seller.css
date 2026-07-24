@@ -1,235 +1,143 @@
 /* ==========================================
    HAMARA BAZAAR
-   MOBILE BUSINESS APP
+   SELLER DASHBOARD
+   MOBILE FIRST
 ========================================== */
 
-* {
-    box-sizing: border-box;
-}
 
-body {
+/* ==========================================
+   PAGE
+========================================== */
 
-    margin: 0;
+body{
 
-    background: #FAF6EE;
+    background:#FAF6EE;
 
-    color: #222;
-
-    font-family:
-        Arial,
-        sans-serif;
+    color:#222;
 
 }
 
 
 /* ==========================================
-   APP CONTAINER
+   MAIN CONTAINER
 ========================================== */
 
-#sellerApp {
+.sellerContainer{
 
-    width: 100%;
+    width:100%;
 
-}
+    max-width:1100px;
 
+    margin:0 auto;
 
-.businessApp {
-
-    width: 100%;
-
-    max-width: 600px;
-
-    margin: auto;
-
-    padding-bottom: 40px;
+    padding:20px 16px 110px;
 
 }
 
 
 /* ==========================================
-   APP TOPBAR
+   HEADER
 ========================================== */
 
-.businessTopbar {
+.sellerHeader{
 
-    display: flex;
-
-    align-items: center;
-
-    gap: 14px;
-
-    padding: 16px;
-
-    background: #FAF6EE;
-
-    position: sticky;
-
-    top: 0;
-
-    z-index: 50;
+    margin-bottom:20px;
 
 }
 
 
-.businessBack {
+.sellerHeader h1{
 
-    width: 42px;
+    font-size:28px;
 
-    height: 42px;
+    line-height:1.2;
 
-    border: none;
+    color:#345D2A;
 
-    border-radius: 14px;
+    margin:0;
 
-    background: white;
+}
 
-    font-size: 24px;
+
+.sellerHeader p{
+
+    margin-top:7px;
+
+    font-size:14px;
+
+    line-height:1.5;
+
+    color:#666;
+
+}
+
+
+/* ==========================================
+   SHOP CARD
+========================================== */
+
+.shopCard{
+
+    background:#FFFFFF;
+
+    border-radius:20px;
+
+    padding:18px;
+
+    margin-bottom:20px;
 
     box-shadow:
-        0 4px 12px
+
+        0 8px 25px
+
         rgba(0,0,0,.06);
 
 }
 
 
-.businessTopTitle {
+/* SHOP IMAGE */
 
-    font-size: 19px;
+.shopCard img{
 
-    font-weight: 700;
+    width:72px !important;
 
-    color: #345D2A;
+    height:72px !important;
 
-}
+    border-radius:18px !important;
 
+    object-fit:cover;
 
-.businessTopSubtitle {
-
-    margin-top: 3px;
-
-    font-size: 12px;
-
-    color: #777;
+    flex-shrink:0;
 
 }
 
 
-/* ==========================================
-   BUSINESS IDENTITY
-========================================== */
+/* SHOP NAME */
 
-.businessIdentity {
+.shopName{
 
-    display: flex;
+    font-size:20px;
 
-    align-items: center;
+    line-height:1.25;
 
-    gap: 14px;
+    font-weight:700;
 
-    margin: 6px 16px 18px;
-
-    padding: 18px;
-
-    background: white;
-
-    border-radius: 22px;
-
-    box-shadow:
-        0 8px 24px
-        rgba(0,0,0,.06);
+    color:#345D2A;
 
 }
 
 
-.businessLogo {
+/* SHOP DESCRIPTION */
 
-    width: 64px;
+.shopDescription{
 
-    height: 64px;
+    margin-top:16px;
 
-    min-width: 64px;
+    font-size:14px;
 
-    border-radius: 18px;
+    line-height:1.6;
 
-    overflow: hidden;
-
-    background: #F3F0E8;
-
-}
-
-
-.businessLogo img {
-
-    width: 100%;
-
-    height: 100%;
-
-    object-fit: cover;
-
-}
-
-
-.businessIdentityInfo {
-
-    flex: 1;
-
-    min-width: 0;
-
-}
-
-
-.businessIdentityInfo h1 {
-
-    margin: 0;
-
-    font-size: 20px;
-
-    color: #345D2A;
-
-    white-space: nowrap;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-
-}
-
-
-.businessIdentityInfo p {
-
-    margin: 5px 0;
-
-    font-size: 13px;
-
-    color: #777;
-
-}
-
-
-.businessStatus {
-
-    font-size: 12px;
-
-    color: #667744;
-
-    font-weight: 700;
-
-}
-
-
-.businessMore {
-
-    width: 38px;
-
-    height: 38px;
-
-    border: none;
-
-    background: #F6F2E8;
-
-    border-radius: 12px;
-
-    font-size: 22px;
+    color:#666;
 
 }
 
@@ -238,321 +146,255 @@ body {
    STATS
 ========================================== */
 
-.businessStats {
+.stats{
 
-    display: grid;
+    display:grid;
 
     grid-template-columns:
-        repeat(4, 1fr);
 
-    gap: 8px;
+        repeat(2, 1fr);
 
-    margin: 0 16px 18px;
+    gap:12px;
 
-}
-
-
-.businessStat {
-
-    background: white;
-
-    border-radius: 16px;
-
-    padding: 14px 5px;
-
-    text-align: center;
+    margin-bottom:24px;
 
 }
 
 
-.businessStat strong {
+.stat{
 
-    display: block;
+    background:#FFFFFF;
 
-    font-size: 20px;
+    border-radius:18px;
 
-    color: #B63A3A;
+    padding:18px 12px;
+
+    text-align:center;
+
+    box-shadow:
+
+        0 6px 18px
+
+        rgba(0,0,0,.05);
 
 }
 
 
-.businessStat span {
+.statValue{
 
-    display: block;
+    font-size:26px;
 
-    margin-top: 5px;
+    line-height:1.2;
 
-    font-size: 11px;
+    font-weight:700;
 
-    color: #777;
+    color:#B63A3A;
+
+}
+
+
+.statLabel{
+
+    margin-top:7px;
+
+    font-size:12px;
+
+    color:#777;
 
 }
 
 
 /* ==========================================
-   PRIMARY ACTION
+   QUICK ACTIONS
 ========================================== */
 
-.primaryBusinessAction {
+.quickActions{
 
-    width: calc(100% - 32px);
+    display:grid;
 
-    margin: 0 16px 20px;
+    grid-template-columns:
 
-    padding: 17px;
+        repeat(2, 1fr);
 
-    border: none;
+    gap:12px;
 
-    border-radius: 17px;
-
-    background: #667744;
-
-    color: white;
-
-    font-size: 16px;
-
-    font-weight: 700;
-
-    box-shadow:
-        0 8px 20px
-        rgba(102,119,68,.22);
+    margin-top:10px;
 
 }
 
 
-.primaryBusinessAction span {
+.actionCard{
 
-    font-size: 22px;
+    min-height:145px;
 
-    margin-right: 6px;
+    background:#FFFFFF;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    cursor:pointer;
+
+    box-shadow:
+
+        0 6px 18px
+
+        rgba(0,0,0,.05);
+
+    transition:
+
+        transform .15s ease,
+
+        box-shadow .15s ease;
+
+}
+
+
+.actionCard:active{
+
+    transform:scale(.97);
+
+}
+
+
+.actionIcon{
+
+    font-size:30px;
+
+}
+
+
+.actionTitle{
+
+    margin-top:12px;
+
+    font-size:16px;
+
+    line-height:1.3;
+
+    font-weight:700;
+
+    color:#333;
+
+}
+
+
+.actionText{
+
+    margin-top:7px;
+
+    font-size:12px;
+
+    line-height:1.4;
+
+    color:#777;
 
 }
 
 
 /* ==========================================
-   ACTION LIST
+   NEW ORDERS
 ========================================== */
 
-.businessActions {
-
-    margin: 0 16px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 10px;
-
-}
-
-
-.businessAction {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 14px;
-
-    padding: 15px;
-
-    background: white;
-
-    border-radius: 17px;
-
-    box-shadow:
-        0 5px 16px
-        rgba(0,0,0,.04);
-
-}
-
-
-.businessActionIcon {
-
-    width: 44px;
-
-    height: 44px;
-
-    min-width: 44px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background: #F6F2E8;
-
-    border-radius: 13px;
-
-    font-size: 22px;
-
-}
-
-
-.businessAction div:nth-child(2) {
-
-    flex: 1;
-
-}
-
-
-.businessAction strong {
-
-    display: block;
-
-    font-size: 15px;
-
-}
-
-
-.businessAction span {
-
-    display: block;
-
-    margin-top: 4px;
-
-    font-size: 12px;
-
-    color: #777;
-
-}
-
-
-.businessAction b {
-
-    font-size: 24px;
-
-    color: #aaa;
-
-}
-
-
-.businessActionAlert {
+.newOrders{
 
     border:
-        1px solid #667744;
 
-    background:
-        #F7FAF3;
+        2px solid
 
-}
+        #667744;
 
-
-/* ==========================================
-   RECENT PRODUCTS
-========================================== */
-
-.businessRecent {
-
-    margin:
-        28px 16px 0;
-
-}
-
-
-.businessSectionHeader {
-
-    display: flex;
-
-    justify-content:
-        space-between;
-
-    align-items: center;
-
-    margin-bottom: 12px;
-
-}
-
-
-.businessSectionHeader h2 {
-
-    margin: 0;
-
-    font-size: 19px;
-
-    color: #345D2A;
-
-}
-
-
-.businessSectionHeader a {
-
-    color: #B63A3A;
-
-    text-decoration: none;
-
-    font-size: 13px;
-
-    font-weight: 700;
+    background:#F7FAF3;
 
 }
 
 
 /* ==========================================
-   EMPTY STATE
+   RECENT PRODUCTS TITLE
 ========================================== */
 
-.businessEmpty {
+.sellerContainer > h2{
 
-    min-height:
-        calc(100vh - 80px);
+    margin-top:30px;
 
-    display: flex;
+    margin-bottom:14px;
 
-    flex-direction: column;
+    font-size:21px;
 
-    align-items: center;
-
-    justify-content: center;
-
-    text-align: center;
-
-    padding: 30px;
+    color:#345D2A;
 
 }
 
 
-.emptyIcon {
+/* ==========================================
+   EMPTY / ERROR CARDS
+========================================== */
 
-    font-size: 60px;
+.sellerContainer a{
 
-    margin-bottom: 20px;
+    display:inline-block;
+
+    margin-top:10px;
+
+    padding:12px 16px;
+
+    border-radius:12px;
+
+    background:#667744;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:14px;
+
+    font-weight:600;
 
 }
 
 
-.businessEmpty h2 {
+/* ==========================================
+   TABLET
+========================================== */
 
-    color: #345D2A;
+@media(min-width:600px){
 
-}
+    .sellerContainer{
+
+        padding:
+
+            28px
+
+            24px
+
+            100px;
+
+    }
 
 
-.businessEmpty p {
+    .sellerHeader h1{
 
-    color: #777;
+        font-size:34px;
 
-    line-height: 1.6;
-
-}
+    }
 
 
-.businessEmpty button {
+    .stats{
 
-    margin-top: 20px;
+        grid-template-columns:
 
-    padding: 14px 22px;
+            repeat(4, 1fr);
 
-    border: none;
+    }
 
-    border-radius: 14px;
 
-    background: #667744;
+    .quickActions{
 
-    color: white;
+        grid-template-columns:
 
-    font-weight: bold;
+            repeat(3, 1fr);
+
+    }
 
 }
 
@@ -561,64 +403,48 @@ body {
    DESKTOP
 ========================================== */
 
-@media (min-width: 700px) {
+@media(min-width:900px){
 
-    .businessApp {
-
-        max-width: 720px;
-
-        padding-bottom: 60px;
-
-    }
-
-    .businessTopbar {
+    .sellerContainer{
 
         padding:
-            20px 0;
+
+            40px
+
+            30px
+
+            100px;
 
     }
 
-    .businessIdentity {
 
-        margin-left: 0;
+    .sellerHeader h1{
 
-        margin-right: 0;
-
-    }
-
-    .businessStats {
-
-        margin-left: 0;
-
-        margin-right: 0;
-
-        gap: 14px;
+        font-size:40px;
 
     }
 
-    .primaryBusinessAction {
 
-        width: 100%;
+    .quickActions{
 
-        margin-left: 0;
+        grid-template-columns:
 
-        margin-right: 0;
-
-    }
-
-    .businessActions {
-
-        margin-left: 0;
-
-        margin-right: 0;
+            repeat(4, 1fr);
 
     }
 
-    .businessRecent {
 
-        margin-left: 0;
+    .actionCard:hover{
 
-        margin-right: 0;
+        transform:
+
+            translateY(-4px);
+
+        box-shadow:
+
+            0 12px 25px
+
+            rgba(0,0,0,.08);
 
     }
 
