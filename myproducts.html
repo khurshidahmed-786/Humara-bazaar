@@ -6,22 +6,35 @@
 
 <title>My Products</title>
 
-<link
-rel="stylesheet"
-href="css/myproducts.css">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/myproducts.css">
 
 </head>
 
 <body>
 
-<div id="productsApp">
+<div id="headerContainer"></div>
 
-</div>
+<div id="productsApp"></div>
 
+<div id="bottomNavContainer"></div>
+
+<!-- Supabase (real backend) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabaseClient.js"></script>
+<script src="js/db.js"></script>
+
+<!-- Site layout (header/sidebar/bottom nav) still runs on localStorage for cart badge etc -->
 <script src="js/database.js"></script>
-<script src="js/shop.js"></script>
-<script src="js/product.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/components.js"></script>
+
 <script src="js/myproducts.js"></script>
+
+<script>
+renderLayout("myproducts");
+</script>
 
 </body>
 
