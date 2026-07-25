@@ -8,18 +8,26 @@
    AUTH CHECK
 ========================================== */
 
-const user = getCurrentUser();
+/* Real Supabase user, filled in below (async).
+   publishBtn.onclick checks this before allowing a submit. */
+let realCurrentUser = null;
 
-if(!user){
+(async function checkAuth(){
 
-    alert(
-        "Please login to manage your business."
-    );
+    realCurrentUser = await authGetCurrentUser();
 
-    window.location.href =
-        "login.html";
+    if(!realCurrentUser){
 
-}
+        alert(
+            "Please login to manage your business."
+        );
+
+        window.location.href =
+            "login.html";
+
+    }
+
+})();
 
 
 /* ==========================================
@@ -686,10 +694,9 @@ backBtn.onclick = function(){
    CREATE / UPDATE
 ========================================== */
 
-publishBtn.onclick = function(){
+publishBtn.onclick = async function(){
 
-    const currentUser =
-        getCurrentUser();
+    const currentUser = realCurrentUser;
 
 
     if(!currentUser){
@@ -796,120 +803,60 @@ publishBtn.onclick = function(){
 
 
     /* ======================================
-       CREATE NEW BUSINESS
+       CREATE NEW BUSINESS (real backend)
     ====================================== */
 
-    const business = {
+    publishBtn.disabled = true;
+    publishBtn.innerText = "Publishing...";
 
-        ownerId:
-            currentUser.id,
+    try {
 
-        name:
-            shopNameInput.value.trim(),
-
-        type:
-            "shop",
-
-        category:
-            shopCategoryInput.value,
-
-        status:
-            "active"
-
-    };
+        const createdBusiness = await dbCreateBusiness({
+            owner_id: currentUser.id,
+            name: shopNameInput.value.trim(),
+            type: "shop",
+            category: shopCategoryInput.value,
+            status: "active"
+        });
 
 
-    const createdBusiness =
+        /* CREATE SHOP, linked to the business above */
 
-        createBusiness(
-            business
-        );
-
-
-    /* LINK BUSINESS */
-
-    addBusinessToUser(
-
-        currentUser.id,
-
-        createdBusiness.id
-
-    );
+        const createdShop = await dbCreateShop({
+            business_id: createdBusiness.id,
+            owner_id: currentUser.id,
+            name: shopNameInput.value.trim(),
+            category: shopCategoryInput.value,
+            description: shopDescriptionInput.value.trim(),
+            open_time: shopOpenInput.value.trim(),
+            close_time: shopCloseInput.value.trim(),
+            logo: shopLogoInput.value.trim(),
+            banner: shopBannerInput.value.trim()
+        });
 
 
-    /* CREATE SHOP */
+        /* SAVE ACTIVE BUSINESS / SHOP for other (not-yet-migrated) pages */
 
-    const shop = {
-
-        businessId:
-            createdBusiness.id,
-
-        ownerId:
-            currentUser.id,
-
-        name:
-            shopNameInput.value.trim(),
-
-        category:
-            shopCategoryInput.value,
-
-        description:
-            shopDescriptionInput.value.trim(),
-
-        open:
-            shopOpenInput.value.trim(),
-
-        close:
-            shopCloseInput.value.trim(),
-
-        logo:
-            shopLogoInput.value.trim(),
-
-        banner:
-            shopBannerInput.value.trim()
-
-    };
+        localStorage.setItem("hb_activeBusiness", createdBusiness.id);
+        localStorage.setItem("hb_selectedShop", createdShop.id);
 
 
-    const createdShop =
+        publishBtn.innerText = "✅ Business Registered";
 
-        createShop(
-            shop
-        );
+        setTimeout(function(){
 
+            window.location.href = "role.html";
 
-    /* SAVE ACTIVE BUSINESS */
+        }, 1000);
 
-    localStorage.setItem(
+    } catch(err) {
 
-        "hb_activeBusiness",
+        console.error(err);
+        alert("Something went wrong publishing your shop: " + err.message);
 
-        createdBusiness.id
-
-    );
-
-
-    /* SAVE SELECTED SHOP */
-
-    localStorage.setItem(
-
-        "hb_selectedShop",
-
-        createdShop.id
-
-    );
-
-
-    publishBtn.innerText =
-        "✅ Business Registered";
-
-
-    setTimeout(function(){
-
-        window.location.href =
-            "dashboard.html";
-
-    },1000);
+        publishBtn.disabled = false;
+        publishBtn.innerText = "Publish";
+    }
 
 };
 
