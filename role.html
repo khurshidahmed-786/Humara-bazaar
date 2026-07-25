@@ -237,206 +237,91 @@ class="registerBtn">
 </div>
 
 
-<script src="js/database.js"></script>
-
-<script src="js/auth.js"></script>
+<!-- Supabase (real backend) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabaseClient.js"></script>
+<script src="js/db.js"></script>
 
 
 <script>
 
-const user =
+let user = null;
 
-getCurrentUser();
+async function init(){
 
+    /* AUTH GUARD */
 
-/*
+    user = await authGetCurrentUser();
 
-AUTH GUARD
+    if(!user){
+        window.location.href = "login.html";
+        return;
+    }
 
-*/
+    /* WELCOME */
 
-if(!user){
+    document.getElementById("welcomeText").innerText =
+        "Welcome, " + user.name + ". Manage your businesses here.";
 
-    window.location.href =
-
-    "login.html";
-
+    await loadBusinesses();
 }
 
 
-/*
+/* LOAD BUSINESSES */
 
-WELCOME
+async function loadBusinesses(){
 
-*/
+    const grid = document.getElementById("businessGrid");
 
-if(user){
+    let businesses = [];
 
-    document
+    try {
+        businesses = await dbGetBusinessesByOwner(user.id);
+    } catch(err) {
+        console.error(err);
+    }
 
-    .getElementById(
+    if(businesses.length === 0){
 
-        "welcomeText"
+        grid.innerHTML = `
+            <div class="empty">
+                <h2>You don't have a business yet.</h2>
+                <br>
+                <p>Register your shop or service and start serving your community.</p>
+            </div>
+        `;
 
-    )
+        return;
+    }
 
-    .innerText =
+    grid.innerHTML = "";
 
-    "Welcome, " +
+    businesses.forEach(business => {
 
-    user.name +
+        let icon = business.type === "service" ? "🔧" : "🏪";
 
-    ". Manage your businesses here.";
-
+        grid.innerHTML += `
+            <div class="businessCard">
+                <div class="businessIcon">${icon}</div>
+                <h3>${business.name}</h3>
+                <p>${business.category || ""}</p>
+                <a href="dashboard.html?businessId=${business.id}"
+                   class="manageBtn"
+                   onclick="selectBusiness(${business.id})">
+                   Manage Business
+                </a>
+            </div>
+        `;
+    });
 }
 
 
-/*
-
-LOAD BUSINESSES
-
-*/
-
-function loadBusinesses(){
-
-
-const grid =
-
-document
-
-.getElementById(
-
-    "businessGrid"
-
-);
-
-
-const businesses =
-
-getBusinessesByOwner(
-
-    user.id
-
-);
-
-
-if(
-
-businesses.length === 0
-
-){
-
-    grid.innerHTML = `
-
-    <div class="empty">
-
-        <h2>
-
-        You don't have a business yet.
-
-        </h2>
-
-        <br>
-
-        <p>
-
-        Register your shop or service
-
-        and start serving your community.
-
-        </p>
-
-    </div>
-
-    `;
-
-    return;
-
+function selectBusiness(businessId){
+    localStorage.setItem("hb_activeBusiness", businessId);
 }
 
 
-grid.innerHTML = "";
-
-
-businesses.forEach(
-
-business => {
-
-
-let icon =
-
-business.type === "service"
-
-? "🔧"
-
-: "🏪";
-
-
-grid.innerHTML += `
-
-<div class="businessCard">
-
-<div class="businessIcon">
-
-${icon}
-
-</div>
-
-<h3>
-
-${business.name}
-
-</h3>
-
-<p>
-
-${business.category || ""}
-
-</p>
-
-<a
-
-href="dashboard.html?businessId=${business.id}"
-
-class="manageBtn"
-
-onclick="selectBusiness(${business.id})">
-
-Manage Business
-
-</a>
-
-</div>
-
-`;
-
-
-}
-
-);
-
-}
-
-
-function selectBusiness(
-
-businessId
-
-){
-
-localStorage.setItem(
-
-"hb_activeBusiness",
-
-businessId
-
-);
-
-}
-
-
-loadBusinesses();
-
+init();
 
 </script>
 
