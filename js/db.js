@@ -92,6 +92,17 @@ async function dbGetBusinessesByOwner(ownerId) {
     return data;
 }
 
+async function dbGetBusinessById(id) {
+    const { data, error } = await sb
+        .from("businesses")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+    if (error) return null;
+    return data;
+}
+
 
 /* ==========================================
    SHOPS
