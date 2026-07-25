@@ -183,6 +183,9 @@ body{
 <body>
 
 
+<div id="headerContainer"></div>
+
+
 <div class="container">
 
 
@@ -237,10 +240,18 @@ class="registerBtn">
 </div>
 
 
+<div id="bottomNavContainer"></div>
+
+
 <!-- Supabase (real backend) -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabaseClient.js"></script>
 <script src="js/db.js"></script>
+
+<!-- Site layout (header/sidebar/bottom nav) still runs on localStorage for cart badge etc -->
+<script src="js/database.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/components.js"></script>
 
 
 <script>
@@ -248,6 +259,8 @@ class="registerBtn">
 let user = null;
 
 async function init(){
+
+    renderLayout("business");
 
     /* AUTH GUARD */
 
