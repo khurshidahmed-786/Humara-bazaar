@@ -191,6 +191,20 @@ async function dbGetProductsByShop(shopId) {
     return data;
 }
 
+// Same as above but includes hidden/inactive products too —
+// use this on seller-facing pages (My Products, Dashboard),
+// NOT on the public shop page.
+async function dbGetAllProductsByShop(shopId) {
+    const { data, error } = await sb
+        .from("products")
+        .select("*")
+        .eq("shop_id", shopId)
+        .order("created_at", { ascending: false });
+
+    if (error) throw error;
+    return data;
+}
+
 async function dbGetFeaturedProducts() {
     const { data, error } = await sb
         .from("products")
@@ -219,6 +233,18 @@ async function dbSaveProduct(product) {
     const { data, error } = await sb
         .from("products")
         .insert(product)
+        .select()
+        .single();
+
+    if (error) throw error;
+    return data;
+}
+
+async function dbUpdateProduct(id, updates) {
+    const { data, error } = await sb
+        .from("products")
+        .update(updates)
+        .eq("id", id)
         .select()
         .single();
 
