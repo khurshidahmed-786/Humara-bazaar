@@ -1,176 +1,315 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 
 <head>
 
-<title>Explore Shops</title>
+    <meta charset="UTF-8">
 
-<style>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial;
-}
+    <title>Shop — Hamara Bazaar</title>
 
-body{
-background:#FAF6EE;
-}
+    <link
+        rel="stylesheet"
+        href="css/theme.css">
 
-.wrap{
-padding:40px;
-}
+    <link
+        rel="stylesheet"
+        href="css/components.css">
 
-h1{
-margin-bottom:30px;
-}
-
-.row{
-
-display:flex;
-
-overflow-x:auto;
-
-gap:20px;
-
-}
-
-.card{
-
-min-width:280px;
-
-background:white;
-
-border-radius:20px;
-
-overflow:hidden;
-
-}
-
-.banner{
-
-height:150px;
-
-background:
-linear-gradient(
-135deg,
-#B63A3A,
-#667744
-);
-
-}
-
-.info{
-
-padding:20px;
-
-}
-
-.btn{
-
-display:inline-block;
-
-margin-top:15px;
-
-padding:12px 18px;
-
-background:#667744;
-
-color:white;
-
-text-decoration:none;
-
-border-radius:10px;
-
-}
-
-</style>
+    <link
+        rel="stylesheet"
+        href="css/shop.css">
 
 </head>
 
+
 <body>
 
-<div class="wrap">
 
-<h1>
+    <!-- ==========================================
+         GLOBAL HAMARA BAZAAR HEADER
+    =========================================== -->
 
-Explore Local Shops
+    <div id="headerContainer"></div>
 
-</h1>
 
-<div class="row">
+    <!-- ==========================================
+         SHOP PAGE
+    =========================================== -->
 
-<div class="card">
+    <main class="shopPage">
 
-<div class="banner"></div>
 
-<div class="info">
+        <!-- ======================================
+             SHOP BILLBOARD
+        ======================================= -->
 
-<h2>Ahmad Grocery</h2>
+        <section
+            class="shopBillboard"
+            id="shopBillboard">
 
-<p>Daily essentials</p>
 
-<a
-class="btn"
-href="/shop.html">
+            <div class="billboardContent">
 
-Enter Shop
 
-</a>
+                <div class="billboardText">
 
-</div>
 
-</div>
+                    <h1 id="displayName">
 
-<div class="card">
+                        Shop Name
 
-<div class="banner"></div>
+                    </h1>
 
-<div class="info">
 
-<h2>Classic Cosmetics</h2>
+                    <p id="displayDescription">
 
-<p>Beauty products</p>
+                        Shop Description
 
-<a
-class="btn"
-href="/shop.html">
+                    </p>
 
-Enter Shop
 
-</a>
+                    <div
+                        class="billboardLocation"
+                        id="displayLocation">
 
-</div>
+                    </div>
 
-</div>
 
-<div class="card">
+                </div>
 
-<div class="banner"></div>
 
-<div class="info">
+            </div>
 
-<h2>City Shoes</h2>
 
-<p>Walk in style</p>
+            <!-- SHOP LOGO -->
 
-<a
-class="btn"
-href="/shop.html">
+            <div class="shopLogo">
 
-Enter Shop
 
-</a>
+                <img
+                    id="displayLogo"
+                    alt="Shop Logo">
 
-</div>
 
-</div>
+                <span
+                    id="shopLogoPlaceholder">
 
-</div>
+                    🏪
 
-</div>
+                </span>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ======================================
+             SHOP INFORMATION
+        ======================================= -->
+
+        <section class="shopInfo">
+
+
+            <div class="shopInfoMain">
+
+
+                <div
+                    class="status"
+                    id="shopStatus">
+
+                    🟢 Open Now
+
+                </div>
+
+
+                <div
+                    class="time"
+                    id="displayTime">
+
+                    Open: 8:00 AM — 8:00 PM
+
+                </div>
+
+
+                <div
+                    class="shopLocation"
+                    id="shopInfoLocation">
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ======================================
+             PRODUCTS
+        ======================================= -->
+
+        <section class="shopProducts">
+
+
+            <!-- FEATURED -->
+
+            <section
+                class="productSection"
+                id="featuredSection">
+
+
+                <div class="sectionHeader">
+
+                    <h2>
+
+                        ⭐ Featured
+
+                    </h2>
+
+                </div>
+
+
+                <div
+                    class="products"
+                    id="featuredProducts">
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- NEW ARRIVALS -->
+
+            <section
+                class="productSection"
+                id="newSection">
+
+
+                <div class="sectionHeader">
+
+                    <h2>
+
+                        🆕 New Arrival
+
+                    </h2>
+
+                </div>
+
+
+                <div
+                    class="products"
+                    id="newProducts">
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- SALE -->
+
+            <section
+                class="productSection"
+                id="saleSection">
+
+
+                <div class="sectionHeader">
+
+                    <h2>
+
+                        🔥 Discount Sale
+
+                    </h2>
+
+                </div>
+
+
+                <div
+                    class="products"
+                    id="saleProducts">
+
+                </div>
+
+
+            </section>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ==========================================
+         FIXED SHOP ACTION BAR
+    =========================================== -->
+
+    <div class="shopActionBar">
+
+
+        <button
+            class="shopAction secondary"
+            id="contactShopBtn">
+
+            Contact Shop
+
+        </button>
+
+
+        <button
+            class="shopAction primary"
+            id="browseProductsBtn">
+
+            Browse Products
+
+        </button>
+
+
+    </div>
+
+
+
+    <!-- ==========================================
+         GLOBAL BOTTOM NAVIGATION
+    =========================================== -->
+
+    <div id="bottomNavContainer"></div>
+
+
+
+    <!-- ==========================================
+         JAVASCRIPT
+    =========================================== -->
+
+    <script src="js/database.js"></script>
+
+    <script src="js/auth.js"></script>
+
+    <script src="js/product.js"></script>
+
+    <script src="js/shop.js"></script>
+
+    <script src="js/components.js"></script>
+
+
+    <script>
+
+        renderLayout("shop");
+
+    </script>
+
 
 </body>
 
