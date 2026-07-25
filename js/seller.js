@@ -75,7 +75,7 @@ async function renderDashboard(business, shop){
     let orders = [];
 
     try {
-        products = await dbGetProductsByShop(shop.id);
+        products = await dbGetAllProductsByShop(shop.id);
     } catch(err) { console.error(err); }
 
     try {
