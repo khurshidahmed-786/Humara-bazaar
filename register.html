@@ -4,115 +4,80 @@
 <head>
 
 <meta charset="UTF-8">
-
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Create Account | Hamara Bazaar</title>
 
 <style>
 
 *{
-
     margin:0;
-
     padding:0;
-
     box-sizing:border-box;
-
     font-family:Arial;
-
 }
 
 body{
-
     background:#FAF6EE;
-
     min-height:100vh;
-
     display:flex;
-
     justify-content:center;
-
     align-items:center;
-
     padding:20px;
-
 }
 
 .box{
-
     background:white;
-
     padding:40px;
-
     border-radius:20px;
-
     width:100%;
-
     max-width:500px;
-
 }
 
 h1{
-
     margin-bottom:10px;
-
 }
 
 p{
-
     color:#666;
-
     margin-bottom:25px;
-
 }
 
 input{
-
     width:100%;
-
     padding:14px;
-
     margin:10px 0;
-
     border:1px solid #ddd;
-
     border-radius:10px;
-
 }
 
 button{
-
     padding:16px;
-
     margin-top:15px;
-
     background:#667744;
-
     color:white;
-
     border:none;
-
     border-radius:12px;
-
     width:100%;
-
     cursor:pointer;
-
     font-size:16px;
+}
 
+button:disabled{
+    opacity:0.6;
+    cursor:not-allowed;
 }
 
 .error{
-
     color:#B63A3A;
-
     margin-top:15px;
-
     display:none;
+}
 
+.loginLink{
+    display:block;
+    text-align:center;
+    margin-top:20px;
+    color:#667744;
 }
 
 </style>
@@ -125,225 +90,80 @@ button{
 
 <div class="box">
 
-<h1>
+<h1>Create Account</h1>
 
-Create Account
+<p>Join Hamara Bazaar and connect with your local community.</p>
 
-</h1>
+<input id="name" placeholder="Full Name *">
+<input id="email" placeholder="Email *" type="email">
+<input id="password" placeholder="Password (min 6 characters) *" type="password">
+<input id="phone" placeholder="Mobile Number *" type="tel">
+<input id="area" placeholder="Area / Locality *">
 
-<p>
+<button id="registerBtn">Create Account</button>
 
-Join Hamara Bazaar and connect with
-your local community.
+<div id="error" class="error"></div>
 
-</p>
-
-
-<input
-
-id="name"
-
-placeholder="Full Name *">
-
-
-<input
-
-id="phone"
-
-placeholder="Mobile Number *"
-
-
-type="tel">
-
-
-<input
-
-id="area"
-
-placeholder="Area / Locality *">
-
-
-<button
-
-id="registerBtn">
-
-Create Account
-
-</button>
-
-
-<div
-
-id="error"
-
-class="error">
+<a class="loginLink" href="login.html">Already have an account? Login</a>
 
 </div>
 
 
-</div>
-
-
-<script src="js/database.js"></script>
-
-<script src="js/auth.js"></script>
+<!-- Supabase (real backend) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabaseClient.js"></script>
+<script src="js/db.js"></script>
 
 
 <script>
 
-document
+document.getElementById("registerBtn").onclick = async function(){
 
-.getElementById("registerBtn")
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const phone = document.getElementById("phone").value.trim();
+    const area = document.getElementById("area").value.trim();
 
-.onclick=function(){
+    const error = document.getElementById("error");
+    const btn = document.getElementById("registerBtn");
 
+    error.style.display = "none";
 
-const name =
+    if(!name || !email || !password || !phone || !area){
+        error.innerText = "Please fill in every field.";
+        error.style.display = "block";
+        return;
+    }
 
-document
+    if(password.length < 6){
+        error.innerText = "Password must be at least 6 characters.";
+        error.style.display = "block";
+        return;
+    }
 
-.getElementById("name")
+    btn.disabled = true;
+    btn.innerText = "Creating account...";
 
-.value
+    try {
 
-.trim();
+        await authSignUp(email, password, {
+            name: name,
+            phone: phone,
+            market: area
+        });
 
+        window.location.href = "index.html";
 
-const phone =
+    } catch(err) {
 
-document
+        console.error(err);
+        error.innerText = err.message || "Something went wrong. Please try again.";
+        error.style.display = "block";
 
-.getElementById("phone")
-
-.value
-
-.trim();
-
-
-const area =
-
-document
-
-.getElementById("area")
-
-.value
-
-.trim();
-
-
-const error =
-
-document
-
-.getElementById("error");
-
-
-if(!name){
-
-error.innerText =
-
-"Please enter your name.";
-
-error.style.display =
-
-"block";
-
-return;
-
-}
-
-
-if(!phone){
-
-error.innerText =
-
-"Please enter your mobile number.";
-
-error.style.display =
-
-"block";
-
-return;
-
-}
-
-
-if(!area){
-
-error.innerText =
-
-"Please enter your area.";
-
-error.style.display =
-
-"block";
-
-return;
-
-}
-
-
-const user =
-
-registerUser(
-
-name,
-
-phone
-
-);
-
-
-/*
-
-SAVE AREA
-
-*/
-
-user.area = area;
-
-
-/*
-
-UPDATE USER RECORD
-
-*/
-
-let users = getUsers();
-
-
-users = users.map(
-
-u =>
-
-u.id === user.id
-
-? user
-
-: u
-
-);
-
-
-saveData(
-
-DB.USERS,
-
-users
-
-);
-
-
-/*
-
-REDIRECT
-
-*/
-
-window.location.href =
-
-"index.html";
-
+        btn.disabled = false;
+        btn.innerText = "Create Account";
+    }
 
 };
 
