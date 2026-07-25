@@ -1,301 +1,307 @@
+
+
+Role · HTML
 <!DOCTYPE html>
 <html lang="en">
-
+ 
 <head>
-
+ 
 <meta charset="UTF-8">
-
+ 
 <meta
 name="viewport"
 content="width=device-width, initial-scale=1.0">
-
+ 
 <title>My Business | Hamara Bazaar</title>
-
+ 
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/components.css">
+ 
 <style>
-
+ 
 *{
-
+ 
     margin:0;
-
+ 
     padding:0;
-
+ 
     box-sizing:border-box;
-
+ 
     font-family:Arial;
-
+ 
 }
-
+ 
 body{
-
+ 
     background:#FAF6EE;
-
+ 
     min-height:100vh;
-
+ 
     padding:30px 20px;
-
+ 
 }
-
+ 
 .container{
-
+ 
     max-width:800px;
-
+ 
     margin:auto;
-
+ 
 }
-
+ 
 .header{
-
+ 
     margin-bottom:30px;
-
+ 
 }
-
+ 
 .header h1{
-
+ 
     margin-bottom:8px;
-
+ 
 }
-
+ 
 .header p{
-
+ 
     color:#666;
-
+ 
 }
-
+ 
 .businessGrid{
-
+ 
     display:grid;
-
+ 
     grid-template-columns:
-
+ 
     repeat(auto-fit,minmax(250px,1fr));
-
+ 
     gap:20px;
-
+ 
 }
-
+ 
 .businessCard{
-
+ 
     background:white;
-
+ 
     padding:25px;
-
+ 
     border-radius:20px;
-
+ 
     box-shadow:
-
+ 
     0 5px 20px
-
+ 
     rgba(0,0,0,0.05);
-
+ 
 }
-
+ 
 .businessIcon{
-
+ 
     font-size:40px;
-
+ 
     margin-bottom:15px;
-
+ 
 }
-
+ 
 .businessCard h3{
-
+ 
     margin-bottom:8px;
-
+ 
 }
-
+ 
 .businessCard p{
-
+ 
     color:#777;
-
+ 
     margin-bottom:20px;
-
+ 
 }
-
+ 
 .manageBtn{
-
+ 
     display:block;
-
+ 
     padding:12px;
-
+ 
     background:#667744;
-
+ 
     color:white;
-
+ 
     text-decoration:none;
-
+ 
     text-align:center;
-
+ 
     border-radius:10px;
-
+ 
 }
-
+ 
 .registerBtn{
-
+ 
     display:block;
-
+ 
     margin-top:25px;
-
+ 
     padding:16px;
-
+ 
     background:#B63A3A;
-
+ 
     color:white;
-
+ 
     text-align:center;
-
+ 
     text-decoration:none;
-
+ 
     border-radius:12px;
-
+ 
 }
-
+ 
 .empty{
-
+ 
     background:white;
-
+ 
     padding:40px;
-
+ 
     border-radius:20px;
-
+ 
     text-align:center;
-
+ 
     color:#666;
-
+ 
 }
-
+ 
 .back{
-
+ 
     display:inline-block;
-
+ 
     margin-bottom:25px;
-
+ 
     color:#667744;
-
+ 
     text-decoration:none;
-
+ 
 }
-
+ 
 </style>
-
+ 
 </head>
-
-
+ 
+ 
 <body>
-
-
+ 
+ 
 <div id="headerContainer"></div>
-
-
+ 
+ 
 <div class="container">
-
-
+ 
+ 
 <a
-
+ 
 href="index.html"
-
+ 
 class="back">
-
+ 
 ← Back to Marketplace
-
+ 
 </a>
-
-
+ 
+ 
 <div class="header">
-
+ 
 <h1>
-
+ 
 My Business
-
+ 
 </h1>
-
+ 
 <p id="welcomeText">
-
+ 
 Manage your businesses on Hamara Bazaar.
-
+ 
 </p>
-
+ 
 </div>
-
-
+ 
+ 
 <div
-
+ 
 id="businessGrid"
-
+ 
 class="businessGrid">
-
+ 
 </div>
-
-
+ 
+ 
 <a
-
+ 
 href="createshop.html"
-
+ 
 class="registerBtn">
-
+ 
 + Register a New Business
-
+ 
 </a>
-
-
+ 
+ 
 </div>
-
-
+ 
+ 
 <div id="bottomNavContainer"></div>
-
-
+ 
+ 
 <!-- Supabase (real backend) -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabaseClient.js"></script>
 <script src="js/db.js"></script>
-
+ 
 <!-- Site layout (header/sidebar/bottom nav) still runs on localStorage for cart badge etc -->
 <script src="js/database.js"></script>
 <script src="js/cart.js"></script>
 <script src="js/components.js"></script>
-
-
+ 
+ 
 <script>
-
+ 
 let user = null;
-
+ 
 async function init(){
-
+ 
     renderLayout("business");
-
+ 
     /* AUTH GUARD */
-
+ 
     user = await authGetCurrentUser();
-
+ 
     if(!user){
         window.location.href = "login.html";
         return;
     }
-
+ 
     /* WELCOME */
-
+ 
     document.getElementById("welcomeText").innerText =
         "Welcome, " + user.name + ". Manage your businesses here.";
-
+ 
     await loadBusinesses();
 }
-
-
+ 
+ 
 /* LOAD BUSINESSES */
-
+ 
 async function loadBusinesses(){
-
+ 
     const grid = document.getElementById("businessGrid");
-
+ 
     let businesses = [];
-
+ 
     try {
         businesses = await dbGetBusinessesByOwner(user.id);
     } catch(err) {
         console.error(err);
     }
-
+ 
     if(businesses.length === 0){
-
+ 
         grid.innerHTML = `
             <div class="empty">
                 <h2>You don't have a business yet.</h2>
@@ -303,16 +309,16 @@ async function loadBusinesses(){
                 <p>Register your shop or service and start serving your community.</p>
             </div>
         `;
-
+ 
         return;
     }
-
+ 
     grid.innerHTML = "";
-
+ 
     businesses.forEach(business => {
-
+ 
         let icon = business.type === "service" ? "🔧" : "🏪";
-
+ 
         grid.innerHTML += `
             <div class="businessCard">
                 <div class="businessIcon">${icon}</div>
@@ -327,18 +333,19 @@ async function loadBusinesses(){
         `;
     });
 }
-
-
+ 
+ 
 function selectBusiness(businessId){
     localStorage.setItem("hb_activeBusiness", businessId);
 }
-
-
+ 
+ 
 init();
-
+ 
 </script>
-
-
+ 
+ 
 </body>
-
+ 
 </html>
+ 
