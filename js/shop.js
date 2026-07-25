@@ -247,13 +247,8 @@ function renderShopProducts(){
 
 }
 function renderSection(
-
     containerId,
-
-    sectionId,
-
     list
-
 ){
 
     const wrap =
@@ -262,32 +257,40 @@ function renderSection(
         );
 
 
-    const section =
-        document.getElementById(
-            sectionId
-        );
-
-
-    if(!wrap || !section){
+    if(!wrap){
 
         return;
 
     }
 
 
+    const section =
+        wrap.closest(
+            ".productSection"
+        );
+
+
     /*
     ======================================
-    HIDE EMPTY SECTION
+    NO PRODUCTS
+    HIDE ENTIRE SECTION
     ======================================
     */
 
-    if(!list || list.length === 0){
-
-        section.classList.add(
-            "hidden"
-        );
+    if(
+        !list ||
+        list.length === 0
+    ){
 
         wrap.innerHTML = "";
+
+        if(section){
+
+            section.classList.add(
+                "hidden"
+            );
+
+        }
 
         return;
 
@@ -296,72 +299,84 @@ function renderSection(
 
     /*
     ======================================
+    PRODUCTS EXIST
     SHOW SECTION
     ======================================
     */
 
-    section.classList.remove(
-        "hidden"
-    );
+    if(section){
+
+        section.classList.remove(
+            "hidden"
+        );
+
+    }
 
 
     wrap.innerHTML = "";
 
 
-    list.forEach(product => {
+    list.forEach(
+        product => {
 
-        wrap.innerHTML += `
+            wrap.innerHTML += `
 
-        <div
+                <div
 
-            class="product"
+                    class="product"
 
-            onclick="
-                openProduct(${product.id})
-            ">
+                    onclick="
+                        openProduct(
+                            ${product.id}
+                        )
+                    "
 
-            <div class="image">
+                >
 
-                ${
-                    product.image
+                    <div class="image">
 
-                    ?
+                        ${
+                            product.image
 
-                    `<img
-                        src="${product.image}"
-                        alt="${product.name}">
-                    `
+                            ?
 
-                    :
+                            `<img
+                                src="${product.image}"
+                                alt="${product.name}"
+                            >`
 
-                    (
-                        product.emoji
-                        ||
-                        "📦"
-                    )
-                }
+                            :
 
-            </div>
+                            (
+                                product.emoji ||
+                                "📦"
+                            )
 
+                        }
 
-            <div class="info">
-
-                ${product.name}
+                    </div>
 
 
-                <div class="price">
+                    <div class="info">
 
-                    ₹${product.price}
+                        ${product.name}
+
+
+                        <div class="price">
+
+                            ₹${product.price}
+
+                        </div>
+
+                    </div>
 
                 </div>
 
-            </div>
+            `;
 
-        </div>
+        }
 
-        `;
-
-    });
+    );
 
 }
 function openProduct(id){
@@ -427,79 +442,70 @@ function loadShopPage(){
     ======================================
     */
 
+    document.getElementById("displayName").innerText =
+    shop.name || "Unnamed Shop";
+
+
+document.getElementById("displayDescription").innerText =
+    shop.description || "";
+
+
+/*
+==========================================
+SHOP LOCATION
+==========================================
+*/
+
+const locationText =
+    shop.location ||
+    shop.address ||
+    "";
+
+
+const billboardLocation =
     document.getElementById(
-        "displayDescription"
-    ).innerText =
-
-        shop.description
-        ||
-        "Welcome to our shop.";
+        "displayLocation"
+    );
 
 
-    /*
-    ======================================
-    LOCATION
-    ======================================
-    */
-
-    const locationText =
-
-        shop.location
-        ||
-        "Local Market";
-
-
-    const billboardLocation =
-
-        document.getElementById(
-            "displayLocation"
-        );
-
-
-    const shopLocation =
-
-        document.getElementById(
-            "shopLocation"
-        );
-
-
-    if(billboardLocation){
-
-        billboardLocation.innerText =
-
-            "📍 " +
-            locationText;
-
-    }
-
-
-    if(shopLocation){
-
-        shopLocation.innerText =
-
-            "📍 " +
-            locationText;
-
-    }
-
-
-    /*
-    ======================================
-    OPENING HOURS
-    ======================================
-    */
-
+const infoLocation =
     document.getElementById(
-        "displayTime"
-    ).innerText =
-
-        `Open: ${
-            shop.open || "8:00 AM"
-        } - ${
-            shop.close || "8:00 PM"
-        }`;
+        "shopInfoLocation"
+    );
 
 
+if(locationText){
+
+    billboardLocation.innerText =
+        "📍 " + locationText;
+
+    infoLocation.innerText =
+        "📍 " + locationText;
+
+}else{
+
+    billboardLocation.innerText =
+        "";
+
+    infoLocation.innerText =
+        "";
+
+}
+
+
+/*
+==========================================
+SHOP HOURS
+==========================================
+*/
+
+document.getElementById("displayTime").innerText =
+
+    `Open: ${
+        shop.open || "8:00 AM"
+    } — ${
+        shop.close || "8:00 PM"
+    }`;
     /*
     ======================================
     SHOP LOGO
@@ -518,43 +524,37 @@ function loadShopPage(){
         );
 
 
-    if(
-        shop.logo &&
-        shop.logo.trim() !== ""
-    ){
+    const logo =
+    document.getElementById(
+        "displayLogo"
+    );
 
-        logo.src =
-            shop.logo;
-
-        logo.style.display =
-            "block";
-
-
-        if(placeholder){
-
-            placeholder.style.display =
-                "none";
-
-        }
-
-    }
-
-    else{
-
-        logo.style.display =
-            "none";
+const logoPlaceholder =
+    document.getElementById(
+        "shopLogoPlaceholder"
+    );
 
 
-        if(placeholder){
+if(shop.logo){
 
-            placeholder.style.display =
-                "flex";
+    logo.src =
+        shop.logo;
 
-        }
+    logo.style.display =
+        "block";
 
-    }
+    logoPlaceholder.style.display =
+        "none";
 
+}else{
 
+    logo.style.display =
+        "none";
+
+    logoPlaceholder.style.display =
+        "flex";
+
+}
     /*
     ======================================
     SHOP BILLBOARD COLOR
