@@ -4,6 +4,7 @@
    MOBILE FIRST
 ========================================== */
 
+
 * {
 
     box-sizing: border-box;
@@ -38,7 +39,7 @@ body {
 
         calc(
 
-            100px +
+            170px +
 
             env(safe-area-inset-bottom)
 
@@ -59,6 +60,8 @@ body {
 
     margin: 0 auto;
 
+    overflow: hidden;
+
 }
 
 
@@ -70,7 +73,7 @@ body {
 
     position: relative;
 
-    min-height: 250px;
+    min-height: 270px;
 
     background: #B63A3A;
 
@@ -93,19 +96,23 @@ body {
 
 .billboardContent {
 
-    min-height: 250px;
+    min-height: 270px;
 
     display: flex;
 
-    align-items: flex-end;
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
 
     padding:
 
-        32px
+        35px
 
         24px
 
-        42px;
+        55px;
 
 }
 
@@ -114,20 +121,42 @@ body {
 
     width: 100%;
 
-    padding-right: 20px;
+    max-width: 700px;
+
+    margin: 0 auto;
 
 }
 
 
+/* ==========================================
+   PREMIUM SHOP NAME
+========================================== */
+
 .billboardText h1 {
 
-    font-size: 36px;
+    font-family:
 
-    line-height: 1.1;
+        Georgia,
 
-    font-weight: 800;
+        "Times New Roman",
 
-    margin-bottom: 10px;
+        serif;
+
+    font-size: 42px;
+
+    line-height: 1.15;
+
+    font-weight: 600;
+
+    letter-spacing: .3px;
+
+    margin-bottom: 12px;
+
+    text-shadow:
+
+        0 2px 8px
+
+        rgba(0,0,0,.12);
 
 }
 
@@ -136,9 +165,15 @@ body {
 
     max-width: 600px;
 
+    margin:
+
+        0
+
+        auto;
+
     font-size: 15px;
 
-    line-height: 1.5;
+    line-height: 1.6;
 
     opacity: .92;
 
@@ -147,13 +182,13 @@ body {
 
 .billboardLocation {
 
-    margin-top: 14px;
+    margin-top: 12px;
 
     font-size: 14px;
 
-    font-weight: 600;
+    font-weight: 500;
 
-    opacity: .95;
+    opacity: .9;
 
 }
 
@@ -166,9 +201,13 @@ body {
 
     position: absolute;
 
-    left: 24px;
+    left: 50%;
 
     bottom: -55px;
+
+    transform:
+
+        translateX(-50%);
 
     width: 110px;
 
@@ -245,9 +284,9 @@ body {
 
     display: flex;
 
-    flex-direction: column;
+    justify-content: center;
 
-    gap: 12px;
+    text-align: center;
 
 }
 
@@ -257,6 +296,8 @@ body {
     display: flex;
 
     flex-direction: column;
+
+    align-items: center;
 
     gap: 10px;
 
@@ -427,7 +468,9 @@ body {
 
 .product:active {
 
-    transform: scale(.97);
+    transform:
+
+        scale(.97);
 
 }
 
@@ -512,13 +555,13 @@ body {
 
     padding:
 
-        12px
+        10px
 
         16px
 
         calc(
 
-            12px +
+            10px +
 
             env(safe-area-inset-bottom)
 
@@ -534,13 +577,13 @@ body {
 
             255,
 
-            .96
+            .97
 
         );
 
     backdrop-filter:
 
-        blur(12px);
+        blur(14px);
 
     box-shadow:
 
@@ -567,6 +610,8 @@ body {
 
     cursor: pointer;
 
+    touch-action: manipulation;
+
 }
 
 
@@ -590,7 +635,9 @@ body {
 
 .shopAction:active {
 
-    transform: scale(.98);
+    transform:
+
+        scale(.98);
 
 }
 
@@ -619,27 +666,27 @@ body {
 
     .billboardContent {
 
+        min-height: 300px;
+
         padding:
 
             40px
 
             40px
 
-            50px;
+            60px;
 
     }
 
 
     .billboardText h1 {
 
-        font-size: 46px;
+        font-size: 50px;
 
     }
 
 
     .shopLogo {
-
-        left: 40px;
 
         width: 125px;
 
@@ -654,7 +701,7 @@ body {
 
         padding:
 
-            88px
+            90px
 
             40px
 
@@ -690,15 +737,40 @@ body {
 @media (min-width: 900px) {
 
 
+    body {
+
+        padding-bottom:
+
+            110px;
+
+    }
+
+
     .shopBillboard {
 
         margin:
 
-            0
+            20px
 
-            20px;
+            20px
+
+            0;
 
         border-radius: 32px;
+
+    }
+
+
+    .billboardContent {
+
+        min-height: 320px;
+
+    }
+
+
+    .billboardText h1 {
+
+        font-size: 58px;
 
     }
 
@@ -730,6 +802,12 @@ body {
     }
 
 
+    /*
+    Desktop action bar
+    stays at bottom,
+    never floats in middle
+    */
+
     .shopActionBar {
 
         max-width: 700px;
@@ -737,6 +815,8 @@ body {
         left: 50%;
 
         right: auto;
+
+        bottom: 0;
 
         transform:
 
