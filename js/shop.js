@@ -506,23 +506,16 @@ document.getElementById("displayTime").innerText =
     } — ${
         shop.close || "8:00 PM"
     }`;
-    /*
-    ======================================
-    SHOP LOGO
-    ======================================
-    */
+   /*
+======================================
+SHOP LOGO
+======================================
+*/
 
-    const logo =
-        document.getElementById(
-            "displayLogo"
-        );
-
-
-    const placeholder =
-        document.getElementById(
-            "logoPlaceholder"
-        );
-
+const logo =
+    document.getElementById(
+        "displayLogo"
+    );
 
 const logoPlaceholder =
     document.getElementById(
@@ -530,24 +523,38 @@ const logoPlaceholder =
     );
 
 
-if(shop.logo){
+if(logo){
 
-    logo.src =
-        shop.logo;
+    if(shop.logo){
 
-    logo.style.display =
-        "block";
+        logo.src =
+            shop.logo;
 
-    logoPlaceholder.style.display =
-        "none";
+        logo.style.display =
+            "block";
 
-}else{
+        if(logoPlaceholder){
 
-    logo.style.display =
-        "none";
+            logoPlaceholder.style.display =
+                "none";
 
-    logoPlaceholder.style.display =
-        "flex";
+        }
+
+    }
+
+    else{
+
+        logo.style.display =
+            "none";
+
+        if(logoPlaceholder){
+
+            logoPlaceholder.style.display =
+                "flex";
+
+        }
+
+    }
 
 }
     /*
