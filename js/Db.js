@@ -17,18 +17,27 @@
    phone is still stored on the profile.)
    ========================================== */
 
-async function authSignUp(email, password, name, phone) {
+async function authSignUp(email, password, profileFields) {
 
     const { data, error } = await sb.auth.signUp({ email, password });
     if (error) throw error;
 
+    // If email confirmation is ON in your Supabase project, data.user
+    // exists but data.session is null until the user clicks the email
+    // link. We can still create their profile row right away.
     const { error: profileError } = await sb
         .from("profiles")
-        .insert({ id: data.user.id, name, phone, email });
+        .insert({
+            id: data.user.id,
+            email,
+            name: profileFields.name,
+            phone: profileFields.phone,
+            market: profileFields.market || ""
+        });
 
     if (profileError) throw profileError;
 
-    return data.user;
+    return data;
 }
 
 async function authSignIn(email, password) {
