@@ -524,11 +524,6 @@ document.getElementById("displayTime").innerText =
         );
 
 
-    const logo =
-    document.getElementById(
-        "displayLogo"
-    );
-
 const logoPlaceholder =
     document.getElementById(
         "shopLogoPlaceholder"
