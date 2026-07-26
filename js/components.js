@@ -142,6 +142,19 @@ async function renderLayout(page){
 
     }
 
+    let currentRole = null;
+
+    if(currentUser && typeof dbGetMyRole === "function"){
+
+        try {
+            currentRole = await dbGetMyRole();
+        } catch(err) {
+            console.error(err);
+            currentRole = null;
+        }
+
+    }
+
     document.getElementById(
 
         "headerContainer"
@@ -152,7 +165,7 @@ async function renderLayout(page){
 
     +
 
-    renderSidebar(currentUser);
+    renderSidebar(currentUser, currentRole);
 const pagesWithoutBottomNav = [
 
     "dashboard",
@@ -161,7 +174,11 @@ const pagesWithoutBottomNav = [
 
     "createshop",
 
-    "product"
+    "product",
+
+    "superadmin",
+
+    "tehsil-admin"
 
 ];
 
@@ -251,7 +268,7 @@ function bindLayoutEvents(){
     };
 
 }
-function renderSidebar(user){
+function renderSidebar(user, role){
 
     const accountSection = user ? `
 
@@ -282,6 +299,40 @@ function renderSidebar(user){
         </a>
 
     `;
+
+    let adminLink = "";
+
+    if(role && role.role === "super_admin"){
+
+        adminLink = `
+        <a href="superadmin.html">
+
+            🛡️ Super Admin
+
+        </a>
+        `;
+
+    }else if(role && role.role === "tehsil_admin"){
+
+        adminLink = `
+        <a href="tehsil-admin.html">
+
+            🛡️ Tehsil Admin
+
+        </a>
+        `;
+
+    }else if(user){
+
+        adminLink = `
+        <a href="admin-apply.html">
+
+            🛡️ Become a Tehsil Admin
+
+        </a>
+        `;
+
+    }
 
     return `
 
@@ -323,6 +374,7 @@ function renderSidebar(user){
 
         </a>
 
+        ${adminLink}
 
         <a
         href="#"
