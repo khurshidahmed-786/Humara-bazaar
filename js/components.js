@@ -262,16 +262,10 @@ function renderSidebar(user){
         </div>
 
 
-        <a href="profile.html">
-
-            👤 Profile
-
-        </a>
-
-
         <a
         href="#"
-        onclick="handleLogout(); return false;">
+        onclick="handleLogout(); return false;"
+        class="sidebarLogout">
 
             🚪 Logout
 
@@ -279,7 +273,9 @@ function renderSidebar(user){
 
     ` : `
 
-        <a href="login.html">
+        <a
+        href="login.html"
+        class="sidebarLogout">
 
             🔑 Login
 
@@ -305,6 +301,7 @@ function renderSidebar(user){
 
         </div>
 
+        ${accountSection}
 
         <a href="index.html">
 
@@ -326,7 +323,6 @@ function renderSidebar(user){
 
         </a>
 
-        ${accountSection}
 
         <a
         href="#"
