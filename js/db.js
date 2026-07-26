@@ -241,6 +241,38 @@ async function dbGetProductById(id) {
     return data;
 }
 
+// Paged, filterable, sortable product feed — powers the homepage's
+// endless-scroll grid. sort: "newest" | "price_low" | "price_high".
+async function dbGetProductsFeed({ category = "", sort = "newest", search = "", limit = 12, offset = 0 } = {}) {
+
+    let query = sb
+        .from("products")
+        .select("*")
+        .eq("active", true);
+
+    if (category) {
+        query = query.eq("category", category);
+    }
+
+    if (search) {
+        query = query.ilike("name", `%${search}%`);
+    }
+
+    if (sort === "price_low") {
+        query = query.order("price", { ascending: true });
+    } else if (sort === "price_high") {
+        query = query.order("price", { ascending: false });
+    } else {
+        query = query.order("created_at", { ascending: false });
+    }
+
+    query = query.range(offset, offset + limit - 1);
+
+    const { data, error } = await query;
+    if (error) throw error;
+    return data;
+}
+
 async function dbUploadProductImage(file, shopId) {
 
     const fileExt = file.name.split(".").pop();
