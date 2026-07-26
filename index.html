@@ -30,40 +30,13 @@
 
 
 <!-- ==========================
-     HEADER
+     HEADER (top nav + sidebar)
 ========================== -->
 
 <div id="headerContainer"></div>
 
 
 <main>
-
-
-<!-- ==========================
-     HERO
-========================== -->
-
-<section class="hero">
-
-    <h1>
-
-        Everything Around You,
-        <br>
-        In One Place.
-
-    </h1>
-
-
-    <p>
-
-        Discover trusted local shops,
-        fresh products, useful services,
-        and transport around your area.
-
-    </p>
-
-</section>
-
 
 
 <!-- ==========================
@@ -74,28 +47,16 @@
 
     <div class="searchBox">
 
-
         <span class="searchIcon">
 
             🔍
 
         </span>
 
-
         <input
             id="searchInput"
             type="text"
-            placeholder="Search products, shops or services">
-
-
-        <button
-            class="filterBtn"
-            type="button">
-
-            ⚙
-
-        </button>
-
+            placeholder="Search products">
 
     </div>
 
@@ -104,97 +65,18 @@
 
 
 <!-- ==========================
-     CATEGORIES
-========================== -->
-
-<section class="categories">
-
-
-    <div class="sectionHeader">
-
-
-        <h2>
-
-            Categories
-
-        </h2>
-
-
-        <a href="categories.html">
-
-            All →
-
-        </a>
-
-
-    </div>
-
-
-    <div
-        class="categoryScroll"
-        id="categoryScroll">
-
-    </div>
-
-
-</section>
-
-
-
-<!-- ==========================
-     FEATURED PRODUCTS
+     SHOPS
 ========================== -->
 
 <section class="section">
 
-
     <div class="sectionHeader">
-
 
         <h2>
 
-            ⭐ Featured Products
+            🏪 Shops Near You
 
         </h2>
-
-
-        <a href="products.html">
-
-            View All
-
-        </a>
-
-
-    </div>
-
-
-    <div
-        class="productScroll"
-        id="featuredProducts">
-
-    </div>
-
-
-</section>
-
-
-
-<!-- ==========================
-     POPULAR SHOPS
-========================== -->
-
-<section class="section">
-
-
-    <div class="sectionHeader">
-
-
-        <h2>
-
-            🏪 Popular Shops
-
-        </h2>
-
 
         <a href="shops.html">
 
@@ -202,9 +84,7 @@
 
         </a>
 
-
     </div>
-
 
     <div
         id="shopScroll"
@@ -212,6 +92,82 @@
 
     </div>
 
+</section>
+
+
+
+<!-- ==========================
+     FILTER BAR (category + sort)
+========================== -->
+
+<section class="filterBar">
+
+    <select
+        id="categoryFilter"
+        class="filterSelect">
+
+        <option value="">All Categories</option>
+
+    </select>
+
+    <select
+        id="sortFilter"
+        class="filterSelect">
+
+        <option value="newest">Newest First</option>
+        <option value="price_low">Price: Low to High</option>
+        <option value="price_high">Price: High to Low</option>
+
+    </select>
+
+</section>
+
+
+
+<!-- ==========================
+     PRODUCT FEED (endless scroll)
+========================== -->
+
+<section class="section">
+
+    <div class="sectionHeader">
+
+        <h2>
+
+            🛍 All Products
+
+        </h2>
+
+    </div>
+
+    <div
+        id="productGrid"
+        class="productGrid">
+
+    </div>
+
+    <div
+        id="feedLoading"
+        class="feedLoading">
+
+        Loading products...
+
+    </div>
+
+    <div
+        id="feedEmpty"
+        class="emptyState"
+        style="display:none;">
+
+        <div class="emptyIcon">🔍</div>
+        <p>No products found. Try a different search or category.</p>
+
+    </div>
+
+    <div
+        id="feedSentinel">
+
+    </div>
 
 </section>
 
