@@ -40,6 +40,7 @@ async function publishProduct(){
         description: document.getElementById("productDescription").value.trim(),
         emoji: document.getElementById("productEmoji").value || "📦",
         category: document.getElementById("productCategory").value,
+        section: document.getElementById("productSection").value,
         featured: true,
         active: true
     };
