@@ -68,20 +68,38 @@ Order Received 🎉
 
 </h1>
 
-<p>
+<p id="orderMsg">
 
 Seller will confirm shortly.
 
 </p>
 
+<a href="orders.html">
+
+View My Orders
+
+</a>
+
+<br>
+
 <a
-href="/">
+href="/"
+style="background:transparent; color:#667744; margin-top:8px;">
 
 Back Home
 
 </a>
 
 </div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const count = params.get("count");
+if(count && Number(count) > 1){
+    document.getElementById("orderMsg").innerText =
+        `Your order was split into ${count} orders (one per shop). Sellers will confirm shortly.`;
+}
+</script>
 
 
 </body>
