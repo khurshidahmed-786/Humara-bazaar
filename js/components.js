@@ -127,7 +127,20 @@ function renderBottomNav(current){
     `;
 
 }
-function renderLayout(page){
+async function renderLayout(page){
+
+    let currentUser = null;
+
+    if(typeof authGetCurrentUser === "function"){
+
+        try {
+            currentUser = await authGetCurrentUser();
+        } catch(err) {
+            console.error(err);
+            currentUser = null;
+        }
+
+    }
 
     document.getElementById(
 
@@ -139,7 +152,7 @@ function renderLayout(page){
 
     +
 
-    renderSidebar();
+    renderSidebar(currentUser);
 const pagesWithoutBottomNav = [
 
     "dashboard",
@@ -238,7 +251,41 @@ function bindLayoutEvents(){
     };
 
 }
-function renderSidebar(){
+function renderSidebar(user){
+
+    const accountSection = user ? `
+
+        <div class="sidebarAccount">
+
+            👋 Hi, ${user.name || "there"}
+
+        </div>
+
+
+        <a href="profile.html">
+
+            👤 Profile
+
+        </a>
+
+
+        <a
+        href="#"
+        onclick="handleLogout(); return false;">
+
+            🚪 Logout
+
+        </a>
+
+    ` : `
+
+        <a href="login.html">
+
+            🔑 Login
+
+        </a>
+
+    `;
 
     return `
 
@@ -279,15 +326,7 @@ function renderSidebar(){
 
         </a>
 
-
-        <a
-        href="#"
-        onclick="comingSoon(); return false;">
-
-            👤 Profile
-
-        </a>
-
+        ${accountSection}
 
         <a
         href="#"
@@ -307,6 +346,23 @@ function renderSidebar(){
     </div>
 
     `;
+
+}
+
+
+async function handleLogout(){
+
+    if(typeof authSignOut !== "function"){
+        return;
+    }
+
+    try {
+        await authSignOut();
+    } catch(err) {
+        console.error(err);
+    }
+
+    location.href = "index.html";
 
 }
 function closeSidebar(){
