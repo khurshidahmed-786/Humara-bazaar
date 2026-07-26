@@ -362,3 +362,427 @@ async function dbUpdateOrderStatus(id, status) {
     const { error } = await sb.from("orders").update({ status }).eq("id", id);
     if (error) throw error;
 }
+
+/* ==========================================================
+   ADMIN & TEHSIL OPERATIONS
+   Roles come from the `user_roles` table (never a browser-side
+   field) — see migrations/001_admin_tehsil_system.sql.
+   ========================================================== */
+
+
+/* ------------------------------------------
+   MY ROLE (for guards + nav)
+   Returns { role: "super_admin" } or
+           { role: "tehsil_admin", tehsil_id } or
+           null (plain customer / not logged in)
+   ------------------------------------------ */
+async function dbGetMyRole() {
+    const user = await authGetCurrentUser();
+    if (!user) return null;
+
+    const { data, error } = await sb
+        .from("user_roles")
+        .select("role, tehsil_id")
+        .eq("user_id", user.id);
+
+    if (error || !data || data.length === 0) return null;
+
+    const superAdmin = data.find(r => r.role === "super_admin");
+    if (superAdmin) return { role: "super_admin" };
+
+    const tehsilAdmin = data.find(r => r.role === "tehsil_admin");
+    if (tehsilAdmin) return { role: "tehsil_admin", tehsil_id: tehsilAdmin.tehsil_id };
+
+    return null;
+}
+
+
+/* ------------------------------------------
+   AUDIT LOG
+   ------------------------------------------ */
+async function dbLogAudit(action, targetTable, targetId, tehsilId, details) {
+    const user = await authGetCurrentUser();
+    if (!user) return;
+
+    const { error } = await sb.from("audit_logs").insert({
+        actor_id: user.id,
+        action,
+        target_table: targetTable || null,
+        target_id: targetId ? String(targetId) : null,
+        tehsil_id: tehsilId || null,
+        details: details || null
+    });
+
+    if (error) console.error("Audit log failed:", error);
+}
+
+async function dbGetAuditLogs(tehsilId, limit = 30) {
+    let query = sb
+        .from("audit_logs")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(limit);
+
+    if (tehsilId) query = query.eq("tehsil_id", tehsilId);
+
+    const { data, error } = await query;
+    if (error) throw error;
+    return data;
+}
+
+
+/* ------------------------------------------
+   ADMIN APPLICATIONS
+   ------------------------------------------ */
+async function dbSubmitAdminApplication(fields) {
+    const { data, error } = await sb
+        .from("admin_applications")
+        .insert(fields)
+        .select()
+        .single();
+
+    if (error) throw error;
+    return data;
+}
+
+async function dbGetMyAdminApplication() {
+    const user = await authGetCurrentUser();
+    if (!user) return null;
+
+    const { data, error } = await sb
+        .from("admin_applications")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+    if (error) throw error;
+    return data;
+}
+
+async function dbGetPendingAdminApplications() {
+    const { data, error } = await sb
+        .from("admin_applications")
+        .select("*")
+        .eq("status", "pending")
+        .order("created_at", { ascending: true });
+
+    if (error) throw error;
+    return data;
+}
+
+// Approves an application: finds-or-creates the tehsil, grants the
+// applicant the tehsil_admin role, marks the application approved.
+async function dbApproveAdminApplication(application) {
+    const user = await authGetCurrentUser();
+
+    let { data: existingTehsil } = await sb
+        .from("tehsils")
+        .select("*")
+        .ilike("name", application.tehsil_name)
+        .maybeSingle();
+
+    let tehsil = existingTehsil;
+
+    if (!tehsil) {
+        const { data: newTehsil, error: tehsilError } = await sb
+            .from("tehsils")
+            .insert({
+                name: application.tehsil_name,
+                district: application.district,
+                created_by: user.id
+            })
+            .select()
+            .single();
+
+        if (tehsilError) throw tehsilError;
+        tehsil = newTehsil;
+    }
+
+    const { error: roleError } = await sb.from("user_roles").insert({
+        user_id: application.user_id,
+        role: "tehsil_admin",
+        tehsil_id: tehsil.id
+    });
+
+    if (roleError) throw roleError;
+
+    const { error: appError } = await sb
+        .from("admin_applications")
+        .update({
+            status: "approved",
+            assigned_tehsil_id: tehsil.id,
+            reviewed_by: user.id,
+            reviewed_at: new Date().toISOString()
+        })
+        .eq("id", application.id);
+
+    if (appError) throw appError;
+
+    await dbLogAudit("approve_admin_application", "admin_applications", application.id, tehsil.id, {
+        applicant: application.full_name,
+        tehsil: tehsil.name
+    });
+
+    return tehsil;
+}
+
+async function dbRejectAdminApplication(applicationId) {
+    const user = await authGetCurrentUser();
+
+    const { error } = await sb
+        .from("admin_applications")
+        .update({
+            status: "rejected",
+            reviewed_by: user.id,
+            reviewed_at: new Date().toISOString()
+        })
+        .eq("id", applicationId);
+
+    if (error) throw error;
+
+    await dbLogAudit("reject_admin_application", "admin_applications", applicationId, null, null);
+}
+
+
+/* ------------------------------------------
+   TEHSILS
+   ------------------------------------------ */
+async function dbGetAllTehsils() {
+    const { data, error } = await sb
+        .from("tehsils")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+    if (error) throw error;
+    return data;
+}
+
+async function dbGetTehsilById(id) {
+    const { data, error } = await sb
+        .from("tehsils")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+    if (error) throw error;
+    return data;
+}
+
+// Super Admin only: open / pause / suspend / reopen
+async function dbSetTehsilStatus(tehsilId, status) {
+    const { error } = await sb
+        .from("tehsils")
+        .update({ status })
+        .eq("id", tehsilId);
+
+    if (error) throw error;
+
+    await dbLogAudit("set_tehsil_status", "tehsils", tehsilId, tehsilId, { status });
+}
+
+// Tehsil Admin only: setup -> ready_for_review (enforced again by
+// a DB trigger, this is just the friendly client-side call)
+async function dbMarkTehsilReadyForReview(tehsilId) {
+    const { error } = await sb
+        .from("tehsils")
+        .update({ status: "ready_for_review" })
+        .eq("id", tehsilId);
+
+    if (error) throw error;
+
+    await dbLogAudit("mark_ready_for_review", "tehsils", tehsilId, tehsilId, null);
+}
+
+// Live readiness counts for the setup checklist
+const TEHSIL_REQUIRED_CATEGORIES = ["Grocery", "Restaurant", "Fashion", "Beauty", "Electronics"];
+const TEHSIL_RECOMMENDED_SHOPS_PER_CATEGORY = 2;
+const TEHSIL_REQUIRED_RIDERS = 2;
+
+async function dbGetTehsilReadiness(tehsilId) {
+    const { data: shops, error: shopsError } = await sb
+        .from("shops")
+        .select("id, category, approval_status")
+        .eq("tehsil_id", tehsilId)
+        .eq("approval_status", "approved");
+
+    if (shopsError) throw shopsError;
+
+    const { data: riders, error: ridersError } = await sb
+        .from("rider_profiles")
+        .select("id")
+        .eq("tehsil_id", tehsilId)
+        .eq("status", "approved");
+
+    if (ridersError) throw ridersError;
+
+    const categoryCounts = {};
+    TEHSIL_REQUIRED_CATEGORIES.forEach(cat => { categoryCounts[cat] = 0; });
+    (shops || []).forEach(shop => {
+        if (categoryCounts.hasOwnProperty(shop.category)) {
+            categoryCounts[shop.category]++;
+        }
+    });
+
+    const missingCategories = TEHSIL_REQUIRED_CATEGORIES.filter(cat => categoryCounts[cat] < 1);
+    const riderCount = (riders || []).length;
+
+    return {
+        categoryCounts,
+        missingCategories,
+        riderCount,
+        ridersOk: riderCount >= TEHSIL_REQUIRED_RIDERS,
+        ready: missingCategories.length === 0 && riderCount >= TEHSIL_REQUIRED_RIDERS
+    };
+}
+
+
+/* ------------------------------------------
+   SHOP MODERATION (tehsil-scoped)
+   ------------------------------------------ */
+async function dbGetShopsByTehsil(tehsilId, approvalStatus) {
+    let query = sb.from("shops").select("*").eq("tehsil_id", tehsilId);
+    if (approvalStatus) query = query.eq("approval_status", approvalStatus);
+
+    const { data, error } = await query.order("id", { ascending: false });
+    if (error) throw error;
+    return data;
+}
+
+async function dbSetShopApprovalStatus(shopId, status, tehsilId) {
+    const { error } = await sb
+        .from("shops")
+        .update({ approval_status: status })
+        .eq("id", shopId);
+
+    if (error) throw error;
+
+    await dbLogAudit(`shop_${status}`, "shops", shopId, tehsilId, null);
+}
+
+
+/* ------------------------------------------
+   RIDER APPLICATIONS + MODERATION
+   ------------------------------------------ */
+async function dbSubmitRiderApplication(fields) {
+    const { data, error } = await sb
+        .from("rider_profiles")
+        .insert(fields)
+        .select()
+        .single();
+
+    if (error) throw error;
+    return data;
+}
+
+async function dbGetMyRiderApplication() {
+    const user = await authGetCurrentUser();
+    if (!user) return null;
+
+    const { data, error } = await sb
+        .from("rider_profiles")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+    if (error) throw error;
+    return data;
+}
+
+async function dbGetRidersByTehsil(tehsilId, status) {
+    let query = sb.from("rider_profiles").select("*").eq("tehsil_id", tehsilId);
+    if (status) query = query.eq("status", status);
+
+    const { data, error } = await query.order("id", { ascending: false });
+    if (error) throw error;
+    return data;
+}
+
+async function dbSetRiderStatus(riderId, status, tehsilId) {
+    const user = await authGetCurrentUser();
+
+    const { error } = await sb
+        .from("rider_profiles")
+        .update({
+            status,
+            reviewed_by: user.id,
+            reviewed_at: new Date().toISOString()
+        })
+        .eq("id", riderId);
+
+    if (error) throw error;
+
+    await dbLogAudit(`rider_${status}`, "rider_profiles", riderId, tehsilId, null);
+}
+
+async function dbSetRiderAvailability(riderId, available) {
+    const { error } = await sb
+        .from("rider_profiles")
+        .update({ available })
+        .eq("id", riderId);
+
+    if (error) throw error;
+}
+
+async function dbUploadVerificationDoc(file, userId) {
+    const path = `${userId}/${Date.now()}_${file.name}`;
+
+    const { error } = await sb.storage
+        .from("verification-docs")
+        .upload(path, file);
+
+    if (error) throw error;
+    return path;
+}
+
+async function dbAddVehicle(riderId, type, number, documentUrl) {
+    const { error } = await sb.from("vehicles").insert({
+        rider_id: riderId,
+        type,
+        number,
+        document_url: documentUrl || null
+    });
+
+    if (error) throw error;
+}
+
+
+/* ------------------------------------------
+   DELIVERY: ORDERS + RIDER ASSIGNMENT
+   ------------------------------------------ */
+async function dbGetUnassignedOrdersByTehsil(tehsilId) {
+    const { data, error } = await sb
+        .from("orders")
+        .select("*")
+        .eq("tehsil_id", tehsilId)
+        .eq("delivery_status", "unassigned")
+        .order("created_at", { ascending: false });
+
+    if (error) throw error;
+    return data;
+}
+
+async function dbAssignRiderToOrder(orderId, riderId, tehsilId) {
+    const user = await authGetCurrentUser();
+
+    const { error: assignError } = await sb.from("order_rider_assignments").insert({
+        order_id: orderId,
+        rider_id: riderId,
+        tehsil_id: tehsilId,
+        assigned_by: user.id
+    });
+
+    if (assignError) throw assignError;
+
+    const { error: orderError } = await sb
+        .from("orders")
+        .update({ delivery_status: "assigned" })
+        .eq("id", orderId);
+
+    if (orderError) throw orderError;
+
+    await dbLogAudit("assign_rider", "orders", orderId, tehsilId, { rider_id: riderId });
+}
