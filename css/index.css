@@ -794,6 +794,82 @@ body{
 
 }
 /* ==========================================
+   FILTER BAR (category + sort dropdowns)
+========================================== */
+
+.filterBar{
+
+    display:flex;
+
+    gap:12px;
+
+    padding:16px;
+
+    flex-wrap:wrap;
+
+}
+
+.filterSelect{
+
+    flex:1;
+
+    min-width:150px;
+
+    padding:14px 16px;
+
+    border-radius:14px;
+
+    border:none;
+
+    background:white;
+
+    box-shadow:0 6px 18px rgba(0,0,0,.06);
+
+    font-size:15px;
+
+    color:#345D2A;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+}
+
+
+/* ==========================================
+   ENDLESS-SCROLL PRODUCT GRID
+========================================== */
+
+.productGrid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fill, minmax(160px, 1fr));
+
+    gap:16px;
+
+}
+
+.feedLoading{
+
+    text-align:center;
+
+    padding:24px;
+
+    color:#777;
+
+    font-weight:600;
+
+}
+
+#feedSentinel{
+
+    height:1px;
+
+}
+
+
+/* ==========================================
    MOBILE-FIRST HOMEPAGE
 ========================================== */
 
@@ -883,6 +959,33 @@ main{
 .section{
 
     margin-top:30px;
+
+}
+
+
+/* ==========================================
+   MOBILE FILTER BAR + GRID
+   ========================================== */
+
+.filterBar{
+
+    padding:0 16px 16px;
+
+}
+
+.filterSelect{
+
+    font-size:14px;
+
+    padding:12px 14px;
+
+}
+
+.productGrid{
+
+    grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));
+
+    gap:12px;
 
 }
 
