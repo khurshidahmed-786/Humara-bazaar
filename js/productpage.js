@@ -1,5 +1,6 @@
 let quantity = 1;
 let currentProduct = null;
+let currentShopIdForCart = null;
 
 
 function getProductIdFromUrl(){
@@ -69,6 +70,8 @@ async function renderProduct(product){
     const shop = await dbGetShop(product.shop_id);
 
     if(shop){
+
+        currentShopIdForCart = shop.id;
 
         document.getElementById("shopName").innerText = shop.name;
 
@@ -144,6 +147,52 @@ function bindEvents(){
     document.getElementById("addCartBtn").onclick = function(){
         if(!currentProduct) return;
         addToCart(currentProduct.id, quantity);
+        showAddedToCartModal();
+    };
+}
+
+
+function showAddedToCartModal(){
+
+    const overlay = document.createElement("div");
+    overlay.style.cssText = `
+        position:fixed; inset:0; background:rgba(0,0,0,0.5);
+        display:flex; align-items:flex-end; justify-content:center;
+        z-index:9999;
+    `;
+
+    overlay.innerHTML = `
+        <div style="background:white; width:100%; max-width:480px; border-radius:20px 20px 0 0;
+                    padding:28px 24px; text-align:center; font-family:Arial;">
+            <div style="font-size:44px;">✅</div>
+            <h2 style="margin:10px 0 6px; color:#345D2A;">Added to Cart</h2>
+            <p style="color:#666; margin-bottom:20px;">${currentProduct.name} × ${quantity}</p>
+            <div style="display:flex; gap:12px;">
+                <button id="continueShoppingBtn"
+                    style="flex:1; padding:14px; border-radius:12px; border:1px solid #ddd;
+                           background:white; font-size:15px; cursor:pointer;">
+                    Continue Shopping
+                </button>
+                <button id="viewCartBtn"
+                    style="flex:1; padding:14px; border-radius:12px; border:none;
+                           background:#B63A3A; color:white; font-size:15px; cursor:pointer;">
+                    View Cart →
+                </button>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(overlay);
+
+    document.getElementById("continueShoppingBtn").onclick = function(){
+        if(currentShopIdForCart){
+            window.location.href = `shop.html?id=${currentShopIdForCart}`;
+        } else {
+            document.body.removeChild(overlay);
+        }
+    };
+
+    document.getElementById("viewCartBtn").onclick = function(){
         window.location.href = "cart.html";
     };
 }
