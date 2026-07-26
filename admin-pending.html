@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Application Status | Hamara Bazaar</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
+}
+
+body{
+    background:#FAF6EE;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.box{
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    width:100%;
+    max-width:520px;
+    text-align:center;
+}
+
+.icon{
+    font-size:56px;
+    margin-bottom:16px;
+}
+
+h1{
+    margin-bottom:10px;
+    color:#345D2A;
+}
+
+p{
+    color:#666;
+    line-height:1.6;
+}
+
+.badge{
+    display:inline-block;
+    margin-top:16px;
+    padding:8px 18px;
+    border-radius:20px;
+    font-weight:700;
+    font-size:14px;
+}
+
+.badge.pending{
+    background:#FFF4E0;
+    color:#B97A2B;
+}
+
+.badge.rejected{
+    background:#FBE7E7;
+    color:#B63A3A;
+}
+
+a.action{
+    display:inline-block;
+    margin-top:24px;
+    padding:14px 26px;
+    background:#667744;
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="box" id="statusBox">
+    <p>Loading...</p>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabaseClient.js"></script>
+<script src="js/db.js"></script>
+
+<script src="js/adminpending.js"></script>
+
+
+</body>
+
+</html>
