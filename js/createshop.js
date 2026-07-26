@@ -56,42 +56,8 @@ let existingShop = null;
    LOAD EDIT DATA
 ========================================== */
 
-if(editMode){
-
-    activeBusiness =
-        getActiveBusiness();
-
-
-    if(!activeBusiness){
-
-        alert(
-            "No active business found."
-        );
-
-        window.location.href =
-            "role.html";
-
-    }
-
-
-    existingShop =
-        getShopByBusinessId(
-            activeBusiness.id
-        );
-
-
-    if(!existingShop){
-
-        alert(
-            "Shop not found."
-        );
-
-        window.location.href =
-            "role.html";
-
-    }
-
-}
+/* Edit-mode data is loaded further below, after page elements
+   exist, since it needs to await Supabase and then fill inputs. */
 
 
 /* ==========================================
@@ -220,36 +186,39 @@ if(editMode){
    LOAD EXISTING DATA
 ========================================== */
 
-if(editMode && existingShop){
+(async function loadEditData(){
 
-    shopNameInput.value =
-        existingShop.name || "";
+    if(!editMode) return;
 
+    const activeBusinessId = localStorage.getItem("hb_activeBusiness");
 
-    shopCategoryInput.value =
-        existingShop.category || "";
+    activeBusiness = activeBusinessId
+        ? await dbGetBusinessById(activeBusinessId)
+        : null;
 
+    if(!activeBusiness){
+        alert("No active business found.");
+        window.location.href = "role.html";
+        return;
+    }
 
-    shopDescriptionInput.value =
-        existingShop.description || "";
+    existingShop = await dbGetShopByBusinessId(activeBusiness.id);
 
+    if(!existingShop){
+        alert("Shop not found.");
+        window.location.href = "role.html";
+        return;
+    }
 
-    shopOpenInput.value =
-        existingShop.open || "";
+    shopNameInput.value = existingShop.name || "";
+    shopCategoryInput.value = existingShop.category || "";
+    shopDescriptionInput.value = existingShop.description || "";
+    shopOpenInput.value = existingShop.open_time || "";
+    shopCloseInput.value = existingShop.close_time || "";
+    shopLogoInput.value = existingShop.logo || "";
+    shopBannerInput.value = existingShop.banner || "";
 
-
-    shopCloseInput.value =
-        existingShop.close || "";
-
-
-    shopLogoInput.value =
-        existingShop.logo || "";
-
-
-    shopBannerInput.value =
-        existingShop.banner || "";
-
-}
+})();
 
 
 /* ==========================================
@@ -719,83 +688,45 @@ publishBtn.onclick = async function(){
 
     if(editMode){
 
-        /* UPDATE BUSINESS */
+        try {
 
-        activeBusiness.name =
-            shopNameInput.value.trim();
+            /* UPDATE BUSINESS */
 
-        activeBusiness.category =
-            shopCategoryInput.value;
-
-        activeBusiness.status =
-            "active";
-
-
-        updateBusiness(
-            activeBusiness
-        );
+            await dbUpdateBusiness(activeBusiness.id, {
+                name: shopNameInput.value.trim(),
+                category: shopCategoryInput.value,
+                status: "active"
+            });
 
 
-        /* UPDATE SHOP */
+            /* UPDATE SHOP */
 
-        existingShop.name =
-            shopNameInput.value.trim();
-
-        existingShop.category =
-            shopCategoryInput.value;
-
-        existingShop.description =
-            shopDescriptionInput.value.trim();
-
-        existingShop.open =
-            shopOpenInput.value.trim();
-
-        existingShop.close =
-            shopCloseInput.value.trim();
-
-        existingShop.logo =
-            shopLogoInput.value.trim();
-
-        existingShop.banner =
-            shopBannerInput.value.trim();
+            await dbUpdateShop(existingShop.id, {
+                name: shopNameInput.value.trim(),
+                category: shopCategoryInput.value,
+                description: shopDescriptionInput.value.trim(),
+                open_time: shopOpenInput.value.trim(),
+                close_time: shopCloseInput.value.trim(),
+                logo: shopLogoInput.value.trim(),
+                banner: shopBannerInput.value.trim()
+            });
 
 
-        updateShop(
-            existingShop
-        );
+            localStorage.setItem("hb_activeBusiness", activeBusiness.id);
+            localStorage.setItem("hb_selectedShop", existingShop.id);
 
 
-        /* SAVE ACTIVE IDs */
+            publishBtn.innerText = "✅ Changes Saved";
 
-        localStorage.setItem(
+            setTimeout(function(){
+                window.location.href = "dashboard.html";
+            }, 1000);
 
-            "hb_activeBusiness",
+        } catch(err) {
 
-            activeBusiness.id
-
-        );
-
-
-        localStorage.setItem(
-
-            "hb_selectedShop",
-
-            existingShop.id
-
-        );
-
-
-        publishBtn.innerText =
-            "✅ Changes Saved";
-
-
-        setTimeout(function(){
-
-            window.location.href =
-                "dashboard.html";
-
-        },1000);
-
+            console.error(err);
+            alert("Something went wrong saving your changes: " + err.message);
+        }
 
         return;
 
