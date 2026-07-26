@@ -22,44 +22,118 @@ background:#FAF6EE;
 }
 
 .wrap{
-max-width:900px;
+max-width:600px;
 margin:auto;
-padding:40px;
+padding:30px 20px 100px;
 }
 
 .card{
 background:white;
-padding:30px;
+padding:24px;
 border-radius:20px;
+box-shadow:0 8px 20px rgba(0,0,0,.06);
+}
+
+h2{
+margin-bottom:20px;
+color:#345D2A;
+}
+
+label{
+display:block;
+font-size:13px;
+font-weight:bold;
+color:#555;
+margin:16px 0 6px;
+}
+
+label:first-of-type{
+margin-top:0;
 }
 
 input,
 select{
 width:100%;
 padding:14px;
-margin:10px 0;
 border-radius:10px;
 border:1px solid #ddd;
-}
-
-.button{
-display:inline-block;
-padding:14px 20px;
-background:#B63A3A;
-color:white;
-text-decoration:none;
-border-radius:10px;
+font-size:15px;
 }
 
 textarea{
 width:100%;
-min-height:120px;
+min-height:100px;
 padding:14px;
-margin:10px 0;
 border-radius:10px;
 border:1px solid #ddd;
 resize:vertical;
 font-family:Arial;
+font-size:15px;
+}
+
+.row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+/* IMAGE UPLOAD */
+
+.imageUpload{
+border:2px dashed #ccc;
+border-radius:14px;
+padding:20px;
+text-align:center;
+cursor:pointer;
+background:#FAFAFA;
+position:relative;
+overflow:hidden;
+}
+
+.imageUpload img{
+max-width:100%;
+max-height:220px;
+border-radius:10px;
+display:block;
+margin:auto;
+}
+
+.imageUpload .placeholder{
+color:#888;
+}
+
+.imageUpload input[type="file"]{
+position:absolute;
+inset:0;
+opacity:0;
+cursor:pointer;
+}
+
+/* PUBLISH BUTTON */
+
+.button{
+display:block;
+width:100%;
+padding:16px;
+margin-top:24px;
+background:#B63A3A;
+color:white;
+text-align:center;
+border:none;
+border-radius:12px;
+cursor:pointer;
+font-size:16px;
+}
+
+.button:disabled{
+opacity:0.6;
+cursor:not-allowed;
+}
+
+.hint{
+font-size:12px;
+color:#888;
+margin-top:4px;
 }
 
 </style>
@@ -71,13 +145,25 @@ font-family:Arial;
 <div id="headerContainer"></div>
 
 <div class="wrap">
+<div class="card">
 
 <h2>Add Product</h2>
 
-<input id="productName" placeholder="Product Name">
+<label>Product Photo</label>
+<div class="imageUpload" id="imageUploadBox">
+    <span class="placeholder" id="imagePlaceholderText">📷 Tap to add a photo</span>
+    <img id="imagePreview" style="display:none;">
+    <input type="file" id="productImageFile" accept="image/*">
+</div>
+<div class="hint">A clear photo helps customers trust your shop.</div>
 
+<label>Product Name</label>
+<input id="productName" placeholder="e.g. Fresh Tomatoes">
+
+<label>Description</label>
 <textarea id="productDescription" placeholder="Describe your product"></textarea>
 
+<label>Category</label>
 <select id="productCategory">
     <option>Grocery</option>
     <option>Restaurant</option>
@@ -86,32 +172,46 @@ font-family:Arial;
     <option>Electronics</option>
 </select>
 
-<input id="productPrice" placeholder="Price">
-
-<input id="productStock" placeholder="Available Stock">
-
-<select id="productUnit">
-    <option>Piece</option>
-    <option>Kg</option>
-    <option>Gram</option>
-    <option>Litre</option>
-    <option>Pack</option>
-</select>
-
-<input id="productDelivery" placeholder="Delivery Time">
-
+<label>Show In</label>
 <select id="productSection">
     <option value="featured">⭐ Featured</option>
     <option value="new">🆕 New Arrival</option>
     <option value="sale">🔥 On Sale</option>
 </select>
 
-<input id="productEmoji" placeholder="Emoji (🍎 🥛 🍔)">
+<div class="row">
+    <div>
+        <label>Selling Price (₹)</label>
+        <input id="productPrice" type="number" placeholder="e.g. 40">
+    </div>
+    <div>
+        <label>MRP (₹) <span class="hint">optional</span></label>
+        <input id="productMrp" type="number" placeholder="e.g. 50">
+    </div>
+</div>
 
-<div id="publishBtn" class="button" onclick="publishProduct()" style="margin-top:20px; text-align:center; cursor:pointer;">
+<div class="row">
+    <div>
+        <label>Stock Available</label>
+        <input id="productStock" type="number" placeholder="e.g. 20">
+    </div>
+    <div>
+        <label>Unit</label>
+        <select id="productUnit">
+            <option>Piece</option>
+            <option>Kg</option>
+            <option>Gram</option>
+            <option>Litre</option>
+            <option>Pack</option>
+        </select>
+    </div>
+</div>
+
+<div id="publishBtn" class="button" onclick="publishProduct()">
 ➕ Publish Product
 </div>
 
+</div>
 </div>
 
 <div id="bottomNavContainer"></div>
