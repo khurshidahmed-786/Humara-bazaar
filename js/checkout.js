@@ -1,79 +1,143 @@
-document.addEventListener(
+const DELIVERY_FEE_PER_SHOP = 30;
 
-"DOMContentLoaded",
+let checkoutUser = null;
 
-function(){
 
-const btn=document.getElementById(
+document.addEventListener("DOMContentLoaded", async function(){
 
-"placeOrderBtn"
+    /* AUTH GUARD */
 
-);
+    checkoutUser = await authGetCurrentUser();
 
-btn.onclick=placeOrder;
-
-});
-
-function placeOrder(){
-
-    const name = document.getElementById("customerName").value;
-
-    const phone = document.getElementById("customerPhone").value;
-
-    const address = document.getElementById("customerAddress").value;
-
-    if(name === "" || phone === "" || address === ""){
-
-        alert("Please fill all details.");
-
+    if(!checkoutUser){
+        alert("Please login to checkout.");
+        window.location.href = "login.html";
         return;
-
     }
 
     const cart = getCart();
 
     if(cart.length === 0){
-
         alert("Your cart is empty.");
-
+        window.location.href = "cart.html";
         return;
-
     }
 
-    const firstProduct = getProductById(cart[0].productId);
+    /* PRE-FILL FROM PROFILE */
 
-    const order = {
+    document.getElementById("customerName").value = checkoutUser.name || "";
+    document.getElementById("customerPhone").value = checkoutUser.phone || "";
+    document.getElementById("customerAddress").value = checkoutUser.market || "";
 
-        id: Date.now(),
+    document.getElementById("placeOrderBtn").onclick = placeOrder;
+});
 
-        shopId: firstProduct.shopId,
 
-        customerName: name,
+async function placeOrder(){
 
-        customerPhone: phone,
+    const btn = document.getElementById("placeOrderBtn");
 
-        customerAddress: address,
+    const name = document.getElementById("customerName").value.trim();
+    const phone = document.getElementById("customerPhone").value.trim();
+    const address = document.getElementById("customerAddress").value.trim();
 
-        items: cart,
+    if(!name || !phone || !address){
+        alert("Please fill all details.");
+        return;
+    }
 
-    subtotal:getCartTotal(),
+    const cart = getCart();
 
-delivery:30,
+    if(cart.length === 0){
+        alert("Your cart is empty.");
+        return;
+    }
 
-total:getCartTotal()+30,
+    btn.disabled = true;
+    btn.innerText = "Placing Order...";
 
-        status: "Pending",
+    try {
 
-        createdAt: new Date().toISOString()
+        /* FETCH REAL PRODUCT DATA FOR EVERY CART ITEM */
 
-    };
+        const enrichedItems = [];
 
-    saveOrder(order);
+        for(const item of cart){
+            const product = await dbGetProductById(item.productId);
+            if(product){
+                enrichedItems.push({ ...item, product });
+            }
+        }
 
-    clearCart();
+        if(enrichedItems.length === 0){
+            alert("These products are no longer available.");
+            btn.disabled = false;
+            btn.innerText = "Place Order";
+            return;
+        }
 
-    alert("Order Placed Successfully!");
 
-    window.location.href = "orders.html";
+        /* SPLIT INTO ONE ORDER PER SHOP */
 
+        const shopGroups = {};
+
+        enrichedItems.forEach(item => {
+            const shopId = item.product.shop_id;
+            if(!shopGroups[shopId]) shopGroups[shopId] = [];
+            shopGroups[shopId].push(item);
+        });
+
+        const placedOrders = [];
+
+        for(const shopId of Object.keys(shopGroups)){
+
+            const items = shopGroups[shopId];
+
+            const subtotal = items.reduce(
+                (sum, item) => sum + (item.product.price * item.quantity), 0
+            );
+
+            const total = subtotal + DELIVERY_FEE_PER_SHOP;
+
+            // Snapshot product details into the order itself, so order
+            // history stays accurate even if the product changes later.
+            const itemsSnapshot = items.map(item => ({
+                productId: item.product.id,
+                name: item.product.name,
+                price: item.product.price,
+                emoji: item.product.emoji,
+                image: item.product.image,
+                quantity: item.quantity
+            }));
+
+            const order = await dbSaveOrder({
+                shop_id: Number(shopId),
+                customer_id: checkoutUser.id,
+                customer_name: name,
+                customer_phone: phone,
+                customer_address: address,
+                items: itemsSnapshot,
+                subtotal: subtotal,
+                delivery: DELIVERY_FEE_PER_SHOP,
+                total: total,
+                status: "Pending",
+                payment_status: "unpaid"
+            });
+
+            placedOrders.push(order);
+        }
+
+
+        clearCart();
+
+        window.location.href = `success.html?count=${placedOrders.length}`;
+
+    } catch(err) {
+
+        console.error("Place order failed:", err);
+        alert("Something went wrong placing your order:\n\n" + (err.message || err));
+
+        btn.disabled = false;
+        btn.innerText = "Place Order";
+    }
 }
