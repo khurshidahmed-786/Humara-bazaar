@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tehsil Admin | Hamara Bazaar</title>
+
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/admin.css">
+
+</head>
+
+<body>
+
+<div id="headerContainer"></div>
+
+<main class="page">
+
+    <div id="unauthorized" style="display:none; text-align:center; padding:60px 20px; color:#666;">
+        <h2>Not Authorized</h2>
+        <p>This page is only available to an approved Tehsil Admin.</p>
+        <p style="margin-top:10px;"><a href="admin-apply.html">Apply to become a Tehsil Admin</a></p>
+    </div>
+
+    <div id="tehsilAdminApp">
+        <!-- js/tehsiladmin.js renders content here -->
+    </div>
+
+</main>
+
+<div id="bottomNavContainer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabaseClient.js"></script>
+<script src="js/db.js"></script>
+<script src="js/database.js"></script>
+
+<script src="js/components.js"></script>
+<script src="js/tehsiladmin.js"></script>
+
+<script>
+renderLayout("tehsil-admin");
+</script>
+
+</body>
+
+</html>
