@@ -241,6 +241,25 @@ async function dbGetProductById(id) {
     return data;
 }
 
+async function dbUploadProductImage(file, shopId) {
+
+    const fileExt = file.name.split(".").pop();
+    const filePath = `${shopId}/${Date.now()}.${fileExt}`;
+
+    const { error: uploadError } = await sb.storage
+        .from("product-images")
+        .upload(filePath, file);
+
+    if (uploadError) throw uploadError;
+
+    const { data } = sb.storage
+        .from("product-images")
+        .getPublicUrl(filePath);
+
+    return data.publicUrl;
+}
+
+
 async function dbSaveProduct(product) {
     const { data, error } = await sb
         .from("products")
