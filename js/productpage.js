@@ -49,8 +49,19 @@ async function renderProduct(product){
     document.getElementById("productPrice").innerText = "₹" + product.price;
     document.getElementById("totalPrice").innerText = "₹" + product.price;
     document.getElementById("productDescription").innerText = product.description || "No description provided.";
-    document.getElementById("productDelivery").innerText = "🚚 Delivery within 1-2 days";
-    document.getElementById("productStock").innerText = "In Stock";
+
+    if(product.mrp && product.mrp > product.price){
+        const savings = product.mrp - product.price;
+        document.getElementById("productDelivery").innerText = `MRP ₹${product.mrp} — You save ₹${savings}`;
+    } else {
+        document.getElementById("productDelivery").innerText = "";
+    }
+
+    const stockText = product.stock > 0
+        ? `${product.stock} ${product.unit || "Piece"} Available`
+        : "Out of Stock";
+
+    document.getElementById("productStock").innerText = stockText;
 
 
     /* SHOP INFO */
