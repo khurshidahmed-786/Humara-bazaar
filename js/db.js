@@ -103,6 +103,18 @@ async function dbGetBusinessById(id) {
     return data;
 }
 
+async function dbUpdateBusiness(id, updates) {
+    const { data, error } = await sb
+        .from("businesses")
+        .update(updates)
+        .eq("id", id)
+        .select()
+        .single();
+
+    if (error) throw error;
+    return data;
+}
+
 
 /* ==========================================
    SHOPS
