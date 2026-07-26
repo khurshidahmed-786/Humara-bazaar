@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Become a Tehsil Admin | Hamara Bazaar</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
+}
+
+body{
+    background:#FAF6EE;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.box{
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    width:100%;
+    max-width:560px;
+}
+
+h1{
+    margin-bottom:10px;
+    color:#345D2A;
+}
+
+p{
+    color:#666;
+    margin-bottom:25px;
+}
+
+label{
+    display:block;
+    font-size:13px;
+    font-weight:600;
+    color:#345D2A;
+    margin-top:14px;
+    margin-bottom:4px;
+}
+
+input,textarea{
+    width:100%;
+    padding:14px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-family:Arial;
+}
+
+textarea{
+    resize:vertical;
+    min-height:70px;
+}
+
+.agreeRow{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    margin-top:18px;
+}
+
+.agreeRow input{
+    width:auto;
+    margin-top:4px;
+}
+
+button{
+    padding:16px;
+    margin-top:20px;
+    background:#667744;
+    color:white;
+    border:none;
+    border-radius:12px;
+    width:100%;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:disabled{
+    opacity:0.6;
+    cursor:not-allowed;
+}
+
+.error{
+    color:#B63A3A;
+    margin-top:15px;
+    display:none;
+}
+
+.loading{
+    text-align:center;
+    padding:60px 20px;
+    color:#666;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="box" id="loadingBox">
+    <div class="loading">Loading...</div>
+</div>
+
+<div class="box" id="formBox" style="display:none;">
+
+<h1>Become a Tehsil Admin</h1>
+<p>Apply to run Hamara Bazaar in your tehsil. A Super Admin reviews every application before approval.</p>
+
+<label>Full Name *</label>
+<input id="fullName" placeholder="Your full name">
+
+<label>Phone *</label>
+<input id="phone" placeholder="Mobile number" type="tel">
+
+<label>Email *</label>
+<input id="email" placeholder="Email address" type="email">
+
+<label>Address</label>
+<input id="address" placeholder="Your address">
+
+<label>District *</label>
+<input id="district" placeholder="District">
+
+<label>Tehsil Name *</label>
+<input id="tehsilName" placeholder="Tehsil you want to operate">
+
+<label>Relevant Experience</label>
+<textarea id="experience" placeholder="Local business, delivery, or community work experience"></textarea>
+
+<label>Availability</label>
+<input id="availability" placeholder="e.g. Full-time, Part-time, Weekends">
+
+<div class="agreeRow">
+    <input id="agree" type="checkbox">
+    <span>I agree to represent Hamara Bazaar honestly in my tehsil and follow platform policies.</span>
+</div>
+
+<button id="submitBtn">Submit Application</button>
+
+<div id="error" class="error"></div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabaseClient.js"></script>
+<script src="js/db.js"></script>
+
+<script src="js/adminapply.js"></script>
+
+
+</body>
+
+</html>
