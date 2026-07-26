@@ -1,306 +1,139 @@
-document.addEventListener(
+let sellerShop = null;
 
-"DOMContentLoaded",
 
-function(){
-
-    renderOrders();
-
+document.addEventListener("DOMContentLoaded", async function(){
+    await initSellerOrders();
 });
-function renderOrders(){
 
-    const container = document.getElementById(
 
-        "ordersContainer"
+async function initSellerOrders(){
 
-    );
+    const container = document.getElementById("ordersContainer");
 
-    const shop = getCurrentShop();
+    const activeBusinessId = localStorage.getItem("hb_activeBusiness");
 
-    if(!shop){
-
-        container.innerHTML = `
-
-        <div class="order">
-
-        No shop found.
-
-        </div>
-
-        `;
-
+    if(!activeBusinessId){
+        container.innerHTML = `<div class="order">No business selected. <a href="role.html">Go to My Business</a></div>`;
         return;
-
     }
-const orders = getOrders();
 
-const sellerOrders = orders.filter(
+    const business = await dbGetBusinessById(activeBusinessId);
 
-    order => order.shopId == shop.id
+    if(!business){
+        container.innerHTML = `<div class="order">No business found.</div>`;
+        return;
+    }
 
-);
+    sellerShop = await dbGetShopByBusinessId(business.id);
 
-if(sellerOrders.length===0){
+    if(!sellerShop){
+        container.innerHTML = `<div class="order">No shop found.</div>`;
+        return;
+    }
 
-    container.innerHTML=`
-
-    <div class="order">
-
-        <h2>📦 No Orders Yet</h2>
-
-        <p>
-
-            New customer orders will appear here.
-
-        </p>
-
-    </div>
-
-    `;
-
-    return;
-
+    await renderOrders();
 }
 
-container.innerHTML="";
 
-sellerOrders.forEach(order=>{
+async function renderOrders(){
 
-container.innerHTML += `
+    const container = document.getElementById("ordersContainer");
 
-<div class="order">
+    let orders = [];
 
-<div class="row">
+    try {
+        orders = await dbGetOrdersByShop(sellerShop.id);
+    } catch(err) {
+        console.error(err);
+        container.innerHTML = `<div class="order">Failed to load orders.</div>`;
+        return;
+    }
 
-<h2>
+    if(orders.length === 0){
+        container.innerHTML = `
+        <div class="order">
+            <h2>📦 No Orders Yet</h2>
+            <p>New customer orders will appear here.</p>
+        </div>
+        `;
+        return;
+    }
 
-Order #${String(order.id).slice(-4)}
+    container.innerHTML = "";
 
-</h2>
-
-<div>
-
-${order.status}
-
-</div>
-
-</div>
-
-<br>
-
-<p>
-
-👤 ${order.customerName}
-
-</p>
-
-<p>
-
-📞 ${order.customerPhone}
-
-</p>
-
-<p>
-
-📍 ${order.customerAddress}
-
-</p>
-
-<br>
-
-<h3>
-
-Products
-
-</h3>
-
-${renderItems(order)}
-
-<br>
-
-<p>
-
-💰 Total : ₹${order.total}
-
-</p>
-
-<br>
-
-${getOrderButtons(order)}
-
-</div>
-
-`;
-
-});
-}
-function getOrderButtons(order){
-
-if(order.status==="Pending"){
-
-return `
-
-<a
-class="btn"
-onclick="acceptOrder(${order.id})">
-
-Accept
-
-</a>
-
-<a
-class="btn reject"
-onclick="rejectOrder(${order.id})">
-
-Reject
-
-</a>
-
-`;
-
+    orders.forEach(order => {
+        container.innerHTML += `
+        <div class="order">
+            <div class="row">
+                <h2>Order #${String(order.id).padStart(4, "0")}</h2>
+                <div>${order.status}</div>
+            </div>
+            <br>
+            <p>👤 ${order.customer_name}</p>
+            <p>📞 ${order.customer_phone}</p>
+            <p>📍 ${order.customer_address}</p>
+            <br>
+            <h3>Products</h3>
+            ${renderItems(order)}
+            <br>
+            <p>💰 Total : ₹${order.total}</p>
+            <br>
+            ${getOrderButtons(order)}
+        </div>
+        `;
+    });
 }
 
-if(order.status==="Accepted"){
-
-return `
-
-<a
-class="btn"
-onclick="prepareOrder(${order.id})">
-
-Preparing
-
-</a>
-
-`;
-
-}
-
-if(order.status==="Preparing"){
-
-return `
-
-<a
-class="btn"
-onclick="readyOrder(${order.id})">
-
-Ready
-
-</a>
-
-`;
-
-}
-
-if(order.status==="Ready"){
-
-return `
-
-<a
-class="btn"
-onclick="deliverOrder(${order.id})">
-
-Delivered
-
-</a>
-
-`;
-
-}
-
-return `
-<p>
-
-✅ ${order.status}
-
-</p>
-`;
-}
-function prepareOrder(id){
-
-updateOrderStatus(id,"Preparing");
-
-renderOrders();
-
-}
-
-function readyOrder(id){
-
-updateOrderStatus(id,"Ready");
-
-renderOrders();
-
-}
-
-function deliverOrder(id){
-
-updateOrderStatus(id,"Delivered");
-
-renderOrders();
-
-}
-function acceptOrder(id){
-
-updateOrderStatus(
-
-id,
-
-"Accepted"
-
-);
-
-renderOrders();
-
-}
-function rejectOrder(id){
-
-    updateOrderStatus(
-        id,
-        "Cancelled"
-    );
-
-    renderOrders();
-
-}
 
 function renderItems(order){
 
-    let html="";
+    let html = "";
 
-    order.items.forEach(item=>{
-
-        const product=getProductById(item.productId);
-
-        if(!product){
-
-            return;
-
-        }
-
+    (order.items || []).forEach(item => {
         html += `
-
-<div class="productRow">
-
-<div>
-
-${product.emoji || "📦"}
-
-${product.name}
-
-</div>
-
-<div>
-
-×${item.quantity}
-
-</div>
-
-</div>
-
-`;
-
+        <div class="productRow">
+            <div>${item.emoji || "📦"} ${item.name}</div>
+            <div>×${item.quantity}</div>
+        </div>
+        `;
     });
 
     return html;
+}
 
+
+function getOrderButtons(order){
+
+    if(order.status === "Pending"){
+        return `
+            <a class="btn" onclick="setOrderStatus(${order.id}, 'Accepted')">Accept</a>
+            <a class="btn reject" onclick="setOrderStatus(${order.id}, 'Cancelled')">Reject</a>
+        `;
+    }
+
+    if(order.status === "Accepted"){
+        return `<a class="btn" onclick="setOrderStatus(${order.id}, 'Preparing')">Preparing</a>`;
+    }
+
+    if(order.status === "Preparing"){
+        return `<a class="btn" onclick="setOrderStatus(${order.id}, 'Ready')">Ready</a>`;
+    }
+
+    if(order.status === "Ready"){
+        return `<a class="btn" onclick="setOrderStatus(${order.id}, 'Delivered')">Delivered</a>`;
+    }
+
+    return `<p>✅ ${order.status}</p>`;
+}
+
+
+async function setOrderStatus(id, status){
+
+    try {
+        await dbUpdateOrderStatus(id, status);
+        await renderOrders();
+    } catch(err) {
+        console.error(err);
+        alert("Failed to update order: " + err.message);
+    }
 }
