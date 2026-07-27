@@ -480,7 +480,7 @@ async function dbApproveAdminApplication(application) {
     let { data: existingTehsil } = await sb
         .from("tehsils")
         .select("*")
-        .ilike("name", application.tehsil_name)
+        .or(`pincode.eq.${application.pincode},name.ilike.${application.tehsil_name}`)
         .maybeSingle();
 
     let tehsil = existingTehsil;
@@ -491,6 +491,7 @@ async function dbApproveAdminApplication(application) {
             .insert({
                 name: application.tehsil_name,
                 district: application.district,
+                pincode: application.pincode,
                 created_by: user.id
             })
             .select()
@@ -785,4 +786,93 @@ async function dbAssignRiderToOrder(orderId, riderId, tehsilId) {
     if (orderError) throw orderError;
 
     await dbLogAudit("assign_rider", "orders", orderId, tehsilId, { rider_id: riderId });
+}
+
+/* ==========================================================
+   PINCODE-BASED TEHSIL LOOKUP (welcome page gate)
+   ========================================================== */
+async function dbFindTehsilByPincodeOrName(query) {
+    const trimmed = query.trim();
+
+    const { data, error } = await sb
+        .from("tehsils")
+        .select("*")
+        .or(`pincode.eq.${trimmed},name.ilike.%${trimmed}%`)
+        .limit(1)
+        .maybeSingle();
+
+    if (error) throw error;
+    return data;
+}
+
+
+/* ==========================================================
+   CATEGORIES (seller-suggested, admin-reviewed)
+   ========================================================== */
+async function dbGetActiveCategories() {
+    const { data, error } = await sb
+        .from("categories")
+        .select("*")
+        .eq("status", "approved")
+        .order("name", { ascending: true });
+
+    if (error) throw error;
+    return data;
+}
+
+async function dbSuggestCategory(name) {
+    const user = await authGetCurrentUser();
+    if (!user) throw new Error("Please log in to suggest a category.");
+
+    const { data, error } = await sb
+        .from("categories")
+        .insert({ name: name.trim(), suggested_by: user.id })
+        .select()
+        .single();
+
+    if (error) throw error;
+    return data;
+}
+
+async function dbGetPendingCategorySuggestions() {
+    const { data, error } = await sb
+        .from("categories")
+        .select("*")
+        .eq("status", "pending")
+        .order("created_at", { ascending: true });
+
+    if (error) throw error;
+    return data;
+}
+
+async function dbReviewCategorySuggestion(id, status) {
+    const user = await authGetCurrentUser();
+
+    const { error } = await sb
+        .from("categories")
+        .update({ status, reviewed_by: user.id })
+        .eq("id", id);
+
+    if (error) throw error;
+
+    await dbLogAudit(`category_${status}`, "categories", id, null, null);
+}
+
+
+/* ==========================================================
+   PROFILE
+   ========================================================== */
+async function dbUpdateMyProfile(fields) {
+    const user = await authGetCurrentUser();
+    if (!user) throw new Error("Please log in.");
+
+    const { data, error } = await sb
+        .from("profiles")
+        .update(fields)
+        .eq("id", user.id)
+        .select()
+        .single();
+
+    if (error) throw error;
+    return data;
 }
