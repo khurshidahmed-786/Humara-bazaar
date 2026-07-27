@@ -1,10 +1,8 @@
 /* ==========================================================
-   SERVICES HUB — riders live now, rest coming soon
+   PROFILE PAGE
    ========================================================== */
 
-async function initServicesPage(){
-
-    const actionSlot = document.getElementById("riderCardAction");
+async function initProfilePage(){
 
     let user = null;
 
@@ -15,38 +13,46 @@ async function initServicesPage(){
     }
 
     if(!user){
-        actionSlot.innerHTML = `<a class="serviceBtn" href="login.html?redirect=rider-apply.html">Log In to Apply</a>`;
+        window.location.href = "login.html?redirect=profile.html";
         return;
     }
 
-    let application = null;
+    document.getElementById("profileName").innerText = user.name || "Hamara Bazaar User";
+    document.getElementById("profileMarket").innerText = user.market ? `📍 ${user.market}` : "";
 
-    try {
-        application = await dbGetMyRiderApplication();
-    } catch(err) {
-        console.error(err);
-    }
+    document.getElementById("editName").value = user.name || "";
+    document.getElementById("editPhone").value = user.phone || "";
+    document.getElementById("editEmail").value = user.email || "";
+    document.getElementById("editMarket").value = user.market || "";
 
-    if(!application){
-        actionSlot.innerHTML = `<a class="serviceBtn" href="rider-apply.html">Apply as a Rider</a>`;
-        return;
-    }
+    document.getElementById("saveBtn").onclick = async function(){
 
-    const label = {
-        pending: "Pending Review",
-        approved: "Approved",
-        rejected: "Not Approved",
-        suspended: "Suspended",
-        inactive: "Inactive"
-    }[application.status] || application.status;
+        const btn = document.getElementById("saveBtn");
+        const savedMsg = document.getElementById("savedMsg");
 
-    const badgeClass = application.status === "approved"
-        ? "approved"
-        : application.status === "rejected"
-        ? "rejected"
-        : "pending";
+        const updates = {
+            name: document.getElementById("editName").value.trim(),
+            phone: document.getElementById("editPhone").value.trim(),
+            market: document.getElementById("editMarket").value.trim()
+        };
 
-    actionSlot.innerHTML = `<span class="serviceStatus ${badgeClass}">${label}</span>`;
+        btn.disabled = true;
+        btn.innerText = "Saving...";
+        savedMsg.style.display = "none";
+
+        try {
+            const updated = await dbUpdateMyProfile(updates);
+            document.getElementById("profileName").innerText = updated.name || "Hamara Bazaar User";
+            document.getElementById("profileMarket").innerText = updated.market ? `📍 ${updated.market}` : "";
+            savedMsg.style.display = "block";
+        } catch(err) {
+            console.error(err);
+            alert(err.message || "Could not save changes.");
+        }
+
+        btn.disabled = false;
+        btn.innerText = "Save Changes";
+    };
 }
 
-document.addEventListener("DOMContentLoaded", initServicesPage);
+document.addEventListener("DOMContentLoaded", initProfilePage);
