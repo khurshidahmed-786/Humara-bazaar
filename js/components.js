@@ -92,16 +92,11 @@ function renderBottomNav(current){
 
         </a>
         <a
-          href="cart.html"
-          class="${current=="cart"?"active":""}">
+        href="services.html"
+        class="${current=="services"?"active":""}">
 
-          🛒
-
-         <span>
-
-         Cart
-
-         </span>
+            🧰
+            <span>Services</span>
 
         </a>
         <a
