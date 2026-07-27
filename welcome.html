@@ -468,6 +468,128 @@ z-index:1000;
 }
 
 
+.statusCard{
+
+max-width:760px;
+
+margin:40px auto 0;
+
+background:white;
+
+padding:36px;
+
+border-radius:30px;
+
+box-shadow:0 20px 60px rgba(0,0,0,.08);
+
+text-align:center;
+
+}
+
+.statusCard .badge{
+
+display:inline-block;
+
+margin-top:10px;
+
+padding:8px 18px;
+
+border-radius:20px;
+
+font-weight:700;
+
+font-size:14px;
+
+}
+
+.statusCard .badge.pending{ background:#FFF4E0; color:#B97A2B; }
+.statusCard .badge.rejected{ background:#FBE7E7; color:#B63A3A; }
+.statusCard .badge.role{ background:#EAF4E2; color:#345D2A; }
+
+.statusCard .actions{
+
+margin-top:20px;
+
+display:flex;
+
+gap:12px;
+
+justify-content:center;
+
+flex-wrap:wrap;
+
+}
+
+.statusCard .actions a{
+
+padding:14px 22px;
+
+border-radius:14px;
+
+text-decoration:none;
+
+font-weight:700;
+
+}
+
+.statusCard .actions a.primary{
+
+background:#4C7A2A;
+
+color:white;
+
+}
+
+.statusCard .actions a.secondary{
+
+background:#F4F6EC;
+
+color:#345D2A;
+
+}
+
+.softMessage{
+
+margin-top:20px;
+
+padding:20px;
+
+border-radius:18px;
+
+background:#FBF5E6;
+
+color:#5A4A2A;
+
+display:none;
+
+}
+
+.softMessage.show{
+
+display:block;
+
+}
+
+.softMessage .applyBtn{
+
+display:inline-block;
+
+margin-top:14px;
+
+padding:12px 22px;
+
+border-radius:12px;
+
+background:#4C7A2A;
+
+color:white;
+
+text-decoration:none;
+
+font-weight:700;
+
+}
+
 </style>
 
 </head>
@@ -524,9 +646,11 @@ id="panel">
 
 <a onclick="changeArea()">📍 Change Area</a>
 
-<a href="./savedshop.html">❤️ Saved</a>
+<a href="./admin-apply.html">🛡️ Become a Tehsil Admin</a>
 
 </div>
+
+<div id="statusCard" style="display:none;"></div>
 
 <div class="hero">
 
@@ -557,7 +681,7 @@ Hamara Bazaar Connects us with trusted local shops, reliable services and transp
 all in one place.
 Together, we build a stronger happier community.
 </p>
-<div class="searchCard">
+<div class="searchCard" id="searchCard">
 
 <div class="pinIcon">
 
@@ -573,21 +697,24 @@ Let's Start With Your Area
 
 <p>
 
-Search your pincode to explore shops,
+Search your pincode or tehsil name to explore shops,
 services and transport around you.
 
 </p>
 
 <input
 id="pin"
-placeholder="Search Pincode">
+placeholder="Search Pincode or Tehsil Name">
 
 <button
+id="exploreBtn"
 onclick="enterMarket()">
 
 Explore Market →
 
 </button>
+
+<div id="softMessage" class="softMessage"></div>
 
 <div class="safe">
 
@@ -692,6 +819,10 @@ Growing opportunities one neighbourhood at a time.
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabaseClient.js"></script>
+<script src="js/db.js"></script>
+
 <script>
 function toggleMenu(){
 
@@ -719,60 +850,60 @@ panel.style.display===
 
 }
 
-function enterMarket(){
+async function enterMarket(){
 
-let code=
+    const code = document.getElementById("pin").value.trim();
+    const messageBox = document.getElementById("softMessage");
+    const btn = document.getElementById("exploreBtn");
 
-document
-.getElementById(
-"pin"
-)
-.value
-.trim();
+    messageBox.classList.remove("show");
+    messageBox.innerHTML = "";
 
-if(!code){
+    if(!code){
+        alert("Please enter a pincode or tehsil name");
+        return;
+    }
 
-alert(
-"Please enter pincode"
-);
+    btn.disabled = true;
+    btn.innerText = "Searching...";
 
-return;
+    let tehsil = null;
 
-}
+    try {
+        tehsil = await dbFindTehsilByPincodeOrName(code);
+    } catch(err) {
+        console.error(err);
+    }
 
-/* save */
+    btn.disabled = false;
+    btn.innerText = "Explore Market →";
 
-localStorage.setItem(
-"marketEntered",
-"true"
-);
+    if(tehsil && tehsil.status === "open"){
 
-localStorage.setItem(
-"pincode",
-code
-);
+        localStorage.setItem("marketEntered", "true");
+        localStorage.setItem("pincode", code);
+        localStorage.setItem("tehsilId", tehsil.id);
 
-/* routing */
+        window.location.href = "./index.html";
 
-if(
+    }else if(tehsil){
 
-code==="185121"
+        messageBox.innerHTML = `
+            <strong>We're setting up here!</strong>
+            <p style="margin-top:6px;">${tehsil.name} is being launched soon. Check back shortly.</p>
+        `;
+        messageBox.classList.add("show");
 
-){
+    }else{
 
-window.location.href=
+        messageBox.innerHTML = `
+            <strong>We'll be there soon!</strong>
+            <p style="margin-top:6px;">Nobody runs Hamara Bazaar in this area yet.</p>
+            <a class="applyBtn" href="admin-apply.html?pincode=${encodeURIComponent(code)}">Apply to become the Tehsil Admin here</a>
+        `;
+        messageBox.classList.add("show");
 
-"./index.html";
-
-}
-
-else{
-
-window.location.href=
-
-"./waitlist.html";
-
-}
+    }
 
 }
 
@@ -791,6 +922,107 @@ window.location.href=
 "./welcome.html";
 
 }
+
+
+/* ==========================================
+   LOGGED-IN STATUS CARD
+   ========================================== */
+
+async function initWelcomeStatus(){
+
+    let user = null;
+
+    try {
+        user = await authGetCurrentUser();
+    } catch(err) {
+        console.error(err);
+    }
+
+    if(!user) return;
+
+    let role = null;
+    let application = null;
+
+    try {
+        role = await dbGetMyRole();
+    } catch(err) { console.error(err); }
+
+    try {
+        application = await dbGetMyAdminApplication();
+    } catch(err) { console.error(err); }
+
+    const statusCard = document.getElementById("statusCard");
+    const searchCard = document.getElementById("searchCard");
+
+    if(role && role.role === "super_admin"){
+
+        statusCard.innerHTML = `
+            <div class="statusCard">
+                <h2>Welcome back, Super Admin</h2>
+                <div class="badge role">Super Admin</div>
+                <div class="actions">
+                    <a class="primary" href="superadmin.html">Go to Dashboard</a>
+                    <a class="secondary" href="index.html">Continue to Marketplace</a>
+                </div>
+            </div>
+        `;
+        statusCard.style.display = "block";
+        return;
+    }
+
+    if(role && role.role === "tehsil_admin"){
+
+        statusCard.innerHTML = `
+            <div class="statusCard">
+                <h2>Welcome back</h2>
+                <div class="badge role">Tehsil Admin</div>
+                <div class="actions">
+                    <a class="primary" href="tehsil-admin.html">Go to Dashboard</a>
+                    <a class="secondary" href="index.html">Continue to Marketplace</a>
+                </div>
+            </div>
+        `;
+        statusCard.style.display = "block";
+        return;
+    }
+
+    if(application && application.status === "pending"){
+
+        statusCard.innerHTML = `
+            <div class="statusCard">
+                <h2>Your Tehsil Application</h2>
+                <p>Your application for <strong>${application.tehsil_name}</strong> is under Super Admin review.</p>
+                <div class="badge pending">Pending Review</div>
+                <div class="actions">
+                    <a class="secondary" href="admin-pending.html">View Application Status</a>
+                    <a class="primary" href="index.html">Continue to Marketplace</a>
+                </div>
+            </div>
+        `;
+        statusCard.style.display = "block";
+        if(searchCard) searchCard.style.display = "none";
+        return;
+    }
+
+    if(application && application.status === "rejected"){
+
+        statusCard.innerHTML = `
+            <div class="statusCard">
+                <h2>Your Tehsil Application</h2>
+                <div class="badge rejected">Not Approved</div>
+                <div class="actions">
+                    <a class="secondary" href="admin-apply.html">Apply Again</a>
+                    <a class="primary" href="index.html">Continue to Marketplace</a>
+                </div>
+            </div>
+        `;
+        statusCard.style.display = "block";
+        return;
+    }
+
+}
+
+document.addEventListener("DOMContentLoaded", initWelcomeStatus);
 
 </script>
 
