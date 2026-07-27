@@ -5,15 +5,8 @@
    ========================================================== */
 
 
-/* Product categories match the options sellers choose from in
-   addproduct.html — keep these two lists in sync. */
-const PRODUCT_CATEGORIES = [
-    "Grocery",
-    "Restaurant",
-    "Fashion",
-    "Beauty",
-    "Electronics"
-];
+/* Product categories are now dynamic — loaded from the
+   `categories` table via renderCategoryFilterOptions(). */
 
 
 /* ==========================================
@@ -79,15 +72,23 @@ async function renderPopularShops(){
    CATEGORY FILTER DROPDOWN
    ========================================== */
 
-function renderCategoryFilterOptions(){
+async function renderCategoryFilterOptions(){
 
     const select = document.getElementById("categoryFilter");
     if(!select) return;
 
-    PRODUCT_CATEGORIES.forEach(name => {
+    let categories = [];
+
+    try {
+        categories = await dbGetActiveCategories();
+    } catch(err) {
+        console.error("Failed to load categories:", err);
+    }
+
+    categories.forEach(cat => {
         const opt = document.createElement("option");
-        opt.value = name;
-        opt.textContent = name;
+        opt.value = cat.name;
+        opt.textContent = cat.name;
         select.appendChild(opt);
     });
 }
