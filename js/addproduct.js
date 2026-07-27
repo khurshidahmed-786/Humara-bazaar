@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
     const fileInput = document.getElementById("productImageFile");
 
+    loadCategoryOptions();
+
     fileInput.addEventListener("change", function(e){
 
         const file = e.target.files[0];
@@ -25,6 +27,57 @@ document.addEventListener("DOMContentLoaded", function(){
     });
 
 });
+
+
+async function loadCategoryOptions(){
+
+    const select = document.getElementById("productCategory");
+
+    let categories = [];
+
+    try {
+        categories = await dbGetActiveCategories();
+    } catch(err) {
+        console.error("Failed to load categories:", err);
+    }
+
+    select.innerHTML = "";
+
+    categories.forEach(cat => {
+        const opt = document.createElement("option");
+        opt.value = cat.name;
+        opt.textContent = cat.name;
+        select.appendChild(opt);
+    });
+
+    const suggestOpt = document.createElement("option");
+    suggestOpt.value = "__suggest_new__";
+    suggestOpt.textContent = "+ Suggest a new category";
+    select.appendChild(suggestOpt);
+
+    select.onchange = async function(){
+
+        if(select.value !== "__suggest_new__") return;
+
+        const name = prompt("What category would you like to suggest? A Tehsil Admin will review it before it appears everywhere.");
+
+        if(!name || !name.trim()){
+            select.value = categories.length > 0 ? categories[0].name : "";
+            return;
+        }
+
+        try {
+            await dbSuggestCategory(name.trim());
+            alert(`"${name.trim()}" has been submitted for review. Please pick an existing category for this product for now.`);
+        } catch(err) {
+            console.error(err);
+            alert(err.message || "Could not submit that suggestion.");
+        }
+
+        select.value = categories.length > 0 ? categories[0].name : "";
+    };
+
+}
 
 
 async function publishProduct(){
