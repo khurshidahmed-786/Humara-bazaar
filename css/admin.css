@@ -1,0 +1,110 @@
+/* ==========================================================
+   SHARED ADMIN DASHBOARD STYLES
+   (Super Admin + Tehsil Admin)
+   ========================================================== */
+
+.adminHeading{
+    margin:20px 0 6px;
+    color:#345D2A;
+    font-size:22px;
+}
+
+.adminSub{
+    color:#777;
+    margin-bottom:16px;
+    font-size:14px;
+}
+
+.adminCard{
+    background:white;
+    border-radius:16px;
+    padding:18px;
+    margin-bottom:14px;
+    box-shadow:0 6px 18px rgba(0,0,0,.06);
+}
+
+.adminRow{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.adminActions{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.adminBtn{
+    padding:10px 16px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:600;
+}
+
+.adminBtn.approve{
+    background:#667744;
+    color:white;
+}
+
+.adminBtn.reject{
+    background:#B63A3A;
+    color:white;
+}
+
+.adminBtn.neutral{
+    background:#EEE;
+    color:#333;
+}
+
+.adminBadge{
+    display:inline-block;
+    padding:4px 12px;
+    border-radius:14px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.adminBadge.pending{ background:#FFF4E0; color:#B97A2B; }
+.adminBadge.approved,
+.adminBadge.open{ background:#EAF4E2; color:#345D2A; }
+.adminBadge.rejected,
+.adminBadge.suspended{ background:#FBE7E7; color:#B63A3A; }
+.adminBadge.setup{ background:#EEE; color:#555; }
+.adminBadge.ready_for_review{ background:#E4EEFB; color:#2A5DB6; }
+.adminBadge.paused{ background:#FBF0DC; color:#946A18; }
+
+.checklistItem{
+    display:flex;
+    justify-content:space-between;
+    padding:8px 0;
+    border-bottom:1px solid #eee;
+    font-size:14px;
+}
+
+.checklistItem:last-child{
+    border-bottom:none;
+}
+
+.adminEmpty{
+    color:#888;
+    text-align:center;
+    padding:20px;
+    font-size:14px;
+}
+
+.adminSelect{
+    padding:8px 10px;
+    border-radius:8px;
+    border:1px solid #ddd;
+}
+
+@media(min-width:768px){
+    .page{
+        max-width:900px;
+    }
+}
