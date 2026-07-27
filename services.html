@@ -1,66 +1,74 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 
 <head>
 
-<title>Services</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services | Hamara Bazaar</title>
+
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/components.css">
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial;
+.servicesGrid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:20px;
+    padding:16px 0;
 }
 
-body{
-background:#FAF6EE;
+.serviceCard{
+    background:white;
+    padding:28px;
+    border-radius:20px;
+    box-shadow:0 6px 18px rgba(0,0,0,.06);
 }
 
-.wrap{
-padding:60px;
+.serviceCard .emoji{
+    font-size:34px;
 }
 
-.grid{
-
-display:grid;
-
-grid-template-columns:
-1fr 1fr;
-
-gap:25px;
-
+.serviceCard h2{
+    margin:12px 0 6px;
+    color:#345D2A;
+    font-size:20px;
 }
 
-.card{
-
-background:white;
-
-padding:40px;
-
-border-radius:24px;
-
+.serviceCard p{
+    color:#666;
+    font-size:14px;
+    margin-bottom:14px;
 }
 
-.btn{
-
-display:inline-block;
-
-margin-top:20px;
-
-padding:14px 18px;
-
-background:#667744;
-
-color:white;
-
-text-decoration:none;
-
-border-radius:12px;
-
+.serviceBtn{
+    display:inline-block;
+    padding:12px 18px;
+    background:#667744;
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+    font-size:14px;
 }
+
+.serviceBtn.disabled{
+    background:#EEE;
+    color:#999;
+    cursor:not-allowed;
+}
+
+.serviceStatus{
+    display:inline-block;
+    padding:6px 14px;
+    border-radius:14px;
+    font-size:13px;
+    font-weight:700;
+}
+
+.serviceStatus.pending{ background:#FFF4E0; color:#B97A2B; }
+.serviceStatus.approved{ background:#EAF4E2; color:#345D2A; }
+.serviceStatus.rejected{ background:#FBE7E7; color:#B63A3A; }
 
 </style>
 
@@ -68,110 +76,60 @@ border-radius:12px;
 
 <body>
 
-<div class="wrap">
+<div id="headerContainer"></div>
 
-<h1>
+<main class="page">
 
-Services
+    <h1 style="color:#345D2A; margin-bottom:6px;">Services</h1>
+    <p style="color:#777; margin-bottom:10px;">Delivery, transport, and local help — all in one place.</p>
 
-</h1>
+    <div class="servicesGrid">
 
-<br>
+        <div class="serviceCard" id="riderCard">
+            <div class="emoji">🛵</div>
+            <h2>Delivery Riders</h2>
+            <p>Deliver orders in your tehsil.</p>
+            <div id="riderCardAction">Loading...</div>
+        </div>
 
-<div class="grid">
+        <div class="serviceCard">
+            <div class="emoji">🚚</div>
+            <h2>Transportation</h2>
+            <p>Book local transport.</p>
+            <span class="serviceBtn disabled">Coming Soon</span>
+        </div>
 
-<div class="card">
+        <div class="serviceCard">
+            <div class="emoji">🏨</div>
+            <h2>Hotels</h2>
+            <p>Request a stay booking.</p>
+            <span class="serviceBtn disabled">Coming Soon</span>
+        </div>
 
-🚚
+        <div class="serviceCard">
+            <div class="emoji">🔧</div>
+            <h2>Local Help</h2>
+            <p>Painter • Plumber • Electrician</p>
+            <span class="serviceBtn disabled">Coming Soon</span>
+        </div>
 
-<h2>
+    </div>
 
-Transportation
+</main>
 
-</h2>
+<div id="bottomNavContainer"></div>
 
-<p>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabaseClient.js"></script>
+<script src="js/db.js"></script>
+<script src="js/database.js"></script>
 
-Book local transport
+<script src="js/components.js"></script>
+<script src="js/services.js"></script>
 
-</p>
-
-<a
-class="btn"
-href="/transport.html">
-
-Open
-
-</a>
-
-</div>
-
-<div class="card">
-
-🏨
-
-<h2>
-
-Hotels
-
-</h2>
-
-<p>
-
-Request stay booking
-
-</p>
-
-<a
-class="btn"
-href="/hotel.html">
-
-Open
-
-</a>
-
-</div>
-
-<div class="card">
-
-🔧
-
-<h2>
-
-Local Help
-
-</h2>
-
-<p>
-
-Painter • Plumber • Electrician
-
-</p>
-
-<a
-class="btn"
-href="/localservice.html">
-
-Open
-
-</a>
-  <br><br>
-
-<a
-class="btn"
-href="/serviceprovider.html">
-
-Become Provider
-
-</a>
-
-</div>
-  
-
-</div>
-
-</div>
-
+<script>
+renderLayout("services");
+</script>
 
 </body>
 
