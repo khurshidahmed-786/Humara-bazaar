@@ -58,6 +58,12 @@ async function initAdminApply(){
     document.getElementById("phone").value = user.phone || "";
     document.getElementById("fullName").value = user.name || "";
 
+    const params = new URLSearchParams(window.location.search);
+    const prefillPincode = params.get("pincode");
+    if(prefillPincode){
+        document.getElementById("pincode").value = prefillPincode;
+    }
+
     document.getElementById("submitBtn").onclick = async function(){
 
         const fullName = document.getElementById("fullName").value.trim();
@@ -65,6 +71,7 @@ async function initAdminApply(){
         const email = document.getElementById("email").value.trim();
         const address = document.getElementById("address").value.trim();
         const district = document.getElementById("district").value.trim();
+        const pincode = document.getElementById("pincode").value.trim();
         const tehsilName = document.getElementById("tehsilName").value.trim();
         const experience = document.getElementById("experience").value.trim();
         const availability = document.getElementById("availability").value.trim();
@@ -75,7 +82,7 @@ async function initAdminApply(){
 
         error.style.display = "none";
 
-        if(!fullName || !phone || !email || !district || !tehsilName){
+        if(!fullName || !phone || !email || !district || !pincode || !tehsilName){
             error.innerText = "Please fill in every required field.";
             error.style.display = "block";
             return;
@@ -99,6 +106,7 @@ async function initAdminApply(){
                 email: email,
                 address: address,
                 district: district,
+                pincode: pincode,
                 tehsil_name: tehsilName,
                 experience: experience,
                 availability: availability
