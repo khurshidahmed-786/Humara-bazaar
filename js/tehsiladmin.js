@@ -46,7 +46,7 @@ async function renderTehsilAdminApp(){
     const app = document.getElementById("tehsilAdminApp");
     app.innerHTML = `<div class="adminEmpty">Loading dashboard...</div>`;
 
-    let tehsil, readiness, pendingShops, activeShops, pendingRiders, approvedRiders, unassignedOrders, auditLogs;
+    let tehsil, readiness, pendingShops, activeShops, pendingRiders, approvedRiders, unassignedOrders, auditLogs, categorySuggestions;
 
     try {
         tehsil = await dbGetTehsilById(myTehsilId);
@@ -57,6 +57,7 @@ async function renderTehsilAdminApp(){
         approvedRiders = await dbGetRidersByTehsil(myTehsilId, "approved");
         unassignedOrders = await dbGetUnassignedOrdersByTehsil(myTehsilId);
         auditLogs = await dbGetAuditLogs(myTehsilId, 15);
+        categorySuggestions = await dbGetPendingCategorySuggestions();
     } catch(err) {
         console.error(err);
         app.innerHTML = `<div class="adminEmpty">Could not load your tehsil data. Please refresh.</div>`;
@@ -70,6 +71,10 @@ async function renderTehsilAdminApp(){
 
         <h2 class="adminHeading" style="margin-top:24px;">Launch Readiness</h2>
         <div class="adminCard" id="readinessCard"></div>
+
+        <h2 class="adminHeading">Category Suggestions</h2>
+        <p class="adminSub">New categories sellers have asked for. Approving adds them everywhere immediately.</p>
+        <div id="categorySuggestionsList"></div>
 
         <h2 class="adminHeading">Pending Shops</h2>
         <div id="pendingShopsList"></div>
@@ -91,6 +96,7 @@ async function renderTehsilAdminApp(){
     `;
 
     renderReadiness(tehsil, readiness);
+    renderCategorySuggestions(categorySuggestions);
     renderShopsList("pendingShopsList", pendingShops, true);
     renderShopsList("activeShopsList", activeShops, false);
     renderRidersList("pendingRidersList", pendingRiders, true);
@@ -150,6 +156,58 @@ function renderReadiness(tehsil, readiness){
             }
         };
     }
+}
+
+function renderCategorySuggestions(suggestions){
+
+    const container = document.getElementById("categorySuggestionsList");
+
+    if(!suggestions || suggestions.length === 0){
+        container.innerHTML = `<div class="adminEmpty">No new category suggestions.</div>`;
+        return;
+    }
+
+    container.innerHTML = "";
+
+    suggestions.forEach(suggestion => {
+
+        const card = document.createElement("div");
+        card.className = "adminCard";
+
+        card.innerHTML = `
+            <div class="adminRow">
+                <div><strong>${suggestion.name}</strong></div>
+                <div class="adminActions">
+                    <button class="adminBtn approve" data-action="approve">Approve</button>
+                    <button class="adminBtn reject" data-action="reject">Reject</button>
+                </div>
+            </div>
+        `;
+
+        card.querySelector('[data-action="approve"]').onclick = async function(){
+            if(!confirm(`Add "${suggestion.name}" as a category?`)) return;
+            try {
+                await dbReviewCategorySuggestion(suggestion.id, "approved");
+                await renderTehsilAdminApp();
+            } catch(err) {
+                console.error(err);
+                alert(err.message || "Could not approve this category.");
+            }
+        };
+
+        card.querySelector('[data-action="reject"]').onclick = async function(){
+            if(!confirm(`Reject "${suggestion.name}"?`)) return;
+            try {
+                await dbReviewCategorySuggestion(suggestion.id, "rejected");
+                await renderTehsilAdminApp();
+            } catch(err) {
+                console.error(err);
+                alert(err.message || "Could not reject this category.");
+            }
+        };
+
+        container.appendChild(card);
+    });
 }
 
 function renderShopsList(containerId, shops, isPending){
