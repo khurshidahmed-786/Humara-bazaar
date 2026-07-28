@@ -118,8 +118,13 @@ document.getElementById("loginBtn").onclick = async function(){
 
     try {
 
-        await authSignIn(email, password);
-        window.location.href = "index.html";
+      await authSignIn(email, password);
+
+        const params = new URLSearchParams(window.location.search);
+        const redirect = params.get("redirect");
+        const safeRedirect = redirect && /^[a-zA-Z0-9_-]+\.html$/.test(redirect) ? redirect : "index.html";
+
+        window.location.href = safeRedirect;
 
     } catch(err) {
 
