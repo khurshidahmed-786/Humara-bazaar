@@ -37,7 +37,7 @@ async function renderOrders(customerId) {
             <div class="emptyIcon">📦</div>
             <h2>No Orders Yet</h2>
             <p>Your placed orders will appear here.</p>
-            <a href="index.html" class="shopBtn">Continue Shopping</a>
+            <a href="home.html" class="shopBtn">Continue Shopping</a>
         </div>
         `;
 
