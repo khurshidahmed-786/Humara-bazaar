@@ -884,7 +884,7 @@ async function enterMarket(){
         localStorage.setItem("pincode", code);
         localStorage.setItem("tehsilId", tehsil.id);
 
-        window.location.href = "./index.html";
+        window.location.href = "./home.html";
 
     }else if(tehsil){
 
@@ -962,7 +962,7 @@ async function initWelcomeStatus(){
                 <div class="badge role">Super Admin</div>
                 <div class="actions">
                     <a class="primary" href="superadmin.html">Go to Dashboard</a>
-                    <a class="secondary" href="index.html">Continue to Marketplace</a>
+                    <a class="secondary" href="home.html">Continue to Marketplace</a>
                 </div>
             </div>
         `;
@@ -978,7 +978,7 @@ async function initWelcomeStatus(){
                 <div class="badge role">Tehsil Admin</div>
                 <div class="actions">
                     <a class="primary" href="tehsil-admin.html">Go to Dashboard</a>
-                    <a class="secondary" href="index.html">Continue to Marketplace</a>
+                    <a class="secondary" href="home.html">Continue to Marketplace</a>
                 </div>
             </div>
         `;
@@ -995,7 +995,7 @@ async function initWelcomeStatus(){
                 <div class="badge pending">Pending Review</div>
                 <div class="actions">
                     <a class="secondary" href="admin-pending.html">View Application Status</a>
-                    <a class="primary" href="index.html">Continue to Marketplace</a>
+                    <a class="primary" href="home.html">Continue to Marketplace</a>
                 </div>
             </div>
         `;
@@ -1012,7 +1012,7 @@ async function initWelcomeStatus(){
                 <div class="badge rejected">Not Approved</div>
                 <div class="actions">
                     <a class="secondary" href="admin-apply.html">Apply Again</a>
-                    <a class="primary" href="index.html">Continue to Marketplace</a>
+                    <a class="primary" href="home.html">Continue to Marketplace</a>
                 </div>
             </div>
         `;
