@@ -17,7 +17,7 @@ async function renderCart(){
                 <div style="font-size:80px;">🛒</div>
                 <h2>Your Cart is Empty</h2>
                 <p>Add products from your favourite shops.</p>
-                <a href="index.html">Continue Shopping</a>
+                <a href="home.html">Continue Shopping</a>
             </div>
         `;
         return;
