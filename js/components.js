@@ -75,7 +75,7 @@ function renderBottomNav(current){
     <nav class="bottomNav">
 
         <a
-        href="index.html"
+        href="home.html"
         class="${current=="home"?"active":""}">
 
             🏠
@@ -349,7 +349,7 @@ function renderSidebar(user, role){
 
         ${accountSection}
 
-        <a href="index.html">
+        <a href="home.html">
 
             🏠 Home
 
@@ -405,7 +405,7 @@ async function handleLogout(){
         console.error(err);
     }
 
-    location.href = "index.html";
+    location.href = "home.html";
 
 }
 function closeSidebar(){
