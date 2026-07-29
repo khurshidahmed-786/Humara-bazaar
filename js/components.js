@@ -274,12 +274,7 @@ function renderSidebar(user, role){
         </div>
 
 
-        <a href="settings.html">
-
-            ⚙ Settings
-
-        </a>
-
+    
     ` : `
 
         <a
@@ -368,13 +363,12 @@ function renderSidebar(user, role){
 
         ${adminLink}
 
-        <a
-        href="#"
-        onclick="comingSoon(); return false;">
+            <a href="settings.html">
 
             ⚙ Settings
 
         </a>
+
 
     </div>
 
