@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings | Hamara Bazaar</title>
+
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/settings.css">
+
+</head>
+
+<body>
+
+<div id="headerContainer"></div>
+
+<main class="page">
+
+    <h1 style="color:#345D2A; margin-bottom:16px;">Settings</h1>
+
+    <div id="settingsApp">
+        <div style="text-align:center; padding:40px; color:#888;">Loading...</div>
+    </div>
+
+</main>
+
+<div id="bottomNavContainer"></div>
+
+
+<!-- Change Password Modal -->
+<div class="settingsModalOverlay" id="passwordModalOverlay">
+    <div class="settingsModal">
+        <h3>Change Password</h3>
+        <p>Enter your new password.</p>
+        <input id="newPasswordInput" type="password" placeholder="New password (min 6 characters)">
+        <div id="passwordError" style="color:#B63A3A; font-size:13px; margin-bottom:10px; display:none;"></div>
+        <div class="actions">
+            <button class="cancelBtn" id="passwordCancelBtn">Cancel</button>
+            <button class="saveBtn" id="passwordSaveBtn">Save</button>
+        </div>
+    </div>
+</div>
+
+<!-- Logout Confirmation Modal -->
+<div class="settingsModalOverlay" id="logoutModalOverlay">
+    <div class="settingsModal">
+        <h3>Log Out</h3>
+        <p>Are you sure you want to log out?</p>
+        <div class="actions">
+            <button class="cancelBtn" id="logoutCancelBtn">Cancel</button>
+            <button class="confirmBtn" id="logoutConfirmBtn">Log Out</button>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabaseClient.js"></script>
+<script src="js/db.js"></script>
+<script src="js/database.js"></script>
+
+<script src="js/components.js"></script>
+<script src="js/settings.js"></script>
+
+<script>
+renderLayout("settings");
+</script>
+
+</body>
+
+</html>
