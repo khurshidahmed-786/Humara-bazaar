@@ -50,7 +50,10 @@ async function authSignOut() {
     const { error } = await sb.auth.signOut();
     if (error) throw error;
 }
-
+async function authUpdatePassword(newPassword) {
+    const { error } = await sb.auth.updateUser({ password: newPassword });
+    if (error) throw error;
+}
 async function authGetCurrentUser() {
 
     const { data: { user } } = await sb.auth.getUser();
