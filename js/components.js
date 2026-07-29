@@ -274,12 +274,9 @@ function renderSidebar(user, role){
         </div>
 
 
-        <a
-        href="#"
-        onclick="handleLogout(); return false;"
-        class="sidebarLogout">
+        <a href="settings.html">
 
-            🚪 Logout
+            ⚙ Settings
 
         </a>
 
