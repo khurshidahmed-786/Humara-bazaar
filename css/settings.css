@@ -1,0 +1,241 @@
+.settingsSection{
+    margin:22px 0 10px;
+    font-size:13px;
+    font-weight:700;
+    color:#667744;
+    letter-spacing:.4px;
+    text-transform:uppercase;
+    padding:0 4px;
+}
+
+.settingsCard{
+    background:white;
+    border-radius:18px;
+    box-shadow:0 6px 18px rgba(0,0,0,.05);
+    overflow:hidden;
+}
+
+.settingsRow{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:16px 18px;
+    border-bottom:1px solid #F1EEE6;
+    text-decoration:none;
+    color:#2F2F2F;
+    background:none;
+    border-left:none;
+    border-right:none;
+    border-top:none;
+    width:100%;
+    font-size:15px;
+    cursor:pointer;
+}
+
+.settingsRow:last-child{
+    border-bottom:none;
+}
+
+.settingsRow .left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.settingsRow .chevron{
+    color:#bbb;
+}
+
+.settingsRow.soon{
+    color:#aaa;
+    cursor:default;
+}
+
+.soonTag{
+    font-size:11px;
+    font-weight:700;
+    background:#F4F1E9;
+    color:#9a8f6f;
+    padding:3px 9px;
+    border-radius:10px;
+}
+
+.profileSummary{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:20px 18px;
+}
+
+.profileSummary .avatar{
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    background:#EAF4E2;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+}
+
+.profileSummary .name{
+    font-weight:700;
+    font-size:17px;
+    color:#2F2F2F;
+}
+
+.profileSummary .meta{
+    font-size:13px;
+    color:#888;
+    margin-top:2px;
+}
+
+.roleBadge{
+    display:inline-block;
+    margin-top:4px;
+    padding:3px 10px;
+    border-radius:10px;
+    font-size:11px;
+    font-weight:700;
+    background:#EAF4E2;
+    color:#345D2A;
+}
+
+.toggleRow{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 18px;
+    border-bottom:1px solid #F1EEE6;
+}
+
+.toggleRow:last-child{
+    border-bottom:none;
+}
+
+.switch{
+    position:relative;
+    display:inline-block;
+    width:44px;
+    height:24px;
+}
+
+.switch input{
+    opacity:0;
+    width:0;
+    height:0;
+}
+
+.slider{
+    position:absolute;
+    cursor:pointer;
+    inset:0;
+    background:#ddd;
+    border-radius:24px;
+    transition:.2s;
+}
+
+.slider:before{
+    position:absolute;
+    content:"";
+    height:18px;
+    width:18px;
+    left:3px;
+    bottom:3px;
+    background:white;
+    border-radius:50%;
+    transition:.2s;
+}
+
+.switch input:checked + .slider{
+    background:#667744;
+}
+
+.switch input:checked + .slider:before{
+    transform:translateX(20px);
+}
+
+.logoutBtn{
+    width:100%;
+    margin-top:26px;
+    padding:16px;
+    background:#FBE7E7;
+    color:#B63A3A;
+    border:none;
+    border-radius:16px;
+    font-weight:700;
+    font-size:15px;
+    cursor:pointer;
+}
+
+.settingsModalOverlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.4);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:3000;
+    padding:20px;
+}
+
+.settingsModalOverlay.show{
+    display:flex;
+}
+
+.settingsModal{
+    background:white;
+    border-radius:20px;
+    padding:26px;
+    max-width:360px;
+    width:100%;
+}
+
+.settingsModal h3{
+    color:#2F2F2F;
+    margin-bottom:8px;
+}
+
+.settingsModal p{
+    color:#666;
+    font-size:14px;
+    margin-bottom:18px;
+}
+
+.settingsModal input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    margin-bottom:12px;
+}
+
+.settingsModal .actions{
+    display:flex;
+    gap:10px;
+}
+
+.settingsModal button{
+    flex:1;
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.settingsModal .cancelBtn{
+    background:#F2F2F2;
+    color:#444;
+}
+
+.settingsModal .confirmBtn{
+    background:#B63A3A;
+    color:white;
+}
+
+.settingsModal .saveBtn{
+    background:#667744;
+    color:white;
+}
