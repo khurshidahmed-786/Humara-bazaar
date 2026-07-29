@@ -879,3 +879,138 @@ async function dbUpdateMyProfile(fields) {
     if (error) throw error;
     return data;
 }
+/* ==========================================================
+   NOTIFICATIONS
+   Every real event in the app (order accepted, shop approved,
+   rider assigned, etc.) calls notifyUser() or notifyUsers() —
+   never inserts into `notifications` directly, and never fails
+   the calling action if delivery fails.
+   ========================================================== */
+
+// Fires the Edge Function, which does the actual DB insert (using
+// the service role key — see migration 004's RLS notes for why)
+// plus the Web Push send. Always resolves, never throws — a
+// notification failure must never break the business action that
+// triggered it.
+async function notifySend(notifications) {
+    try {
+        const { data, error } = await sb.functions.invoke("notify", {
+            body: { notifications }
+        });
+
+        if (error) {
+            console.error("Notification send failed:", error);
+            return null;
+        }
+
+        return data;
+    } catch (err) {
+        console.error("Notification send failed:", err);
+        return null;
+    }
+}
+
+// Single recipient.
+// notification: { userId, type, title, message, relatedEntityType,
+//                  relatedEntityId, actionUrl, data, dedupKey }
+async function notifyUser(notification) {
+    return notifySend([notification]);
+}
+
+// Multiple recipients for the same event, each with their own
+// tailored title/message (e.g. "rider assigned" -> customer sees
+// "Your rider is on the way", seller sees "Rider assigned to order #123").
+// notifications: array of the same shape as notifyUser() takes.
+async function notifyUsers(notifications) {
+    return notifySend(notifications);
+}
+
+
+/* ------------------------------------------
+   IN-APP NOTIFICATION READS (Step 9's bell UI uses these)
+   ------------------------------------------ */
+async function dbGetMyNotifications(limit = 30) {
+    const user = await authGetCurrentUser();
+    if (!user) return [];
+
+    const { data, error } = await sb
+        .from("notifications")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false })
+        .limit(limit);
+
+    if (error) throw error;
+    return data;
+}
+
+async function dbGetUnreadNotificationCount() {
+    const user = await authGetCurrentUser();
+    if (!user) return 0;
+
+    const { count, error } = await sb
+        .from("notifications")
+        .select("id", { count: "exact", head: true })
+        .eq("user_id", user.id)
+        .eq("is_read", false);
+
+    if (error) throw error;
+    return count || 0;
+}
+
+// Uses the RPC functions from migration 005 — never a direct
+// .update() against notifications, by design.
+async function dbMarkNotificationRead(notificationId) {
+    const { error } = await sb.rpc("mark_notification_read", { notification_id: notificationId });
+    if (error) throw error;
+}
+
+async function dbMarkAllNotificationsRead() {
+    const { error } = await sb.rpc("mark_all_notifications_read");
+    if (error) throw error;
+}
+
+
+/* ------------------------------------------
+   NOTIFICATION PREFERENCES
+   (separate from actual browser push permission — see migration 004)
+   ------------------------------------------ */
+async function dbGetMyNotificationPrefs() {
+    const user = await authGetCurrentUser();
+    if (!user) return null;
+
+    const { data, error } = await sb
+        .from("notification_preferences")
+        .select("*")
+        .eq("user_id", user.id)
+        .maybeSingle();
+
+    if (error) throw error;
+
+    if (data) return data;
+
+    // no row yet — return the same defaults the table itself defaults to,
+    // without writing anything until the user actually changes something
+    return {
+        user_id: user.id,
+        push_enabled: true,
+        order_updates: true,
+        delivery_updates: true,
+        shop_updates: true,
+        promotional: false
+    };
+}
+
+async function dbUpdateMyNotificationPrefs(updates) {
+    const user = await authGetCurrentUser();
+    if (!user) throw new Error("Please log in.");
+
+    const { data, error } = await sb
+        .from("notification_preferences")
+        .upsert({ user_id: user.id, ...updates, updated_at: new Date().toISOString() }, { onConflict: "user_id" })
+        .select()
+        .single();
+
+    if (error) throw error;
+    return data;
+}
