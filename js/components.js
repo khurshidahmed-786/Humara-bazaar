@@ -37,6 +37,47 @@ function renderHeader(title = "Hamara Bazaar"){
 
         </div>
 
+        <div style="position:relative;">
+
+        <button
+        id="notifBtn"
+        class="iconBtn"
+        onclick="toggleNotificationPanel(); return false;">
+
+            🔔
+
+            <span id="notifBadge" class="iconBadge" style="display:none;">
+
+                0
+
+            </span>
+
+        </button>
+
+        <div id="notifPanel" class="notifPanel">
+
+            <div class="notifPanelHeader">
+
+                <span>Notifications</span>
+
+                <button id="notifMarkAllBtn" onclick="markAllNotificationsReadAndRefresh()">
+
+                    Mark all read
+
+                </button>
+
+            </div>
+
+            <div id="notifList" class="notifList">
+
+                <div class="notifEmpty">Loading...</div>
+
+            </div>
+
+        </div>
+
+        </div>
+
         <button
         id="cartBtn"
         class="iconBtn"
@@ -44,7 +85,7 @@ function renderHeader(title = "Hamara Bazaar"){
 
             🛒
 
-            <span id="cartBadge">
+            <span id="cartBadge" class="iconBadge">
 
                 0
 
@@ -74,7 +115,7 @@ function renderBottomNav(current){
 
     <nav class="bottomNav">
 
-        <a
+        
         href="home.html"
         class="${current=="home"?"active":""}">
 
@@ -83,7 +124,7 @@ function renderBottomNav(current){
 
         </a>
 
-        <a
+        
         href="shops.html"
         class="${current=="shops"?"active":""}">
 
@@ -91,7 +132,7 @@ function renderBottomNav(current){
             <span>Shops</span>
 
         </a>
-        <a
+        
         href="services.html"
         class="${current=="services"?"active":""}">
 
@@ -99,7 +140,7 @@ function renderBottomNav(current){
             <span>Services</span>
 
         </a>
-        <a
+        
         href="orders.html"
         class="${current=="orders"?"active":""}">
 
@@ -108,7 +149,7 @@ function renderBottomNav(current){
 
         </a>
 
-        <a
+        
         href="profile.html"
         class="${current=="profile"?"active":""}">
 
@@ -161,6 +202,11 @@ async function renderLayout(page){
     +
 
     renderSidebar(currentUser, currentRole);
+
+    if(currentUser){
+        refreshNotifBadge();
+    }
+
 const pagesWithoutBottomNav = [
 
     "dashboard",
@@ -274,10 +320,18 @@ function renderSidebar(user, role){
         </div>
 
 
-    
+        
+        href="#"
+        onclick="handleLogout(); return false;"
+        class="sidebarLogout">
+
+            🚪 Logout
+
+        </a>
+
     ` : `
 
-        <a
+        
         href="login.html"
         class="sidebarLogout">
 
@@ -363,12 +417,11 @@ function renderSidebar(user, role){
 
         ${adminLink}
 
-            <a href="settings.html">
+        <a href="settings.html">
 
             ⚙ Settings
 
         </a>
-
 
     </div>
 
@@ -399,6 +452,140 @@ async function handleLogout(){
     location.href = "home.html";
 
 }
+
+
+/* ==========================================
+   NOTIFICATION BELL + PANEL
+   ========================================== */
+
+function timeAgo(dateString){
+
+    const seconds = Math.floor((new Date() - new Date(dateString)) / 1000);
+
+    if(seconds < 60) return "just now";
+    const minutes = Math.floor(seconds / 60);
+    if(minutes < 60) return `${minutes}m ago`;
+    const hours = Math.floor(minutes / 60);
+    if(hours < 24) return `${hours}h ago`;
+    const days = Math.floor(hours / 24);
+    return `${days}d ago`;
+}
+
+async function refreshNotifBadge(){
+
+    const badge = document.getElementById("notifBadge");
+    if(!badge || typeof dbGetUnreadNotificationCount !== "function") return;
+
+    let count = 0;
+
+    try {
+        count = await dbGetUnreadNotificationCount();
+    } catch(err) {
+        console.error(err);
+        return;
+    }
+
+    if(count > 0){
+        badge.innerText = count > 99 ? "99+" : count;
+        badge.style.display = "flex";
+    }else{
+        badge.style.display = "none";
+    }
+}
+
+function toggleNotificationPanel(){
+
+    const panel = document.getElementById("notifPanel");
+    if(!panel) return;
+
+    const isOpening = !panel.classList.contains("show");
+
+    panel.classList.toggle("show");
+
+    if(isOpening){
+        loadNotificationPanel();
+    }
+}
+
+async function loadNotificationPanel(){
+
+    const list = document.getElementById("notifList");
+    if(!list) return;
+
+    let notifications = [];
+
+    try {
+        notifications = await dbGetMyNotifications(20);
+    } catch(err) {
+        console.error(err);
+        list.innerHTML = `<div class="notifEmpty">Couldn't load notifications.</div>`;
+        return;
+    }
+
+    if(!notifications || notifications.length === 0){
+        list.innerHTML = `<div class="notifEmpty">🔔<br>No notifications yet.</div>`;
+        return;
+    }
+
+    list.innerHTML = "";
+
+    notifications.forEach(n => {
+
+        const item = document.createElement("button");
+        item.className = "notifItem" + (n.is_read ? "" : " unread");
+
+        item.innerHTML = `
+            <div class="notifTitle">${n.title}</div>
+            <div class="notifMessage">${n.message}</div>
+            <div class="notifTime">${timeAgo(n.created_at)}</div>
+        `;
+
+        item.onclick = async function(){
+
+            if(!n.is_read){
+                try {
+                    await dbMarkNotificationRead(n.id);
+                    refreshNotifBadge();
+                } catch(err) {
+                    console.error(err);
+                }
+            }
+
+            if(n.action_url){
+                window.location.href = n.action_url;
+            }else{
+                document.getElementById("notifPanel").classList.remove("show");
+                loadNotificationPanel();
+            }
+        };
+
+        list.appendChild(item);
+    });
+}
+
+async function markAllNotificationsReadAndRefresh(){
+
+    try {
+        await dbMarkAllNotificationsRead();
+        await loadNotificationPanel();
+        await refreshNotifBadge();
+    } catch(err) {
+        console.error(err);
+    }
+}
+
+// Close the panel when clicking anywhere outside it
+document.addEventListener("click", function(event){
+
+    const panel = document.getElementById("notifPanel");
+    const btn = document.getElementById("notifBtn");
+    if(!panel || !panel.classList.contains("show")) return;
+
+    if(!panel.contains(event.target) && event.target !== btn){
+        panel.classList.remove("show");
+    }
+});
+
 function closeSidebar(){
 
     document.getElementById(
