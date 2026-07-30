@@ -1,3 +1,4 @@
+```javascript
 function renderHeader(title = "Hamara Bazaar"){
 
     return `
@@ -6,7 +7,8 @@ function renderHeader(title = "Hamara Bazaar"){
 
         <button
         id="menuBtn"
-        class="iconBtn">
+        class="iconBtn"
+        type="button">
 
             ☰
 
@@ -37,55 +39,73 @@ function renderHeader(title = "Hamara Bazaar"){
 
         </div>
 
-        <div style="position:relative;">
+        <div
+        class="notificationWrapper"
+        style="position:relative;">
 
-        <button
-        id="notifBtn"
-        class="iconBtn"
-        onclick="toggleNotificationPanel(); return false;">
+            <button
+            id="notifBtn"
+            class="iconBtn"
+            type="button"
+            onclick="toggleNotificationPanel(); return false;">
 
-            🔔
+                🔔
 
-            <span id="notifBadge" class="iconBadge" style="display:none;">
+                <span
+                id="notifBadge"
+                class="iconBadge"
+                style="display:none;">
 
-                0
+                    0
 
-            </span>
+                </span>
 
-        </button>
+            </button>
 
-        <div id="notifPanel" class="notifPanel">
+            <div
+            id="notifPanel"
+            class="notifPanel">
 
-            <div class="notifPanelHeader">
+                <div class="notifPanelHeader">
 
-                <span>Notifications</span>
+                    <span>Notifications</span>
 
-                <button id="notifMarkAllBtn" onclick="markAllNotificationsReadAndRefresh()">
+                    <button
+                    id="notifMarkAllBtn"
+                    type="button"
+                    onclick="markAllNotificationsReadAndRefresh()">
 
-                    Mark all read
+                        Mark all read
 
-                </button>
+                    </button>
+
+                </div>
+
+                <div
+                id="notifList"
+                class="notifList">
+
+                    <div class="notifEmpty">
+                        Loading...
+                    </div>
+
+                </div>
 
             </div>
-
-            <div id="notifList" class="notifList">
-
-                <div class="notifEmpty">Loading...</div>
-
-            </div>
-
-        </div>
 
         </div>
 
         <button
         id="cartBtn"
         class="iconBtn"
-        onclick="location.href='cart.html'">
+        type="button"
+        onclick="location.href='cart.html';">
 
             🛒
 
-            <span id="cartBadge" class="iconBadge">
+            <span
+            id="cartBadge"
+            class="iconBadge">
 
                 0
 
@@ -97,9 +117,11 @@ function renderHeader(title = "Hamara Bazaar"){
 
     <div class="marketBar">
 
-        📍 <span id="marketName">
+        📍
 
-        Surankote Bazaar
+        <span id="marketName">
+
+            Surankote Bazaar
 
         </span>
 
@@ -109,52 +131,74 @@ function renderHeader(title = "Hamara Bazaar"){
 
 }
 
+
 function renderBottomNav(current){
 
     return `
 
     <nav class="bottomNav">
 
-        
+        <a
         href="home.html"
-        class="${current=="home"?"active":""}">
+        class="${current == "home" ? "active" : ""}">
 
             🏠
-            <span>Home</span>
+
+            <span>
+                Home
+            </span>
 
         </a>
 
-        
+
+        <a
         href="shops.html"
-        class="${current=="shops"?"active":""}">
+        class="${current == "shops" ? "active" : ""}">
 
             🛍
-            <span>Shops</span>
+
+            <span>
+                Shops
+            </span>
 
         </a>
-        
+
+
+        <a
         href="services.html"
-        class="${current=="services"?"active":""}">
+        class="${current == "services" ? "active" : ""}">
 
             🧰
-            <span>Services</span>
+
+            <span>
+                Services
+            </span>
 
         </a>
-        
+
+
+        <a
         href="orders.html"
-        class="${current=="orders"?"active":""}">
+        class="${current == "orders" ? "active" : ""}">
 
             📦
-            <span>Orders</span>
+
+            <span>
+                Orders
+            </span>
 
         </a>
 
-        
+
+        <a
         href="profile.html"
-        class="${current=="profile"?"active":""}">
+        class="${current == "profile" ? "active" : ""}">
 
             👤
-            <span>Profile</span>
+
+            <span>
+                Profile
+            </span>
 
         </a>
 
@@ -163,6 +207,8 @@ function renderBottomNav(current){
     `;
 
 }
+
+
 async function renderLayout(page){
 
     let currentUser = null;
@@ -170,145 +216,157 @@ async function renderLayout(page){
     if(typeof authGetCurrentUser === "function"){
 
         try {
+
             currentUser = await authGetCurrentUser();
+
         } catch(err) {
+
             console.error(err);
+
             currentUser = null;
+
         }
 
     }
 
     let currentRole = null;
 
-    if(currentUser && typeof dbGetMyRole === "function"){
+    if(
+        currentUser &&
+        typeof dbGetMyRole === "function"
+    ){
 
         try {
+
             currentRole = await dbGetMyRole();
+
         } catch(err) {
+
             console.error(err);
+
             currentRole = null;
+
         }
 
     }
 
-    document.getElementById(
+    const headerContainer =
+        document.getElementById("headerContainer");
 
-        "headerContainer"
+    if(headerContainer){
 
-    ).innerHTML =
+        headerContainer.innerHTML =
 
-    renderHeader()
+            renderHeader()
 
-    +
+            +
 
-    renderSidebar(currentUser, currentRole);
+            renderSidebar(
+                currentUser,
+                currentRole
+            );
 
-    if(currentUser){
-        refreshNotifBadge();
     }
 
-const pagesWithoutBottomNav = [
+    if(currentUser){
 
-    "dashboard",
+        refreshNotifBadge();
 
-    "sellerorders",
+    }
 
-    "createshop",
 
-    "product",
+    const pagesWithoutBottomNav = [
 
-    "superadmin",
+        "dashboard",
 
-    "tehsil-admin"
+        "sellerorders",
 
-];
+        "createshop",
 
-if(
+        "product",
 
-    pagesWithoutBottomNav.includes(page)
+        "superadmin",
 
-){
+        "tehsil-admin"
 
-    document.getElementById(
+    ];
 
-        "bottomNavContainer"
 
-    ).innerHTML = "";
+    const bottomNavContainer =
+        document.getElementById(
+            "bottomNavContainer"
+        );
 
-}else{
 
-    document.getElementById(
+    if(bottomNavContainer){
 
-        "bottomNavContainer"
+        if(
+            pagesWithoutBottomNav.includes(page)
+        ){
 
-    ).innerHTML =
+            bottomNavContainer.innerHTML = "";
 
-    renderBottomNav(page);
+        }else{
 
-}
+            bottomNavContainer.innerHTML =
+
+                renderBottomNav(page);
+
+        }
+
+    }
+
 
     bindLayoutEvents();
-updateCartBadge();
+
+    updateCartBadge();
+
 }
+
+
 function bindLayoutEvents(){
 
     const menu =
-
-    document.getElementById(
-
-        "menuBtn"
-
-    );
+        document.getElementById("menuBtn");
 
     const sidebar =
-
-    document.getElementById(
-
-        "sidebar"
-
-    );
+        document.getElementById("sidebar");
 
     const overlay =
+        document.getElementById("overlay");
 
-    document.getElementById(
 
-        "overlay"
+    if(
+        !menu ||
+        !sidebar ||
+        !overlay
+    ){
 
-    );
+        return;
 
-    menu.onclick=function(){
+    }
 
-        sidebar.classList.add(
 
-            "open"
+    menu.onclick = function(){
 
-        );
+        sidebar.classList.add("open");
 
-        overlay.classList.add(
-
-            "show"
-
-        );
+        overlay.classList.add("show");
 
     };
 
-    overlay.onclick=function(){
 
-        sidebar.classList.remove(
+    overlay.onclick = function(){
 
-            "open"
+        sidebar.classList.remove("open");
 
-        );
-
-        overlay.classList.remove(
-
-            "show"
-
-        );
+        overlay.classList.remove("show");
 
     };
 
 }
+
+
 function renderSidebar(user, role){
 
     const accountSection = user ? `
@@ -320,7 +378,7 @@ function renderSidebar(user, role){
         </div>
 
 
-        
+        <a
         href="#"
         onclick="handleLogout(); return false;"
         class="sidebarLogout">
@@ -331,7 +389,7 @@ function renderSidebar(user, role){
 
     ` : `
 
-        
+        <a
         href="login.html"
         class="sidebarLogout">
 
@@ -341,39 +399,54 @@ function renderSidebar(user, role){
 
     `;
 
+
     let adminLink = "";
 
-    if(role && role.role === "super_admin"){
+
+    if(
+        role &&
+        role.role === "super_admin"
+    ){
 
         adminLink = `
+
         <a href="superadmin.html">
 
             🛡️ Super Admin
 
         </a>
+
         `;
 
-    }else if(role && role.role === "tehsil_admin"){
+    }else if(
+        role &&
+        role.role === "tehsil_admin"
+    ){
 
         adminLink = `
+
         <a href="tehsil-admin.html">
 
             🛡️ Tehsil Admin
 
         </a>
+
         `;
 
     }else if(user){
 
         adminLink = `
+
         <a href="admin-apply.html">
 
             🛡️ Become a Tehsil Admin
 
         </a>
+
         `;
 
     }
+
 
     return `
 
@@ -395,6 +468,7 @@ function renderSidebar(user, role){
 
         ${accountSection}
 
+
         <a href="home.html">
 
             🏠 Home
@@ -415,7 +489,9 @@ function renderSidebar(user, role){
 
         </a>
 
+
         ${adminLink}
+
 
         <a href="settings.html">
 
@@ -440,14 +516,22 @@ function renderSidebar(user, role){
 async function handleLogout(){
 
     if(typeof authSignOut !== "function"){
+
         return;
+
     }
 
+
     try {
+
         await authSignOut();
+
     } catch(err) {
+
         console.error(err);
+
     }
+
 
     location.href = "home.html";
 
@@ -458,166 +542,375 @@ async function handleLogout(){
    NOTIFICATION BELL + PANEL
    ========================================== */
 
+
 function timeAgo(dateString){
 
-    const seconds = Math.floor((new Date() - new Date(dateString)) / 1000);
+    const seconds = Math.floor(
 
-    if(seconds < 60) return "just now";
-    const minutes = Math.floor(seconds / 60);
-    if(minutes < 60) return `${minutes}m ago`;
-    const hours = Math.floor(minutes / 60);
-    if(hours < 24) return `${hours}h ago`;
-    const days = Math.floor(hours / 24);
+        (new Date() - new Date(dateString))
+
+        / 1000
+
+    );
+
+
+    if(seconds < 60){
+
+        return "just now";
+
+    }
+
+
+    const minutes =
+        Math.floor(seconds / 60);
+
+
+    if(minutes < 60){
+
+        return `${minutes}m ago`;
+
+    }
+
+
+    const hours =
+        Math.floor(minutes / 60);
+
+
+    if(hours < 24){
+
+        return `${hours}h ago`;
+
+    }
+
+
+    const days =
+        Math.floor(hours / 24);
+
+
     return `${days}d ago`;
+
 }
+
 
 async function refreshNotifBadge(){
 
-    const badge = document.getElementById("notifBadge");
-    if(!badge || typeof dbGetUnreadNotificationCount !== "function") return;
+    const badge =
+        document.getElementById("notifBadge");
+
+
+    if(
+        !badge ||
+        typeof dbGetUnreadNotificationCount !== "function"
+    ){
+
+        return;
+
+    }
+
 
     let count = 0;
 
+
     try {
-        count = await dbGetUnreadNotificationCount();
+
+        count =
+            await dbGetUnreadNotificationCount();
+
     } catch(err) {
+
         console.error(err);
+
         return;
+
     }
 
+
     if(count > 0){
-        badge.innerText = count > 99 ? "99+" : count;
+
+        badge.innerText =
+            count > 99 ? "99+" : count;
+
         badge.style.display = "flex";
+
     }else{
+
         badge.style.display = "none";
+
     }
+
 }
+
 
 function toggleNotificationPanel(){
 
-    const panel = document.getElementById("notifPanel");
-    if(!panel) return;
+    const panel =
+        document.getElementById("notifPanel");
 
-    const isOpening = !panel.classList.contains("show");
+
+    if(!panel){
+
+        return;
+
+    }
+
+
+    const isOpening =
+        !panel.classList.contains("show");
+
 
     panel.classList.toggle("show");
 
+
     if(isOpening){
+
         loadNotificationPanel();
+
     }
+
 }
+
 
 async function loadNotificationPanel(){
 
-    const list = document.getElementById("notifList");
-    if(!list) return;
+    const list =
+        document.getElementById("notifList");
+
+
+    if(!list){
+
+        return;
+
+    }
+
 
     let notifications = [];
 
+
     try {
-        notifications = await dbGetMyNotifications(20);
+
+        notifications =
+            await dbGetMyNotifications(20);
+
     } catch(err) {
+
         console.error(err);
-        list.innerHTML = `<div class="notifEmpty">Couldn't load notifications.</div>`;
+
+        list.innerHTML =
+
+            `<div class="notifEmpty">
+                Couldn't load notifications.
+            </div>`;
+
         return;
+
     }
 
-    if(!notifications || notifications.length === 0){
-        list.innerHTML = `<div class="notifEmpty">🔔<br>No notifications yet.</div>`;
+
+    if(
+        !notifications ||
+        notifications.length === 0
+    ){
+
+        list.innerHTML =
+
+            `<div class="notifEmpty">
+                🔔<br>
+                No notifications yet.
+            </div>`;
+
         return;
+
     }
+
 
     list.innerHTML = "";
 
+
     notifications.forEach(n => {
 
-        const item = document.createElement("button");
-        item.className = "notifItem" + (n.is_read ? "" : " unread");
+        const item =
+            document.createElement("button");
+
+
+        item.className =
+
+            "notifItem"
+
+            +
+
+            (
+                n.is_read
+                ? ""
+                : " unread"
+            );
+
 
         item.innerHTML = `
-            <div class="notifTitle">${n.title}</div>
-            <div class="notifMessage">${n.message}</div>
-            <div class="notifTime">${timeAgo(n.created_at)}</div>
+
+            <div class="notifTitle">
+                ${n.title}
+            </div>
+
+            <div class="notifMessage">
+                ${n.message}
+            </div>
+
+            <div class="notifTime">
+                ${timeAgo(n.created_at)}
+            </div>
+
         `;
+
 
         item.onclick = async function(){
 
             if(!n.is_read){
+
                 try {
-                    await dbMarkNotificationRead(n.id);
-                    refreshNotifBadge();
+
+                    await dbMarkNotificationRead(
+                        n.id
+                    );
+
+                    await refreshNotifBadge();
+
                 } catch(err) {
+
                     console.error(err);
+
                 }
+
             }
+
 
             if(n.action_url){
-                window.location.href = n.action_url;
+
+                window.location.href =
+                    n.action_url;
+
             }else{
-                document.getElementById("notifPanel").classList.remove("show");
+
+                const panel =
+                    document.getElementById(
+                        "notifPanel"
+                    );
+
+
+                if(panel){
+
+                    panel.classList.remove(
+                        "show"
+                    );
+
+                }
+
+
                 loadNotificationPanel();
+
             }
+
         };
 
+
         list.appendChild(item);
+
     });
+
 }
+
 
 async function markAllNotificationsReadAndRefresh(){
 
     try {
+
         await dbMarkAllNotificationsRead();
+
         await loadNotificationPanel();
+
         await refreshNotifBadge();
+
     } catch(err) {
+
         console.error(err);
+
     }
+
 }
 
-// Close the panel when clicking anywhere outside it
-document.addEventListener("click", function(event){
 
-    const panel = document.getElementById("notifPanel");
-    const btn = document.getElementById("notifBtn");
-    if(!panel || !panel.classList.contains("show")) return;
+// Close notification panel when clicking outside it
+document.addEventListener(
+    "click",
+    function(event){
 
-    if(!panel.contains(event.target) && event.target !== btn){
-        panel.classList.remove("show");
+        const panel =
+            document.getElementById(
+                "notifPanel"
+            );
+
+
+        const wrapper =
+            document.querySelector(
+                ".notificationWrapper"
+            );
+
+
+        if(
+            !panel ||
+            !panel.classList.contains("show")
+        ){
+
+            return;
+
+        }
+
+
+        if(
+            wrapper &&
+            !wrapper.contains(event.target)
+        ){
+
+            panel.classList.remove(
+                "show"
+            );
+
+        }
+
     }
-});
+);
+
 
 function closeSidebar(){
 
-    document.getElementById(
+    const sidebar =
+        document.getElementById("sidebar");
 
-        "sidebar"
 
-    ).classList.remove(
+    const overlay =
+        document.getElementById("overlay");
 
-        "open"
 
-    );
+    if(sidebar){
 
-    document.getElementById(
+        sidebar.classList.remove("open");
 
-        "overlay"
+    }
 
-    ).classList.remove(
 
-        "show"
+    if(overlay){
 
-    );
+        overlay.classList.remove("show");
+
+    }
 
 }
+
+
 function updateCartBadge(){
 
     const badge =
+        document.getElementById("cartBadge");
 
-    document.getElementById(
-
-        "cartBadge"
-
-    );
 
     if(!badge){
 
@@ -625,19 +918,43 @@ function updateCartBadge(){
 
     }
 
-    const cart = getCart();
+
+    let cart = [];
+
+
+    if(typeof getCart === "function"){
+
+        try {
+
+            cart = getCart() || [];
+
+        } catch(err) {
+
+            console.error(err);
+
+            cart = [];
+
+        }
+
+    }
+
 
     let total = 0;
 
-    cart.forEach(item=>{
 
-        total += item.quantity;
+    cart.forEach(item => {
+
+        total +=
+            Number(item.quantity) || 0;
 
     });
+
 
     badge.innerText = total;
 
 }
+
+
 function comingSoon(){
 
     alert(
@@ -647,3 +964,4 @@ function comingSoon(){
     );
 
 }
+```
