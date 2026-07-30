@@ -1,4 +1,3 @@
-```javascript
 function renderHeader(title = "Hamara Bazaar"){
 
     return `
