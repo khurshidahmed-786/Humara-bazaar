@@ -1,3 +1,4 @@
+```javascript
 function renderHeader(title = "Hamara Bazaar"){
 
     return `
@@ -6,8 +7,7 @@ function renderHeader(title = "Hamara Bazaar"){
 
         <button
         id="menuBtn"
-        class="iconBtn"
-        type="button">
+        class="iconBtn">
 
             ☰
 
@@ -38,14 +38,11 @@ function renderHeader(title = "Hamara Bazaar"){
 
         </div>
 
-        <div
-        class="notificationWrapper"
-        style="position:relative;">
+        <div style="position:relative;">
 
             <button
             id="notifBtn"
             class="iconBtn"
-            type="button"
             onclick="toggleNotificationPanel(); return false;">
 
                 🔔
@@ -71,8 +68,7 @@ function renderHeader(title = "Hamara Bazaar"){
 
                     <button
                     id="notifMarkAllBtn"
-                    type="button"
-                    onclick="markAllNotificationsReadAndRefresh()">
+                    onclick="markAllNotificationsReadAndRefresh(); return false;">
 
                         Mark all read
 
@@ -85,7 +81,9 @@ function renderHeader(title = "Hamara Bazaar"){
                 class="notifList">
 
                     <div class="notifEmpty">
+
                         Loading...
+
                     </div>
 
                 </div>
@@ -97,8 +95,7 @@ function renderHeader(title = "Hamara Bazaar"){
         <button
         id="cartBtn"
         class="iconBtn"
-        type="button"
-        onclick="location.href='cart.html';">
+        onclick="location.href='cart.html'; return false;">
 
             🛒
 
@@ -139,12 +136,14 @@ function renderBottomNav(current){
 
         <a
         href="home.html"
-        class="${current == "home" ? "active" : ""}">
+        class="${current=="home"?"active":""}">
 
             🏠
 
             <span>
+
                 Home
+
             </span>
 
         </a>
@@ -152,12 +151,14 @@ function renderBottomNav(current){
 
         <a
         href="shops.html"
-        class="${current == "shops" ? "active" : ""}">
+        class="${current=="shops"?"active":""}">
 
             🛍
 
             <span>
+
                 Shops
+
             </span>
 
         </a>
@@ -165,12 +166,14 @@ function renderBottomNav(current){
 
         <a
         href="services.html"
-        class="${current == "services" ? "active" : ""}">
+        class="${current=="services"?"active":""}">
 
             🧰
 
             <span>
+
                 Services
+
             </span>
 
         </a>
@@ -178,12 +181,14 @@ function renderBottomNav(current){
 
         <a
         href="orders.html"
-        class="${current == "orders" ? "active" : ""}">
+        class="${current=="orders"?"active":""}">
 
             📦
 
             <span>
+
                 Orders
+
             </span>
 
         </a>
@@ -191,12 +196,14 @@ function renderBottomNav(current){
 
         <a
         href="profile.html"
-        class="${current == "profile" ? "active" : ""}">
+        class="${current=="profile"?"active":""}">
 
             👤
 
             <span>
+
                 Profile
+
             </span>
 
         </a>
@@ -228,12 +235,10 @@ async function renderLayout(page){
 
     }
 
+
     let currentRole = null;
 
-    if(
-        currentUser &&
-        typeof dbGetMyRole === "function"
-    ){
+    if(currentUser && typeof dbGetMyRole === "function"){
 
         try {
 
@@ -249,8 +254,15 @@ async function renderLayout(page){
 
     }
 
+
     const headerContainer =
-        document.getElementById("headerContainer");
+
+        document.getElementById(
+
+            "headerContainer"
+
+        );
+
 
     if(headerContainer){
 
@@ -261,13 +273,17 @@ async function renderLayout(page){
             +
 
             renderSidebar(
+
                 currentUser,
+
                 currentRole
+
             );
 
     }
 
-    if(currentUser){
+
+    if(currentUser && typeof refreshNotifBadge === "function"){
 
         refreshNotifBadge();
 
@@ -292,15 +308,20 @@ async function renderLayout(page){
 
 
     const bottomNavContainer =
+
         document.getElementById(
+
             "bottomNavContainer"
+
         );
 
 
     if(bottomNavContainer){
 
         if(
+
             pagesWithoutBottomNav.includes(page)
+
         ){
 
             bottomNavContainer.innerHTML = "";
@@ -326,40 +347,69 @@ async function renderLayout(page){
 function bindLayoutEvents(){
 
     const menu =
-        document.getElementById("menuBtn");
+
+        document.getElementById(
+
+            "menuBtn"
+
+        );
+
 
     const sidebar =
-        document.getElementById("sidebar");
+
+        document.getElementById(
+
+            "sidebar"
+
+        );
+
 
     const overlay =
-        document.getElementById("overlay");
+
+        document.getElementById(
+
+            "overlay"
+
+        );
 
 
-    if(
-        !menu ||
-        !sidebar ||
-        !overlay
-    ){
+    if(!menu || !sidebar || !overlay){
 
         return;
 
     }
 
 
-    menu.onclick = function(){
+    menu.onclick=function(){
 
-        sidebar.classList.add("open");
+        sidebar.classList.add(
 
-        overlay.classList.add("show");
+            "open"
+
+        );
+
+        overlay.classList.add(
+
+            "show"
+
+        );
 
     };
 
 
-    overlay.onclick = function(){
+    overlay.onclick=function(){
 
-        sidebar.classList.remove("open");
+        sidebar.classList.remove(
 
-        overlay.classList.remove("show");
+            "open"
+
+        );
+
+        overlay.classList.remove(
+
+            "show"
+
+        );
 
     };
 
@@ -377,7 +427,8 @@ function renderSidebar(user, role){
         </div>
 
 
-        <a href="#"
+        <a
+        href="#"
         onclick="handleLogout(); return false;"
         class="sidebarLogout">
 
@@ -402,8 +453,11 @@ function renderSidebar(user, role){
 
 
     if(
+
         role &&
+
         role.role === "super_admin"
+
     ){
 
         adminLink = `
@@ -417,8 +471,11 @@ function renderSidebar(user, role){
         `;
 
     }else if(
+
         role &&
+
         role.role === "tehsil_admin"
+
     ){
 
         adminLink = `
@@ -455,14 +512,19 @@ function renderSidebar(user, role){
         <div class="sidebarHeader">
 
             <h2>
+
                 Hamara Bazaar
+
             </h2>
 
             <p>
+
                 Delivering Happiness
+
             </p>
 
         </div>
+
 
         ${accountSection}
 
@@ -543,13 +605,15 @@ async function handleLogout(){
 
 function timeAgo(dateString){
 
-    const seconds = Math.floor(
+    const seconds =
 
-        (new Date() - new Date(dateString))
+        Math.floor(
 
-        / 1000
+            (new Date() - new Date(dateString))
 
-    );
+            / 1000
+
+        );
 
 
     if(seconds < 60){
@@ -560,7 +624,12 @@ function timeAgo(dateString){
 
 
     const minutes =
-        Math.floor(seconds / 60);
+
+        Math.floor(
+
+            seconds / 60
+
+        );
 
 
     if(minutes < 60){
@@ -571,7 +640,12 @@ function timeAgo(dateString){
 
 
     const hours =
-        Math.floor(minutes / 60);
+
+        Math.floor(
+
+            minutes / 60
+
+        );
 
 
     if(hours < 24){
@@ -582,7 +656,12 @@ function timeAgo(dateString){
 
 
     const days =
-        Math.floor(hours / 24);
+
+        Math.floor(
+
+            hours / 24
+
+        );
 
 
     return `${days}d ago`;
@@ -593,12 +672,20 @@ function timeAgo(dateString){
 async function refreshNotifBadge(){
 
     const badge =
-        document.getElementById("notifBadge");
+
+        document.getElementById(
+
+            "notifBadge"
+
+        );
 
 
     if(
+
         !badge ||
+
         typeof dbGetUnreadNotificationCount !== "function"
+
     ){
 
         return;
@@ -612,6 +699,7 @@ async function refreshNotifBadge(){
     try {
 
         count =
+
             await dbGetUnreadNotificationCount();
 
     } catch(err) {
@@ -626,7 +714,13 @@ async function refreshNotifBadge(){
     if(count > 0){
 
         badge.innerText =
-            count > 99 ? "99+" : count;
+
+            count > 99
+
+                ? "99+"
+
+                : count;
+
 
         badge.style.display = "flex";
 
@@ -642,7 +736,12 @@ async function refreshNotifBadge(){
 function toggleNotificationPanel(){
 
     const panel =
-        document.getElementById("notifPanel");
+
+        document.getElementById(
+
+            "notifPanel"
+
+        );
 
 
     if(!panel){
@@ -653,10 +752,19 @@ function toggleNotificationPanel(){
 
 
     const isOpening =
-        !panel.classList.contains("show");
+
+        !panel.classList.contains(
+
+            "show"
+
+        );
 
 
-    panel.classList.toggle("show");
+    panel.classList.toggle(
+
+        "show"
+
+    );
 
 
     if(isOpening){
@@ -671,7 +779,12 @@ function toggleNotificationPanel(){
 async function loadNotificationPanel(){
 
     const list =
-        document.getElementById("notifList");
+
+        document.getElementById(
+
+            "notifList"
+
+        );
 
 
     if(!list){
@@ -687,17 +800,23 @@ async function loadNotificationPanel(){
     try {
 
         notifications =
+
             await dbGetMyNotifications(20);
 
     } catch(err) {
 
         console.error(err);
 
-        list.innerHTML =
 
-            `<div class="notifEmpty">
+        list.innerHTML = `
+
+            <div class="notifEmpty">
+
                 Couldn't load notifications.
-            </div>`;
+
+            </div>
+
+        `;
 
         return;
 
@@ -705,16 +824,26 @@ async function loadNotificationPanel(){
 
 
     if(
+
         !notifications ||
+
         notifications.length === 0
+
     ){
 
-        list.innerHTML =
+        list.innerHTML = `
 
-            `<div class="notifEmpty">
-                🔔<br>
+            <div class="notifEmpty">
+
+                🔔
+
+                <br>
+
                 No notifications yet.
-            </div>`;
+
+            </div>
+
+        `;
 
         return;
 
@@ -727,7 +856,12 @@ async function loadNotificationPanel(){
     notifications.forEach(n => {
 
         const item =
-            document.createElement("button");
+
+            document.createElement(
+
+                "button"
+
+            );
 
 
         item.className =
@@ -737,24 +871,34 @@ async function loadNotificationPanel(){
             +
 
             (
+
                 n.is_read
-                ? ""
-                : " unread"
+
+                    ? ""
+
+                    : " unread"
+
             );
 
 
         item.innerHTML = `
 
             <div class="notifTitle">
+
                 ${n.title}
+
             </div>
 
             <div class="notifMessage">
+
                 ${n.message}
+
             </div>
 
             <div class="notifTime">
+
                 ${timeAgo(n.created_at)}
+
             </div>
 
         `;
@@ -767,10 +911,13 @@ async function loadNotificationPanel(){
                 try {
 
                     await dbMarkNotificationRead(
+
                         n.id
+
                     );
 
-                    await refreshNotifBadge();
+
+                    refreshNotifBadge();
 
                 } catch(err) {
 
@@ -784,20 +931,26 @@ async function loadNotificationPanel(){
             if(n.action_url){
 
                 window.location.href =
+
                     n.action_url;
 
             }else{
 
                 const panel =
+
                     document.getElementById(
+
                         "notifPanel"
+
                     );
 
 
                 if(panel){
 
                     panel.classList.remove(
+
                         "show"
+
                     );
 
                 }
@@ -810,7 +963,11 @@ async function loadNotificationPanel(){
         };
 
 
-        list.appendChild(item);
+        list.appendChild(
+
+            item
+
+        );
 
     });
 
@@ -837,25 +994,41 @@ async function markAllNotificationsReadAndRefresh(){
 
 
 // Close notification panel when clicking outside it
+
 document.addEventListener(
+
     "click",
+
     function(event){
 
         const panel =
+
             document.getElementById(
+
                 "notifPanel"
+
             );
 
 
-        const wrapper =
-            document.querySelector(
-                ".notificationWrapper"
+        const btn =
+
+            document.getElementById(
+
+                "notifBtn"
+
             );
 
 
         if(
+
             !panel ||
-            !panel.classList.contains("show")
+
+            !panel.classList.contains(
+
+                "show"
+
+            )
+
         ){
 
             return;
@@ -864,40 +1037,68 @@ document.addEventListener(
 
 
         if(
-            wrapper &&
-            !wrapper.contains(event.target)
+
+            !panel.contains(
+
+                event.target
+
+            ) &&
+
+            event.target !== btn
+
         ){
 
             panel.classList.remove(
+
                 "show"
+
             );
 
         }
 
     }
+
 );
 
 
 function closeSidebar(){
 
     const sidebar =
-        document.getElementById("sidebar");
+
+        document.getElementById(
+
+            "sidebar"
+
+        );
 
 
     const overlay =
-        document.getElementById("overlay");
+
+        document.getElementById(
+
+            "overlay"
+
+        );
 
 
     if(sidebar){
 
-        sidebar.classList.remove("open");
+        sidebar.classList.remove(
+
+            "open"
+
+        );
 
     }
 
 
     if(overlay){
 
-        overlay.classList.remove("show");
+        overlay.classList.remove(
+
+            "show"
+
+        );
 
     }
 
@@ -907,7 +1108,12 @@ function closeSidebar(){
 function updateCartBadge(){
 
     const badge =
-        document.getElementById("cartBadge");
+
+        document.getElementById(
+
+            "cartBadge"
+
+        );
 
 
     if(!badge){
@@ -917,24 +1123,9 @@ function updateCartBadge(){
     }
 
 
-    let cart = [];
+    const cart =
 
-
-    if(typeof getCart === "function"){
-
-        try {
-
-            cart = getCart() || [];
-
-        } catch(err) {
-
-            console.error(err);
-
-            cart = [];
-
-        }
-
-    }
+        getCart();
 
 
     let total = 0;
@@ -942,13 +1133,14 @@ function updateCartBadge(){
 
     cart.forEach(item => {
 
-        total +=
-            Number(item.quantity) || 0;
+        total += item.quantity;
 
     });
 
 
-    badge.innerText = total;
+    badge.innerText =
+
+        total;
 
 }
 
