@@ -1,43 +1,44 @@
 function renderHeader(title = "Hamara Bazaar"){
 
-    return `
+```
+return `
 
-    <header class="topbar">
+<header class="topbar">
 
-        <button
-        id="menuBtn"
-        class="iconBtn">
+    <button
+    id="menuBtn"
+    class="iconBtn">
 
-            ☰
+        ☰
 
-        </button>
+    </button>
 
-        <div class="brand">
+    <div class="brand">
 
-            <img
-            src="assets/logo icon.png"
-            class="brandLogo"
-            alt="Logo">
+        <img
+        src="assets/logo icon.png"
+        class="brandLogo"
+        alt="Logo">
 
-            <div class="brandText">
+        <div class="brandText">
 
-                <div class="brandName">
+            <div class="brandName">
 
-                    ${title}
+                ${title}
 
-                </div>
+            </div>
 
-                <div class="brandTag">
+            <div class="brandTag">
 
-                    Delivering Happiness
-
-                </div>
+                Delivering Happiness
 
             </div>
 
         </div>
 
-        <div style="position:relative;">
+    </div>
+
+    <div style="position:relative;">
 
         <button
         id="notifBtn"
@@ -60,7 +61,9 @@ function renderHeader(title = "Hamara Bazaar"){
 
                 <span>Notifications</span>
 
-                <button id="notifMarkAllBtn" onclick="markAllNotificationsReadAndRefresh()">
+                <button
+                id="notifMarkAllBtn"
+                onclick="markAllNotificationsReadAndRefresh()">
 
                     Mark all read
 
@@ -76,136 +79,157 @@ function renderHeader(title = "Hamara Bazaar"){
 
         </div>
 
-        </div>
+    </div>
 
-        <button
-        id="cartBtn"
-        class="iconBtn"
-        onclick="location.href='cart.html'">
+    <button
+    id="cartBtn"
+    class="iconBtn"
+    onclick="location.href='cart.html'">
 
-            🛒
+        🛒
 
-            <span id="cartBadge" class="iconBadge">
+        <span id="cartBadge" class="iconBadge">
 
-                0
-
-            </span>
-
-        </button>
-
-    </header>
-
-    <div class="marketBar">
-
-        📍 <span id="marketName">
-
-        Surankote Bazaar
+            0
 
         </span>
 
-    </div>
+    </button>
 
-    `;
+</header>
+
+<div class="marketBar">
+
+    📍 <span id="marketName">
+
+    Surankote Bazaar
+
+    </span>
+
+</div>
+
+`;
+```
 
 }
 
 function renderBottomNav(current){
 
-    return `
+```
+return `
 
-    <nav class="bottomNav">
+<nav class="bottomNav">
 
-        
-        href="home.html"
-        class="${current=="home"?"active":""}">
+    <a
+    href="home.html"
+    class="${current == "home" ? "active" : ""}">
 
-            🏠
-            <span>Home</span>
+        🏠
+        <span>Home</span>
 
-        </a>
+    </a>
 
-        
-        href="shops.html"
-        class="${current=="shops"?"active":""}">
+    <a
+    href="shops.html"
+    class="${current == "shops" ? "active" : ""}">
 
-            🛍
-            <span>Shops</span>
+        🛍
+        <span>Shops</span>
 
-        </a>
-        
-        href="services.html"
-        class="${current=="services"?"active":""}">
+    </a>
 
-            🧰
-            <span>Services</span>
+    <a
+    href="services.html"
+    class="${current == "services" ? "active" : ""}">
 
-        </a>
-        
-        href="orders.html"
-        class="${current=="orders"?"active":""}">
+        🧰
+        <span>Services</span>
 
-            📦
-            <span>Orders</span>
+    </a>
 
-        </a>
+    <a
+    href="orders.html"
+    class="${current == "orders" ? "active" : ""}">
 
-        
-        href="profile.html"
-        class="${current=="profile"?"active":""}">
+        📦
+        <span>Orders</span>
 
-            👤
-            <span>Profile</span>
+    </a>
 
-        </a>
+    <a
+    href="profile.html"
+    class="${current == "profile" ? "active" : ""}">
 
-    </nav>
+        👤
+        <span>Profile</span>
 
-    `;
+    </a>
+
+</nav>
+
+`;
+```
 
 }
+
 async function renderLayout(page){
 
-    let currentUser = null;
+```
+let currentUser = null;
 
-    if(typeof authGetCurrentUser === "function"){
+if(typeof authGetCurrentUser === "function"){
 
-        try {
-            currentUser = await authGetCurrentUser();
-        } catch(err) {
-            console.error(err);
-            currentUser = null;
-        }
+    try {
 
-    }
+        currentUser = await authGetCurrentUser();
 
-    let currentRole = null;
+    } catch(err) {
 
-    if(currentUser && typeof dbGetMyRole === "function"){
+        console.error(err);
 
-        try {
-            currentRole = await dbGetMyRole();
-        } catch(err) {
-            console.error(err);
-            currentRole = null;
-        }
+        currentUser = null;
 
     }
 
-    document.getElementById(
+}
 
-        "headerContainer"
+let currentRole = null;
 
-    ).innerHTML =
+if(currentUser && typeof dbGetMyRole === "function"){
 
-    renderHeader()
+    try {
 
-    +
+        currentRole = await dbGetMyRole();
 
-    renderSidebar(currentUser, currentRole);
+    } catch(err) {
 
-    if(currentUser){
-        refreshNotifBadge();
+        console.error(err);
+
+        currentRole = null;
+
     }
+
+}
+
+document.getElementById(
+
+    "headerContainer"
+
+).innerHTML =
+
+renderHeader()
+
++
+
+renderSidebar(currentUser, currentRole);
+
+
+if(currentUser){
+
+    refreshNotifBadge();
+
+}
+
 
 const pagesWithoutBottomNav = [
 
@@ -222,6 +246,7 @@ const pagesWithoutBottomNav = [
     "tehsil-admin"
 
 ];
+
 
 if(
 
@@ -247,403 +272,652 @@ if(
 
 }
 
-    bindLayoutEvents();
+
+bindLayoutEvents();
+
 updateCartBadge();
+```
+
 }
+
 function bindLayoutEvents(){
 
-    const menu =
+```
+const menu =
 
-    document.getElementById(
+document.getElementById(
 
-        "menuBtn"
+    "menuBtn"
 
-    );
+);
 
-    const sidebar =
+const sidebar =
 
-    document.getElementById(
+document.getElementById(
 
-        "sidebar"
+    "sidebar"
 
-    );
+);
 
-    const overlay =
+const overlay =
 
-    document.getElementById(
+document.getElementById(
 
-        "overlay"
+    "overlay"
 
-    );
+);
 
-    menu.onclick=function(){
 
-        sidebar.classList.add(
+if(!menu || !sidebar || !overlay){
 
-            "open"
-
-        );
-
-        overlay.classList.add(
-
-            "show"
-
-        );
-
-    };
-
-    overlay.onclick=function(){
-
-        sidebar.classList.remove(
-
-            "open"
-
-        );
-
-        overlay.classList.remove(
-
-            "show"
-
-        );
-
-    };
+    return;
 
 }
-function renderSidebar(user, role){
 
-    const accountSection = user ? `
 
-        <div class="sidebarAccount">
+menu.onclick=function(){
 
-            👋 Hi, ${user.name || "there"}
-
-        </div>
-
-
-        
-        href="#"
-        onclick="handleLogout(); return false;"
-        class="sidebarLogout">
-
-            🚪 Logout
-
-        </a>
-
-    ` : `
-
-        
-        href="login.html"
-        class="sidebarLogout">
-
-            🔑 Login
-
-        </a>
-
-    `;
-
-    let adminLink = "";
-
-    if(role && role.role === "super_admin"){
-
-        adminLink = `
-        <a href="superadmin.html">
-
-            🛡️ Super Admin
-
-        </a>
-        `;
-
-    }else if(role && role.role === "tehsil_admin"){
-
-        adminLink = `
-        <a href="tehsil-admin.html">
-
-            🛡️ Tehsil Admin
-
-        </a>
-        `;
-
-    }else if(user){
-
-        adminLink = `
-        <a href="admin-apply.html">
-
-            🛡️ Become a Tehsil Admin
-
-        </a>
-        `;
-
-    }
-
-    return `
-
-    <div
-    id="sidebar"
-    class="sidebar">
-
-        <div class="sidebarHeader">
-
-            <h2>
-                Hamara Bazaar
-            </h2>
-
-            <p>
-                Delivering Happiness
-            </p>
-
-        </div>
-
-        ${accountSection}
-
-        <a href="home.html">
-
-            🏠 Home
-
-        </a>
-
-
-        <a href="orders.html">
-
-            📦 My Orders
-
-        </a>
-
-
-        <a href="role.html">
-
-            🏪 My Business
-
-        </a>
-
-        ${adminLink}
-
-        <a href="settings.html">
-
-            ⚙ Settings
-
-        </a>
-
-    </div>
-
-
-    <div
-    id="overlay"
-    class="overlay">
-
-    </div>
-
-    `;
-
-}
-
-
-async function handleLogout(){
-
-    if(typeof authSignOut !== "function"){
-        return;
-    }
-
-    try {
-        await authSignOut();
-    } catch(err) {
-        console.error(err);
-    }
-
-    location.href = "home.html";
-
-}
-
-
-/* ==========================================
-   NOTIFICATION BELL + PANEL
-   ========================================== */
-
-function timeAgo(dateString){
-
-    const seconds = Math.floor((new Date() - new Date(dateString)) / 1000);
-
-    if(seconds < 60) return "just now";
-    const minutes = Math.floor(seconds / 60);
-    if(minutes < 60) return `${minutes}m ago`;
-    const hours = Math.floor(minutes / 60);
-    if(hours < 24) return `${hours}h ago`;
-    const days = Math.floor(hours / 24);
-    return `${days}d ago`;
-}
-
-async function refreshNotifBadge(){
-
-    const badge = document.getElementById("notifBadge");
-    if(!badge || typeof dbGetUnreadNotificationCount !== "function") return;
-
-    let count = 0;
-
-    try {
-        count = await dbGetUnreadNotificationCount();
-    } catch(err) {
-        console.error(err);
-        return;
-    }
-
-    if(count > 0){
-        badge.innerText = count > 99 ? "99+" : count;
-        badge.style.display = "flex";
-    }else{
-        badge.style.display = "none";
-    }
-}
-
-function toggleNotificationPanel(){
-
-    const panel = document.getElementById("notifPanel");
-    if(!panel) return;
-
-    const isOpening = !panel.classList.contains("show");
-
-    panel.classList.toggle("show");
-
-    if(isOpening){
-        loadNotificationPanel();
-    }
-}
-
-async function loadNotificationPanel(){
-
-    const list = document.getElementById("notifList");
-    if(!list) return;
-
-    let notifications = [];
-
-    try {
-        notifications = await dbGetMyNotifications(20);
-    } catch(err) {
-        console.error(err);
-        list.innerHTML = `<div class="notifEmpty">Couldn't load notifications.</div>`;
-        return;
-    }
-
-    if(!notifications || notifications.length === 0){
-        list.innerHTML = `<div class="notifEmpty">🔔<br>No notifications yet.</div>`;
-        return;
-    }
-
-    list.innerHTML = "";
-
-    notifications.forEach(n => {
-
-        const item = document.createElement("button");
-        item.className = "notifItem" + (n.is_read ? "" : " unread");
-
-        item.innerHTML = `
-            <div class="notifTitle">${n.title}</div>
-            <div class="notifMessage">${n.message}</div>
-            <div class="notifTime">${timeAgo(n.created_at)}</div>
-        `;
-
-        item.onclick = async function(){
-
-            if(!n.is_read){
-                try {
-                    await dbMarkNotificationRead(n.id);
-                    refreshNotifBadge();
-                } catch(err) {
-                    console.error(err);
-                }
-            }
-
-            if(n.action_url){
-                window.location.href = n.action_url;
-            }else{
-                document.getElementById("notifPanel").classList.remove("show");
-                loadNotificationPanel();
-            }
-        };
-
-        list.appendChild(item);
-    });
-}
-
-async function markAllNotificationsReadAndRefresh(){
-
-    try {
-        await dbMarkAllNotificationsRead();
-        await loadNotificationPanel();
-        await refreshNotifBadge();
-    } catch(err) {
-        console.error(err);
-    }
-}
-
-// Close the panel when clicking anywhere outside it
-document.addEventListener("click", function(event){
-
-    const panel = document.getElementById("notifPanel");
-    const btn = document.getElementById("notifBtn");
-    if(!panel || !panel.classList.contains("show")) return;
-
-    if(!panel.contains(event.target) && event.target !== btn){
-        panel.classList.remove("show");
-    }
-});
-
-function closeSidebar(){
-
-    document.getElementById(
-
-        "sidebar"
-
-    ).classList.remove(
+    sidebar.classList.add(
 
         "open"
 
     );
 
-    document.getElementById(
-
-        "overlay"
-
-    ).classList.remove(
+    overlay.classList.add(
 
         "show"
 
     );
 
-}
-function updateCartBadge(){
+};
 
-    const badge =
 
-    document.getElementById(
+overlay.onclick=function(){
 
-        "cartBadge"
+    sidebar.classList.remove(
+
+        "open"
 
     );
 
-    if(!badge){
+    overlay.classList.remove(
+
+        "show"
+
+    );
+
+};
+```
+
+}
+
+function renderSidebar(user, role){
+
+```
+const accountSection = user ? `
+
+    <div class="sidebarAccount">
+
+        👋 Hi, ${user.name || "there"}
+
+    </div>
+
+
+    <a
+    href="#"
+    onclick="handleLogout(); return false;"
+    class="sidebarLogout">
+
+        🚪 Logout
+
+    </a>
+
+` : `
+
+    <a
+    href="login.html"
+    class="sidebarLogout">
+
+        🔑 Login
+
+    </a>
+
+`;
+
+
+let adminLink = "";
+
+
+if(role && role.role === "super_admin"){
+
+    adminLink = `
+
+    <a href="superadmin.html">
+
+        🛡️ Super Admin
+
+    </a>
+
+    `;
+
+}else if(role && role.role === "tehsil_admin"){
+
+    adminLink = `
+
+    <a href="tehsil-admin.html">
+
+        🛡️ Tehsil Admin
+
+    </a>
+
+    `;
+
+}else if(user){
+
+    adminLink = `
+
+    <a href="admin-apply.html">
+
+        🛡️ Become a Tehsil Admin
+
+    </a>
+
+    `;
+
+}
+
+
+return `
+
+<div
+id="sidebar"
+class="sidebar">
+
+    <div class="sidebarHeader">
+
+        <h2>
+            Hamara Bazaar
+        </h2>
+
+        <p>
+            Delivering Happiness
+        </p>
+
+    </div>
+
+    ${accountSection}
+
+    <a href="home.html">
+
+        🏠 Home
+
+    </a>
+
+
+    <a href="orders.html">
+
+        📦 My Orders
+
+    </a>
+
+
+    <a href="role.html">
+
+        🏪 My Business
+
+    </a>
+
+    ${adminLink}
+
+    <a href="settings.html">
+
+        ⚙ Settings
+
+    </a>
+
+</div>
+
+
+<div
+id="overlay"
+class="overlay">
+
+</div>
+
+`;
+```
+
+}
+
+async function handleLogout(){
+
+```
+if(typeof authSignOut !== "function"){
+
+    return;
+
+}
+
+
+try {
+
+    await authSignOut();
+
+} catch(err) {
+
+    console.error(err);
+
+}
+
+
+location.href = "home.html";
+```
+
+}
+
+/* ==========================================
+NOTIFICATION BELL + PANEL
+========================================== */
+
+function timeAgo(dateString){
+
+```
+const seconds = Math.floor(
+
+    (new Date() - new Date(dateString)) / 1000
+
+);
+
+
+if(seconds < 60) return "just now";
+
+
+const minutes = Math.floor(seconds / 60);
+
+
+if(minutes < 60) return `${minutes}m ago`;
+
+
+const hours = Math.floor(minutes / 60);
+
+
+if(hours < 24) return `${hours}h ago`;
+
+
+const days = Math.floor(hours / 24);
+
+
+return `${days}d ago`;
+```
+
+}
+
+async function refreshNotifBadge(){
+
+```
+const badge = document.getElementById("notifBadge");
+
+
+if(
+
+    !badge ||
+
+    typeof dbGetUnreadNotificationCount !== "function"
+
+){
+
+    return;
+
+}
+
+
+let count = 0;
+
+
+try {
+
+    count = await dbGetUnreadNotificationCount();
+
+} catch(err) {
+
+    console.error(err);
+
+    return;
+
+}
+
+
+if(count > 0){
+
+    badge.innerText = count > 99 ? "99+" : count;
+
+    badge.style.display = "flex";
+
+}else{
+
+    badge.style.display = "none";
+
+}
+```
+
+}
+
+function toggleNotificationPanel(){
+
+```
+const panel = document.getElementById("notifPanel");
+
+
+if(!panel){
+
+    return;
+
+}
+
+
+const isOpening = !panel.classList.contains("show");
+
+
+panel.classList.toggle("show");
+
+
+if(isOpening){
+
+    loadNotificationPanel();
+
+}
+```
+
+}
+
+async function loadNotificationPanel(){
+
+```
+const list = document.getElementById("notifList");
+
+
+if(!list){
+
+    return;
+
+}
+
+
+let notifications = [];
+
+
+try {
+
+    notifications = await dbGetMyNotifications(20);
+
+} catch(err) {
+
+    console.error(err);
+
+    list.innerHTML = `
+
+        <div class="notifEmpty">
+
+            Couldn't load notifications.
+
+        </div>
+
+    `;
+
+    return;
+
+}
+
+
+if(!notifications || notifications.length === 0){
+
+    list.innerHTML = `
+
+        <div class="notifEmpty">
+
+            🔔<br>
+
+            No notifications yet.
+
+        </div>
+
+    `;
+
+    return;
+
+}
+
+
+list.innerHTML = "";
+
+
+notifications.forEach(n => {
+
+    const item = document.createElement("button");
+
+
+    item.className =
+
+        "notifItem" +
+
+        (n.is_read ? "" : " unread");
+
+
+    item.type = "button";
+
+
+    item.innerHTML = `
+
+        <div class="notifTitle">
+
+            ${n.title}
+
+        </div>
+
+        <div class="notifMessage">
+
+            ${n.message}
+
+        </div>
+
+        <div class="notifTime">
+
+            ${timeAgo(n.created_at)}
+
+        </div>
+
+    `;
+
+
+    item.onclick = async function(){
+
+        if(!n.is_read){
+
+            try {
+
+                await dbMarkNotificationRead(n.id);
+
+                await refreshNotifBadge();
+
+            } catch(err) {
+
+                console.error(err);
+
+            }
+
+        }
+
+
+        if(n.action_url){
+
+            window.location.href = n.action_url;
+
+        }else{
+
+            document
+
+                .getElementById("notifPanel")
+
+                .classList
+
+                .remove("show");
+
+
+            loadNotificationPanel();
+
+        }
+
+    };
+
+
+    list.appendChild(item);
+
+});
+```
+
+}
+
+async function markAllNotificationsReadAndRefresh(){
+
+```
+try {
+
+    await dbMarkAllNotificationsRead();
+
+    await loadNotificationPanel();
+
+    await refreshNotifBadge();
+
+} catch(err) {
+
+    console.error(err);
+
+}
+```
+
+}
+
+/* Close notification panel when clicking outside it */
+
+document.addEventListener(
+
+```
+"click",
+
+function(event){
+
+    const panel =
+
+        document.getElementById("notifPanel");
+
+
+    const btn =
+
+        document.getElementById("notifBtn");
+
+
+    if(
+
+        !panel ||
+
+        !panel.classList.contains("show")
+
+    ){
 
         return;
 
     }
 
-    const cart = getCart();
 
-    let total = 0;
+    if(
 
-    cart.forEach(item=>{
+        !panel.contains(event.target) &&
 
-        total += item.quantity;
+        event.target !== btn &&
 
-    });
+        !btn?.contains(event.target)
 
-    badge.innerText = total;
+    ){
+
+        panel.classList.remove("show");
+
+    }
 
 }
+```
+
+);
+
+function closeSidebar(){
+
+```
+const sidebar =
+
+    document.getElementById("sidebar");
+
+
+const overlay =
+
+    document.getElementById("overlay");
+
+
+if(sidebar){
+
+    sidebar.classList.remove("open");
+
+}
+
+
+if(overlay){
+
+    overlay.classList.remove("show");
+
+}
+```
+
+}
+
+function updateCartBadge(){
+
+```
+const badge =
+
+    document.getElementById("cartBadge");
+
+
+if(!badge){
+
+    return;
+
+}
+
+
+const cart = getCart();
+
+
+let total = 0;
+
+
+cart.forEach(item => {
+
+    total += item.quantity;
+
+});
+
+
+badge.innerText = total;
+```
+
+}
+
 function comingSoon(){
 
-    alert(
+```
+alert(
 
-        "Coming Soon 😊"
+    "Coming Soon 😊"
 
-    );
+);
+```
 
 }
