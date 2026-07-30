@@ -116,7 +116,7 @@ function renderBottomNav(current){
     <nav class="bottomNav">
 
         
-        href="home.html"
+      <a  href="home.html"
         class="${current=="home"?"active":""}">
 
             🏠
@@ -124,7 +124,8 @@ function renderBottomNav(current){
 
         </a>
 
-        
+
+        <a
         href="shops.html"
         class="${current=="shops"?"active":""}">
 
@@ -133,7 +134,7 @@ function renderBottomNav(current){
 
         </a>
         
-        href="services.html"
+      <a  href="services.html"
         class="${current=="services"?"active":""}">
 
             🧰
