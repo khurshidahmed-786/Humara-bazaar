@@ -9,7 +9,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-    <title>Shop — Hamara Bazaar</title>
+    <title>All Shops — Hamara Bazaar</title>
 
     <link
         rel="stylesheet"
@@ -18,10 +18,84 @@
     <link
         rel="stylesheet"
         href="css/components.css">
-   <link rel="stylesheet" href="css/notifications.css">
+
     <link
         rel="stylesheet"
-        href="css/shop.css">
+        href="css/notifications.css">
+
+    <link
+        rel="stylesheet"
+        href="css/index.css">
+
+    <style>
+
+        .shopsPageHeading{
+
+            padding:16px;
+
+        }
+
+        .shopsPageHeading h1{
+
+            font-size:22px;
+
+            color:#345D2A;
+
+        }
+
+        .shopsFilterBar{
+
+            padding:0 16px 16px;
+
+            display:flex;
+
+            gap:10px;
+
+        }
+
+        .shopsFilterBar select{
+
+            flex:1;
+
+            padding:12px 14px;
+
+            border-radius:12px;
+
+            border:none;
+
+            background:white;
+
+            box-shadow:0 6px 18px rgba(0,0,0,.06);
+
+            font-size:14px;
+
+            color:#345D2A;
+
+            font-weight:600;
+
+        }
+
+        .shopsGrid{
+
+            display:grid;
+
+            grid-template-columns:repeat(auto-fill, minmax(200px, 1fr));
+
+            gap:16px;
+
+            padding:0 16px 24px;
+
+        }
+
+        .shopsGrid .shopMarketplaceCard{
+
+            flex:none;
+
+            width:100%;
+
+        }
+
+    </style>
 
 </head>
 
@@ -29,287 +103,84 @@
 <body>
 
 
-<!-- ==========================================
-     GLOBAL HAMARA BAZAAR NAVIGATION
-========================================== -->
-
 <div id="headerContainer"></div>
 
 
-<!-- ==========================================
-     SHOP PAGE
-========================================== -->
+<main class="page">
 
-<main class="shopPage">
 
+<section class="searchSection">
 
-    <!-- ======================================
-         SHOP BILLBOARD
-    ======================================= -->
+    <div class="searchBox">
 
-    <section
-        class="shopBillboard"
-        id="shopBillboard">
+        <span class="searchIcon">🔍</span>
 
-
-        <div class="billboardContent">
-
-
-            <div class="billboardText">
-
-
-                <h1 id="displayName">
-
-                    Shop Name
-
-                </h1>
-
-
-                <p
-                    id="displayDescription">
-
-                    Shop Description
-
-                </p>
-
-
-                <div
-                    class="billboardLocation"
-                    id="displayLocation">
-
-                    📍 Local Market
-
-                </div>
-
-
-            </div>
-
-
-        </div>
-
-
-        <!-- CIRCULAR SHOP LOGO -->
-
-        <div class="shopLogo">
-
-            <img
-                id="displayLogo"
-                alt="Shop Logo">
-
-            <span
-                id="logoPlaceholder">
-
-                🏪
-
-            </span>
-
-        </div>
-
-
-    </section>
-
-
-
-    <!-- ======================================
-         SHOP INFORMATION
-    ======================================= -->
-
-    <section class="shopInfo">
-
-
-        <div class="shopInfoMain">
-
-
-            <div
-                class="status"
-                id="shopStatus">
-
-                🟢 Open Now
-
-            </div>
-
-
-            <div
-                class="time"
-                id="displayTime">
-
-                Open Time
-
-            </div>
-
-
-        </div>
-
-
-        <div
-            class="shopLocation"
-            id="shopLocation">
-
-            📍 Local Market
-
-        </div>
-
-
-    </section>
-
-
-
-    <!-- ======================================
-         PRODUCT CONTENT
-    ======================================= -->
-
-
-    <div class="shopProducts">
-
-
-        <!-- FEATURED -->
-
-        <section
-            class="productSection"
-            id="featuredSection">
-
-            <div class="sectionHeader">
-
-                <h2>
-
-                    ⭐ Featured
-
-                </h2>
-
-            </div>
-
-
-            <div
-                class="products"
-                id="featuredProducts">
-
-            </div>
-
-        </section>
-
-
-
-        <!-- NEW ARRIVAL -->
-
-        <section
-            class="productSection"
-            id="newSection">
-
-            <div class="sectionHeader">
-
-                <h2>
-
-                    🆕 New Arrival
-
-                </h2>
-
-            </div>
-
-
-            <div
-                class="products"
-                id="newProducts">
-
-            </div>
-
-        </section>
-
-
-
-        <!-- DISCOUNT SALE -->
-
-        <section
-            class="productSection"
-            id="saleSection">
-
-            <div class="sectionHeader">
-
-                <h2>
-
-                    🔥 Discount Sale
-
-                </h2>
-
-            </div>
-
-
-            <div
-                class="products"
-                id="saleProducts">
-
-            </div>
-
-        </section>
-
+        <input
+            id="shopSearchInput"
+            type="text"
+            placeholder="Search shops">
 
     </div>
+
+</section>
+
+
+<section class="shopsPageHeading">
+
+    <h1>🏪 All Shops</h1>
+
+</section>
+
+
+<section class="shopsFilterBar">
+
+    <select id="categoryFilter">
+
+        <option value="">All Categories</option>
+
+    </select>
+
+</section>
+
+
+<section>
+
+    <div
+        id="allShopsGrid"
+        class="shopsGrid">
+
+    </div>
+
+    <div
+        id="shopsEmpty"
+        class="emptyState"
+        style="display:none; margin:0 16px;">
+
+        <div class="emptyIcon">🏪</div>
+        <p>No shops found.</p>
+
+    </div>
+
+</section>
 
 
 </main>
 
 
-
-<!-- ==========================================
-     FIXED SHOP ACTION BAR
-========================================== -->
-
-<div class="shopActionBar">
-
-
-    <button
-        class="shopAction secondary"
-        id="contactShopBtn">
-
-        Contact Shop
-
-    </button>
-
-
-    <button
-        class="shopAction primary"
-        id="browseProductsBtn">
-
-        Browse Products
-
-    </button>
-
-
-</div>
-
-
-
-<!-- ==========================================
-     BOTTOM NAVIGATION
-========================================== -->
-
 <div id="bottomNavContainer"></div>
 
-
-
-<!-- ==========================================
-     JAVASCRIPT
-========================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabaseClient.js"></script>
 <script src="js/db.js"></script>
-
 <script src="js/database.js"></script>
 
-<script src="js/auth.js"></script>
-
-<script src="js/shop.js"></script>
-
-<script src="js/product.js"></script>
-
-<script src="js/cart.js"></script>
-
 <script src="js/components.js"></script>
-
+<script src="js/shops.js"></script>
 
 <script>
 
-    renderLayout("shop");
+renderLayout("shops");
 
 </script>
 
