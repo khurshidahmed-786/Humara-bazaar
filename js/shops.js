@@ -5,6 +5,84 @@
    ========================================================== */
 
 let allShopsCache = [];
+let currentCategoryFilter = "";
+
+function applyShopFilters(){
+
+    const searchInput = document.getElementById("shopSearchInput");
+    const term = searchInput ? searchInput.value.trim().toLowerCase() : "";
+
+    let filtered = allShopsCache;
+
+    if(currentCategoryFilter){
+        filtered = filtered.filter(shop => (shop.category || "") === currentCategoryFilter);
+    }
+
+    if(term){
+        filtered = filtered.filter(shop => (shop.name || "").toLowerCase().includes(term));
+    }
+
+    renderShopsGrid(filtered);
+}
+
+async function populateShopCategoryFilter(){
+
+    const select = document.getElementById("categoryFilter");
+    if(!select) return;
+
+    let categories = [];
+
+    try {
+        categories = await dbGetActiveCategories();
+    } catch(err) {
+        console.error("Failed to load categories:", err);
+    }
+
+    categories.forEach(cat => {
+        const opt = document.createElement("option");
+        opt.value = cat.name;
+        opt.textContent = cat.name;
+        select.appendChild(opt);
+    });
+
+    select.onchange = function(){
+        currentCategoryFilter = select.value;
+        applyShopFilters();
+    };
+}
+
+async function initShopsPage(){
+
+    const params = new URLSearchParams(window.location.search);
+    currentCategoryFilter = params.get("category") || "";
+
+    let shops = [];
+
+    try {
+        shops = await dbGetAllShops();
+    } catch(err) {
+        console.error("Failed to load shops:", err);
+    }
+
+    allShopsCache = shops;
+
+    await populateShopCategoryFilter();
+
+    const categorySelect = document.getElementById("categoryFilter");
+    if(categorySelect && currentCategoryFilter){
+        categorySelect.value = currentCategoryFilter;
+    }
+
+    applyShopFilters();
+
+    const searchInput = document.getElementById("shopSearchInput");
+
+    if(searchInput){
+        searchInput.oninput = applyShopFilters;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", initShopsPage);
 
 function renderShopsGrid(shops){
 
@@ -48,42 +126,3 @@ function renderShopsGrid(shops){
         grid.appendChild(card);
     });
 }
-
-async function initShopsPage(){
-
-    const params = new URLSearchParams(window.location.search);
-    const categoryFilter = params.get("category");
-
-    let shops = [];
-
-    try {
-        shops = await dbGetAllShops();
-    } catch(err) {
-        console.error("Failed to load shops:", err);
-    }
-
-    if(categoryFilter){
-        shops = shops.filter(shop =>
-            (shop.category || "").toLowerCase() === categoryFilter.toLowerCase()
-        );
-    }
-
-    allShopsCache = shops;
-    renderShopsGrid(allShopsCache);
-
-    const searchInput = document.getElementById("shopSearchInput");
-
-    if(searchInput){
-        searchInput.oninput = function(){
-            const term = searchInput.value.trim().toLowerCase();
-
-            const filtered = term
-                ? allShopsCache.filter(shop => (shop.name || "").toLowerCase().includes(term))
-                : allShopsCache;
-
-            renderShopsGrid(filtered);
-        };
-    }
-}
-
-document.addEventListener("DOMContentLoaded", initShopsPage);
