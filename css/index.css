@@ -1111,46 +1111,6 @@ main{
    SHOP RAIL
 ========================================== */
 
-.shopMarketplaceCard{
-
-    flex:0 0 210px;
-
-    border-radius:18px;
-
-}
-
-.shopMarketplaceImage{
-
-    height:120px;
-
-}
-
-.shopMarketplaceBody{
-
-    padding:14px;
-
-}
-
-.shopMarketplaceName{
-
-    font-size:16px;
-
-}
-
-.shopMarketplaceCategory{
-
-    font-size:12px;
-
-}
-
-.shopMarketplaceStatus{
-
-    font-size:12px;
-
-    margin-top:8px;
-
-}
-
 
 /* ==========================================
    MOBILE HEADER
