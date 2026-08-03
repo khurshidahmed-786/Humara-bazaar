@@ -8,14 +8,14 @@
     background:white;
     border-radius:18px;
     box-shadow:0 20px 50px rgba(0,0,0,.16);
-    display:none;
     flex-direction:column;
     overflow:hidden;
     z-index:2500;
+    display:none !important;
 }
 
 .notifPanel.show{
-    display:flex;
+    display:flex !important;
 }
 
 .notifPanelHeader{
