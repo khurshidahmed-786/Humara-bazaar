@@ -70,14 +70,6 @@ function renderHeader(title = "Hamara Bazaar"){
 
         </div>
 
-            <div id="notifList" class="notifList">
-
-                <div class="notifEmpty">Loading...</div>
-
-            </div>
-
-        </div>
-
         </div>
 
         <button
