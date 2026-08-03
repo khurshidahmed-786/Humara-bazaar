@@ -54,19 +54,21 @@ function renderHeader(title = "Hamara Bazaar"){
 
         </button>
 
-        <div id="notifPanel" class="notifPanel">
+       <div id="notifPanel" class="notifPanel">
 
             <div class="notifPanelHeader">
 
                 <span>Notifications</span>
 
-                <button id="notifMarkAllBtn" onclick="markAllNotificationsReadAndRefresh()">
+            </div>
 
-                    Mark all read
+            <div id="notifList" class="notifList">
 
-                </button>
+                <div class="notifEmpty">Loading...</div>
 
             </div>
+
+        </div>
 
             <div id="notifList" class="notifList">
 
@@ -541,41 +543,30 @@ async function loadNotificationPanel(){
             <div class="notifTime">${timeAgo(n.created_at)}</div>
         `;
 
-        item.onclick = async function(){
-
-            if(!n.is_read){
-                try {
-                    await dbMarkNotificationRead(n.id);
-                    refreshNotifBadge();
-                } catch(err) {
-                    console.error(err);
-                }
-            }
+        item.onclick = function(){
 
             if(n.action_url){
                 window.location.href = n.action_url;
             }else{
                 document.getElementById("notifPanel").classList.remove("show");
-                loadNotificationPanel();
             }
         };
 
         list.appendChild(item);
     });
-}
 
-async function markAllNotificationsReadAndRefresh(){
+    // Opening the panel is the "read" action — no separate button needed.
+    const hadUnread = notifications.some(n => !n.is_read);
 
-    try {
-        await dbMarkAllNotificationsRead();
-        await loadNotificationPanel();
-        await refreshNotifBadge();
-    } catch(err) {
-        console.error(err);
+    if(hadUnread){
+        try {
+            await dbMarkAllNotificationsRead();
+            refreshNotifBadge();
+        } catch(err) {
+            console.error(err);
+        }
     }
-}
-
-// Close the panel when clicking anywhere outside it
+}// Close the panel when clicking anywhere outside it
 document.addEventListener("click", function(event){
 
     const panel = document.getElementById("notifPanel");
