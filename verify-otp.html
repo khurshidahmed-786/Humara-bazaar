@@ -1,0 +1,112 @@
+<script>
+
+document.getElementById("registerBtn").onclick =
+async function(){
+
+    const name =
+        document.getElementById("name")
+        .value
+        .trim();
+
+    const phone =
+        document.getElementById("phone")
+        .value
+        .trim();
+
+    const area =
+        document.getElementById("area")
+        .value
+        .trim();
+
+    const error =
+        document.getElementById("error");
+
+    const btn =
+        document.getElementById("registerBtn");
+
+
+    error.style.display = "none";
+
+
+    if(!name || !phone || !area){
+
+        error.innerText =
+            "Please enter your name, mobile number and area.";
+
+        error.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    btn.disabled = true;
+
+    btn.innerText =
+        "Sending OTP...";
+
+
+    try {
+
+        const result =
+            await authSendRegistrationOtp({
+
+                name: name,
+
+                phone: phone,
+
+                market: area
+
+            });
+
+
+        /*
+        Store the normalized phone number
+        temporarily until OTP verification.
+        */
+
+        sessionStorage.setItem(
+
+            "pendingRegistration",
+
+            JSON.stringify({
+
+                name: name,
+
+                phone: result.phone,
+
+                market: area
+
+            })
+
+        );
+
+
+        window.location.href =
+            "verify-otp.html";
+
+
+    } catch(err) {
+
+        console.error(err);
+
+        error.innerText =
+            err.message ||
+            "Unable to send OTP. Please try again.";
+
+        error.style.display =
+            "block";
+
+
+        btn.disabled =
+            false;
+
+        btn.innerText =
+            "Send OTP";
+
+    }
+
+};
+
+</script>
