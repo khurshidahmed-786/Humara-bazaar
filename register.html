@@ -95,8 +95,22 @@ button:disabled{
 <p>Join Hamara Bazaar and connect with your local community.</p>
 
 <input id="name" placeholder="Full Name *">
-<input id="email" placeholder="Email *" type="email">
-<input id="password" placeholder="Password (min 6 characters) *" type="password">
+<input id="name" placeholder="Full Name *">
+
+<input
+    id="phone"
+    placeholder="Mobile Number *"
+    type="tel"
+>
+
+<input
+    id="area"
+    placeholder="Area / Locality *"
+>
+
+<button id="registerBtn">
+    Send OTP
+</button>
 <input id="phone" placeholder="Mobile Number *" type="tel">
 <input id="area" placeholder="Area / Locality *">
 
@@ -113,60 +127,115 @@ button:disabled{
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabaseClient.js"></script>
 <script src="js/db.js"></script>
-
-
 <script>
+document.getElementById("registerBtn").onclick =
+async function(){
 
-document.getElementById("registerBtn").onclick = async function(){
+    const name =
+        document.getElementById("name")
+        .value
+        .trim();
 
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
-    const phone = document.getElementById("phone").value.trim();
-    const area = document.getElementById("area").value.trim();
+    const phone =
+        document.getElementById("phone")
+        .value
+        .trim();
 
-    const error = document.getElementById("error");
-    const btn = document.getElementById("registerBtn");
+    const area =
+        document.getElementById("area")
+        .value
+        .trim();
+
+    const error =
+        document.getElementById("error");
+
+    const btn =
+        document.getElementById("registerBtn");
+
 
     error.style.display = "none";
 
-    if(!name || !email || !password || !phone || !area){
-        error.innerText = "Please fill in every field.";
-        error.style.display = "block";
+
+    if(!name || !phone || !area){
+
+        error.innerText =
+            "Please enter your name, mobile number and area.";
+
+        error.style.display =
+            "block";
+
         return;
+
     }
 
-    if(password.length < 6){
-        error.innerText = "Password must be at least 6 characters.";
-        error.style.display = "block";
-        return;
-    }
 
     btn.disabled = true;
-    btn.innerText = "Creating account...";
+
+    btn.innerText =
+        "Sending OTP...";
+
 
     try {
 
-        await authSignUp(email, password, {
-            name: name,
-            phone: phone,
-            market: area
-        });
+        const result =
+            await authSendRegistrationOtp({
 
-        window.location.href = "home.html";
+                name: name,
+
+                phone: phone,
+
+                market: area
+
+            });
+
+
+        /*
+        Store the normalized phone number
+        temporarily until OTP verification.
+        */
+
+        sessionStorage.setItem(
+
+            "pendingRegistration",
+
+            JSON.stringify({
+
+                name: name,
+
+                phone: result.phone,
+
+                market: area
+
+            })
+
+        );
+
+
+        window.location.href =
+            "verify-otp.html";
+
 
     } catch(err) {
 
         console.error(err);
-        error.innerText = err.message || "Something went wrong. Please try again.";
-        error.style.display = "block";
 
-        btn.disabled = false;
-        btn.innerText = "Create Account";
+        error.innerText =
+            err.message ||
+            "Unable to send OTP. Please try again.";
+
+        error.style.display =
+            "block";
+
+
+        btn.disabled =
+            false;
+
+        btn.innerText =
+            "Send OTP";
+
     }
 
 };
-
 </script>
 
 
