@@ -76,20 +76,70 @@ text-align:center;
 
 <p>Login to your account</p>
 
-<input id="email" placeholder="Email" type="email">
-<input id="password" placeholder="Password" type="password">
+<div id="phoneStep">
 
-<button class="btn" id="loginBtn">Login</button>
+    <input
+        id="phone"
+        placeholder="Mobile Number"
+        type="tel"
+    >
 
-<p id="error" style="color:#B63A3A; margin-top:15px; display:none;"></p>
-
-<br>
-
-<a href="register.html">Create Account</a>
-<a class="skip" href="/">Continue as Guest</a>
+    <button
+        class="btn"
+        id="sendOtpBtn"
+    >
+        Send OTP
+    </button>
 
 </div>
 
+
+<div
+    id="otpStep"
+    style="display:none;"
+>
+
+    <input
+        id="otp"
+        placeholder="Enter OTP"
+        type="text"
+        inputmode="numeric"
+        maxlength="6"
+    >
+
+    <button
+        class="btn"
+        id="verifyOtpBtn"
+    >
+        Verify OTP
+    </button>
+
+</div>
+
+
+<p
+    id="error"
+    style="
+        color:#B63A3A;
+        margin-top:15px;
+        display:none;
+    "
+></p>
+
+<br>
+
+<a href="register.html">
+    Create Account
+</a>
+
+<a
+    class="skip"
+    href="/"
+>
+    Continue as Guest
+</a>
+
+</div>
 <!-- Supabase (real backend) -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabaseClient.js"></script>
@@ -97,47 +147,193 @@ text-align:center;
 
 <script>
 
-document.getElementById("loginBtn").onclick = async function(){
+let loginPhone = "";
 
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
 
-    const error = document.getElementById("error");
-    const btn = document.getElementById("loginBtn");
+const error =
+    document.getElementById("error");
 
-    error.style.display = "none";
 
-    if(!email || !password){
-        error.innerText = "Please enter your email and password.";
-        error.style.display = "block";
+document.getElementById("sendOtpBtn")
+.onclick =
+async function(){
+
+    const phone =
+        document.getElementById("phone")
+        .value
+        .trim();
+
+
+    error.style.display =
+        "none";
+
+
+    if(!phone){
+
+        error.innerText =
+            "Please enter your mobile number.";
+
+        error.style.display =
+            "block";
+
         return;
+
     }
 
-    btn.disabled = true;
-    btn.innerText = "Logging in...";
+
+    const btn =
+        document.getElementById("sendOtpBtn");
+
+
+    btn.disabled =
+        true;
+
+    btn.innerText =
+        "Sending OTP...";
+
 
     try {
 
-      await authSignIn(email, password);
+        const result =
+            await authSendLoginOtp(phone);
 
-        const params = new URLSearchParams(window.location.search);
-        const redirect = params.get("redirect");
-        const safeRedirect = redirect && /^[a-zA-Z0-9_-]+\.html$/.test(redirect) ? redirect : "home.html";
 
-        window.location.href = safeRedirect;
+        loginPhone =
+            result.phone;
+
+
+        document.getElementById(
+            "phoneStep"
+        ).style.display =
+            "none";
+
+
+        document.getElementById(
+            "otpStep"
+        ).style.display =
+            "block";
+
 
     } catch(err) {
 
         console.error(err);
-        error.innerText = "Incorrect email or password.";
-        error.style.display = "block";
 
-        btn.disabled = false;
-        btn.innerText = "Login";
+        error.innerText =
+            err.message ||
+            "Unable to send OTP.";
+
+        error.style.display =
+            "block";
+
+
+        btn.disabled =
+            false;
+
+        btn.innerText =
+            "Send OTP";
+
     }
 
 };
 
+
+document.getElementById("verifyOtpBtn")
+.onclick =
+async function(){
+
+    const otp =
+        document.getElementById("otp")
+        .value
+        .trim();
+
+
+    error.style.display =
+        "none";
+
+
+    if(!otp){
+
+        error.innerText =
+            "Please enter the OTP.";
+
+        error.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    const btn =
+        document.getElementById(
+            "verifyOtpBtn"
+        );
+
+
+    btn.disabled =
+        true;
+
+    btn.innerText =
+        "Verifying...";
+
+
+    try {
+
+        await authVerifyLoginOtp(
+
+            loginPhone,
+
+            otp
+
+        );
+
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const redirect =
+            params.get("redirect");
+
+
+        const safeRedirect =
+
+            redirect &&
+            /^[a-zA-Z0-9_-]+\.html$/
+            .test(redirect)
+
+                ? redirect
+
+                : "home.html";
+
+
+        window.location.href =
+            safeRedirect;
+
+
+    } catch(err) {
+
+        console.error(err);
+
+        error.innerText =
+            err.message ||
+            "Invalid OTP.";
+
+        error.style.display =
+            "block";
+
+
+        btn.disabled =
+            false;
+
+        btn.innerText =
+            "Verify OTP";
+
+    }
+
+};
 </script>
 </body>
 
