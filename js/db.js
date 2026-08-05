@@ -8,265 +8,54 @@
 
    Every function here is async — always use `await`.
    ========================================================== */
+
+
 /* ==========================================
    AUTH
-   Phone OTP authentication
-   Email is optional profile information.
+   (Email + password for now. Phone OTP login
+   comes later once an SMS provider is connected —
+   phone is still stored on the profile.)
    ========================================== */
 
+async function authSignUp(email, password, profileFields) {
 
-/* ==========================================
-   PHONE NORMALIZATION
-   ========================================== */
-
-function normalizePhone(phone) {
-
-    phone = String(phone || "").trim();
-
-    if (!phone) {
-        throw new Error("Mobile number is required.");
-    }
-
-    // Already international format
-    if (phone.startsWith("+")) {
-        return phone;
-    }
-
-    // Indian number starting with 0
-    if (phone.startsWith("0")) {
-        return "+91" + phone.substring(1);
-    }
-
-    // Indian 10-digit number
-    if (/^\d{10}$/.test(phone)) {
-        return "+91" + phone;
-    }
-
-    throw new Error(
-        "Please enter a valid 10-digit mobile number."
-    );
-}
-
-
-/* ==========================================
-   SEND REGISTRATION OTP
-   ========================================== */
-
-async function authSendRegistrationOtp(profileFields) {
-
-    const phone = normalizePhone(profileFields.phone);
-
-    const { data, error } =
-        await sb.auth.signInWithOtp({
-
-            phone: phone,
-
-            options: {
-
-                data: {
-
-                    name: profileFields.name,
-
-                    phone: phone,
-
-                    market: profileFields.market || ""
-
-                }
-
-            }
-
-        });
-
+    const { data, error } = await sb.auth.signUp({ email, password });
     if (error) throw error;
 
-    return {
-        data,
-        phone
-    };
-}
-
-
-/* ==========================================
-   VERIFY REGISTRATION OTP
-   ========================================== */
-
-async function authVerifyRegistrationOtp(phone, token) {
-
-    phone = normalizePhone(phone);
-
-    const { data, error } =
-        await sb.auth.verifyOtp({
-
-            phone: phone,
-
-            token: token,
-
-            type: "sms"
-
+    // If email confirmation is ON in your Supabase project, data.user
+    // exists but data.session is null until the user clicks the email
+    // link. We can still create their profile row right away.
+    const { error: profileError } = await sb
+        .from("profiles")
+        .insert({
+            id: data.user.id,
+            email,
+            name: profileFields.name,
+            phone: profileFields.phone,
+            market: profileFields.market || ""
         });
 
+    if (profileError) throw profileError;
+
+    return data;
+}
+
+async function authSignIn(email, password) {
+    const { data, error } = await sb.auth.signInWithPassword({ email, password });
     if (error) throw error;
-
-    if (!data.user) {
-
-        throw new Error(
-            "Phone verification failed."
-        );
-
-    }
-
-    /*
-    Create the Hamara Bazaar profile
-    only after successful OTP verification.
-    */
-
-    const metadata =
-        data.user.user_metadata || {};
-
-    const { data: existingProfile } =
-        await sb
-            .from("profiles")
-            .select("id")
-            .eq("id", data.user.id)
-            .maybeSingle();
-
-    /*
-    Prevent duplicate profile creation.
-    */
-
-    if (!existingProfile) {
-
-        const { error: profileError } =
-            await sb
-                .from("profiles")
-                .insert({
-
-                    id: data.user.id,
-
-                    email: data.user.email || null,
-
-                    name: metadata.name || "",
-
-                    phone: phone,
-
-                    market: metadata.market || ""
-
-                });
-
-        if (profileError) {
-
-            /*
-            If profile creation fails,
-            sign out so we don't leave
-            a partially completed account
-            logged in.
-            */
-
-            await sb.auth.signOut();
-
-            throw profileError;
-
-        }
-
-    }
-
     return data.user;
 }
-
-
-/* ==========================================
-   SEND LOGIN OTP
-   ========================================== */
-
-async function authSendLoginOtp(phone) {
-
-    phone = normalizePhone(phone);
-
-    const { data, error } =
-        await sb.auth.signInWithOtp({
-
-            phone: phone,
-
-            options: {
-
-                shouldCreateUser: false
-
-            }
-
-        });
-
-    if (error) throw error;
-
-    return {
-        data,
-        phone
-    };
-}
-
-
-/* ==========================================
-   VERIFY LOGIN OTP
-   ========================================== */
-
-async function authVerifyLoginOtp(phone, token) {
-
-    phone = normalizePhone(phone);
-
-    const { data, error } =
-        await sb.auth.verifyOtp({
-
-            phone: phone,
-
-            token: token,
-
-            type: "sms"
-
-        });
-
-    if (error) throw error;
-
-    if (!data.user) {
-
-        throw new Error(
-            "Login verification failed."
-        );
-
-    }
-
-    return data.user;
-}
-
-
-/* ==========================================
-   SIGN OUT
-   ========================================== */
 
 async function authSignOut() {
-
-    const { error } =
-        await sb.auth.signOut();
-
+    const { error } = await sb.auth.signOut();
     if (error) throw error;
-
 }
-
-
-/* ==========================================
-   UPDATE PASSWORD
-   ========================================== */
 
 async function authUpdatePassword(newPassword) {
-
-    const { error } =
-        await sb.auth.updateUser({
-
-            password: newPassword
-
-        });
-
+    const { error } = await sb.auth.updateUser({ password: newPassword });
     if (error) throw error;
-
 }
+
 async function authGetCurrentUser() {
 
     const { data: { user } } = await sb.auth.getUser();
