@@ -1,253 +1,276 @@
 <!DOCTYPE html>
-
+ 
 <html>
-
+ 
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 
+ 
 <title>Create Shop</title>
 <link rel="stylesheet" href="css/createshop.css">
+<link rel="stylesheet" href="css/mobile.css">
 </head>
-
+ 
 <body>
-<body>
-
+ 
 <div class="page">
-
+ 
     <div class="topBar">
-
+ 
         <a href="dashboard.html" class="backBtn">←</a>
-
+ 
         <div>
-
+ 
          <h1 id="pageTitle">🏪 Open Your Shop</h1>
-
+ 
 <p id="pageSubtitle">
 Join Hamara Bazaar and start serving
 your local community.
 </p>
         </div>
-
+ 
     </div>
-
+ 
     <div class="progressCard">
-
+ 
         <div class="progressHead">
-
+ 
             <span id="stepText">
-
+ 
                 Step 1 of 4
-
+ 
             </span>
-
+ 
             <span id="stepTitle">
-
+ 
                 Shop Identity
-
+ 
             </span>
-
+ 
         </div>
-
+ 
         <div class="progressBar">
-
+ 
             <div id="progressFill"></div>
-
+ 
         </div>
-
+ 
     </div>
-
+ 
     <div class="stepCard">
-
+ 
         <!-- STEP 1 -->
-
+ 
         <div class="step active" id="step1">
-
+ 
             <h2>🏪 Shop Identity</h2>
-
+ 
             <p>
-
+ 
                 Tell customers who you are.
-
+ 
             </p>
-
+ 
             <input
             id="shopName"
             placeholder="Shop Name *">
-
+ 
             <select id="shopCategory">
-
+ 
                 <option value="">
-
+ 
                     Select Category *
-
+ 
                 </option>
-
+ 
                 <option>
-
+ 
                     Grocery
-
+ 
                 </option>
-
+ 
                 <option>
-
+ 
                     Restaurant
-
+ 
                 </option>
-
+ 
                 <option>
-
+ 
                     Fashion
-
+ 
                 </option>
-
+ 
                 <option>
-
+ 
                     Beauty
-
+ 
                 </option>
-
+ 
                 <option>
-
+ 
                     Electronics
-
+ 
                 </option>
-
+ 
             </select>
-
+ 
         </div>
-
+ 
         <!-- STEP 2 -->
-
+ 
         <div class="step" id="step2">
-
+ 
             <h2>📝 About Your Shop</h2>
-
+ 
             <p>
-
+ 
                 Help customers understand your business.
-
+ 
             </p>
-
+ 
             <textarea
             id="shopDescription"
             placeholder="Describe your shop *"></textarea>
-
+ 
+            <label class="fieldLabel" for="shopOpen">Opening Time</label>
             <input
-            id="shopOpen"
-            placeholder="Opening Time">
-
+            type="time"
+            id="shopOpen">
+ 
+            <label class="fieldLabel" for="shopClose">Closing Time</label>
             <input
-            id="shopClose"
-            placeholder="Closing Time">
-
+            type="time"
+            id="shopClose">
+ 
+            <p class="fieldHint">
+                We'll automatically show your shop as Open or Closed
+                to customers based on these hours. You can always
+                override this later from your dashboard.
+            </p>
+ 
         </div>
-
+ 
         <!-- STEP 3 -->
-
+ 
         <div class="step" id="step3">
-
+ 
             <h2>🎨 Branding</h2>
-
+ 
             <p>
-
+ 
                 Optional but recommended.
-
+ 
             </p>
-
-            <input
-            id="shopLogo"
-            placeholder="Logo URL">
-
-            <input
-            id="shopBanner"
-            placeholder="Banner URL">
-
-        </div>
-
-        <!-- STEP 4 -->
-
-        <div class="step" id="step4">
-
-            <h2>👀 Preview</h2>
-
-            <p>
-
-                This is how customers will see your shop.
-
-            </p>
-
-            <div class="preview">
-
-                <div id="previewBanner">
-
+ 
+            <label class="fieldLabel" for="shopLogo">Shop Logo</label>
+            <div class="imageUploadRow">
+                <div id="shopLogoPreview" class="imageUploadPreview imageUploadPreviewRound">🏪</div>
+                <div class="imageUploadControls">
+                    <input type="file" id="shopLogo" accept="image/*">
+                    <span id="shopLogoStatus" class="imageUploadStatus"></span>
                 </div>
-
-                <div id="previewLogo">
-
-                    🏪
-
-                </div>
-
-                <h3 id="previewName">
-
-                    Your Shop
-
-                </h3>
-
-                <div id="previewTime">
-
-                    8 AM - 8 PM
-
-                </div>
-
-                <p id="previewDescription">
-
-                    Your description will appear here.
-
-                </p>
-
             </div>
-
+ 
+            <label class="fieldLabel" for="shopBanner">Shop Banner</label>
+            <div class="imageUploadRow">
+                <div id="shopBannerPreview" class="imageUploadPreview imageUploadPreviewWide"></div>
+                <div class="imageUploadControls">
+                    <input type="file" id="shopBanner" accept="image/*">
+                    <span id="shopBannerStatus" class="imageUploadStatus"></span>
+                </div>
+            </div>
+ 
         </div>
-
+ 
+        <!-- STEP 4 -->
+ 
+        <div class="step" id="step4">
+ 
+            <h2>👀 Preview</h2>
+ 
+            <p>
+ 
+                This is how customers will see your shop.
+ 
+            </p>
+ 
+            <div class="preview">
+ 
+                <div id="previewBanner">
+ 
+                </div>
+ 
+                <div id="previewLogo">
+ 
+                    🏪
+ 
+                </div>
+ 
+                <h3 id="previewName">
+ 
+                    Your Shop
+ 
+                </h3>
+ 
+                <div id="previewTime">
+ 
+                    8 AM - 8 PM
+ 
+                </div>
+ 
+                <p id="previewDescription">
+ 
+                    Your description will appear here.
+ 
+                </p>
+ 
+            </div>
+ 
+        </div>
+ 
     </div>
 <div id="publishArea" style="margin-top:30px;display:none;">
-
+ 
 <button id="publishBtn">
-
+ 
 🚀 Publish Shop
-
+ 
 </button>
-
+ 
 </div>
     <div class="bottomBar">
-
+ 
         <button  id="backBtn">
-
+ 
             Back
-
+ 
         </button>
-
+ 
         <button id="nextBtn">
-
+ 
             Next →
-
+ 
         </button>
-
+ 
     </div>
-
+ 
 </div>
-
+ 
 <!-- Supabase (real backend) -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabaseClient.js"></script>
+<script src="js/deliveryPricing.js"></script>
 <script src="js/db.js"></script>
-
+<script src="js/shopStatus.js"></script>
+ 
 <script src="js/database.js"></script>
 <script src="js/shop.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/createshop.js"></script>
-
+ 
 </body>
-</body>
-
+ 
 </html>
+ 

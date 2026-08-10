@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+
+<title>Rider Dashboard | Hamara Bazaar</title>
+
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/notifications.css">
+<link rel="stylesheet" href="css/riderdashboard.css">
+<link rel="stylesheet" href="css/mobile.css">
+
+</head>
+
+<body>
+
+<div id="headerContainer"></div>
+
+<main class="page">
+
+    <div id="riderApp">
+        <div class="riderLoading">Loading your deliveries...</div>
+    </div>
+
+    <div id="riderUnauthorized" class="businessEmpty" style="display:none;">
+        <div class="emptyIcon">🛵</div>
+        <h2>Not a Rider Yet</h2>
+        <p>You need an approved rider application to access this dashboard.</p>
+        <button onclick="location.href='services.html'">← Back to Services</button>
+    </div>
+
+</main>
+
+<div id="bottomNavContainer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabaseClient.js"></script>
+<script src="js/deliveryPricing.js"></script>
+<script src="js/db.js"></script>
+<script src="js/database.js"></script>
+<script src="js/Shopstatus.js"></script>
+
+<script src="js/components.js"></script>
+<script src="js/riderdashboard.js"></script>
+
+<script>
+renderLayout("services");
+</script>
+
+</body>
+
+</html>

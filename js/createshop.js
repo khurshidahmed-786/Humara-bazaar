@@ -51,13 +51,11 @@ let activeBusiness = null;
 
 let existingShop = null;
 
-
-/* ==========================================
-   LOAD EDIT DATA
-========================================== */
-
-/* Edit-mode data is loaded further below, after page elements
-   exist, since it needs to await Supabase and then fill inputs. */
+/* Uploaded image URLs (set once a file finishes uploading to
+   Supabase Storage). Start as null so we know whether the user
+   picked a new file vs. is keeping whatever was already saved. */
+let uploadedLogoUrl = null;
+let uploadedBannerUrl = null;
 
 
 /* ==========================================
@@ -138,6 +136,7 @@ const shopCloseInput =
         "shopClose"
     );
 
+/* These are now FILE inputs, not text inputs */
 const shopLogoInput =
     document.getElementById(
         "shopLogo"
@@ -146,6 +145,26 @@ const shopLogoInput =
 const shopBannerInput =
     document.getElementById(
         "shopBanner"
+    );
+
+const shopLogoPreview =
+    document.getElementById(
+        "shopLogoPreview"
+    );
+
+const shopBannerPreview =
+    document.getElementById(
+        "shopBannerPreview"
+    );
+
+const shopLogoStatus =
+    document.getElementById(
+        "shopLogoStatus"
+    );
+
+const shopBannerStatus =
+    document.getElementById(
+        "shopBannerStatus"
     );
 
 
@@ -213,10 +232,25 @@ if(editMode){
     shopNameInput.value = existingShop.name || "";
     shopCategoryInput.value = existingShop.category || "";
     shopDescriptionInput.value = existingShop.description || "";
-    shopOpenInput.value = existingShop.open_time || "";
-    shopCloseInput.value = existingShop.close_time || "";
-    shopLogoInput.value = existingShop.logo || "";
-    shopBannerInput.value = existingShop.banner || "";
+
+    /* parseTimeTo24Hour (js/shopStatus.js) also handles shops saved
+       under the old free-text time format, e.g. "8:00 AM" */
+    shopOpenInput.value = parseTimeTo24Hour(existingShop.open_time || "");
+    shopCloseInput.value = parseTimeTo24Hour(existingShop.close_time || "");
+
+    /* Existing logo/banner are shown as previews. They stay as-is
+       unless the shopkeeper picks a new file. */
+    if(existingShop.logo){
+        shopLogoPreview.innerHTML = `<img src="${existingShop.logo}" alt="Shop logo">`;
+    }
+
+    if(existingShop.banner){
+        shopBannerPreview.style.backgroundImage = `url("${existingShop.banner}")`;
+        shopBannerPreview.style.backgroundSize = "cover";
+        shopBannerPreview.style.backgroundPosition = "center";
+    }
+
+    updatePreview();
 
 })();
 
@@ -346,6 +380,21 @@ const previewBanner =
     );
 
 
+function currentLogoUrl(){
+
+    if(uploadedLogoUrl !== null) return uploadedLogoUrl;
+    return (existingShop && existingShop.logo) || "";
+
+}
+
+function currentBannerUrl(){
+
+    if(uploadedBannerUrl !== null) return uploadedBannerUrl;
+    return (existingShop && existingShop.banner) || "";
+
+}
+
+
 function updatePreview(){
 
     previewName.innerText =
@@ -369,7 +418,7 @@ function updatePreview(){
     previewTime.innerText =
 
         (
-            shopOpenInput.value
+            formatTime12h(shopOpenInput.value)
 
             ||
 
@@ -383,7 +432,7 @@ function updatePreview(){
         +
 
         (
-            shopCloseInput.value
+            formatTime12h(shopCloseInput.value)
 
             ||
 
@@ -393,16 +442,14 @@ function updatePreview(){
 
     /* LOGO PREVIEW */
 
-    if(
+    const logoUrl = currentLogoUrl();
 
-        shopLogoInput.value.trim()
-
-    ){
+    if(logoUrl){
 
         previewLogo.innerHTML = `
 
             <img
-                src="${shopLogoInput.value.trim()}"
+                src="${logoUrl}"
                 style="
                 width:100%;
                 height:100%;
@@ -425,15 +472,13 @@ function updatePreview(){
 
     /* BANNER PREVIEW */
 
-    if(
+    const bannerUrl = currentBannerUrl();
 
-        shopBannerInput.value.trim()
-
-    ){
+    if(bannerUrl){
 
         previewBanner.style.backgroundImage =
 
-            `url("${shopBannerInput.value.trim()}")`;
+            `url("${bannerUrl}")`;
 
         previewBanner.style.backgroundSize =
             "cover";
@@ -489,21 +534,67 @@ shopCloseInput.addEventListener(
 
 );
 
-shopLogoInput.addEventListener(
 
-    "input",
+/* ==========================================
+   IMAGE UPLOAD HANDLERS
+   Upload happens as soon as a file is picked, so by the time the
+   shopkeeper hits Publish/Save the URL is already ready.
+========================================== */
 
-    updatePreview
+async function handleImageSelect(fileInput, kind, previewEl, statusEl, isRound){
 
-);
+    const file = fileInput.files[0];
+    if(!file) return;
 
-shopBannerInput.addEventListener(
+    if(!realCurrentUser){
+        alert("Please wait a moment for your account to load, then try again.");
+        return;
+    }
 
-    "input",
+    statusEl.innerText = "Uploading...";
+    fileInput.disabled = true;
 
-    updatePreview
+    try{
 
-);
+        const url = await dbUploadShopImage(file, realCurrentUser.id, kind);
+
+        if(kind === "logo"){
+            uploadedLogoUrl = url;
+            previewEl.innerHTML = `<img src="${url}" alt="Shop logo">`;
+        }
+        else{
+            uploadedBannerUrl = url;
+            previewEl.style.backgroundImage = `url("${url}")`;
+            previewEl.style.backgroundSize = "cover";
+            previewEl.style.backgroundPosition = "center";
+        }
+
+        statusEl.innerText = "✅ Uploaded";
+        updatePreview();
+
+    }
+    catch(err){
+
+        console.error(err);
+        statusEl.innerText = "";
+        alert("Couldn't upload that image: " + err.message);
+
+    }
+    finally{
+
+        fileInput.disabled = false;
+
+    }
+
+}
+
+shopLogoInput.addEventListener("change", function(){
+    handleImageSelect(shopLogoInput, "logo", shopLogoPreview, shopLogoStatus, true);
+});
+
+shopBannerInput.addEventListener("change", function(){
+    handleImageSelect(shopBannerInput, "banner", shopBannerPreview, shopBannerStatus, false);
+});
 
 
 /* ==========================================
@@ -707,8 +798,8 @@ publishBtn.onclick = async function(){
                 description: shopDescriptionInput.value.trim(),
                 open_time: shopOpenInput.value.trim(),
                 close_time: shopCloseInput.value.trim(),
-                logo: shopLogoInput.value.trim(),
-                banner: shopBannerInput.value.trim()
+                logo: currentLogoUrl(),
+                banner: currentBannerUrl()
             });
 
 
@@ -751,6 +842,22 @@ publishBtn.onclick = async function(){
         });
 
 
+        /* RESOLVE TEHSIL from the shopkeeper's saved pincode/market,
+           so Tehsil Admins can actually see this shop. Without this,
+           the shop is created with no tehsil_id and never shows up
+           in any Tehsil Admin's dashboard. */
+
+        let resolvedTehsil = null;
+
+        if(currentUser.market){
+            try {
+                resolvedTehsil = await dbFindTehsilByPincodeOrName(currentUser.market);
+            } catch(tehsilErr){
+                console.error("Tehsil lookup failed:", tehsilErr);
+            }
+        }
+
+
         /* CREATE SHOP, linked to the business above */
 
         const createdShop = await dbCreateShop({
@@ -761,9 +868,20 @@ publishBtn.onclick = async function(){
             description: shopDescriptionInput.value.trim(),
             open_time: shopOpenInput.value.trim(),
             close_time: shopCloseInput.value.trim(),
-            logo: shopLogoInput.value.trim(),
-            banner: shopBannerInput.value.trim()
+            logo: currentLogoUrl(),
+            banner: currentBannerUrl(),
+            manual_status: "auto",
+            tehsil_id: resolvedTehsil ? resolvedTehsil.id : null,
+            approval_status: "pending"
         });
+
+        if(!resolvedTehsil){
+            alert(
+                "Your shop was created, but there's no Tehsil Admin covering your area (" +
+                currentUser.market +
+                ") yet. It will go live automatically as soon as one joins and approves it."
+            );
+        }
 
 
         /* SAVE ACTIVE BUSINESS / SHOP for other (not-yet-migrated) pages */

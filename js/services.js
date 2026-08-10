@@ -46,6 +46,11 @@ async function initServicesPage(){
         ? "rejected"
         : "pending";
 
+    if(application.status === "approved"){
+        actionSlot.innerHTML = `<a class="serviceBtn" href="riderdashboard.html">Open Rider Dashboard →</a>`;
+        return;
+    }
+
     actionSlot.innerHTML = `<span class="serviceStatus ${badgeClass}">${label}</span>`;
 }
 

@@ -1,4 +1,9 @@
-const DELIVERY_FEE_PER_SHOP = 30;
+/* This is an ESTIMATE shown at checkout — just the ₹40 base fee.
+   The real delivery charge (base + distance + off-hour + rain) is
+   only known once a rider is dispatched and the km is entered, at
+   which point dbSetOrderDeliveryPricing() recalculates order.delivery
+   and order.total for real. See js/deliveryPricing.js. */
+const DELIVERY_FEE_PER_SHOP = DELIVERY_BASE_FEE;
 
 let checkoutUser = null;
 
@@ -110,6 +115,18 @@ async function placeOrder(){
                 quantity: item.quantity
             }));
 
+            // Tag the order with the shop's tehsil, so the Tehsil Admin
+            // can see it and assign a rider. Without this the order
+            // never shows up on anyone's delivery dashboard.
+            let tehsilId = null;
+
+            try {
+                const shop = await dbGetShop(Number(shopId));
+                tehsilId = shop ? shop.tehsil_id : null;
+            } catch(shopErr) {
+                console.error("Could not resolve shop's tehsil:", shopErr);
+            }
+
             const order = await dbSaveOrder({
                 shop_id: Number(shopId),
                 customer_id: checkoutUser.id,
@@ -121,7 +138,9 @@ async function placeOrder(){
                 delivery: DELIVERY_FEE_PER_SHOP,
                 total: total,
                 status: "Pending",
-                payment_status: "unpaid"
+                payment_status: "unpaid",
+                tehsil_id: tehsilId,
+                delivery_status: "unassigned"
             });
 
             placedOrders.push(order);

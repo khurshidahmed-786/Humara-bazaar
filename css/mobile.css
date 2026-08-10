@@ -1,0 +1,164 @@
+/* ==========================================================
+   HAMARA BAZAAR — GLOBAL MOBILE BASELINE
+
+   Loaded on every page, AFTER all other stylesheets, so it can
+   safely raise touch-target sizes and fix small-screen issues
+   without fighting page-specific CSS. Nothing here is destructive
+   — it only adds minimums and safety nets.
+   ========================================================== */
+
+
+/* ----------------------------------------
+   TAP TARGETS
+   Apple/Google guidelines recommend >=44px.
+   A lot of this app's buttons/inputs were sized for desktop
+   mouse clicks — this brings every interactive element up to a
+   comfortable thumb size on phones, without changing desktop.
+---------------------------------------- */
+
+@media (max-width: 768px){
+
+    button,
+    .btn,
+    .iconBtn,
+    input[type="button"],
+    input[type="submit"],
+    a.serviceBtn,
+    .adminBtn,
+    .businessMore,
+    .businessBack {
+        min-height: 44px;
+    }
+
+    button,
+    .btn,
+    input[type="button"],
+    input[type="submit"] {
+        min-width: 44px;
+        padding-top: max(12px, env(safe-area-inset-top, 0px));
+    }
+
+    /* text inputs / selects / textareas: 16px stops iOS Safari from
+       auto-zooming the page when a field is focused */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="password"],
+    input[type="number"],
+    input[type="search"],
+    input[type="time"],
+    input[type="date"],
+    input:not([type]),
+    select,
+    textarea {
+        font-size: 16px !important;
+        min-height: 44px;
+    }
+
+    textarea {
+        min-height: 88px;
+    }
+
+    /* Small icon-only buttons (back arrows, kebab menus, cart icons)
+       often had 36-38px boxes — bump the tappable area without
+       necessarily growing the visible box, via padding. */
+    .iconBtn,
+    .businessMore,
+    .businessBack,
+    .businessActionIcon {
+        min-width: 44px;
+    }
+
+    a, button, [onclick], .businessAction, .adminBtn, .serviceBtn {
+        touch-action: manipulation;
+    }
+}
+
+
+/* ----------------------------------------
+   SPACING — tighten oversized desktop paddings
+   on small screens so content doesn't feel like
+   it's floating in empty space.
+---------------------------------------- */
+
+@media (max-width: 480px){
+
+    .page {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .container {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .card,
+    .adminCard {
+        padding: 14px;
+    }
+
+    h1 {
+        font-size: clamp(20px, 6vw, 28px);
+    }
+
+    /* Legacy hero sections (index.html / waitlist.html) were sized
+       for desktop and could overflow or leave odd empty margins on
+       narrow screens */
+    .hero h1 {
+        font-size: clamp(26px, 8vw, 40px) !important;
+        line-height: 1.2 !important;
+    }
+
+    .hero p {
+        font-size: 16px !important;
+        max-width: 100% !important;
+    }
+
+    .hero {
+        padding: 24px 16px !important;
+    }
+}
+
+
+/* ----------------------------------------
+   GRIDS — make sure any fixed-column grid still
+   collapses gracefully on very narrow phones,
+   even if a page-specific rule forgot to.
+---------------------------------------- */
+
+@media (max-width: 420px){
+
+    .servicesGrid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .businessStats {
+        gap: 6px;
+    }
+}
+
+
+/* ----------------------------------------
+   PREVENT HORIZONTAL OVERFLOW
+   A single oversized element (an un-wrapped row, a fixed-width
+   table, etc.) can force the whole page to scroll sideways,
+   which reads as "blank space" on the right edge.
+---------------------------------------- */
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+img, video {
+    max-width: 100%;
+    height: auto;
+}
+
+table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}

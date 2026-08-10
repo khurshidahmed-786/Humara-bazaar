@@ -1,4 +1,7 @@
-const DELIVERY_FEE_PER_SHOP = 30;
+/* Estimated delivery shown in the cart preview — must match the
+   checkout page's estimate. Real final fee (with distance/off-hour/
+   rain) is calculated later, at rider dispatch. See js/deliveryPricing.js */
+const DELIVERY_FEE_PER_SHOP = DELIVERY_BASE_FEE;
 
 
 document.addEventListener("DOMContentLoaded", function(){

@@ -192,6 +192,46 @@ async function dbUpdateShop(id, updates) {
     return data;
 }
 
+// Uploads a shop logo or banner to the "shop-images" storage bucket.
+// kind: "logo" | "banner". Files are stored under the uploading
+// user's own id (e.g. "<userId>/logo_169999.jpg") which matches the
+// storage RLS policy from migration 002. Returns the public URL.
+async function dbUploadShopImage(file, userId, kind) {
+
+    const fileExt = file.name.split(".").pop();
+    const filePath = `${userId}/${kind}_${Date.now()}.${fileExt}`;
+
+    const { error: uploadError } = await sb.storage
+        .from("shop-images")
+        .upload(filePath, file);
+
+    if (uploadError) throw uploadError;
+
+    const { data } = sb.storage
+        .from("shop-images")
+        .getPublicUrl(filePath);
+
+    return data.publicUrl;
+}
+
+// Sets the shop's manual open/closed override.
+// manualStatus: "auto" | "open" | "closed"
+// "auto" follows open_time/close_time, "closed" is the
+// "closed today" toggle in the seller dashboard, "open" forces
+// the shop to show as open regardless of the clock.
+async function dbSetShopManualStatus(shopId, manualStatus) {
+
+    const { data, error } = await sb
+        .from("shops")
+        .update({ manual_status: manualStatus })
+        .eq("id", shopId)
+        .select()
+        .single();
+
+    if (error) throw error;
+    return data;
+}
+
 
 /* ==========================================
    PRODUCTS
@@ -929,6 +969,48 @@ async function dbGetUnassignedOrdersByTehsil(tehsilId) {
     return data;
 }
 
+// Locks in the delivery fee breakdown for an order at dispatch
+// time — this is what actually determines what the customer is
+// charged for delivery AND what the rider is owed. Call this at
+// the same time you assign a rider (distanceKm/isRainy are
+// collected on the same "Assign" action in the Tehsil Admin UI).
+// Also recalculates order.total, since the real delivery fee can
+// differ from the ₹40 base estimate shown at checkout.
+async function dbSetOrderDeliveryPricing(orderId, { distanceKm = 0, isRainy = false } = {}) {
+
+    const { data: order, error: fetchError } = await sb
+        .from("orders")
+        .select("subtotal")
+        .eq("id", orderId)
+        .single();
+
+    if (fetchError) throw fetchError;
+
+    const breakdown = computeDeliveryFee({ distanceKm, isRainy, atTime: new Date() });
+
+    const { data, error } = await sb
+        .from("orders")
+        .update({
+            distance_km: breakdown.distanceKm,
+            is_rainy: breakdown.isRainy,
+            is_off_hour: breakdown.isOffHour,
+            delivery_base_fee: breakdown.baseFee,
+            delivery_distance_fee: breakdown.distanceFee,
+            delivery_off_hour_fee: breakdown.offHourFee,
+            delivery_rain_fee: breakdown.rainFee,
+            delivery: breakdown.totalFee,
+            rider_payout: breakdown.riderPayout,
+            platform_delivery_cut: breakdown.platformCut,
+            total: Number(order.subtotal) + breakdown.totalFee
+        })
+        .eq("id", orderId)
+        .select()
+        .single();
+
+    if (error) throw error;
+    return data;
+}
+
 async function dbAssignRiderToOrder(orderId, riderId, tehsilId) {
     const user = await authGetCurrentUser();
 
@@ -1006,6 +1088,79 @@ async function dbAssignRiderToOrder(orderId, riderId, tehsilId) {
         console.error("Rider-assigned notification failed:", notifyErr);
     }
 }
+
+// All orders for a tehsil, any status — used by the Tehsil Admin's
+// "All Orders" view so they can see where every order stands
+// (Pending / Accepted / Preparing / Ready / Delivered) and its
+// delivery_status (unassigned / assigned / picked_up / delivered).
+async function dbGetOrdersByTehsil(tehsilId, limit = 100) {
+    const { data, error } = await sb
+        .from("orders")
+        .select("*")
+        .eq("tehsil_id", tehsilId)
+        .order("created_at", { ascending: false })
+        .limit(limit);
+
+    if (error) throw error;
+    return data;
+}
+
+// Orders assigned to a specific rider (rider_profiles.id, not the
+// user id), each with the shop's name/location attached so the
+// rider dashboard can show "from -> to" without extra round trips.
+async function dbGetOrdersAssignedToRider(riderId) {
+
+    const { data: assignments, error: assignError } = await sb
+        .from("order_rider_assignments")
+        .select("order_id")
+        .eq("rider_id", riderId);
+
+    if (assignError) throw assignError;
+
+    const orderIds = [...new Set((assignments || []).map(a => a.order_id))];
+    if (orderIds.length === 0) return [];
+
+    const { data: orders, error: ordersError } = await sb
+        .from("orders")
+        .select("*")
+        .in("id", orderIds)
+        .order("created_at", { ascending: false });
+
+    if (ordersError) throw ordersError;
+
+    const shopIds = [...new Set((orders || []).map(o => o.shop_id))];
+
+    let shopsById = {};
+
+    if (shopIds.length > 0) {
+        const { data: shops, error: shopsError } = await sb
+            .from("shops")
+            .select("id, name, location, address, logo, category")
+            .in("id", shopIds);
+
+        if (shopsError) throw shopsError;
+        (shops || []).forEach(s => { shopsById[s.id] = s; });
+    }
+
+    return (orders || []).map(o => ({ ...o, shop: shopsById[o.shop_id] || null }));
+}
+
+// Rider-side delivery status: "assigned" -> "picked_up" -> "delivered".
+// Kept separate from orders.status (which the SELLER controls:
+// Pending/Accepted/Preparing/Ready/Delivered) so the two workflows
+// never stomp on each other.
+async function dbSetOrderDeliveryStatus(orderId, deliveryStatus) {
+    const { data, error } = await sb
+        .from("orders")
+        .update({ delivery_status: deliveryStatus })
+        .eq("id", orderId)
+        .select()
+        .single();
+
+    if (error) throw error;
+    return data;
+}
+
 
 /* ==========================================================
    PINCODE-BASED TEHSIL LOOKUP (welcome page gate)

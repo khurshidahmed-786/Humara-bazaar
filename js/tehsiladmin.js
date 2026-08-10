@@ -46,7 +46,7 @@ async function renderTehsilAdminApp(){
     const app = document.getElementById("tehsilAdminApp");
     app.innerHTML = `<div class="adminEmpty">Loading dashboard...</div>`;
 
-    let tehsil, readiness, pendingShops, activeShops, pendingRiders, approvedRiders, unassignedOrders, auditLogs, categorySuggestions;
+    let tehsil, readiness, pendingShops, activeShops, pendingRiders, approvedRiders, unassignedOrders, allOrders, auditLogs, categorySuggestions;
 
     try {
         tehsil = await dbGetTehsilById(myTehsilId);
@@ -56,6 +56,7 @@ async function renderTehsilAdminApp(){
         pendingRiders = await dbGetRidersByTehsil(myTehsilId, "pending");
         approvedRiders = await dbGetRidersByTehsil(myTehsilId, "approved");
         unassignedOrders = await dbGetUnassignedOrdersByTehsil(myTehsilId);
+        allOrders = await dbGetOrdersByTehsil(myTehsilId);
         auditLogs = await dbGetAuditLogs(myTehsilId, 15);
         categorySuggestions = await dbGetPendingCategorySuggestions();
     } catch(err) {
@@ -91,6 +92,10 @@ async function renderTehsilAdminApp(){
         <h2 class="adminHeading">Unassigned Orders</h2>
         <div id="unassignedOrdersList"></div>
 
+        <h2 class="adminHeading">All Orders</h2>
+        <p class="adminSub">Every order in your tehsil and where it currently stands.</p>
+        <div id="allOrdersList"></div>
+
         <h2 class="adminHeading">Recent Activity</h2>
         <div id="tehsilAuditList"></div>
     `;
@@ -102,7 +107,83 @@ async function renderTehsilAdminApp(){
     renderRidersList("pendingRidersList", pendingRiders, true);
     renderApprovedRiders(approvedRiders);
     renderUnassignedOrders(unassignedOrders, approvedRiders);
+    await renderAllOrders(allOrders);
     renderTehsilAudit(auditLogs);
+}
+
+
+/* ==========================================================
+   ALL ORDERS (with status + delivery status)
+   ========================================================== */
+
+const ORDER_STATUS_BADGE_CLASS = {
+    Pending: "pending",
+    Accepted: "approved",
+    Preparing: "pending",
+    Ready: "approved",
+    Delivered: "approved",
+    Cancelled: "rejected"
+};
+
+const DELIVERY_STATUS_LABEL = {
+    unassigned: "Unassigned",
+    assigned: "Rider Assigned",
+    picked_up: "Picked Up",
+    delivered: "Delivered"
+};
+
+async function renderAllOrders(orders){
+
+    const container = document.getElementById("allOrdersList");
+
+    if(!orders || orders.length === 0){
+        container.innerHTML = `<div class="adminEmpty">No orders placed in your tehsil yet.</div>`;
+        return;
+    }
+
+    /* Batch-resolve shop names so we're not doing one query per card */
+
+    const shopIds = [...new Set(orders.map(o => o.shop_id))];
+    let shopsById = {};
+
+    try {
+        const shops = await dbGetShopsByIds(shopIds);
+        shops.forEach(s => { shopsById[s.id] = s; });
+    } catch(err) {
+        console.error("Could not load shop names for order list:", err);
+    }
+
+    container.innerHTML = "";
+
+    orders.forEach(order => {
+
+        const shop = shopsById[order.shop_id];
+        const statusClass = ORDER_STATUS_BADGE_CLASS[order.status] || "pending";
+        const deliveryLabel = DELIVERY_STATUS_LABEL[order.delivery_status] || order.delivery_status || "Unassigned";
+
+        const card = document.createElement("div");
+        card.className = "adminCard";
+
+        card.innerHTML = `
+            <div class="adminRow">
+                <div>
+                    <strong>Order #${order.id}</strong> — ${shop ? shop.name : "Unknown shop"} · ₹${order.total}
+                    <div style="color:#777; font-size:13px; margin-top:4px;">
+                        ${order.customer_name || ""} · ${order.customer_address || ""}
+                    </div>
+                    <div style="color:#999; font-size:12px; margin-top:4px;">
+                        ${new Date(order.created_at).toLocaleString()}
+                    </div>
+                </div>
+                <div class="adminActions" style="flex-direction:column; align-items:flex-end; gap:6px;">
+                    <span class="adminBadge ${statusClass}">${order.status}</span>
+                    <span class="adminBadge ${order.delivery_status === "delivered" ? "approved" : "setup"}">${deliveryLabel}</span>
+                </div>
+            </div>
+        `;
+
+        container.appendChild(card);
+    });
 }
 
 function renderReadiness(tehsil, readiness){
@@ -429,19 +510,46 @@ function renderUnassignedOrders(orders, approvedRiders){
                     <strong>Order #${order.id}</strong> — ₹${order.total}
                     <div style="color:#777; font-size:13px;">${order.customer_name} · ${order.customer_address || ""}</div>
                 </div>
-                <div class="adminActions">
-                    <select class="adminSelect" data-action="riderSelect">${riderOptions}</select>
-                    <button class="adminBtn approve" data-action="assign" ${availableRiders.length === 0 ? "disabled" : ""}>Assign</button>
-                </div>
             </div>
+            <div class="adminAssignRow">
+                <select class="adminSelect" data-action="riderSelect">${riderOptions}</select>
+                <input class="adminSelect" style="width:110px;" type="number" min="0" step="0.1" placeholder="Distance (km)" data-action="distanceInput">
+                <label class="adminRainToggle">
+                    <input type="checkbox" data-action="rainToggle"> 🌧 Raining
+                </label>
+                <button class="adminBtn approve" data-action="assign" ${availableRiders.length === 0 ? "disabled" : ""}>Assign</button>
+            </div>
+            <div class="adminFeePreview" data-action="feePreview"></div>
         `;
+
+        const distanceInput = card.querySelector('[data-action="distanceInput"]');
+        const rainToggle = card.querySelector('[data-action="rainToggle"]');
+        const feePreview = card.querySelector('[data-action="feePreview"]');
+
+        function updateFeePreview(){
+            const distanceKm = Number(distanceInput.value) || 0;
+            const breakdown = computeDeliveryFee({ distanceKm, isRainy: rainToggle.checked, atTime: new Date() });
+            feePreview.innerHTML = `
+                Delivery will be <strong>₹${breakdown.totalFee}</strong>
+                (rider gets <strong>₹${breakdown.riderPayout}</strong>) —
+                ${deliveryFeeBreakdownHTML(breakdown)}
+            `;
+        }
+
+        distanceInput.oninput = updateFeePreview;
+        rainToggle.onchange = updateFeePreview;
+        updateFeePreview();
 
         card.querySelector('[data-action="assign"]').onclick = async function(){
             const riderId = card.querySelector('[data-action="riderSelect"]').value;
             if(!riderId) return;
 
+            const distanceKm = Number(distanceInput.value) || 0;
+            const isRainy = rainToggle.checked;
+
             try {
                 await dbAssignRiderToOrder(order.id, Number(riderId), myTehsilId);
+                await dbSetOrderDeliveryPricing(order.id, { distanceKm, isRainy });
                 await renderTehsilAdminApp();
             } catch(err) {
                 console.error(err);
