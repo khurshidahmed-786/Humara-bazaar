@@ -1261,3 +1261,14 @@ main{
     }
 
 }
+.shopMarketplaceLogo {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 2px solid #fff;
+    position: absolute;
+    left: 10px;
+    bottom: -14px;
+    background: #fff;
+}
