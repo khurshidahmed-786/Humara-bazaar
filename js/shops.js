@@ -2,6 +2,9 @@
    ALL SHOPS PAGE
    Real Supabase-backed shop directory, with optional
    ?category= filter and client-side name search.
+
+   NOTE: js/shopStatus.js must be included BEFORE this file —
+   it provides isShopOpenNow() / shopStatusBadgeHTML().
    ========================================================== */
 
 let allShopsCache = [];
@@ -104,18 +107,23 @@ function renderShopsGrid(shops){
         card.className = "shopMarketplaceCard";
 
         card.innerHTML = `
-            <div class="shopMarketplaceImage">
+            <div class="shopMarketplaceImage" style="position:relative;">
                 ${
                     shop.banner
                     ? `<img src="${shop.banner}" alt="${shop.name}">`
                     : `<span>🏪</span>`
+                }
+                ${
+                    shop.logo
+                    ? `<img class="shopMarketplaceLogo" src="${shop.logo}" alt="${shop.name} logo">`
+                    : ""
                 }
             </div>
 
             <div class="shopMarketplaceBody">
                 <div class="shopMarketplaceName">${shop.name}</div>
                 <div class="shopMarketplaceCategory">${shop.category || "Local Business"}</div>
-                <div class="shopMarketplaceStatus">🟢 Open</div>
+                <div class="shopMarketplaceStatus">${shopStatusBadgeHTML(shop)}</div>
             </div>
         `;
 
