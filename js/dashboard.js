@@ -6,7 +6,7 @@
    NOTE: js/shopStatus.js must be included BEFORE this file —
    it provides isShopOpenNow() / shopStatusBadgeHTML().
 ========================================== */
- 
+  
  
 const app = document.getElementById("sellerApp");
  
