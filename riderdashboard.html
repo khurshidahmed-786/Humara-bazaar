@@ -1,96 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<title>Rider Dashboard | Hamara Bazaar</title>
-<link rel="stylesheet" href="css/theme.css">
-<link rel="stylesheet" href="css/components.css">
-<link rel="stylesheet" href="css/notifications.css">
-<link rel="stylesheet" href="css/riderdashboard.css">
-<link rel="stylesheet" href="css/mobile.css">
-</head>
-<body class="rider-v2-body">
-<div id="headerContainer"></div>
-
-<main class="rider-v2-page">
-    <div id="riderV2Loading" class="r2-empty">Loading your rider account…</div>
-
-    <section id="riderV2Unauthorized" class="r2-card" style="display:none;">
-        <h2>Rider access required</h2>
-        <p>Your rider application must be approved before delivery operations are available.</p>
-        <button class="r2-btn primary" style="margin-top:14px;"
-            onclick="location.href='rider-apply.html'">Open Rider Application</button>
-    </section>
-
-    <div id="riderV2App" style="display:none;">
-        <header class="r2-header">
-            <div class="r2-brand">
-                <div class="r2-icon">🚴</div>
-                <div>
-                    <div class="r2-title">Rider Dashboard</div>
-                    <div id="riderV2Name" class="r2-subtitle"></div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+        <title>Rider Dashboard | Hamara Bazaar</title>
+        <link rel="stylesheet" href="css/theme.css">
+        <link rel="stylesheet" href="css/components.css">
+        <link rel="stylesheet" href="css/notifications.css">
+        link rel="stylesheet" href="css/riderdashboard.css">
+        <link rel="stylesheet" href="css/mobile.css">
+    </head>
+    <body class="rider-v2-body">
+        <div id="headerContainer">
+            
+        </div>
+        <main class="rider-v2-page">
+            <div id="riderV2Loading" class="r2-empty">Loading your rider account…</div>
+            <section id="riderV2Unauthorized" class="r2-card" style="display:none">
+                <h2>Rider access required</h2>
+                <p>Your rider application must be approved before delivery operations are available.
+                </p>
+                <button class="r2-btn primary" onclick="location.href='rider-apply.html'">Open Rider Application</button>
+            </section>
+            <div id="riderV2App" style="display:none">
+                <header class="r2-header">
+                    <div class="r2-brand">
+                        <div class="r2-icon">🚴</div>
+                        <div>
+                            <div class="r2-title">Rider Dashboard</div>
+                            <div id="riderV2Name" class="r2-subtitle"></div>
+                        </div>
+                    </div>
+                    <span id="riderV2Status" class="r2-status">OFFLINE</span>
+                </header>
+                <section class="r2-card"><div class="r2-toggle-row">
+                    <div>
+                        <b>Ready to Deliver</b>
+                        <p>Go online when available.</p>
+                    </div>
+                    <label class="r2-toggle">
+                        <input type="checkbox" id="riderV2Availability">
+                        <span class="r2-slider"></span>
+                    </label></div>
+                </section>
+                <section class="r2-stats">
+                    <div class="r2-stat">
+                        <strong id="statToday">0</strong>
+                        <span>Delivered today</span></div>
+                    <div class="r2-stat">
+                        <strong id="statTodayEarn">₹0</strong>
+                        <span>Earned today</span></div>
+                    <div class="r2-stat"><strong id="statCod">₹0</strong>
+                        <span>COD collected today</span></div>
+                    <div class="r2-stat">
+                        <strong id="statActive">0</strong>
+                        <span>Active orders</span></div>
+                </section>
+                <section class="r2-card">
+                    <div class="r2-section-title-row">
+                        <div>
+                            <h2>Money Position</h2>
+                            <div class="r2-note">Earnings and COD cash are separate.</div>
+                        </div>
+                        <button class="r2-link" id="openEarnings">Earnings</button>
+                    </div>
+                    <div class="r2-finance-grid"><div>
+                        <span>Unsettled</span>
+                        <strong id="r2Unsettled">₹0</strong>
+                    </div>
+                        <div><span>Settled</span>
+                            <strong id="r2Settled">₹0</strong>
+                        </div>
+                        <div>
+                            <span>COD submitted</span>
+                            <strong id="r2CodSubmitted">₹0</strong>
+                        </div>
+                        <div><span>COD outstanding</span>
+                            <strong id="r2CodOutstanding">₹0</strong>
+                        </div>
+                    </div>
+                </section>
+                <div class="r2-section">
+                [<h2>Active Trip</h2>
+                    <button class="r2-link" id="refreshRiderV2">Refresh</button>
+                </div>
+                <div id="riderV2Active"></div>
+                <div id="riderV2TripCandidates"></div>
+                <section class="r2-card">
+                    `<div class="r2-section-title-row">
+                        <div>
+                            <h2>COD Position</h2>
+                            <p class="r2-note">COD is collected on behalf of Hamara Bazaar/shop. It is not your earnings.</p>
+                        </div>
+                        <button class="r2-link" id="openCod">Submit Cash</button>
+                    </div>
+                    <div class="r2-cod-grid">
+                        <div>
+                            <span>Collected</span>
+                            <strong id="r2CodCollected">₹0</strong>
+                        </div>
+                        <div>
+                            <span>Submitted</span>
+                            <strong id="r2CodSubmitted2">₹0</strong>
+                        </div>
+                        <div>
+                            <span>Outstanding</span>
+                            <strong id="r2CodOutstanding2">₹0</strong>
+                        </div>
+                    </div>
+                </section>
+                <div class="r2-section">
+                    <h2>Available Deliveries</h2>
+                </div>
+                <div id="riderV2Available"></div>
+            </div>
+        </main>
+        <div id="riderV2Backdrop" class="r2-backdrop">
+            <div class="r2-sheet">
+                <div id="riderV2Sheet">
+                    
                 </div>
             </div>
-            <span id="riderV2Status" class="r2-status">OFFLINE</span>
-        </header>
-
-        <section class="r2-card">
-            <div class="r2-toggle-row">
-                <div>
-                    <div style="font-weight:850;font-size:16px;">Ready to Deliver</div>
-                    <p>Go online when you are available for new deliveries.</p>
-                </div>
-                <label class="r2-toggle">
-                    <input type="checkbox" id="riderV2Availability">
-                    <span class="r2-slider"></span>
-                </label>
-            </div>
-        </section>
-
-        <section class="r2-stats">
-            <div class="r2-stat"><strong id="statToday">0</strong><span>Delivered today</span></div>
-            <div class="r2-stat"><strong id="statTodayEarn">₹0</strong><span>Earned today</span></div>
-            <div class="r2-stat"><strong id="statCod">₹0</strong><span>COD collected</span></div>
-            <div class="r2-stat"><strong id="statActive">0</strong><span>Active orders</span></div>
-        </section>
-
-        <div class="r2-section">
-            <h2>Active Trip</h2>
-            <button class="r2-link" id="refreshRiderV2">Refresh</button>
         </div>
-        <div id="riderV2Active"></div>
-        <div id="riderV2TripCandidates"></div>
-
-        <div class="r2-section" style="margin-top:18px;">
-            <h2>COD</h2>
-            <button class="r2-link" id="openCod">Submit Cash</button>
+        <div id="bottomNavContainer">
+            
         </div>
-        <div id="riderV2CodSummary"></div>
-
-        <div class="r2-section" style="margin-top:18px;">
-            <h2>Available Deliveries</h2>
-            <button class="r2-link" id="openHistory">History</button>
-        </div>
-        <div id="riderV2Available"></div>
-    </div>
-</main>
-
-<div id="riderV2Backdrop" class="r2-backdrop">
-    <div class="r2-sheet"><div id="riderV2Sheet"></div></div>
-</div>
-
-<div id="bottomNavContainer"></div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/supabaseClient.js"></script>
-<script src="js/deliveryPricing.js"></script>
-<script src="js/db.js"></script>
-<script src="js/database.js"></script>
-<script src="js/shopstatus.js"></script>
-<script src="js/components.js"></script>
-<script src="js/rider.js"></script>
-<script src="js/riderdashboard.js"></script>
-<script>renderLayout("services");</script>
-</body>
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="js/supabaseClient.js"></script>
+        <script src="js/deliveryPricing.js"></script>
+        <script src="js/db.js"></script>
+        <script src="js/database.js"></script>
+        <script src="js/shopstatus.js"></script>
+        <script src="js/components.js">        </script>
+        <script src="js/rider.js"></script>
+        <script src="js/riderdashboard.js"></script>
+        <script>renderLayout("services");</script>
+    </body>
 </html>
