@@ -185,3 +185,7 @@ body.rider-v2-body {
     .r2-backdrop { align-items:center; }
     .r2-sheet { width:min(560px,calc(100% - 28px)); border-radius:22px; }
 }
+
+/* Rider operations release */
+.riderTripSummary{margin-top:12px}
+.r2-trip-total{font-size:12px;color:#6b7468}
