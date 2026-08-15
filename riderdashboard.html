@@ -1,13 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-
 <title>Rider Dashboard | Hamara Bazaar</title>
-
 <link rel="stylesheet" href="css/theme.css">
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/notifications.css">
@@ -15,25 +11,69 @@
 <link rel="stylesheet" href="css/mobile.css">
 
 </head>
-
-<body>
+<body class="rider-v2-body">
 
 <div id="headerContainer"></div>
 
-<main class="page">
+<main class="rider-v2-page">
+    <div id="riderV2Loading" class="r2-empty">Loading your rider accountâ€¦</div>
 
-    <div id="riderApp">
-        <div class="riderLoading">Loading your deliveries...</div>
+    <section id="riderV2Unauthorized" class="r2-card" style="display:none;">
+        <h2>Rider access required</h2>
+        <p>Your rider application must be approved before delivery operations are available.</p>
+        <button class="r2-btn primary" style="margin-top:14px;"
+            onclick="location.href='rider-apply.html'">Open Rider Application</button>
+    </section>
+
+    <div id="riderV2App" style="display:none;">
+        <header class="r2-header">
+            <div class="r2-brand">
+                <div class="r2-icon">ðŸš´</div>
+                <div>
+                    <div class="r2-title">Rider Dashboard</div>
+                    <div id="riderV2Name" class="r2-subtitle"></div>
+                </div>
+            </div>
+            <span id="riderV2Status" class="r2-status">OFFLINE</span>
+        </header>
+
+        <section class="r2-card">
+            <div class="r2-toggle-row">
+                <div>
+                    <div style="font-weight:850;font-size:16px;">Ready to Deliver</div>
+                    <p>Go online when you are available for new deliveries.</p>
+                </div>
+                <label class="r2-toggle">
+                    <input type="checkbox" id="riderV2Availability">
+                    <span class="r2-slider"></span>
+                </label>
+            </div>
+        </section>
+
+        <section class="r2-stats">
+            <div class="r2-stat"><strong id="statToday">0</strong><span>Delivered today</span></div>
+            <div class="r2-stat"><strong id="statTodayEarn">â‚¹0</strong><span>Earned today</span></div>
+            <div class="r2-stat"><strong id="statCod">â‚¹0</strong><span>COD collected</span></div>
+            <div class="r2-stat"><strong id="statActive">0</strong><span>Active</span></div>
+        </section>
+
+        <div class="r2-section">
+            <h2>Active Delivery</h2>
+            <button class="r2-link" id="refreshRiderV2">Refresh</button>
+        </div>
+        <div id="riderV2Active"></div>
+
+        <div class="r2-section">
+            <h2>Available Deliveries</h2>
+            <button class="r2-link" id="openHistory">History</button>
+        </div>
+        <div id="riderV2Available"></div>
     </div>
-
-    <div id="riderUnauthorized" class="businessEmpty" style="display:none;">
-        <div class="emptyIcon">🚴</div>
-        <h2>Not a Rider Yet</h2>
-        <p>You need an approved rider application to access this dashboard.</p>
-        <button onclick="location.href='services.html'">← Back to Services</button>
-    </div>
-
 </main>
+
+<div id="riderV2Backdrop" class="r2-backdrop">
+    <div class="r2-sheet"><div id="riderV2Sheet"></div></div>
+</div>
 
 <div id="bottomNavContainer"></div>
 
@@ -43,15 +83,10 @@
 <script src="js/db.js"></script>
 <script src="js/database.js"></script>
 <script src="js/shopstatus.js"></script>
-
 <script src="js/components.js"></script>
-<script src="js/riderPhase3Db.js"></script>
-<script src="js/riderdashboard-phase3.js"></script>
-
-<script>
-renderLayout("services");
-</script>
-
+<script src="js/rider.js"></script>
+<script src="js/riderdashboard.js"></script>
+<script>renderLayout("services");</script>
 </body>
-
 </html>
+
