@@ -1,216 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Rider Operations | Hamara Bazaar</title>
-<link rel="stylesheet" href="css/theme.css">
-<link rel="stylesheet" href="css/admin.css">
-<link rel="stylesheet" href="css/mobile.css">
-<style>
-.ops{max-width:1160px;margin:auto;padding:24px 16px 110px}
-.opsTop{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
-.muted{color:#777;font-size:13px}
-.opsGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}
-.opsStat{background:#fff;border:1px solid #e3e6df;border-radius:16px;padding:15px}
-.opsStat strong{display:block;font-size:25px}.opsStat span{font-size:12px;color:#777}
-.opsNav{display:flex;gap:8px;overflow:auto;margin:18px 0}
-.opsTab{border:1px solid #dfe4d9;background:#fff;color:#455239;padding:10px 14px;border-radius:999px;cursor:pointer;white-space:nowrap}
-.opsTab.active{background:#667744;color:#fff;border-color:#667744}
-.opsPane{display:none}.opsPane.active{display:block}
-.opsSection{background:#fff;border:1px solid #e3e6df;border-radius:18px;padding:16px;margin:14px 0}
-.opsCards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.opsCard{background:#fff;border:1px solid #eceee8;border-radius:16px;padding:14px}
-.opsRow{border-bottom:1px solid #eee;padding:13px 0}.opsRow:last-child{border-bottom:0}
-.opsActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.opsBtn{padding:9px 12px;border:0;border-radius:10px;background:#667744;color:#fff;cursor:pointer}
-.opsBtn.alt{background:#fff;color:#667744;border:1px solid #667744}
-.opsBtn.danger{background:#b63a3a}
-.opsInput{width:100%;padding:10px;border:1px solid #ddd;border-radius:10px;margin:7px 0}
-.opsTable{width:100%;border-collapse:collapse}.opsTable th,.opsTable td{text-align:left;padding:10px;border-bottom:1px solid #eee;font-size:13px}.opsTable th{font-size:11px;text-transform:uppercase;color:#777}
-@media(max-width:800px){.opsGrid{grid-template-columns:repeat(2,1fr)}.opsCards{grid-template-columns:1fr}.opsTop{flex-direction:column}}
-</style>
-</head>
-<body>
-<div id="headerContainer"></div>
-<main class="ops">
-  <div class="opsTop">
-    <div>
-      <h1>Rider Operations</h1>
-      <p class="muted">Live rider, trip, delivery, issue, COD and settlement control for your tehsil.</p>
-    </div>
-    <button class="opsBtn" id="refreshOps">Refresh</button>
-  </div>
-  <div class="opsGrid" id="opsStats"></div>
-  <div class="opsNav">
-    <button class="opsTab active" data-tab="overview">Overview</button>
-    <button class="opsTab" data-tab="riders">Riders</button>
-    <button class="opsTab" data-tab="trips">Live Trips</button>
-    <button class="opsTab" data-tab="orders">Orders</button>
-    <button class="opsTab" data-tab="issues">Issues</button>
-    <button class="opsTab" data-tab="cod">COD</button>
-  </div>
-  <section class="opsPane active" id="pane-overview"></section>
-  <section class="opsPane" id="pane-riders"></section>
-  <section class="opsPane" id="pane-trips"></section>
-  <section class="opsPane" id="pane-orders"></section>
-  <section class="opsPane" id="pane-issues"></section>
-  <section class="opsPane" id="pane-cod"></section>
-</main>
-<div id="bottomNavContainer"></div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/supabaseClient.js"></script>
-<script src="js/db.js"></script>
-<script src="js/components.js"></script>
-<script>
-let opsTehsilId=null,opsData={};
-
-function esc(v){const e=document.createElement("div");e.textContent=v??"";return e.innerHTML;}
-
-async function getAdminTehsil(){
-    if(typeof dbGetMyTehsil==="function"){
-        try{
-            const t=await dbGetMyTehsil();
-            if(t?.id)return Number(t.id);
-            if(t?.tehsil_id)return Number(t.tehsil_id);
-        }catch(e){}
-    }
-    const role=await dbGetMyRole();
-    return Number(role?.tehsil_id||0);
-}
-
-async function loadOps(){
-    const user=await authGetCurrentUser();
-    if(!user){location.href="login.html?redirect=rider-operations.html";return;}
-    opsTehsilId=await getAdminTehsil();
-    if(!opsTehsilId){
-        document.getElementById("pane-overview").innerHTML="<div class='opsSection'>Unable to determine your tehsil.</div>";
-        return;
-    }
-
-    const {data,error}=await sb.rpc("fn_admin_get_rider_operations",{p_tehsil_id:opsTehsilId});
-    if(error){
-        const box=`<div class="opsSection"><strong>Could not load rider operations.</strong><p class="muted">${esc(error.message)}</p></div>`;
-        document.getElementById("pane-overview").innerHTML=box;
-        return;
-    }
-
-    opsData=data||{};
-    renderOps();
-}
-
-function renderOps(){
-    const d=opsData;
-    const riders=d.riders||[],trips=d.active_trips||[],orders=d.available_orders||[],issues=d.open_issues||[],cod=d.cod_submissions||[];
-
-    document.getElementById("opsStats").innerHTML=`
-        <div class="opsStat"><strong>${riders.filter(r=>r.status==="approved").length}</strong><span>Approved riders</span></div>
-        <div class="opsStat"><strong>${riders.filter(r=>r.availability==="online").length}</strong><span>Online riders</span></div>
-        <div class="opsStat"><strong>${trips.length}</strong><span>Active trips</span></div>
-        <div class="opsStat"><strong>${issues.length}</strong><span>Open issues</span></div>
-    `;
-
-    document.getElementById("pane-overview").innerHTML=`
-        <div class="opsSection">
-            <h2>Operations Snapshot</h2>
-            <div class="opsCards">
-                <div class="opsCard"><strong>${orders.length}</strong><div class="muted">Orders waiting for rider acceptance</div></div>
-                <div class="opsCard"><strong>${cod.length}</strong><div class="muted">COD submissions needing admin review</div></div>
-            </div>
-        </div>
-        <div class="opsSection">
-            <h2>Immediate Attention</h2>
-            ${issues.length?issues.slice(0,5).map(renderIssueRow).join(""):"<p class='muted'>No open delivery issues.</p>"}
-        </div>
-    `;
-
-    document.getElementById("pane-riders").innerHTML=`
-        <div class="opsSection">
-            <h2>Riders</h2>
-            ${riders.length?`<table class="opsTable"><thead><tr><th>Rider</th><th>Phone</th><th>Status</th><th>Availability</th><th>Documents</th></tr></thead><tbody>
-            ${riders.map(r=>`<tr><td><strong>${esc(r.full_name)}</strong></td><td>${esc(r.phone)}</td><td>${esc(r.status)}</td><td>${esc(r.availability||"offline")}</td><td><span class="badge">Review in application</span></td></tr>`).join("")}
-            </tbody></table>`:"<p class='muted'>No riders.</p>"}
-        </div>
-    `;
-
-    document.getElementById("pane-trips").innerHTML=`
-        <div class="opsSection">
-            <h2>Live Trips</h2>
-            ${trips.length?trips.map(t=>`
-                <div class="opsRow">
-                    <strong>Trip #${esc(t.trip_id)}</strong> · ${esc(t.rider_name)}
-                    <div class="muted">${esc(t.order_count)} orders · rider earnings ₹${esc(t.earnings)} · started ${t.started_at?new Date(t.started_at).toLocaleString():""}</div>
-                </div>`).join(""):"<p class='muted'>No active trips.</p>"}
-        </div>
-    `;
-
-    document.getElementById("pane-orders").innerHTML=`
-        <div class="opsSection">
-            <h2>Available Orders</h2>
-            ${orders.length?orders.map(o=>`
-                <div class="opsRow">
-                    <strong>Order #${esc(o.id)}</strong> · ₹${esc(o.total)}
-                    <div class="muted">${esc(o.customer_name)} · ${esc(o.customer_address)}</div>
-                </div>`).join(""):"<p class='muted'>No available orders.</p>"}
-        </div>
-    `;
-
-    document.getElementById("pane-issues").innerHTML=`
-        <div class="opsSection">
-            <h2>Delivery Issues</h2>
-            ${issues.length?issues.map(renderIssueRow).join(""):"<p class='muted'>No open issues.</p>"}
-        </div>
-    `;
-
-    document.getElementById("pane-cod").innerHTML=`
-        <div class="opsSection">
-            <h2>COD Submissions</h2>
-            ${cod.length?cod.map(c=>`
-                <div class="opsRow">
-                    <strong>Submission #${esc(c.id)} · ${esc(c.rider_name)}</strong>
-                    <div class="muted">Expected ₹${esc(c.expected_amount)} · Submitted ₹${esc(c.submitted_amount)} · ${esc(c.status)}</div>
-                    ${c.status!=="verified"?`
-                    <div class="opsActions">
-                        <input class="opsInput" id="verify-${c.id}" type="number" min="0" step="0.01" value="${Number(c.submitted_amount||0)}">
-                        <button class="opsBtn" data-verify-cod="${c.id}">Verify Cash</button>
-                    </div>`:""}
-                </div>`).join(""):"<p class='muted'>No COD submissions requiring review.</p>"}
-        </div>
-    `;
-
-    document.querySelectorAll("[data-verify-cod]").forEach(btn=>{
-        btn.onclick=async()=>{
-            const id=Number(btn.dataset.verifyCod);
-            const amount=Number(document.getElementById(`verify-${id}`).value||0);
-            btn.disabled=true; btn.textContent="Verifying…";
-            try{
-                const {data,error}=await sb.rpc("fn_admin_verify_cod_submission",{p_submission_id:id,p_verified_amount:amount,p_notes:null});
-                if(error)throw error;
-                alert(data?.status==="verified"?"COD verified successfully.":"COD discrepancy recorded.");
-                await loadOps();
-            }catch(e){
-                alert(e.message||"COD verification failed.");
-                btn.disabled=false; btn.textContent="Verify Cash";
-            }
-        };
-    });
-}
-
-function renderIssueRow(i){
-    return `<div class="opsRow"><strong>Order #${esc(i.order_id)}</strong> · ${esc(i.issue_type)}<div class="muted">${esc(i.rider_name)} · ${esc(i.description||"")}</div><div class="opsActions"><span class="badge">${esc(i.status)}</span></div></div>`;
-}
-
-document.querySelectorAll(".opsTab").forEach(tab=>{
-    tab.onclick=()=>{
-        document.querySelectorAll(".opsTab").forEach(t=>t.classList.toggle("active",t===tab));
-        document.querySelectorAll(".opsPane").forEach(p=>p.classList.remove("active"));
-        document.getElementById(`pane-${tab.dataset.tab}`).classList.add("active");
-    };
-});
-document.getElementById("refreshOps").onclick=loadOps;
-loadOps();
-</script>
-<script>renderLayout?.("services");</script>
-</body>
-</html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Rider Operations | Hamara Bazaar</title>
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/notifications.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <style>
+      .ops{max-width:1160px;margin:auto;padding:24px 16px 110px}
+      .opsTop{display:flex;justify-content:space-between;gap:16px}
+      .muted{color:#777;font-size:13px}
+      .opsGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}
+      .stat{background:#fff;border:1px solid #e3e6df;border-radius:16px;padding:15px}
+      .stat strong{display:block;font-size:25px}
+      .stat span{font-size:12px;color:#777}
+      .tabs{display:flex;gap:8px;overflow:auto;margin:18px 0}
+      .tab{border:1px solid #dfe4d9;background:#fff;padding:10px 14px;border-radius:999px;white-space:nowrap}
+      .tab.active{background:#667744;color:#fff}
+      .pane{display:none}
+      .pane.active{display:block}
+      .section{background:#fff;border:1px solid #e3e6df;border-radius:18px;padding:16px;margin:14px 0}
+      .row{border-bottom:1px solid #eee;padding:13px 0}
+      .row:last-child{border:0}
+      .btn{padding:9px 12px;border:0;border-radius:10px;background:#667744;color:#fff}
+      .input{padding:9px;border:1px solid #ddd;border-radius:10px;width:100%;margin:8px 0}@media(max-width:800px)
+      {.opsGrid{grid-template-columns:repeat(2,1fr)}
+       .opsTop{flex-direction:column}}
+    </style>
+  </head>
+  <body>
+    <div id="headerContainer"></div>
+    <main class="ops">
+      <div class="opsTop"><div>
+        <h1>Rider Operations</h1>
+        <p class="muted">Riders, live trips, issues, COD and settlements for your tehsil.</p>
+      </div>
+        <button class="btn" id="refresh">Refresh</button>
+      </div>
+      <div class="opsGrid" id="stats"></div>
+      <div class="tabs">${['overview','riders','trips','orders','issues','cod','settlements'].map((x,i)=>`
+        <button class="tab ${i===0?'active':''}" data-tab="${x}">${x[0].toUpperCase()+x.slice(1)}</button>`).join('')}</div>${['overview','riders','trips','orders','issues','cod','settlements'].map((x,i)=>`<section id="p-${x}" class="pane ${i===0?'active':''}"></section>`).join('')}</main><div id="bottomNavContainer"></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/supabaseClient.js"></script><script src="js/db.js"></script><script src="js/database.js"></script><script src="js/components.js"></script><script>let tid=0,d={};const esc=v=>{const e=document.createElement('div');e.textContent=v??'';return e.innerHTML};async function load(){const u=await authGetCurrentUser();if(!u){location.href='login.html?redirect=rider-operations.html';return}const r=await dbGetMyRole();tid=Number(r?.tehsil_id||0);if(!tid){document.getElementById('p-overview').innerHTML='<div class="section">Tehsil unavailable.</div>';return}const q=await sb.rpc('fn_admin_get_rider_operations',{p_tehsil_id:tid});if(q.error){document.getElementById('p-overview').innerHTML='<div class="section"><b>Not authorized or unavailable.</b><p class="muted">'+esc(q.error.message)+'</p></div>';return}d=q.data||{};render()}function render(){const rs=d.riders||[],tr=d.active_trips||[],or=d.available_orders||[],is=d.open_issues||[],cs=d.cod_submissions||[],ss=d.settlements||[];document.getElementById('stats').innerHTML=[['Approved',rs.filter(x=>x.status==='approved').length],['Online',rs.filter(x=>x.availability==='online').length],['Active trips',tr.length],['Issues',is.length],['Available orders',or.length],['COD outstanding','₹'+rs.reduce((n,x)=>n+Number(x.cod_outstanding||0),0)],['Today earnings','₹'+rs.reduce((n,x)=>n+Number(x.today_earnings||0),0)],['Draft settlements',ss.filter(x=>x.status==='draft').length]].map(x=>`<div class="stat"><strong>${x[1]}</strong><span>${x[0]}</span></div>`).join('');document.getElementById('p-overview').innerHTML='<div class="section"><h2>Operations Snapshot</h2><p class="muted">'+or.length+' available orders · '+tr.length+' active trips · '+is.length+' open issues · '+cs.length+' COD submissions.</p></div>';document.getElementById('p-riders').innerHTML='<div class="section"><h2>Riders</h2>'+rs.map(x=>`<div class="row"><b>${esc(x.full_name)}</b> · ${esc(x.status)} · ${esc(x.availability||'offline')}<div class="muted">Today ${Number(x.today_deliveries||0)} deliveries · ₹${Number(x.today_earnings||0)} earnings · COD outstanding ₹${Number(x.cod_outstanding||0)}</div></div>`).join('')+'</div>';document.getElementById('p-trips').innerHTML='<div class="section"><h2>Live Trips</h2>'+tr.map(x=>`<div class="row"><b>Trip #${x.trip_id}</b> · ${esc(x.rider_name)}<div class="muted">${x.completed_count||0}/${x.order_count||0} completed · ₹${Number(x.earnings||0)}</div></div>`).join('')+'</div>';document.getElementById('p-orders').innerHTML='<div class="section"><h2>Available Orders</h2>'+or.map(x=>`<div class="row"><b>Order #${x.id}</b> · ₹${Number(x.total||0)}<div class="muted">${esc(x.customer_name||'Customer')} · ${esc(x.customer_address||'')}</div></div>`).join('')+'</div>';document.getElementById('p-issues').innerHTML='<div class="section"><h2>Issues</h2>'+is.map(x=>`<div class="row"><b>Order #${x.order_id}</b> · ${esc(x.issue_type)} · ${esc(x.status)}<div class="muted">${esc(x.rider_name)} · ${esc(x.description||'')}</div></div>`).join('')+'</div>';document.getElementById('p-cod').innerHTML='<div class="section"><h2>COD</h2>'+cs.map(x=>`<div class="row"><b>Submission #${x.id}</b> · ${esc(x.rider_name)} · ${esc(x.status)}<div class="muted">Expected ₹${Number(x.expected_amount||0)} · Submitted ₹${Number(x.submitted_amount||0)}${x.verified_amount!=null?' · Verified ₹'+Number(x.verified_amount):''}</div>${x.status!=='verified'&&x.status!=='cancelled'?`<input class="input" id="v-${x.id}" type="number" min="0" step="0.01" value="${Number(x.submitted_amount||0)}"><button class="btn" data-v="${x.id}">Verify Cash</button>`:''}</div>`).join('')+'</div>';document.getElementById('p-settlements').innerHTML='<div class="section"><h2>Settlements</h2>'+ss.map(x=>`<div class="row"><b>${esc(x.rider_name)}</b> · ${esc(x.status)}<div class="muted">Gross ₹${Number(x.gross_amount||0)} · Net ₹${Number(x.net_amount||0)}</div></div>`).join('')+'</div>';document.querySelectorAll('[data-v]').forEach(b=>b.onclick=async()=>{try{const q=await sb.rpc('fn_admin_verify_cod_submission',{p_submission_id:Number(b.dataset.v),p_verified_amount:Number(document.getElementById('v-'+b.dataset.v).value||0),p_notes:null});if(q.error)throw q.error;alert(q.data?.status==='verified'?'COD verified.':'COD discrepancy recorded.');await load()}catch(e){alert(e.message||'Verification failed')}})}document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.pane').forEach(x=>x.classList.remove('active'));document.getElementById('p-'+b.dataset.tab).classList.add('active')});document.getElementById('refresh').onclick=load;load();</script><script>renderLayout?.('services');</script></body></html>
