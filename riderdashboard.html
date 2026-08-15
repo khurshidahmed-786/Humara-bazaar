@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -9,14 +9,12 @@
 <link rel="stylesheet" href="css/notifications.css">
 <link rel="stylesheet" href="css/riderdashboard.css">
 <link rel="stylesheet" href="css/mobile.css">
-
 </head>
 <body class="rider-v2-body">
-
 <div id="headerContainer"></div>
 
 <main class="rider-v2-page">
-    <div id="riderV2Loading" class="r2-empty">Loading your rider accountâ€¦</div>
+    <div id="riderV2Loading" class="r2-empty">Loading your rider account…</div>
 
     <section id="riderV2Unauthorized" class="r2-card" style="display:none;">
         <h2>Rider access required</h2>
@@ -28,7 +26,7 @@
     <div id="riderV2App" style="display:none;">
         <header class="r2-header">
             <div class="r2-brand">
-                <div class="r2-icon">ðŸš´</div>
+                <div class="r2-icon">🚴</div>
                 <div>
                     <div class="r2-title">Rider Dashboard</div>
                     <div id="riderV2Name" class="r2-subtitle"></div>
@@ -52,18 +50,25 @@
 
         <section class="r2-stats">
             <div class="r2-stat"><strong id="statToday">0</strong><span>Delivered today</span></div>
-            <div class="r2-stat"><strong id="statTodayEarn">â‚¹0</strong><span>Earned today</span></div>
-            <div class="r2-stat"><strong id="statCod">â‚¹0</strong><span>COD collected</span></div>
-            <div class="r2-stat"><strong id="statActive">0</strong><span>Active</span></div>
+            <div class="r2-stat"><strong id="statTodayEarn">₹0</strong><span>Earned today</span></div>
+            <div class="r2-stat"><strong id="statCod">₹0</strong><span>COD collected</span></div>
+            <div class="r2-stat"><strong id="statActive">0</strong><span>Active orders</span></div>
         </section>
 
         <div class="r2-section">
-            <h2>Active Delivery</h2>
+            <h2>Active Trip</h2>
             <button class="r2-link" id="refreshRiderV2">Refresh</button>
         </div>
         <div id="riderV2Active"></div>
+        <div id="riderV2TripCandidates"></div>
 
-        <div class="r2-section">
+        <div class="r2-section" style="margin-top:18px;">
+            <h2>COD</h2>
+            <button class="r2-link" id="openCod">Submit Cash</button>
+        </div>
+        <div id="riderV2CodSummary"></div>
+
+        <div class="r2-section" style="margin-top:18px;">
             <h2>Available Deliveries</h2>
             <button class="r2-link" id="openHistory">History</button>
         </div>
@@ -89,4 +94,3 @@
 <script>renderLayout("services");</script>
 </body>
 </html>
-
