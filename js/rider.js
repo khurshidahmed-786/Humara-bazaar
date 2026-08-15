@@ -63,3 +63,43 @@ async function dbRiderV2SubmitCOD(amount,notes="") {
     const {data,error}=await sb.rpc("fn_rider_submit_cod",{p_submitted_amount:Number(amount)||0,p_notes:notes||null});
     if(error) throw error; return data;
 }
+/* ==========================================================
+   RIDER V4 — helper additions
+   Replace js/rider.js with this file if your current rider.js
+   does not already contain these functions.
+   ========================================================== */
+
+async function dbRiderV4FinancialSummary(){
+    const {data,error}=await sb.rpc("fn_rider_financial_summary");
+    if(error)throw error;
+    return data||{};
+}
+
+async function dbRiderV4Earnings(period="all",limit=100){
+    const {data,error}=await sb.rpc("fn_rider_earnings_report",{
+        p_period:period,
+        p_limit:Number(limit)||100
+    });
+    if(error)throw error;
+    return Array.isArray(data)?data:[];
+}
+
+async function dbAdminUpdateDeliveryIssue(issueId,status,notes=""){
+    const {data,error}=await sb.rpc("fn_admin_update_delivery_issue",{
+        p_issue_id:Number(issueId),
+        p_status:String(status),
+        p_notes:notes||null
+    });
+    if(error)throw error;
+    return data;
+}
+
+async function dbAdminPayRiderSettlement(settlementId,reference,notes=""){
+    const {data,error}=await sb.rpc("fn_admin_pay_rider_settlement",{
+        p_settlement_id:Number(settlementId),
+        p_payment_reference:String(reference),
+        p_notes:notes||null
+    });
+    if(error)throw error;
+    return data;
+}
