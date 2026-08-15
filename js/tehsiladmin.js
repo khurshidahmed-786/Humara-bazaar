@@ -65,41 +65,66 @@ async function renderTehsilAdminApp(){
         return;
     }
 
-    app.innerHTML = `
+app.innerHTML = `
 
-        <h2 class="adminHeading">${tehsil.name}</h2>
-        <span class="adminBadge ${tehsil.status}">${tehsil.status.replace(/_/g, " ")}</span>
+    <div class="adminRow" style="margin-bottom:18px;">
+        <div>
+            <h2 class="adminHeading" style="margin-bottom:4px;">
+                ${tehsil.name}
+            </h2>
 
-        <h2 class="adminHeading" style="margin-top:24px;">Launch Readiness</h2>
-        <div class="adminCard" id="readinessCard"></div>
+            <span class="adminBadge ${tehsil.status}">
+                ${tehsil.status.replace(/_/g, " ")}
+            </span>
+        </div>
 
-        <h2 class="adminHeading">Category Suggestions</h2>
-        <p class="adminSub">New categories sellers have asked for. Approving adds them everywhere immediately.</p>
-        <div id="categorySuggestionsList"></div>
+        <div class="adminActions">
+            <a
+                href="rider-operations.html"
+                class="adminBtn approve"
+                style="text-decoration:none;"
+            >
+                🚴 Rider Operations
+            </a>
+        </div>
+    </div>
 
-        <h2 class="adminHeading">Pending Shops</h2>
-        <div id="pendingShopsList"></div>
+    <h2 class="adminHeading" style="margin-top:24px;">
+        Launch Readiness
+    </h2>
+    <div class="adminCard" id="readinessCard"></div>
 
-        <h2 class="adminHeading">Active Shops</h2>
-        <div id="activeShopsList"></div>
+    <h2 class="adminHeading">Category Suggestions</h2>
+    <p class="adminSub">
+        New categories sellers have asked for.
+        Approving adds them everywhere immediately.
+    </p>
+    <div id="categorySuggestionsList"></div>
 
-        <h2 class="adminHeading">Pending Riders</h2>
-        <div id="pendingRidersList"></div>
+    <h2 class="adminHeading">Pending Shops</h2>
+    <div id="pendingShopsList"></div>
 
-        <h2 class="adminHeading">Approved Riders</h2>
-        <div id="approvedRidersList"></div>
+    <h2 class="adminHeading">Active Shops</h2>
+    <div id="activeShopsList"></div>
 
-        <h2 class="adminHeading">Unassigned Orders</h2>
-        <div id="unassignedOrdersList"></div>
+    <h2 class="adminHeading">Pending Riders</h2>
+    <div id="pendingRidersList"></div>
 
-        <h2 class="adminHeading">All Orders</h2>
-        <p class="adminSub">Every order in your tehsil and where it currently stands.</p>
-        <div id="allOrdersList"></div>
+    <h2 class="adminHeading">Approved Riders</h2>
+    <div id="approvedRidersList"></div>
 
-        <h2 class="adminHeading">Recent Activity</h2>
-        <div id="tehsilAuditList"></div>
-    `;
+    <h2 class="adminHeading">Unassigned Orders</h2>
+    <div id="unassignedOrdersList"></div>
 
+    <h2 class="adminHeading">All Orders</h2>
+    <p class="adminSub">
+        Every order in your tehsil and where it currently stands.
+    </p>
+    <div id="allOrdersList"></div>
+
+    <h2 class="adminHeading">Recent Activity</h2>
+    <div id="tehsilAuditList"></div>
+`;
     renderReadiness(tehsil, readiness);
     renderCategorySuggestions(categorySuggestions);
     renderShopsList("pendingShopsList", pendingShops, true);
