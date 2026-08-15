@@ -277,3 +277,12 @@ flex-direction:column;
 }
 
 }
+
+.deliveryProgress{margin:18px 0 20px;padding:16px;background:#F8FAF6;border:1px solid #E3E9DE;border-radius:16px}
+.deliveryProgressHeader{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+.deliveryProgressStatus{padding:6px 10px;border-radius:999px;font-size:11px;font-weight:800;background:#EEF3EA;color:#345D2A}
+.deliveryProgressStatus.pickedup{background:#FFF4E0;color:#9A671D}.deliveryProgressStatus.outfordelivery{background:#FFF0E1;color:#B85F18}.deliveryProgressStatus.attention{background:#FBE7E7;color:#B63A3A}
+.deliveryProgressSteps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.deliveryStep{text-align:center;color:#A2AAA0;font-size:11px}.deliveryStep>span{width:28px;height:28px;margin:0 auto 6px;border-radius:50%;border:1px solid #D9DED5;background:white;display:grid;place-items:center;font-size:12px}.deliveryStep.done{color:#345D2A;font-weight:700}.deliveryStep.done>span{background:#EAF4E2;border-color:#BFD7B5;color:#345D2A}
+.deliveryPinCard{margin:18px 0 20px;padding:18px;border-radius:18px;border:1px solid #D5E2CF;background:linear-gradient(135deg,#F4F9F0,#EDF5E8)}
+.deliveryPinWaiting{background:#FAF8F1;border-color:#E8DFC4}.deliveryPinHeader{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.deliveryPinEyebrow{font-size:10px;letter-spacing:.08em;font-weight:800;color:#667744;margin-bottom:5px}.deliveryPinHeader h3{margin:0;font-size:17px;color:#243020}.deliveryPinLock{font-size:24px}.deliveryPinDigits{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:18px 0 14px}.deliveryPinDigits span{min-height:58px;border-radius:14px;background:white;border:1px solid #C9DAC1;display:grid;place-items:center;font-size:28px;font-weight:900;color:#345D2A}.deliveryPinWarning{margin:0;color:#6B7468;font-size:12px;line-height:1.45}.deliveryPinBody strong{display:block;margin-bottom:5px}.deliveryPinBody p{margin:0;color:#777;font-size:13px}
+@media(max-width:768px){.deliveryProgressSteps{gap:4px}.deliveryStep{font-size:10px}.deliveryStep>span{width:26px;height:26px}.deliveryPinDigits span{min-height:52px;font-size:25px}}
