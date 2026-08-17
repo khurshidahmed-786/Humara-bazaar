@@ -1,110 +1,31 @@
 <!DOCTYPE html>
-
 <html>
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-
-
 <title>Order Confirmed</title>
-
 <style>
-
-body{
-
-font-family:Arial;
-
-background:#FAF6EE;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-height:100vh;
-
-}
-
-.card{
-
-background:white;
-
-padding:50px;
-
-border-radius:24px;
-
-text-align:center;
-
-}
-
-a{
-
-display:inline-block;
-
-margin-top:20px;
-
-padding:14px 20px;
-
-background:#667744;
-
-color:white;
-
-text-decoration:none;
-
-border-radius:10px;
-
-}
-
+body{font-family:Arial;background:#FAF6EE;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px}
+.card{background:white;padding:50px;border-radius:24px;text-align:center;max-width:520px;width:100%}
+a{display:inline-block;margin-top:20px;padding:14px 20px;background:#667744;color:white;text-decoration:none;border-radius:10px}
 </style>
-
 <link rel="stylesheet" href="css/mobile.css">
 </head>
-
 <body>
-
 <div class="card">
-
-<h1>
-
-Order Received 🎉
-
-</h1>
-
-<p id="orderMsg">
-
-Seller will confirm shortly.
-
-</p>
-
-<a href="orders.html">
-
-View My Orders
-
-</a>
-
+<h1>Order Received 🎉</h1>
+<p id="orderMsg">Seller will confirm shortly.</p>
+<a href="orders.html">View My Orders</a>
 <br>
-
-<a
-    href="home.html"
-    style="background:transparent; color:#667744; margin-top:8px;"
->
-    Continue Shopping
-</a>
-
+<a href="home.html" style="background:transparent;color:#667744;margin-top:8px;">Continue Shopping</a>
 </div>
-
 <script>
-const params = new URLSearchParams(window.location.search);
-const count = params.get("count");
-if(count && Number(count) > 1){
-    document.getElementById("orderMsg").innerText =
+const params=new URLSearchParams(window.location.search);
+const count=params.get("count");
+if(count&&Number(count)>1){
+    document.getElementById("orderMsg").innerText=
         `Your order was split into ${count} orders (one per shop). Sellers will confirm shortly.`;
 }
 </script>
-
-
 </body>
-
 </html>
