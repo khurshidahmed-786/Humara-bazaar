@@ -1,193 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-
-    <title>All Shops — Hamara Bazaar</title>
-
-    <link
-        rel="stylesheet"
-        href="css/theme.css">
-
-    <link
-        rel="stylesheet"
-        href="css/components.css">
-
-    <link
-        rel="stylesheet"
-        href="css/notifications.css">
-
-    <link
-        rel="stylesheet"
-        href="css/index.css">
-
-    <style>
-
-        .shopsPageHeading{
-
-            padding:16px;
-
-        }
-
-        .shopsPageHeading h1{
-
-            font-size:22px;
-
-            color:#345D2A;
-
-        }
-
-        .shopsFilterBar{
-
-            padding:0 16px 16px;
-
-            display:flex;
-
-            gap:10px;
-
-        }
-
-        .shopsFilterBar select{
-
-            flex:1;
-
-            padding:12px 14px;
-
-            border-radius:12px;
-
-            border:none;
-
-            background:white;
-
-            box-shadow:0 6px 18px rgba(0,0,0,.06);
-
-            font-size:14px;
-
-            color:#345D2A;
-
-            font-weight:600;
-
-        }
-
-        .shopsGrid{
-
-            display:grid;
-
-            grid-template-columns:repeat(auto-fill, minmax(200px, 1fr));
-
-            gap:16px;
-
-            padding:0 16px 24px;
-
-        }
-
-        .shopsGrid .shopMarketplaceCard{
-
-            flex:none;
-
-            width:100%;
-
-        }
-
-    </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Order Confirmed</title>
+<style>
+body{font-family:Arial;background:#FAF6EE;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px}
+.card{background:white;padding:50px;border-radius:24px;text-align:center;max-width:520px;width:100%}
+a{display:inline-block;margin-top:20px;padding:14px 20px;background:#667744;color:white;text-decoration:none;border-radius:10px}
+</style>
 <link rel="stylesheet" href="css/mobile.css">
 </head>
-
-
 <body>
-
-
-<div id="headerContainer"></div>
-
-
-<main class="page">
-
-
-<section class="searchSection">
-
-    <div class="searchBox">
-
-        <span class="searchIcon">🔍</span>
-
-        <input
-            id="shopSearchInput"
-            type="text"
-            placeholder="Search shops">
-
-    </div>
-
-</section>
-
-
-<section class="shopsPageHeading">
-
-    <h1>🏪 All Shops</h1>
-
-</section>
-
-
-<section class="shopsFilterBar">
-
-    <select id="categoryFilter">
-
-        <option value="">All Categories</option>
-
-    </select>
-
-</section>
-
-
-<section>
-
-    <div
-        id="allShopsGrid"
-        class="shopsGrid">
-
-    </div>
-
-    <div
-        id="shopsEmpty"
-        class="emptyState"
-        style="display:none; margin:0 16px;">
-
-        <div class="emptyIcon">🏪</div>
-        <p>No shops found.</p>
-
-    </div>
-
-</section>
-
-
-</main>
-
-
-<div id="bottomNavContainer"></div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/supabaseClient.js"></script>
-<script src="js/deliveryPricing.js"></script>
-<script src="js/db.js"></script>
-<script src="js/database.js"></script>
-
-<script src="js/components.js"></script>
-<script src="js/shopstatus.js"></script>
-<script src="js/shops.js"></script>
-
+<div class="card">
+<h1>Order Received 🎉</h1>
+<p id="orderMsg">Seller will confirm shortly.</p>
+<a href="orders.html">View My Orders</a>
+<br>
+<a href="home.html" style="background:transparent;color:#667744;margin-top:8px;">Continue Shopping</a>
+</div>
 <script>
-
-renderLayout("shops");
-
+const params=new URLSearchParams(window.location.search);
+const count=params.get("count");
+if(count&&Number(count)>1){
+    document.getElementById("orderMsg").innerText=
+        `Your order was split into ${count} orders (one per shop). Sellers will confirm shortly.`;
+}
 </script>
-
-
 </body>
-
 </html>
