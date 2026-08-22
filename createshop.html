@@ -149,6 +149,26 @@ your local community.
                 to customers based on these hours. You can always
                 override this later from your dashboard.
             </p>
+
+            <label class="fieldLabel" for="shopLocationText">Pickup Location</label>
+
+            <button type="button" id="useCurrentLocationBtn" class="locationBtn">
+                📍 Use My Current Location
+            </button>
+
+            <div id="locationStatus" class="locationStatus"></div>
+
+            <a id="viewOnMapLink" href="#" target="_blank" rel="noopener" class="fieldHint" style="display:none;">📍 View this pin on Google Maps</a>
+
+            <input
+            id="shopLocationText"
+            placeholder="e.g. Near Main Market, Surankote, Poonch *">
+
+            <p class="fieldHint">
+                This is where riders will come to pick up orders.
+                Use the button for a quick, accurate pin, or just
+                type your address if you'd rather.
+            </p>
  
         </div>
  
@@ -262,6 +282,7 @@ your local community.
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabaseClient.js"></script>
 <script src="js/deliveryPricing.js"></script>
+<script src="js/location.js"></script>
 <script src="js/db.js"></script>
 <script src="js/shopStatus.js"></script>
  
