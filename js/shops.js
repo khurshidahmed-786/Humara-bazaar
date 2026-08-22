@@ -60,11 +60,13 @@ async function initShopsPage(){
     currentCategoryFilter = params.get("category") || "";
 
     let shops = [];
+    let loadFailed = false;
 
     try {
         shops = await dbGetAllShops();
     } catch(err) {
         console.error("Failed to load shops:", err);
+        loadFailed = true;
     }
 
     allShopsCache = shops;
@@ -74,6 +76,21 @@ async function initShopsPage(){
     const categorySelect = document.getElementById("categoryFilter");
     if(categorySelect && currentCategoryFilter){
         categorySelect.value = currentCategoryFilter;
+    }
+
+    if(loadFailed){
+        /* Distinguish "the query failed" from "there really are zero shops" —
+           previously both looked identical ("No shops found."), which makes a
+           real backend/RLS problem indistinguishable from an empty directory. */
+        const empty = document.getElementById("shopsEmpty");
+        if(empty){
+            empty.innerHTML = `
+                <div class="emptyIcon">⚠️</div>
+                <p>Couldn't load shops right now. Please check your connection and try again.</p>
+            `;
+            empty.style.display = "block";
+        }
+        return;
     }
 
     applyShopFilters();
