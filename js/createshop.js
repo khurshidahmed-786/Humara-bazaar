@@ -147,6 +147,33 @@ const shopBannerInput =
         "shopBanner"
     );
 
+const shopLocationTextInput =
+    document.getElementById(
+        "shopLocationText"
+    );
+
+const useCurrentLocationBtn =
+    document.getElementById(
+        "useCurrentLocationBtn"
+    );
+
+const locationStatusEl =
+    document.getElementById(
+        "locationStatus"
+    );
+
+const viewOnMapLink =
+    document.getElementById(
+        "viewOnMapLink"
+    );
+
+/* Coordinates captured via GPS (or carried over from an existing
+   shop being edited). Stay null if the seller only ever typed an
+   address — that's allowed; coordinates are optional, the address
+   text is what's required. */
+let shopLatitude = null;
+let shopLongitude = null;
+
 const shopLogoPreview =
     document.getElementById(
         "shopLogoPreview"
@@ -237,6 +264,14 @@ if(editMode){
        under the old free-text time format, e.g. "8:00 AM" */
     shopOpenInput.value = parseTimeTo24Hour(existingShop.open_time || "");
     shopCloseInput.value = parseTimeTo24Hour(existingShop.close_time || "");
+
+    /* location/address text reuses the existing shops.location column;
+       latitude/longitude are new (migration 005). Either may be blank
+       on shops created before this feature shipped. */
+    shopLocationTextInput.value = existingShop.location || existingShop.address || "";
+    shopLatitude = existingShop.latitude ?? null;
+    shopLongitude = existingShop.longitude ?? null;
+    updateViewOnMapLink();
 
     /* Existing logo/banner are shown as previews. They stay as-is
        unless the shopkeeper picks a new file. */
@@ -598,6 +633,83 @@ shopBannerInput.addEventListener("change", function(){
 
 
 /* ==========================================
+   PICKUP LOCATION (GPS)
+========================================== */
+
+useCurrentLocationBtn.addEventListener("click", async function(){
+
+    useCurrentLocationBtn.disabled = true;
+    useCurrentLocationBtn.innerText = "Locating…";
+    locationStatusEl.className = "locationStatus";
+    locationStatusEl.innerText = "";
+
+    try {
+
+        const loc = await getCurrentLocation();
+
+        shopLatitude = loc.latitude;
+        shopLongitude = loc.longitude;
+        updateViewOnMapLink();
+
+        if(!isLocationAccurate(loc.accuracy)){
+            locationStatusEl.className = "locationStatus warn";
+            locationStatusEl.innerText = "📍 Location captured, but it may not be very accurate. Please check the address below.";
+        } else {
+            locationStatusEl.className = "locationStatus success";
+            locationStatusEl.innerText = "📍 Location captured.";
+        }
+
+        /* Best-effort prefill only — the shopkeeper can always edit this. */
+        const address = await reverseGeocodeBestEffort(loc.latitude, loc.longitude);
+        if(address && !shopLocationTextInput.value.trim()){
+            shopLocationTextInput.value = address;
+        }
+
+    } catch(err){
+
+        locationStatusEl.className = "locationStatus error";
+        locationStatusEl.innerText = err.message || "Couldn't get your location. Please enter your address manually.";
+
+    } finally {
+
+        useCurrentLocationBtn.disabled = false;
+        useCurrentLocationBtn.innerText = "📍 Use My Current Location";
+
+    }
+
+});
+
+
+function updateViewOnMapLink(){
+
+    if(shopLatitude != null && shopLongitude != null){
+        viewOnMapLink.href = googleMapsDirectionsUrl({ latitude: shopLatitude, longitude: shopLongitude });
+        viewOnMapLink.style.display = "inline-block";
+    } else {
+        viewOnMapLink.style.display = "none";
+    }
+
+}
+
+
+function validateStep2Location(){
+
+    if(shopLocationTextInput.value.trim() === ""){
+
+        alert(
+            "Please provide a pickup location — use the current-location button or type your address."
+        );
+
+        return false;
+
+    }
+
+    return true;
+
+}
+
+
+/* ==========================================
    VALIDATION
 ========================================== */
 
@@ -679,6 +791,13 @@ function validateStep2(){
         alert(
             "Please enter closing time."
         );
+
+        return false;
+
+    }
+
+
+    if(!validateStep2Location()){
 
         return false;
 
@@ -799,7 +918,10 @@ publishBtn.onclick = async function(){
                 open_time: shopOpenInput.value.trim(),
                 close_time: shopCloseInput.value.trim(),
                 logo: currentLogoUrl(),
-                banner: currentBannerUrl()
+                banner: currentBannerUrl(),
+                location: shopLocationTextInput.value.trim(),
+                latitude: shopLatitude,
+                longitude: shopLongitude
             });
 
 
@@ -870,6 +992,9 @@ publishBtn.onclick = async function(){
             close_time: shopCloseInput.value.trim(),
             logo: currentLogoUrl(),
             banner: currentBannerUrl(),
+            location: shopLocationTextInput.value.trim(),
+            latitude: shopLatitude,
+            longitude: shopLongitude,
             manual_status: "auto",
             tehsil_id: resolvedTehsil ? resolvedTehsil.id : null,
             approval_status: "pending"
