@@ -272,12 +272,75 @@ function initInfiniteScroll(){
 
 
 /* ==========================================
+   FEATURED / NEW ARRIVALS / DISCOUNTED ROWS
+   Each is a horizontal scroll strip, same card style as the
+   main product feed. A row hides itself entirely if it has
+   nothing to show (e.g. a brand-new catalog with no discounts
+   yet) rather than showing an empty heading.
+   ========================================== */
+
+async function renderProductRow(sectionId, scrollId, products){
+
+    const section = document.getElementById(sectionId);
+    const scroll = document.getElementById(scrollId);
+    if(!section || !scroll) return;
+
+    if(!products || products.length === 0){
+        section.style.display = "none";
+        return;
+    }
+
+    const shopIds = [...new Set(products.map(p => p.shop_id))];
+    let shopMap = {};
+
+    try {
+        const shops = await dbGetShopsByIds(shopIds);
+        shops.forEach(shop => { shopMap[shop.id] = shop.name; });
+    } catch(err) {
+        console.error("Failed to load shop names for product row:", err);
+    }
+
+    scroll.innerHTML = "";
+    products.forEach(product => {
+        scroll.appendChild(productCard(product, shopMap[product.shop_id]));
+    });
+
+    section.style.display = "block";
+}
+
+async function renderHomepageProductRows(){
+
+    try {
+        const featured = await dbGetFeaturedProducts();
+        await renderProductRow("featuredSection", "featuredScroll", featured);
+    } catch(err) {
+        console.error("Failed to load featured products:", err);
+    }
+
+    try {
+        const newArrivals = await dbGetNewArrivalProducts(12);
+        await renderProductRow("newArrivalSection", "newArrivalScroll", newArrivals);
+    } catch(err) {
+        console.error("Failed to load new arrivals:", err);
+    }
+
+    try {
+        const discounted = await dbGetDiscountedProducts(12);
+        await renderProductRow("discountedSection", "discountedScroll", discounted);
+    } catch(err) {
+        console.error("Failed to load discounted products:", err);
+    }
+}
+
+
+/* ==========================================
    HOMEPAGE INITIALIZATION
    ========================================== */
 
 document.addEventListener("DOMContentLoaded", function(){
     renderPopularShops();
     renderCategoryFilterOptions();
+    renderHomepageProductRows();
     initFeedControls();
     initInfiniteScroll();
     loadMoreProducts();
