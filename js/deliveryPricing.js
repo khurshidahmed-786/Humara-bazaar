@@ -41,6 +41,13 @@ const RAIN_SURCHARGE_RIDER_CUT = 15;    /* ⚠️ assumed amount */
 const OFF_HOUR_START_HOUR = 21;  /* 9 PM  ⚠️ assumed window */
 const OFF_HOUR_END_HOUR = 7;     /* 7 AM  ⚠️ assumed window */
 
+/* Maximum straight-line delivery distance, in km, checked at
+   checkout (see js/location.js + js/checkout.js). Locations further
+   than this from the shop are told they're outside the delivery
+   area and cannot check out for that shop's items.
+   ⚠️ assumed value — change any time, nothing else needs updating. */
+const MAX_DELIVERY_DISTANCE_KM = 15;
+
 
 /* ----------------------------------------
    Is a given moment inside the off-hour window?
