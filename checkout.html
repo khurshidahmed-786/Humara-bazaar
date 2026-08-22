@@ -39,9 +39,23 @@ Checkout
 
 <input id="customerPhone">
 
+<label>Delivery Location</label>
+
+<button type="button" id="useCurrentLocationBtn" class="locationBtn">
+📍 Use My Current Location
+</button>
+
+<div id="locationStatus" class="locationStatus"></div>
+
 <label>Address</label>
 
-<input id="customerAddress">
+<input id="customerAddress" placeholder="e.g. Near Main Market, Surankote, Poonch">
+
+</div>
+
+<div id="deliveryEstimateCard" class="card" style="display:none;">
+
+<div id="deliveryEstimateList"></div>
 
 </div>
 
@@ -72,6 +86,7 @@ Place Order
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabaseClient.js"></script>
 <script src="js/deliveryPricing.js"></script>
+<script src="js/location.js"></script>
 <script src="js/db.js"></script>
 
 <script src="js/database.js"></script>
