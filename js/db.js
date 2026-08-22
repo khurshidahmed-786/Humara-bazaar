@@ -275,6 +275,44 @@ async function dbGetFeaturedProducts() {
     return data;
 }
 
+// Newest products across all shops — powers the homepage "New Arrivals" row.
+// A product shows up here automatically the moment it's added; nothing for
+// the seller to toggle.
+async function dbGetNewArrivalProducts(limit = 12) {
+    const { data, error } = await sb
+        .from("products")
+        .select("*")
+        .eq("active", true)
+        .order("created_at", { ascending: false })
+        .limit(limit);
+
+    if (error) throw error;
+    return data;
+}
+
+// Products where MRP is set and higher than the selling price — powers the
+// homepage "Discounted" row. Supabase/PostgREST can't compare two columns to
+// each other in a simple .gt() filter (that only compares a column to a
+// fixed value), so this pulls the pool of products that at least *have* an
+// MRP set, then does the mrp > price comparison in JS. Fine at MVP scale;
+// if the catalog grows large, this is a good candidate for a small SQL view
+// or RPC that does the comparison server-side instead.
+async function dbGetDiscountedProducts(limit = 12) {
+    const { data, error } = await sb
+        .from("products")
+        .select("*")
+        .eq("active", true)
+        .not("mrp", "is", null)
+        .order("created_at", { ascending: false })
+        .limit(100);
+
+    if (error) throw error;
+
+    return (data || [])
+        .filter(p => Number(p.mrp) > Number(p.price))
+        .slice(0, limit);
+}
+
 async function dbGetProductById(id) {
     const { data, error } = await sb
         .from("products")
