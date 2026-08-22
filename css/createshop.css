@@ -427,6 +427,39 @@ box-shadow:
     color: #888;
     margin-top: 6px;
 }
+
+.locationBtn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: 2px solid var(--primary, #B63A3A);
+    background: white;
+    color: var(--primary, #B63A3A);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 10px;
+    min-height: 48px;
+}
+
+.locationBtn:active {
+    background: #fdf2f2;
+}
+
+.locationBtn:disabled {
+    opacity: .6;
+    cursor: default;
+}
+
+.locationStatus {
+    font-size: 13px;
+    margin-bottom: 8px;
+    min-height: 18px;
+}
+
+.locationStatus.success { color: #1a7f37; }
+.locationStatus.error { color: #b63a3a; }
+.locationStatus.warn { color: #a06400; }
  
 .imageUploadRow {
     display: flex;
