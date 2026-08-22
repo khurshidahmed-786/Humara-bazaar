@@ -169,7 +169,13 @@ async function publishProduct(){
             category: document.getElementById("productCategory").value,
             section: document.getElementById("productSection").value,
             image: imageUrl,
-            featured: true,
+            /* BUGFIX: this was hardcoded to `true` for every single product ever
+               created, regardless of what the seller picked in the Section
+               dropdown above. That made the "Featured" flag meaningless (every
+               product qualified) and had nothing to do with the dropdown's
+               value. Now it only becomes featured when the seller actually
+               chose "⭐ Featured" in that dropdown. */
+            featured: document.getElementById("productSection").value === "featured",
             active: true
         };
 
