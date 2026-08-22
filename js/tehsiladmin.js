@@ -534,11 +534,12 @@ function renderUnassignedOrders(orders, approvedRiders){
                 <div>
                     <strong>Order #${order.id}</strong> — ₹${order.total}
                     <div style="color:#777; font-size:13px;">${order.customer_name} · ${order.customer_address || ""}</div>
+                    ${order.estimated_distance_km != null ? `<div style="color:#999; font-size:12px;">Checkout estimate: ${order.estimated_distance_km} km (straight-line) — confirm before assigning</div>` : ""}
                 </div>
             </div>
             <div class="adminAssignRow">
                 <select class="adminSelect" data-action="riderSelect">${riderOptions}</select>
-                <input class="adminSelect" style="width:110px;" type="number" min="0" step="0.1" placeholder="Distance (km)" data-action="distanceInput">
+                <input class="adminSelect" style="width:110px;" type="number" min="0" step="0.1" placeholder="Distance (km)" data-action="distanceInput" value="${order.estimated_distance_km != null ? order.estimated_distance_km : ''}">
                 <label class="adminRainToggle">
                     <input type="checkbox" data-action="rainToggle"> 🌧 Raining
                 </label>
